@@ -1,10 +1,36 @@
-import { siteConfig } from "@/_config/site";
+import BookingSection from "@/_components/sections/BookingSection";
+import ExperienceSection from "@/_components/sections/ExperienceSection";
+import GallerySection from "@/_components/sections/GallerySection";
+import Hero from "@/_components/sections/Hero";
+import WelcomeSection from "@/_components/sections/WelcomeSection";
+
+const IMAGES = [
+  { src: "/gallery/gallery_1.png" },
+  { src: "/gallery/gallery_2.png" },
+  { src: "/gallery/gallery_3.png" },
+];
 
 export default function HomePage() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold">{siteConfig.name}</h1>
-      <p>{siteConfig.tagline}</p>
-    </div>
+    <>
+      <Hero
+        title="Midnight Krishna Kirtan"
+        location="ISKCON Temple Hall | Hare Krishna Land, Juhu, Mumbai 400049"
+        date="12 Nov, 2026 | 11:00 a.m - 6:00 p.m"
+        backgroundImage="/home_hero.jpg"
+        primaryCta={{
+          label: "Book Now",
+          href: "/booking",
+        }}
+        secondaryCta={{
+          label: "Know More",
+          href: "/event",
+        }}
+      />
+      <WelcomeSection />
+      <ExperienceSection />
+      <BookingSection />
+      <GallerySection images={IMAGES} />
+    </>
   );
 }

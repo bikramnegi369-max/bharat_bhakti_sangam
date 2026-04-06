@@ -1,0 +1,128 @@
+"use client";
+
+import { MapPin, Clock, BadgeCheck, CalendarDays } from "lucide-react";
+import { Cinzel } from "next/font/google";
+import { Button } from "../ui/Button";
+
+const cinzel = Cinzel({
+  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+});
+
+export default function BookingSection() {
+  return (
+    <section className="py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
+      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid grid-cols-1 lg:grid-cols-2 gap-8 place-items-center">
+        {/* Heading */}
+        <div className="text-center lg:col-span-2">
+          <h2
+            className={`text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] font-bold ${cinzel.className}`}
+          >
+            Divine <span className="text-primary">Bhajanclubbing</span>
+          </h2>
+
+          {/* Date */}
+          <div className="mt-4 flex items-center justify-center gap-2 text-gray-600">
+            <CalendarDays className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)]" />
+            <span className="font-medium uppercase text-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)]">
+              14 June
+            </span>
+          </div>
+        </div>
+
+        {/* Main Card */}
+        <div className="mt-5 lg:mt-10 bg-white  rounded-lg p-6 lg:p-8 shadow-2xl w-[clamp(14.688rem,calc(10.295rem+21.964vw),30.063rem)]  flex flex-col justify-between">
+          {/* SECTION 1 */}
+          <div className="grid gap-3 lg:gap-6">
+            {/* Location */}
+            <div className="flex gap-3">
+              <MapPin className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)]" />
+              <div>
+                <p
+                  className={`font-bold text-heading ${cinzel.className} text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]`}
+                >
+                  XYZ Banquet
+                </p>
+                <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para font-medium">
+                  Nawada, New Delhi
+                </p>
+              </div>
+            </div>
+
+            {/* Time */}
+            <div className="flex gap-3">
+              <Clock className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] mt-1" />
+              <div>
+                <p
+                  className={`font-bold text-heading ${cinzel.className} text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]`}
+                >
+                  Sunday
+                </p>
+                <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para font-medium">
+                  5:00 PM Onwards
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="my-3 lg:my-6 border-t border border-heading/20" />
+
+          {/* SECTION 2 */}
+          <div className="text-center flex flex-col space-between">
+            <p className="text-heading text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-semibold">
+              Contribution Pass
+            </p>
+
+            <p
+              className={`text-[clamp(1.063rem,calc(0.741rem+1.607vw),2.188rem)] font-bold text-primary mt-2 ${cinzel.className}`}
+            >
+              ₹250
+            </p>
+
+            <p className="text-[clamp(0.375rem,calc(0.268rem+0.536vw),0.75rem)] text-para mt-1 font-bold">
+              *Includes Premium High Tea & Snacks
+            </p>
+          </div>
+
+          {/* CTA */}
+          <div className="flex justify-center mt-4 px-4">
+            <Button
+              variant="primary"
+              className="w-full text-[clamp(0.688rem,calc(0.491rem+0.982vw),1.375rem)] font-semibold py-2"
+            >
+              Book Now
+            </Button>
+          </div>
+        </div>
+
+        {/* What to Expect */}
+        <div className="mt-5 lg:mt-10 bg-primary_light border-3 border-primary rounded-lg p-6 lg:p-8">
+          <h3
+            className={`text-[clamp(0.938rem,calc(0.491rem+2.232vw),2.5rem)] text-heading font-bold mb-4 ${cinzel.className}`}
+          >
+            What to expect
+          </h3>
+
+          <ul className="space-y-3">
+            {[
+              "Live Devotional Performances",
+              "Bhakti-Based Bollywood Melodies",
+              "Collective Mantra Chanting",
+              "High-Quality Sound & Lighting",
+              "A Spiritually Elevated Environment",
+              "Community Networking & High Tea Experience",
+            ].map((item, index) => (
+              <li key={index} className="flex gap-3 items-center">
+                <BadgeCheck className="text-primary w-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)] h-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)]" />
+                <span className="text-para text-[clamp(0.5rem,calc(0.286rem+1.071vw),1.25rem)]">
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -2,16 +2,20 @@
 
 :root {
   --primary: #fcad33;
+  --primary_light: #ffeacb;
   --secondary: #fff5e1;
   --heading: #595959;
-  --text: #5c5c5c;
-  --sub-text: #9f9f9f;
+  --para: #5c5c5c;
+  --sub_text: #9f9f9f;
+  --header_bg: #282525;
 }
 
 @theme inline {
   --color-primary: var(--primary);
+  --color-primary_light: var(--primary_light);
   --color-secondary: var(--secondary);
   --color-heading: var(--heading);
-  --color-text: var(--text);
-  --color-sub-text: var(--sub-text);
+  --color-para: var(--para);
+  --color-sub_text: var(--sub_text);
+  --color-header-bg: var(--header_bg);
 }
