@@ -6,10 +6,10 @@ import { Button } from "../ui/Button";
 import { useRouter } from "next/dist/client/components/navigation";
 
 type HeroProps = {
-  title: string;
-  location: string;
-  date: string;
-  primaryCta: {
+  title?: string;
+  location?: string;
+  date?: string;
+  primaryCta?: {
     label: string;
     href: string;
   };
@@ -17,7 +17,7 @@ type HeroProps = {
     label: string;
     href: string;
   };
-  backgroundImage: string;
+  backgroundImage?: string;
 };
 
 const cinzel = Cinzel({
@@ -37,15 +37,17 @@ export default function Hero({
   return (
     <section className="relative h-[clamp(14.375rem,calc(6.339rem+40.179vw),42.5rem)] w-full flex items-center justify-center text-center text-white overflow-hidden my-auto">
       {/* Background Image - REPLACED with Next.js Image */}
-      <Image
-        src={backgroundImage}
-        alt="Hero background"
-        fill
-        priority // critical for hero LCP
-        sizes="100vw"
-        className="object-cover"
-        quality={75} // reduces file size
-      />
+      {backgroundImage && (
+        <Image
+          src={backgroundImage}
+          alt="Hero background"
+          fill
+          priority // critical for hero LCP
+          sizes="100vw"
+          className="object-cover"
+          quality={75} // reduces file size
+        />
+      )}
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
@@ -80,15 +82,17 @@ export default function Hero({
           <div className="mt-8 flex gap-4 justify-center">
             <Button
               variant="primary"
-              onClick={() => router.push(primaryCta.href)}
+              onClick={() => primaryCta?.href && router.push(primaryCta.href)}
             >
-              {primaryCta.label}
+              {primaryCta?.label}
             </Button>
 
             {secondaryCta && (
               <Button
                 variant="secondary"
-                onClick={() => router.push(secondaryCta.href)}
+                onClick={() =>
+                  secondaryCta?.href && router.push(secondaryCta.href)
+                }
               >
                 {secondaryCta.label}
               </Button>

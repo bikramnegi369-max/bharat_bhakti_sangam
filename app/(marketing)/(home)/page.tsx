@@ -1,8 +1,8 @@
-import BookingSection from "@/_components/sections/BookingSection";
-import ExperienceSection from "@/_components/sections/ExperienceSection";
-import GallerySection from "@/_components/sections/GallerySection";
+import BookingSection from "@/_components/sections/Home/BookingSection";
+import ExperienceSection from "@/_components/sections/Home/ExperienceSection";
+import GallerySection from "@/_components/sections/Home/GallerySection";
 import Hero from "@/_components/sections/Hero";
-import WelcomeSection from "@/_components/sections/WelcomeSection";
+import WelcomeSection from "@/_components/sections/Home/WelcomeSection";
 
 const IMAGES = [
   { src: "/gallery/gallery_1.png" },

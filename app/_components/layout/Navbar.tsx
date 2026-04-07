@@ -25,7 +25,7 @@ export default function Navbar() {
           width={168}
           height={168}
           priority
-          className="cursor-pointer h-[clamp(6.938rem,calc(5.92rem+5.089vw),10.5rem)] w-[clamp(6.938rem,calc(5.92rem+5.089vw),10.5rem)] object-contain"
+          className="cursor-pointer h-[clamp(3.75rem,calc(3.036rem+3.571vw),6.25rem)] w-[clamp(3.75rem,calc(3.036rem+3.571vw),6.25rem)] object-contain"
           onClick={() => router.push(routes.home)}
         />
 

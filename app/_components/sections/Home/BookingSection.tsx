@@ -2,7 +2,7 @@
 
 import { MapPin, Clock, BadgeCheck, CalendarDays } from "lucide-react";
 import { Cinzel } from "next/font/google";
-import { Button } from "../ui/Button";
+import { Button } from "@/_components/ui/Button";
 
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700", "800"],
