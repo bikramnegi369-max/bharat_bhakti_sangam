@@ -1,7 +1,7 @@
 "use client";
-import { BookingForm } from "@/_components/sections/Booking/BookingForm";
-import { OrderSummary } from "@/_components/sections/Booking/OrderSummary";
-import Hero from "@/_components/sections/Hero";
+import { BookingForm } from "@/_components/sections/Marketing/Booking/BookingForm";
+import { OrderSummary } from "@/_components/sections/Marketing/Booking/OrderSummary";
+import Hero from "@/_components/sections/Marketing/Hero";
 import { BookingFormData, bookingSchema } from "@/_schemas/booking";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";

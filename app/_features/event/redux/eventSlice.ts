@@ -1,12 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchEvent } from "./eventThunk";
+import { Event } from "../types";
+
+interface EventState {
+  data: Event[];
+  loading: boolean;
+}
+
+const initialState: EventState = {
+  data: [],
+  loading: false,
+};
 
 const eventSlice = createSlice({
   name: "events",
-  initialState: {
-    data: [] as any[],
-    loading: false,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

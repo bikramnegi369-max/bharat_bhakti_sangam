@@ -1,10 +1,10 @@
-import AboutArtistsDetailedSection from "@/_components/sections/Event/AboutArtistsDetailedSection";
-import AboutArtistSection from "@/_components/sections/Event/AboutArtistSection";
-import AboutEventSection from "@/_components/sections/Event/AboutEventSection";
-import EventInfoSection from "@/_components/sections/Event/EventInfoSection";
-import FAQSection from "@/_components/sections/Event/FAQSection";
-import { SponsorSection } from "@/_components/sections/Event/SponsorSection";
-import Hero from "@/_components/sections/Hero";
+import AboutArtistsDetailedSection from "@/_components/sections/Marketing/Event/AboutArtistsDetailedSection";
+import AboutArtistSection from "@/_components/sections/Marketing/Event/AboutArtistSection";
+import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEventSection";
+import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSection";
+import FAQSection from "@/_components/sections/Marketing/Event/FAQSection";
+import { SponsorSection } from "@/_components/sections/Marketing/Event/SponsorSection";
+import Hero from "@/_components/sections/Marketing/Hero";
 
 export default function EventPage() {
   return (

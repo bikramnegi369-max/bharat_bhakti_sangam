@@ -2,7 +2,7 @@
 
 import { Cinzel } from "next/font/google";
 import Image from "next/image"; // ADD THIS
-import { Button } from "../ui/Button";
+import { Button } from "../../ui/Button";
 import { useRouter } from "next/dist/client/components/navigation";
 
 type HeroProps = {

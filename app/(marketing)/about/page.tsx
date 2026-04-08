@@ -1,6 +1,6 @@
-import MissionSection from "@/_components/sections/About/MissionSection";
-import ValuesSection from "@/_components/sections/About/ValuesSection";
-import Hero from "@/_components/sections/Hero";
+import MissionSection from "@/_components/sections/Marketing/About/MissionSection";
+import ValuesSection from "@/_components/sections/Marketing/About/ValuesSection";
+import Hero from "@/_components/sections/Marketing/Hero";
 
 export default function AboutPage() {
   return (
