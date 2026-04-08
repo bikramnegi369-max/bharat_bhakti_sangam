@@ -9,10 +9,12 @@ import Hero from "@/_components/sections/Hero";
 export default function EventPage() {
   return (
     <div>
+      {/* Preload the hero image */}
+      <link rel="preload" as="image" href="/event.jpg" fetchPriority="high" />
       <Hero title="Midnight Krishna Kirtan" backgroundImage="/event.jpg" />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 pt-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] lg:px-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]">
         {/* LEFT */}
-        <div className="flex flex-col gap-6 h-full lg:col-span-2">
+        <div className="flex flex-col gap-6 h-full lg:col-span-2 ">
           <AboutEventSection />
           <AboutArtistSection />
         </div>

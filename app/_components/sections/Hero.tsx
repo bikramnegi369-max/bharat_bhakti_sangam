@@ -46,6 +46,8 @@ export default function Hero({
           sizes="100vw"
           className="object-cover"
           quality={75} // reduces file size
+          fetchPriority="high"
+          loading="eager"
         />
       )}
 

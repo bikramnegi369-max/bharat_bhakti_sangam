@@ -13,6 +13,13 @@ const IMAGES = [
 export default function HomePage() {
   return (
     <>
+      {/* Preload the hero image */}
+      <link
+        rel="preload"
+        as="image"
+        href="/home_hero.jpg"
+        fetchPriority="high"
+      />
       <Hero
         title="Midnight Krishna Kirtan"
         location="ISKCON Temple Hall | Hare Krishna Land, Juhu, Mumbai 400049"

@@ -85,7 +85,7 @@ export default function EventInfoSection({
 
           <Divider />
 
-          {/* ✅ UPDATED CAPACITY */}
+          {/* UPDATED CAPACITY */}
           <InfoBlock
             icon={UsersRound}
             label="Capacity"

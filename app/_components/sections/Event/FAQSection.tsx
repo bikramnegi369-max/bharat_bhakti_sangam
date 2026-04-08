@@ -54,13 +54,14 @@ export default function FAQSection({
   };
 
   return (
-    <section className="flex justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
+    <section className="flex justify-center pt-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
       <div className="max-w-7xl mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] border-3 border-primary rounded-md p-6 lg:p-8 bg-primary_light">
         {/* Heading */}
         <h2
           className={clsx(
             "text-[clamp(1.25rem,calc(0.982rem+1.339vw),2.188rem)] font-bold mb-10",
             cinzel.className,
+            "text-center",
           )}
         >
           <span className="text-primary">Event</span> Guide

@@ -117,6 +117,7 @@ export default function AboutArtistsDetailedSection({
                         src={artist.images[0]}
                         alt={`${artist.name}-1`}
                         fill
+                        sizes="(max-width: 1024px) 90vw, 45vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
@@ -127,6 +128,7 @@ export default function AboutArtistsDetailedSection({
                         src={artist.images[1]}
                         alt={`${artist.name}-2`}
                         fill
+                        sizes="(max-width: 1024px) 90vw, 45vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
