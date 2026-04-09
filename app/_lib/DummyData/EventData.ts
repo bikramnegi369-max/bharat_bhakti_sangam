@@ -71,4 +71,74 @@ export const dummyEvents: Event[] = [
       "Explore the future of decentralized finance, NFTs, and Web3 technologies with industry pioneers and developers.",
     date: "2026-03-18T10:00:00Z",
   },
+  {
+    _id: "evt_001",
+    title: "Annual Tech Conference 2026",
+    description:
+      "Join industry leaders for a day of cutting-edge technology discussions, networking opportunities, and hands-on workshops covering AI, cloud computing, and cybersecurity.",
+    date: "2026-05-15T09:00:00Z",
+  },
+  {
+    _id: "evt_002",
+    title: "Summer Music Festival",
+    description:
+      "Three days of live performances from top international artists across multiple stages. Food trucks, art installations, and camping available.",
+    date: "2026-07-20T14:00:00Z",
+  },
+  {
+    _id: "evt_003",
+    title: "Startup Pitch Night",
+    description:
+      "Watch 10 innovative startups pitch their ideas to a panel of veteran investors. Network with founders and VCs after the presentations.",
+    date: "2026-04-10T18:30:00Z",
+  },
+  {
+    _id: "evt_004",
+    title: "AI & Machine Learning Workshop",
+    description:
+      "Hands-on workshop covering practical ML implementations using Python and TensorFlow. Perfect for intermediate developers.",
+    date: "2026-06-05T10:00:00Z",
+  },
+  {
+    _id: "evt_005",
+    title: "Charity Gala Dinner",
+    description:
+      "An elegant evening of dining, auctions, and entertainment to raise funds for local education initiatives. Black tie optional.",
+    date: "2026-11-20T19:00:00Z",
+  },
+  {
+    _id: "evt_001",
+    title: "Annual Tech Conference 2026",
+    description:
+      "Join industry leaders for a day of cutting-edge technology discussions, networking opportunities, and hands-on workshops covering AI, cloud computing, and cybersecurity.",
+    date: "2026-05-15T09:00:00Z",
+  },
+  {
+    _id: "evt_002",
+    title: "Summer Music Festival",
+    description:
+      "Three days of live performances from top international artists across multiple stages. Food trucks, art installations, and camping available.",
+    date: "2026-07-20T14:00:00Z",
+  },
+  {
+    _id: "evt_003",
+    title: "Startup Pitch Night",
+    description:
+      "Watch 10 innovative startups pitch their ideas to a panel of veteran investors. Network with founders and VCs after the presentations.",
+    date: "2026-04-10T18:30:00Z",
+  },
+  {
+    _id: "evt_004",
+    title: "AI & Machine Learning Workshop",
+    description:
+      "Hands-on workshop covering practical ML implementations using Python and TensorFlow. Perfect for intermediate developers.",
+    date: "2026-06-05T10:00:00Z",
+  },
+  {
+    _id: "evt_005",
+    title: "Charity Gala Dinner",
+    description:
+      "An elegant evening of dining, auctions, and entertainment to raise funds for local education initiatives. Black tie optional.",
+    date: "2026-11-20T19:00:00Z",
+  },
 ];

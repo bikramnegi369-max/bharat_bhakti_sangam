@@ -22,6 +22,7 @@ export function SidebarLogo({
         width={140}
         height={52}
         preload={preload}
+        loading="eager"
         className="cursor-pointer h-[clamp(3.75rem,calc(3.036rem+3.571vw),6.25rem)] w-[clamp(3.75rem,calc(3.036rem+3.571vw),6.25rem)] object-contain"
       />
     </Link>

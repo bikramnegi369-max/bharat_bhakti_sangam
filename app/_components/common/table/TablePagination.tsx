@@ -11,7 +11,7 @@ export function TablePagination({
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <div className="flex items-center justify-center gap-2 py-4 text-sm">
+    <div className="flex items-center justify-center gap-2 py-4 text-sm shadow-ms">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}

@@ -1,7 +1,7 @@
 // shared/table/columns/types.ts
 
 import { FilterConfig } from "@/_features/event/types";
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, SortingState } from "@tanstack/react-table";
 import { ReactNode } from "react";
 
 export type AccessorFn<T> = (row: T) => unknown;
@@ -20,10 +20,11 @@ export type CreateColumnOptions<T> = {
 export type CreateColumnReturn<T, TValue = unknown> = ColumnDef<T, TValue>;
 
 export type TableConfig<T, TValue = unknown> = {
-  data: T[];
   columns: ColumnDef<T, TValue>[];
   service: TableService<T>;
   filters?: FilterConfig[];
+  filterDebounceMs?: number;
+  filterAction?: React.ReactNode;
   renderActions?: (row: T) => React.ReactNode;
 };
 
@@ -44,3 +45,22 @@ export type TableService<T> = {
   getOne: (id: string) => Promise<T>;
   delete?: (id: string) => Promise<void>;
 };
+
+export interface TableController<T> {
+  data?: {
+    items: T[];
+    total: number;
+  };
+  sorting: SortingState;
+  setSorting: (s: SortingState) => void;
+
+  page: number;
+  setPage: (p: number) => void;
+
+  filters: Record<string, string>;
+  setFilters: (next: Record<string, string>) => void;
+
+  isLoading: boolean;
+  isFetching: boolean;
+  error: unknown;
+}

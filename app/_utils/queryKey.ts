@@ -1,3 +1,5 @@
+import { SortingState } from "@tanstack/react-table";
+
 export const getTableQueryKey = ({
   page,
   filters,
@@ -5,5 +7,5 @@ export const getTableQueryKey = ({
 }: {
   page: number;
   filters: Record<string, string>;
-  sorting: unknown;
+  sorting: SortingState;
 }) => ["table", page, JSON.stringify(filters), JSON.stringify(sorting)];
