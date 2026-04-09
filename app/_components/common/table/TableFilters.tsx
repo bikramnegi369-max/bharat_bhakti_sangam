@@ -1,6 +1,15 @@
 import { FilterConfig } from "@/_features/event/types";
 import { ReactNode } from "react";
 
+const updateFilterValue = (
+  values: Record<string, string>,
+  key: string,
+  value: string,
+) => ({
+  ...values,
+  [key]: value,
+});
+
 export function TableFilters({
   filters,
   values,
@@ -35,20 +44,33 @@ export function TableFilters({
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        {secondaryFilters.map((filter) => (
-          <input
-            key={filter.key}
-            type={filter.type}
-            value={values[filter.key] ?? ""}
-            onChange={(e) =>
-              onChange({
-                ...values,
-                [filter.key]: e.target.value,
-              })
-            }
-            className="px-3 py-2 border rounded-md text-sm"
-          />
-        ))}
+        {secondaryFilters.map((filter) => {
+          const value = values[filter.key] ?? "";
+
+          return (
+            <div key={filter.key} className="flex items-center gap-2">
+              <input
+                type={filter.type}
+                value={value}
+                onChange={(e) =>
+                  onChange(updateFilterValue(values, filter.key, e.target.value))
+                }
+                className="px-3 py-2 border rounded-md text-sm"
+              />
+              {value && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    onChange(updateFilterValue(values, filter.key, ""))
+                  }
+                  className="rounded-md border border-black/10 bg-white px-2 py-1 text-xs font-medium text-black/70 transition-colors hover:bg-black/5"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          );
+        })}
         {action}
       </div>
     </div>
