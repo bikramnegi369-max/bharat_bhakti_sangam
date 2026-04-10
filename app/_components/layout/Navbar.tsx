@@ -1,7 +1,7 @@
 "use client";
 
-import { NAV_LINKS } from "@/_config/navigation";
-import { routes } from "@/_config/routes";
+import { NAV_LINKS } from "@/_config/Navigation.config";
+import { routes } from "@/_config/Routes.config";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";

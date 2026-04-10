@@ -1,0 +1,49 @@
+"use client";
+
+import { FooterBrand } from "./FooterBrand";
+import { FooterSocials } from "./FooterSocials";
+import { FooterNav } from "./FooterNav";
+import { FooterCTA } from "./FooterCTA";
+import { FooterBottom } from "./FooterBottom";
+import { footerConfig } from "@/_config/Footer.config";
+
+type FooterProps = {
+  config?: typeof footerConfig;
+};
+
+export default function Footer({ config = footerConfig }: FooterProps) {
+  return (
+    <footer className="bg-[#2B1400] text-white">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-12 py-10">
+        {/* Top Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16 items-start">
+          {/* Left */}
+          <div className="space-y-6">
+            <FooterBrand
+              logoSrc={config.logoSrc}
+              logoAlt={config.logoAlt}
+              description={config.description}
+            />
+            <FooterSocials socials={config.socials} />
+          </div>
+
+          {/* Center */}
+          <div className="flex justify-start lg:justify-center">
+            <FooterNav
+              navSections={config.navSections}
+              legalLinks={config.legalLinks}
+            />
+          </div>
+
+          {/* Right */}
+          <div className="flex justify-start lg:justify-end">
+            <FooterCTA label={config.cta.label} href={config.cta.href} />
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <FooterBottom copyright={config.copyright} />
+      </div>
+    </footer>
+  );
+}

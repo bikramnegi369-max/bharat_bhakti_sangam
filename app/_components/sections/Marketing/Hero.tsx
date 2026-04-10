@@ -2,8 +2,7 @@
 
 import { Cinzel } from "next/font/google";
 import Image from "next/image"; // ADD THIS
-import { Button } from "../../ui/Button";
-import { useRouter } from "next/dist/client/components/navigation";
+import { CTAButton } from "../../ui/CTAButton";
 
 type HeroProps = {
   title?: string;
@@ -33,7 +32,6 @@ export default function Hero({
   secondaryCta,
   backgroundImage,
 }: HeroProps) {
-  const router = useRouter();
   return (
     <section className="relative h-[clamp(14.375rem,calc(6.339rem+40.179vw),42.5rem)] w-full flex items-center justify-center text-center text-white overflow-hidden my-auto">
       {/* Background Image - REPLACED with Next.js Image */}
@@ -82,22 +80,19 @@ export default function Hero({
         {/* CTA Buttons */}
         {(primaryCta || secondaryCta) && (
           <div className="mt-8 flex gap-4 justify-center">
-            <Button
-              variant="primary"
-              onClick={() => primaryCta?.href && router.push(primaryCta.href)}
-            >
-              {primaryCta?.label}
-            </Button>
-
+            {primaryCta && (
+              <CTAButton
+                href={primaryCta.href}
+                label={primaryCta.label}
+                variant="primary"
+              />
+            )}
             {secondaryCta && (
-              <Button
+              <CTAButton
+                href={secondaryCta.href}
+                label={secondaryCta.label}
                 variant="secondary"
-                onClick={() =>
-                  secondaryCta?.href && router.push(secondaryCta.href)
-                }
-              >
-                {secondaryCta.label}
-              </Button>
+              />
             )}
           </div>
         )}

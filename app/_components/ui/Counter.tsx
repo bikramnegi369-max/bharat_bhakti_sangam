@@ -59,9 +59,12 @@ export const Counter = forwardRef<HTMLInputElement, CounterProps>(
         <div className="flex items-center">
           <div
             className={clsx(
-              "flex items-center border rounded-md overflow-hidden",
+              "flex items-center justify-between rounded-md overflow-hidden",
               error && "border-red-400",
               disabled && "opacity-50",
+              "w-full lg:w-[33%]",
+              "border border-para/40 focus:border-primary",
+              "h-[clamp(2.625rem,calc(2.393rem+1.161vw),3.438rem)]",
             )}
           >
             <button
@@ -69,7 +72,7 @@ export const Counter = forwardRef<HTMLInputElement, CounterProps>(
               onClick={decrement}
               disabled={disabled || value <= min}
               className={clsx(
-                "px-3 py-1.5 transition-colors",
+                "h-[clamp(2.5rem,calc(2rem+2.5vw),3.5rem)] w-[clamp(2.5rem,calc(2rem+2.5vw),3.5rem)] flex items-center justify-center text-lg transition-colors shrink-0",
                 "focus:outline-none focus:ring-2 focus:ring-orange-300",
                 disabled || value <= min
                   ? "bg-gray-50 text-gray-400 cursor-not-allowed"
@@ -81,7 +84,7 @@ export const Counter = forwardRef<HTMLInputElement, CounterProps>(
             </button>
             <span
               className={clsx(
-                "px-4 py-1.5 text-center min-w-15",
+                "flex-1 text-center text-[clamp(0.875rem,calc(0.75rem+0.625vw),1.25rem)]",
                 disabled ? "text-gray-400" : "text-gray-900",
               )}
               aria-live="polite"
@@ -93,7 +96,7 @@ export const Counter = forwardRef<HTMLInputElement, CounterProps>(
               onClick={increment}
               disabled={disabled || value >= max}
               className={clsx(
-                "px-3 py-1.5 transition-colors",
+                "h-[clamp(2.5rem,calc(2rem+2.5vw),3.5rem)] w-[clamp(2.5rem,calc(2rem+2.5vw),3.5rem)] flex items-center justify-center text-lg transition-colors shrink-0",
                 "focus:outline-none focus:ring-2 focus:ring-orange-300",
                 disabled || value >= max
                   ? "bg-gray-50 text-gray-400 cursor-not-allowed"

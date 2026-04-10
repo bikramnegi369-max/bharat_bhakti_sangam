@@ -6,6 +6,8 @@ import { BookingFormData, bookingSchema } from "@/_schemas/booking";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
+const PRICING = { general: 350, premium: 500, vip: 750 };
+
 export default function BookingPage() {
   const methods = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
@@ -15,7 +17,6 @@ export default function BookingPage() {
       mobile: "",
       tickets: 1,
       ticketType: "general",
-      paymentMethod: "upi",
     },
   });
 
@@ -46,8 +47,8 @@ export default function BookingPage() {
               className="w-full max-w-7xl py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] px-4 lg:px-8"
             >
               <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6 lg:gap-0">
-                <BookingForm />
-                <OrderSummary eventDate="12 Nov, 2026" />
+                <BookingForm pricing={PRICING} eventDate="12 Nov, 2026" />
+                <OrderSummary eventDate="12 Nov, 2026" pricing={PRICING} />
               </div>
             </form>
           </section>

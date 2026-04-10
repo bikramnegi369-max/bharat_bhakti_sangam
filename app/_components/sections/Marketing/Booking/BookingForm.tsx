@@ -1,18 +1,27 @@
 import { Button } from "@/_components/ui/Button";
 import { Counter } from "@/_components/ui/Counter";
-import { Input } from "@/_components/ui/Input";
-import { Radio } from "@/_components/ui/Radio";
+import { Dropdown } from "@/_components/ui/Dropdown/index";
+import { Field } from "@/_components/ui/Field/Field";
 import { BookingFormData } from "@/_schemas/booking";
 import clsx from "clsx";
+import { Info } from "lucide-react";
 import { Cinzel } from "next/font/google";
-import { useFormContext, useWatch } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-export const BookingForm = () => {
+type Pricing = Record<string, number>;
+
+export const BookingForm = ({
+  eventDate,
+  pricing,
+}: {
+  eventDate: string;
+  pricing: Pricing;
+}) => {
   const {
     register,
     setValue,
@@ -22,8 +31,10 @@ export const BookingForm = () => {
 
   const values = useWatch({ control });
 
+  const total = (values.tickets || 0) * (pricing[values.ticketType ?? ""] ?? 0);
+
   return (
-    <div className="bg-white border-2 border-primary  rounded-lg lg:border-r-0 lg:rounded-t-none lg:rounded-b-none  lg:rounded-l-3xl! p-6 shadow-sm space-y-4 mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] lg:mx-0  px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] ">
+    <div className="bg-white border-2 border-primary  rounded-lg lg:border-r-0 lg:rounded-t-none lg:rounded-b-none  lg:rounded-l-3xl! p-6 shadow-sm space-y-8 lg:space-y-16 mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] lg:mx-0  px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] ">
       <h2
         className={clsx(
           "text-[clamp(1.313rem,calc(1.063rem+1.25vw),2.188rem)] font-bold text-heading",
@@ -32,101 +43,105 @@ export const BookingForm = () => {
       >
         Contact Information
       </h2>
-
-      <Input
+      <Field
+        as="input"
+        type="text"
         label="Full Name"
         {...register("fullName")}
         error={errors.fullName?.message as string}
-        labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-bold! text-heading"
+        labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input
-          label="Email"
-          {...register("email")}
-          error={errors.email?.message as string}
-          labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-bold! text-heading"
-        />
-        <Input
-          label="Mobile"
-          {...register("mobile")}
-          error={errors.mobile?.message as string}
-          maxLength={10}
-          labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-bold! text-heading"
-        />
-      </div>
+      <Field
+        as="input"
+        type="email"
+        label="Email"
+        {...register("email")}
+        error={errors.email?.message as string}
+        labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
+      />
+      <Field
+        as="input"
+        type="tel"
+        label="Mobile"
+        {...register("mobile")}
+        error={errors.mobile?.message as string}
+        maxLength={10}
+        labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
+      />
 
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col justify-center gap-1">
-          <span className="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-bold text-heading">
-            Number of Tickets
-          </span>
-          <Counter
-            min={1}
-            value={values.tickets}
-            onChange={(val: number) => setValue("tickets", val)}
-          />
-        </div>
-        <div className="flex flex-col justify-center gap-1">
-          <span className="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-bold text-heading">
-            Ticket Type
-          </span>
-          <div className="grid grid-cols-3 mt-2 gap-4">
-            <Radio
-              label="General"
-              value="general"
-              selected={values.ticketType}
-              onChange={(v: string | number) =>
-                setValue("ticketType", v as BookingFormData["ticketType"])
-              }
-            />
-            <div className="col-span-2">
-              <Radio
-                label="Premium"
-                value="premium"
-                selected={values.ticketType}
-                onChange={(v: string | number) =>
-                  setValue("ticketType", v as BookingFormData["ticketType"])
+      <div className="flex flex-col justify-center gap-8">
+        <Controller
+          name="ticketType"
+          control={control}
+          render={({ field }) => {
+            const ticketOptions = Object.entries(pricing).map(
+              ([value, price]) => ({
+                label: value.charAt(0).toUpperCase() + value.slice(1),
+                value,
+                price,
+              }),
+            );
+            return (
+              <Dropdown
+                label="Ticket Type"
+                options={ticketOptions}
+                value={
+                  ticketOptions.find((o) => o.value === field.value) ?? null
                 }
+                onChange={(opt) => field.onChange(opt?.value)}
               />
-            </div>
-          </div>
-        </div>
+            );
+          }}
+        />
       </div>
-
-      <div className="flex flex-col gap-1">
-        <span className="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-bold text-heading">
-          Payment Method
+      <div className="flex flex-col justify-center gap-3">
+        <span className="text-[clamp(0.813rem,calc(0.741rem+0.357vw),1.063rem)] font-semibold tracking-[0.25em] uppercase text-gray-500 ">
+          Number of Tickets
         </span>
-        <div className="grid grid-cols-3 mt-2 gap-4">
-          <Radio
-            label="UPI"
-            value="upi"
-            selected={values.paymentMethod}
-            onChange={(v: string | number) =>
-              setValue("paymentMethod", v as BookingFormData["paymentMethod"])
-            }
-          />
-          <div className="col-span-2">
-            <Radio
-              label="Card"
-              value="card"
-              selected={values.paymentMethod}
-              onChange={(v: string | number) =>
-                setValue("paymentMethod", v as BookingFormData["paymentMethod"])
-              }
-            />
-          </div>
-        </div>
+        <Counter
+          min={1}
+          value={values.tickets}
+          onChange={(val: number) => setValue("tickets", val)}
+        />
       </div>
 
-      <Button
-        type="submit"
-        variant="primary"
-        className="w-full mt-4 text-[12px]! lg:text-[18px]! py-3"
-      >
-        <span>Confirm & Pay</span>
-      </Button>
+      <hr className="lg:hidden border-para opacity-20" />
+
+      <div className="lg:hidden flex flex-col gap-4">
+        <div className=" flex justify-between items-center">
+          <span className="text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] font-semibold text-para tracking-wider">
+            Grand Total :
+          </span>
+          <span
+            className={clsx(
+              "text-[clamp(1.625rem,calc(1.464rem+0.804vw),2.188rem)] text-heading font-bold",
+              cinzel.className,
+            )}
+          >
+            ₹{total}
+          </span>
+        </div>
+
+        <Button
+          type="submit"
+          variant="primary"
+          className="w-full h-[clamp(2.5rem,calc(2.232rem+ 1.339vw),3.438rem)]  py-3"
+        >
+          <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] text-heading font-semibold tracking-widest uppercase">
+            Book Now
+          </span>
+        </Button>
+
+        <div className="flex gap-2 p-2 border rounded-md border-primary m-auto">
+          <Info size={14} className="text-primary" />
+          <span className="text-[8px] text-primary">
+            Valid for {values?.tickets}{" "}
+            {values?.tickets === 1 ? "entry" : "entries"} for the event on{" "}
+            {eventDate}.
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

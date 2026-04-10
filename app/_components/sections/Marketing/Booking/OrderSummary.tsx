@@ -1,3 +1,4 @@
+import { Button } from "@/_components/ui/Button";
 import { BookingFormData } from "@/_schemas/booking";
 import clsx from "clsx";
 import { Info, Ticket } from "lucide-react";
@@ -9,17 +10,23 @@ const cinzel = Cinzel({
   subsets: ["latin"],
 });
 
-const PRICING = { general: 350, premium: 700 };
+type Pricing = Record<string, number>;
 
-export const OrderSummary = ({ eventDate }: { eventDate: string }) => {
+export const OrderSummary = ({
+  eventDate,
+  pricing,
+}: {
+  eventDate: string;
+  pricing: Pricing;
+}) => {
   const { control } = useFormContext<BookingFormData>();
 
   const data = useWatch({ control });
 
-  const total = (data?.tickets || 0) * PRICING[data?.ticketType || "general"];
+  const total = (data?.tickets || 0) * (pricing[data?.ticketType ?? ""] ?? 0);
 
   return (
-    <div className="bg-primary_light border-2 border-primary lg:border-l-0 rounded-lg lg:rounded-r-3xl!  lg:rounded-t-none lg:rounded-b-none p-6 space-y-4 mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] lg:mx-0  px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] flex flex-col h-full">
+    <div className="hidden lg:visible bg-primary_light border-2 border-primary lg:border-l-0 rounded-lg lg:rounded-r-3xl!  lg:rounded-t-none lg:rounded-b-none p-6 space-y-8 lg:space-y-16 mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] lg:mx-0  px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] lg:flex flex-col h-full">
       <h2
         className={clsx(
           "text-[clamp(1.313rem,calc(1.063rem+1.25vw),2.188rem)] font-bold text-heading",
@@ -29,53 +36,67 @@ export const OrderSummary = ({ eventDate }: { eventDate: string }) => {
         Order Summary
       </h2>
 
-      <div className="flex gap-6 items-center">
-        <Ticket className="text-primary w-[clamp(1.5rem,calc(1.357rem+0.714vw),2rem)] h-[clamp(1.5rem,calc(1.357rem+0.714vw),2rem)]" />
-        <span
-          className={clsx(
-            "capitalize text-[clamp(1.125rem, calc(1rem + 0.625vw), 1.563rem)] font-bold",
-            cinzel.className,
-            "text-heading",
-          )}
-        >
-          {data?.ticketType} Pass
-        </span>
+      <div className="flex flex-col gap-8">
+        <div className="flex gap-6 items-center">
+          <Ticket className="text-primary w-[clamp(1.5rem,calc(1.357rem+0.714vw),2rem)] h-[clamp(1.5rem,calc(1.357rem+0.714vw),2rem)]" />
+          <span
+            className={clsx(
+              "capitalize text-[clamp(1.125rem, calc(1rem + 0.625vw), 1.563rem)] font-bold",
+              cinzel.className,
+              "text-heading",
+            )}
+          >
+            {data?.ticketType} Pass
+          </span>
+        </div>
+
+        <div className="flex justify-between ">
+          <span className="text-para text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] font-medium tracking-wide">
+            Price ({data?.tickets} Tickets)
+          </span>
+          <span
+            className={clsx(
+              "text-[clamp(1.375rem,calc(1.232rem+0.714vw),1.875rem)] font-bold text-heading",
+              cinzel.className,
+            )}
+          >
+            ₹{total}
+          </span>
+        </div>
+
+        <div className="border-t pt-2 flex justify-between">
+          <span className="text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] font-semibold text-para tracking-wider">
+            Grand Total
+          </span>
+          <span
+            className={clsx(
+              "text-[clamp(1.625rem,calc(1.464rem+0.804vw),2.188rem)] text-heading font-bold",
+              cinzel.className,
+            )}
+          >
+            ₹{total}
+          </span>
+        </div>
       </div>
 
-      <div className="flex justify-between ">
-        <span className="text-para text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] font-medium tracking-wide">
-          Price ({data?.tickets} Tickets)
-        </span>
-        <span
-          className={clsx(
-            "text-[clamp(1.375rem,calc(1.232rem+0.714vw),1.875rem)] font-bold text-heading",
-            cinzel.className,
-          )}
+      <div className="mt-auto flex flex-col gap-8">
+        <Button
+          type="submit"
+          variant="primary"
+          className="w-full h-[clamp(2.5rem,calc(2.232rem+ 1.339vw),3.438rem)]  py-3"
         >
-          ₹{total}
-        </span>
-      </div>
-
-      <div className="border-t pt-2 flex justify-between">
-        <span className="text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] font-semibold text-para tracking-wider">
-          Grand Total
-        </span>
-        <span
-          className={clsx(
-            "text-[clamp(1.625rem,calc(1.464rem+0.804vw),2.188rem)] text-heading font-bold",
-            cinzel.className,
-          )}
-        >
-          ₹{total}
-        </span>
-      </div>
-
-      <div className="flex gap-4 p-2 border rounded-md bg-[#FFDFAF] border-para mt-auto">
-        <Info size={14} className="text-primary" />
-        <span className="text-xs text-para">
-          Valid for {data?.tickets} {data?.tickets === 1 ? "entry" : "entries"}{" "}
-          for the event on {eventDate}.
-        </span>
+          <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] text-heading font-semibold tracking-widest uppercase">
+            Book Now
+          </span>
+        </Button>
+        <div className="flex gap-3 p-2 border rounded-md bg-[#FFDFAF] border-para">
+          <Info size={14} className="text-primary" />
+          <span className="text-xs text-para">
+            Valid for {data?.tickets}{" "}
+            {data?.tickets === 1 ? "entry" : "entries"} for the event on{" "}
+            {eventDate}.
+          </span>
+        </div>
       </div>
     </div>
   );

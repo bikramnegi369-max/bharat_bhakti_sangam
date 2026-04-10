@@ -4,7 +4,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { TableController } from "@/_types/table.types";
+import { TableController } from "@/_types/Table.types";
 
 export const useDataTable = <T, TValue>(
   controller: TableController<T>,

@@ -1,6 +1,6 @@
-import { apiRoutes } from "@/_config/routes";
+import { apiRoutes } from "@/_config/Routes.config";
 import axios from "@/_lib/axios";
-import { TableService } from "@/_types/table.types";
+import { TableService } from "@/_types/Table.types";
 import { Event } from "../types";
 import { dummyEvents } from "@/_lib/DummyData/EventData";
 

@@ -7,7 +7,7 @@ import { useTableController } from "@/_hooks/useTableController";
 import { TableError, TableFetching, TableLoading } from "./TableStates";
 import { TableHeader } from "./TableHeader";
 import { TableBody } from "./TableBody";
-import { TableConfig } from "@/_types/table.types";
+import { TableConfig } from "@/_types/Table.types";
 
 interface Props<T, TValue> {
   config: TableConfig<T, TValue>;

@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { SidebarItemComponent } from "./SidebarItemComponent";
 import { SidebarLogo } from "./SidebarLogo";
-import { SIDEBAR_WIDTH } from "@/_config/sidebar";
+import { SIDEBAR_WIDTH } from "@/_config/Sidebar.config";
 import { NAV_ITEMS } from "@/_lib/constants";
 
 export const MobileSidebar = ({

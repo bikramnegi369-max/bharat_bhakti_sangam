@@ -1,4 +1,4 @@
-import { SidebarItem } from "@/_types/sidebar.types";
+import { SidebarItem } from "@/_types/Sidebar.types";
 
 export const NAV_ITEMS: SidebarItem[] = [
   { label: "Home", href: "/admin" },

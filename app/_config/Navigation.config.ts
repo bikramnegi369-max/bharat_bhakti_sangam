@@ -1,4 +1,4 @@
-import { routes } from "./routes";
+import { routes } from "./Routes.config";
 
 export const NAV_LINKS = [
   { label: "Home", href: routes.home },

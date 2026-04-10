@@ -1,5 +1,5 @@
-import { ITEM_HEIGHT, ITEM_WIDTH } from "@/_config/sidebar";
-import { SidebarItem } from "@/_types/sidebar.types";
+import { ITEM_HEIGHT, ITEM_WIDTH } from "@/_config/Sidebar.config";
+import { SidebarItem } from "@/_types/Sidebar.types";
 import clsx from "clsx";
 import Link from "next/link";
 

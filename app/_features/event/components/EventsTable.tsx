@@ -7,7 +7,7 @@ import { eventService } from "../services/event.api";
 import { DataTable } from "@/_components/common/table/DataTable";
 import { Event } from "../types";
 import { EventColumns } from "./EventsColumnsDef";
-import { TableConfig } from "@/_types/table.types";
+import { TableConfig } from "@/_types/Table.types";
 
 export const EventsTable = () => {
   const config = useMemo<TableConfig<Event, string>>(

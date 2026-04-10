@@ -11,8 +11,7 @@ import {
 } from "lucide-react";
 import { Cinzel } from "next/font/google";
 import clsx from "clsx";
-import { Button } from "@/_components/ui/Button";
-import { useRouter } from "next/navigation";
+import { CTAButton } from "@/_components/ui/CTAButton";
 
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
@@ -51,8 +50,6 @@ export default function EventInfoSection({
     price: "₹250",
   },
 }: EventInfoSectionProps) {
-  const router = useRouter();
-
   return (
     <section className="flex justify-center h-full ">
       <div className="h-full max-w-7xl mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] border-3 border-primary rounded-md p-6 lg:p-8 bg-primary_light flex flex-col">
@@ -138,13 +135,11 @@ export default function EventInfoSection({
 
         {/* CTA */}
         <div className="mt-12 flex justify-center">
-          <Button
-            onClick={() => router.push("/booking")}
-            variant="primary"
+          <CTAButton
+            href="/booking"
+            label="Book Now"
             className="w-full text-[clamp(0.688rem,calc(0.491rem+0.982vw),1.375rem)] font-semibold py-2"
-          >
-            Book Now
-          </Button>
+          />
         </div>
       </div>
     </section>

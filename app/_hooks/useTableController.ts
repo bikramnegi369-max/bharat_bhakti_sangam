@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@/_hooks/useDebounce";
 import { useTableState } from "@/_hooks/useTableState";
-import { TableConfig } from "@/_types/table.types";
+import { TableConfig } from "@/_types/Table.types";
 import { getTableQueryKey } from "@/_utils/queryKey";
 
 const normalizeFilters = (filters: Record<string, string>) =>
@@ -51,9 +51,8 @@ export const useTableController = <T, TValue = unknown>(
     () => getFilterSignature(appliedFilters),
     [appliedFilters],
   );
-  const [draftFilters, setDraftFilters] = useState<Record<string, string>>(
-    appliedFilters,
-  );
+  const [draftFilters, setDraftFilters] =
+    useState<Record<string, string>>(appliedFilters);
   const debouncedFilters = useDebounce(
     draftFilters,
     config.filterDebounceMs ?? 700,
@@ -159,18 +158,15 @@ export const useTableController = <T, TValue = unknown>(
     [setStates],
   );
 
-  const setFilters = useCallback(
-    (nextFilters: Record<string, string>) => {
-      const normalizedNextFilters = normalizeFilters(nextFilters);
+  const setFilters = useCallback((nextFilters: Record<string, string>) => {
+    const normalizedNextFilters = normalizeFilters(nextFilters);
 
-      setDraftFilters((currentFilters) =>
-        areFilterValuesEqual(currentFilters, normalizedNextFilters)
-          ? currentFilters
-          : normalizedNextFilters,
-      );
-    },
-    [],
-  );
+    setDraftFilters((currentFilters) =>
+      areFilterValuesEqual(currentFilters, normalizedNextFilters)
+        ? currentFilters
+        : normalizedNextFilters,
+    );
+  }, []);
 
   return {
     data,
