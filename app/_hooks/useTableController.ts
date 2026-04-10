@@ -14,6 +14,13 @@ const normalizeFilters = (filters: Record<string, string>) =>
     ),
   );
 
+const getFilterSignature = (filters: Record<string, string>) =>
+  JSON.stringify(
+    Object.entries(filters).sort(([leftKey], [rightKey]) =>
+      leftKey.localeCompare(rightKey),
+    ),
+  );
+
 const areFilterValuesEqual = (
   a: Record<string, string>,
   b: Record<string, string>,
@@ -40,6 +47,10 @@ export const useTableController = <T, TValue = unknown>(
     () => normalizeFilters(state.filters),
     [state.filters],
   );
+  const appliedFiltersSignature = useMemo(
+    () => getFilterSignature(appliedFilters),
+    [appliedFilters],
+  );
   const [draftFilters, setDraftFilters] = useState<Record<string, string>>(
     appliedFilters,
   );
@@ -51,11 +62,16 @@ export const useTableController = <T, TValue = unknown>(
     () => normalizeFilters(debouncedFilters),
     [debouncedFilters],
   );
+  const normalizedDebouncedSignature = useMemo(
+    () => getFilterSignature(normalizedDebouncedFilters),
+    [normalizedDebouncedFilters],
+  );
   const clearedFilterUpdates = useMemo(
     () => Object.fromEntries(filterKeys.map((key) => [key, ""])),
     [filterKeys],
   );
-  const lastSubmittedFilters = useRef(appliedFilters);
+  const lastAppliedFiltersSignature = useRef(appliedFiltersSignature);
+  const isSyncingExternalFilters = useRef(false);
 
   const queryKey = useMemo(
     () =>
@@ -81,29 +97,43 @@ export const useTableController = <T, TValue = unknown>(
   });
 
   useEffect(() => {
-    if (areFilterValuesEqual(appliedFilters, lastSubmittedFilters.current)) {
+    if (appliedFiltersSignature === lastAppliedFiltersSignature.current) {
       return;
     }
 
-    lastSubmittedFilters.current = appliedFilters;
+    lastAppliedFiltersSignature.current = appliedFiltersSignature;
+    isSyncingExternalFilters.current = true;
     // This syncs the input draft when filters change from an external URL update,
     // such as navigation or a programmatic state change.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setDraftFilters(appliedFilters);
-  }, [appliedFilters]);
+  }, [appliedFilters, appliedFiltersSignature]);
 
   useEffect(() => {
-    if (areFilterValuesEqual(normalizedDebouncedFilters, appliedFilters)) {
+    if (isSyncingExternalFilters.current) {
+      if (normalizedDebouncedSignature === appliedFiltersSignature) {
+        isSyncingExternalFilters.current = false;
+      }
       return;
     }
 
-    lastSubmittedFilters.current = normalizedDebouncedFilters;
+    if (normalizedDebouncedSignature === appliedFiltersSignature) {
+      return;
+    }
+
+    lastAppliedFiltersSignature.current = normalizedDebouncedSignature;
     setStates({
       page: 1,
       ...clearedFilterUpdates,
       ...normalizedDebouncedFilters,
     });
-  }, [appliedFilters, clearedFilterUpdates, normalizedDebouncedFilters, setStates]);
+  }, [
+    appliedFiltersSignature,
+    clearedFilterUpdates,
+    normalizedDebouncedFilters,
+    normalizedDebouncedSignature,
+    setStates,
+  ]);
 
   const setPage = useCallback(
     (page: number) => {
