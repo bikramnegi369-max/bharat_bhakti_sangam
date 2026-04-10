@@ -2,26 +2,19 @@ import { Button } from "@/_components/ui/Button";
 import { Counter } from "@/_components/ui/Counter";
 import { Dropdown } from "@/_components/ui/Dropdown/index";
 import { Field } from "@/_components/ui/Field/Field";
-import { BookingFormData } from "@/_schemas/booking";
+import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
 import { Info } from "lucide-react";
 import { Cinzel } from "next/font/google";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { BookingConfig } from "@/_types/Booking.types";
 
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-type Pricing = Record<string, number>;
-
-export const BookingForm = ({
-  eventDate,
-  pricing,
-}: {
-  eventDate: string;
-  pricing: Pricing;
-}) => {
+export const BookingForm = ({ eventDate, pricing }: BookingConfig) => {
   const {
     register,
     setValue,
@@ -33,15 +26,24 @@ export const BookingForm = ({
 
   const total = (values.tickets || 0) * (pricing[values.ticketType ?? ""] ?? 0);
 
+  const ticketOptions = Object.entries(pricing).map(([value, price]) => ({
+    label: value.charAt(0).toUpperCase() + value.slice(1),
+    value,
+    price,
+  }));
+
   return (
-    <div className="bg-white border-2 border-primary  rounded-lg lg:border-r-0 lg:rounded-t-none lg:rounded-b-none  lg:rounded-l-3xl! p-6 shadow-sm space-y-8 lg:space-y-16 mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] lg:mx-0  px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] ">
+    <div
+      className="bg-white border-2 border-primary  rounded-lg lg:border-r-0 lg:rounded-t-none lg:rounded-b-none  lg:rounded-l-3xl! shadow-sm space-y-8 lg:space-y-16  px-[clamp(1.375rem,calc(1.054rem+1.607vw),2.5rem)]
+           py-[clamp(1.875rem,calc(1.554rem+1.607vw),3rem)] "
+    >
       <h2
         className={clsx(
           "text-[clamp(1.313rem,calc(1.063rem+1.25vw),2.188rem)] font-bold text-heading",
           cinzel.className,
         )}
       >
-        Contact Information
+        Booking Information
       </h2>
       <Field
         as="input"
@@ -51,7 +53,6 @@ export const BookingForm = ({
         error={errors.fullName?.message as string}
         labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
       />
-
       <Field
         as="input"
         type="email"
@@ -69,30 +70,18 @@ export const BookingForm = ({
         maxLength={10}
         labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
       />
-
       <div className="flex flex-col justify-center gap-8">
         <Controller
           name="ticketType"
           control={control}
-          render={({ field }) => {
-            const ticketOptions = Object.entries(pricing).map(
-              ([value, price]) => ({
-                label: value.charAt(0).toUpperCase() + value.slice(1),
-                value,
-                price,
-              }),
-            );
-            return (
-              <Dropdown
-                label="Ticket Type"
-                options={ticketOptions}
-                value={
-                  ticketOptions.find((o) => o.value === field.value) ?? null
-                }
-                onChange={(opt) => field.onChange(opt?.value)}
-              />
-            );
-          }}
+          render={({ field }) => (
+            <Dropdown
+              label="Ticket Type"
+              options={ticketOptions}
+              value={ticketOptions.find((o) => o.value === field.value) ?? null}
+              onChange={(opt) => field.onChange(opt?.value)}
+            />
+          )}
         />
       </div>
       <div className="flex flex-col justify-center gap-3">
@@ -109,7 +98,7 @@ export const BookingForm = ({
       <hr className="lg:hidden border-para opacity-20" />
 
       <div className="lg:hidden flex flex-col gap-4">
-        <div className=" flex justify-between items-center">
+        <div className="flex justify-between items-center">
           <span className="text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] font-semibold text-para tracking-wider">
             Grand Total :
           </span>
@@ -122,17 +111,15 @@ export const BookingForm = ({
             ₹{total}
           </span>
         </div>
-
         <Button
           type="submit"
           variant="primary"
-          className="w-full h-[clamp(2.5rem,calc(2.232rem+ 1.339vw),3.438rem)]  py-3"
+          className="w-full h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)] py-3"
         >
           <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] text-heading font-semibold tracking-widest uppercase">
             Book Now
           </span>
         </Button>
-
         <div className="flex gap-2 p-2 border rounded-md border-primary m-auto">
           <Info size={14} className="text-primary" />
           <span className="text-[8px] text-primary">

@@ -1,4 +1,4 @@
-// config/routes.ts
+
 export const routes = {
   home: "/",
   event: "/event",
@@ -10,4 +10,6 @@ export const routes = {
 
 export const apiRoutes = {
   event: "/event",
+  contact: "/contact",
+  booking: "/booking",
 };

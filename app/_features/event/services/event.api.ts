@@ -4,7 +4,7 @@ import { TableService } from "@/_types/Table.types";
 import { Event } from "../types";
 import { dummyEvents } from "@/_lib/DummyData/EventData";
 
-export const getEvent = () => axios.get(apiRoutes.event);
+export const getEvent = () => axios.get<Event[]>(apiRoutes.event);
 
 export const eventService: TableService<Event> = {
   getAll: async (params) => {
@@ -46,10 +46,6 @@ export const eventService: TableService<Event> = {
     const start = (params.page - 1) * limit;
     const end = start + limit;
 
-    // return {
-    //   items: items.slice(start, end),
-    //   total,
-    // };
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
@@ -60,7 +56,7 @@ export const eventService: TableService<Event> = {
     });
   },
   getOne: async (id) => {
-    const res = await axios.get(`${apiRoutes.event}/${id}`);
+    const res = await axios.get<Event>(`${apiRoutes.event}/${id}`);
     return res.data;
   },
   delete: async (id) => {

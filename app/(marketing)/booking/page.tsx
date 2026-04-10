@@ -1,32 +1,17 @@
 "use client";
-import { BookingForm } from "@/_components/sections/Marketing/Booking/BookingForm";
-import { OrderSummary } from "@/_components/sections/Marketing/Booking/OrderSummary";
-import Hero from "@/_components/sections/Marketing/Hero";
-import { BookingFormData, bookingSchema } from "@/_schemas/booking";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
 
-const PRICING = { general: 350, premium: 500, vip: 750 };
+import Hero from "@/_components/sections/Marketing/Hero";
+import { bookingConfig } from "@/_config/booking.config";
+import { BookingForm } from "@/_features/bookings/components/BookingForm";
+import { OrderSummary } from "@/_features/bookings/components/OrderSummary";
+import { useBookingForm } from "@/_hooks/useBookingForm";
+import { FormProvider } from "react-hook-form";
 
 export default function BookingPage() {
-  const methods = useForm<BookingFormData>({
-    resolver: zodResolver(bookingSchema),
-    defaultValues: {
-      fullName: "",
-      email: "",
-      mobile: "",
-      tickets: 1,
-      ticketType: "general",
-    },
-  });
-
-  const onSubmit = (data: BookingFormData) => {
-    console.log("FINAL DATA : ", data);
-  };
+  const { methods, onSubmit, isSubmitting } = useBookingForm();
 
   return (
     <div className="relative">
-      {/* Preload the hero image */}
       <link
         rel="preload"
         as="image"
@@ -36,19 +21,19 @@ export default function BookingPage() {
       <Hero
         title="Midnight Krishna Kirtan"
         location="ISKCON Temple Hall | Hare Krishna Land, Juhu, Mumbai 400049"
-        date="12 Nov, 2026 | 11:00 a.m - 6:00 p.m"
+        date={bookingConfig.eventDate}
         backgroundImage="/home_hero.jpg"
       />
       <FormProvider {...methods}>
         <div className="relative lg:-mt-40 z-10">
-          <section className="w-full flex justify-center">
+          <section className="w-full flex justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
             <form
               onSubmit={methods.handleSubmit(onSubmit)}
-              className="w-full max-w-7xl py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] px-4 lg:px-8"
+              className="w-full max-w-7xl "
             >
               <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6 lg:gap-0">
-                <BookingForm pricing={PRICING} eventDate="12 Nov, 2026" />
-                <OrderSummary eventDate="12 Nov, 2026" pricing={PRICING} />
+                <BookingForm {...bookingConfig} />
+                <OrderSummary {...bookingConfig} />
               </div>
             </form>
           </section>

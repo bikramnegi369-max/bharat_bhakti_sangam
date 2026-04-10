@@ -1,6 +1,3 @@
-// shared/table/columns/types.ts
-
-import { FilterConfig } from "@/_features/event/types";
 import { ColumnDef, SortingState } from "@tanstack/react-table";
 import { ReactNode } from "react";
 
@@ -18,6 +15,18 @@ export type CreateColumnOptions<T> = {
 };
 
 export type CreateColumnReturn<T, TValue = unknown> = ColumnDef<T, TValue>;
+
+export type FilterConfig =
+  | { type: "search"; key: string; placeholder?: string }
+  | { type: "date"; key: string }
+  | { type: "time"; key: string };
+
+export type PaginationProps = {
+  page: number;
+  total: number;
+  limit?: number;
+  onPageChange: (page: number) => void;
+};
 
 export type TableConfig<T, TValue = unknown> = {
   columns: ColumnDef<T, TValue>[];
@@ -53,13 +62,10 @@ export interface TableController<T> {
   };
   sorting: SortingState;
   setSorting: (s: SortingState) => void;
-
   page: number;
   setPage: (p: number) => void;
-
   filters: Record<string, string>;
   setFilters: (next: Record<string, string>) => void;
-
   isLoading: boolean;
   isFetching: boolean;
   error: unknown;

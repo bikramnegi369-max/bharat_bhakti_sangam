@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { SidebarItemComponent } from "./SidebarItemComponent";
 import { SidebarLogo } from "./SidebarLogo";
 import { SIDEBAR_WIDTH } from "@/_config/Sidebar.config";
-import { NAV_ITEMS } from "@/_lib/constants";
+import { NAV_ITEMS } from "@/_lib/constants/sidebar.constants";
 
 export const MobileSidebar = ({
   open,

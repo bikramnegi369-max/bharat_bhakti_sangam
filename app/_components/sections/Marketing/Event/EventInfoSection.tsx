@@ -82,7 +82,7 @@ export default function EventInfoSection({
 
           <Divider />
 
-          {/* UPDATED CAPACITY */}
+          {/* CAPACITY */}
           <InfoBlock
             icon={UsersRound}
             label="Capacity"
@@ -146,7 +146,7 @@ export default function EventInfoSection({
   );
 }
 
-/*  Divider (cleaner + reusable) */
+/*  Divider  */
 function Divider() {
   return <div className="my-2 h-px w-full bg-para/30" />;
 }

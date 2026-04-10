@@ -6,12 +6,14 @@ import { FooterNav } from "./FooterNav";
 import { FooterCTA } from "./FooterCTA";
 import { FooterBottom } from "./FooterBottom";
 import { footerConfig } from "@/_config/Footer.config";
+import { usePathname } from "next/navigation";
 
 type FooterProps = {
   config?: typeof footerConfig;
 };
 
 export default function Footer({ config = footerConfig }: FooterProps) {
+  const pathname = usePathname();
   return (
     <footer className="bg-[#2B1400] text-white">
       <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-12 py-10">
@@ -36,9 +38,11 @@ export default function Footer({ config = footerConfig }: FooterProps) {
           </div>
 
           {/* Right */}
-          <div className="flex justify-start lg:justify-end">
-            <FooterCTA label={config.cta.label} href={config.cta.href} />
-          </div>
+          {pathname !== "/booking" && (
+            <div className="flex justify-start lg:justify-end">
+              <FooterCTA label={config.cta.label} href={config.cta.href} />
+            </div>
+          )}
         </div>
 
         {/* Bottom */}
