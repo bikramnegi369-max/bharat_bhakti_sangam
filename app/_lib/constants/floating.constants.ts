@@ -1,6 +1,6 @@
 export const FLOATING_CONFIG = {
   whatsapp: {
-    number: "919999999999",
+    number: "918796086743",
     message: "Hi, I have a query regarding your events.",
     enabled: true,
   },
