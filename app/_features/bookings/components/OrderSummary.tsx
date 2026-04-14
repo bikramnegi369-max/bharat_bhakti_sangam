@@ -6,12 +6,14 @@ import { Cinzel } from "next/font/google";
 import { useFormContext, useWatch } from "react-hook-form";
 import { BookingConfig } from "@/_types/Booking.types";
 
+type Props = BookingConfig & { isSubmitting: boolean };
+
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-export const OrderSummary = ({ eventDate, pricing }: BookingConfig) => {
+export const OrderSummary = ({ eventDate, pricing, isSubmitting }: Props) => {
   const { control } = useFormContext<BookingFormData>();
   const data = useWatch({ control });
 
@@ -74,10 +76,11 @@ export const OrderSummary = ({ eventDate, pricing }: BookingConfig) => {
         <Button
           type="submit"
           variant="primary"
+          disabled={isSubmitting}
           className="w-full h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)] py-3"
         >
           <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] text-heading font-semibold tracking-widest uppercase">
-            Book Now
+            {isSubmitting ? "Booking..." : "Book Now"}
           </span>
         </Button>
         <div className="flex gap-3 p-2 border rounded-md bg-[#FFDFAF] border-para">

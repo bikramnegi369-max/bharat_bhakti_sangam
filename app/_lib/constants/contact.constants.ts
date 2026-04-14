@@ -1,8 +1,7 @@
 export const CONTACT_CONTENT = {
   heading: "Contact Us",
 
-  subHeading:
-    "Have questions, feedback, or need assistance? We’re here to help.",
+  subHeading: "Have questions or need assistance? We’re here to help.",
 
   form: {
     fullNameLabel: "Full Name",
@@ -22,3 +21,17 @@ export const CONTACT_CONTENT = {
 
   errorMessage: "Something went wrong. Please try again later.",
 };
+
+// STATUS SCREEN
+export const CONTACT_STATUS_CONFIG = {
+  success: {
+    heading: "Message Sent!",
+    message: CONTACT_CONTENT.successMessage,
+    action: null,
+  },
+  error: {
+    heading: "Something Went Wrong",
+    message: CONTACT_CONTENT.errorMessage,
+    action: "Try Again",
+  },
+} as const;

@@ -12,4 +12,5 @@ export const apiRoutes = {
   event: "/event",
   contact: "/contact",
   booking: "/booking",
+  feedback: "/feedback",
 };

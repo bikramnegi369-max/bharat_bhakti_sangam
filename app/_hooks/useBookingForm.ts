@@ -6,9 +6,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { bookingConfig } from "@/_config/booking.config";
 import { submitBooking } from "@/_features/bookings/services/booking.service";
+import { FormSubmitStatus } from "@/_components/common/FormSubmitStatus";
 
 export function useBookingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<FormSubmitStatus | "idle">("idle");
 
   const methods = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
@@ -25,12 +27,19 @@ export function useBookingForm() {
     try {
       setIsSubmitting(true);
       await submitBooking(data);
+      setStatus("success");
     } catch (error) {
       console.error("Booking submission failed:", error);
+      setStatus("error");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  return { methods, onSubmit, isSubmitting };
+  const reset = () => {
+    setStatus("idle");
+    methods.reset();
+  };
+
+  return { methods, onSubmit, isSubmitting, status, reset };
 }

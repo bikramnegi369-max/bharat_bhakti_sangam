@@ -1,22 +1,22 @@
 "use client";
 
-import { submitContactForm } from "@/_features/contact/services/contact.service";
-import { ContactFormData } from "@/_schemas/contact.schema";
+import { submitFeedbackForm } from "@/_features/feedback/services/feedback.service";
+import { FeedbackFormData } from "@/_schemas/feedback.schema";
 import { useState } from "react";
 
 export type SubmitStatus = "idle" | "success" | "error";
 
-export function useContactForm() {
+export function useFeedbackForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<SubmitStatus>("idle");
 
-  const handleSubmit = async (data: ContactFormData) => {
+  const handleSubmit = async (data: FeedbackFormData) => {
     try {
       setIsSubmitting(true);
-      await submitContactForm(data);
+      await submitFeedbackForm(data);
       setStatus("success");
     } catch (error) {
-      console.error("Contact form submit failed:", error);
+      console.error("Feedback submission failed:", error);
       setStatus("error");
     } finally {
       setIsSubmitting(false);

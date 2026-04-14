@@ -7,19 +7,25 @@ import { useContactForm } from "@/_hooks/useContactForm";
 import { ContactFormHeader } from "./ContactFormHeader";
 import { ContactFormFields } from "./ContactFormFields";
 import { ContactFormActions } from "./ContactFormActions";
+import { ContactFormStatus } from "./ContactFormStatus";
 
 export function ContactForm() {
   const methods = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     mode: "onTouched",
-    defaultValues: {
-      email: "",
-      phone: "",
-      query: "",
-    },
+    defaultValues: { email: "", phone: "", query: "" },
   });
 
-  const { handleSubmit, isSubmitting } = useContactForm();
+  const { handleSubmit, isSubmitting, status, reset } = useContactForm();
+
+  const handleRetry = () => {
+    reset();
+    methods.reset();
+  };
+
+  if (status === "success" || status === "error") {
+    return <ContactFormStatus status={status} onRetry={handleRetry} />;
+  }
 
   return (
     <FormProvider {...methods}>
