@@ -23,27 +23,22 @@ export default function Card({
   return (
     <div
       className={clsx(
-        // Base styles
-        "p-4 rounded-xl border-3 transition-all duration-200 w-full h-full min-h-[clamp(10rem,calc(8.393rem+8.036vw),15.625rem)] flex flex-col  text-center",
-        // Border primary
-        "border-primary",
-        // Background primary-light
-        "bg-primary_light",
-        // Interactive styles
+        "rounded-xl border-3 border-primary bg-primary_light transition-all duration-200",
+        "w-full h-full",
+        "p-[clamp(1rem,calc(0.75rem+1.25vw),1.75rem)]",
+        "min-h-[clamp(10rem,calc(7rem+10vw),18rem)]",
+        "flex flex-col text-center",
         onClick && "cursor-pointer hover:shadow-md active:scale-[0.98]",
         className,
       )}
       onClick={onClick}
     >
-      <div className="flex flex-col justify-between h-full">
+      <div className="flex flex-col justify-between h-full gap-[clamp(0.5rem,calc(0.25rem+1.25vw),1.25rem)]">
         {/* Icon */}
         {Icon && (
-          <div className="mb-3 flex justify-center">
+          <div className="flex justify-center">
             <Icon
-              className={clsx(
-                "text-primary",
-                "w-[clamp(2.375rem,calc(1.946rem+2.143vw),3.875rem)] h-[clamp(2.375rem,calc(1.946rem+2.143vw),3.875rem)]",
-              )}
+              className="text-primary w-[clamp(2rem,calc(1.5rem+2.5vw),4rem)] h-[clamp(2rem,calc(1.5rem+2.5vw),4rem)]"
               strokeWidth={1.5}
             />
           </div>
@@ -51,29 +46,19 @@ export default function Card({
 
         {/* Title */}
         {title && (
-          <h3
-            className={clsx(
-              "font-semibold mb-2 text-[clamp(1.063rem,calc(0.938rem+0.625vw),1.5rem)]",
-              "text-para",
-            )}
-          >
+          <h3 className="font-semibold text-para text-[clamp(0.938rem,calc(0.813rem+0.625vw),1.375rem)] leading-snug">
             {title}
           </h3>
         )}
 
         {/* Description */}
         {description && (
-          <p
-            className={clsx(
-              "text-sm text-[clamp(0.688rem,calc(0.563rem+0.625vw),1.125rem)] grow",
-              "text-sub_text",
-            )}
-          >
+          <p className="text-sub_text text-[clamp(0.75rem,calc(0.625rem+0.625vw),1.063rem)] leading-relaxed grow">
             {description}
           </p>
         )}
 
-        {/* Children (sticks to bottom if added later) */}
+        {/* Children */}
         {children && <div className="mt-auto">{children}</div>}
       </div>
     </div>

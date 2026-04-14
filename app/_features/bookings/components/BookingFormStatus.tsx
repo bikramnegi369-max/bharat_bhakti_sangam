@@ -12,6 +12,7 @@ export function BookingFormStatus({ status, onRetry }: Props) {
       config={BOOKING_STATUS_CONFIG}
       onRetry={onRetry}
       cardClassName="bg-white"
+      maxWidth="max-w-7xl"
     />
   );
 }

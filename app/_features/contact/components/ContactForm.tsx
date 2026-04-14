@@ -16,7 +16,7 @@ export function ContactForm() {
     defaultValues: { email: "", phone: "", query: "" },
   });
 
-  const { handleSubmit, isSubmitting, status, reset } = useContactForm();
+  const { handleSubmit, isSubmitting, status, errorMessage, reset } = useContactForm();
 
   const handleRetry = () => {
     reset();
@@ -24,7 +24,7 @@ export function ContactForm() {
   };
 
   if (status === "success" || status === "error") {
-    return <ContactFormStatus status={status} onRetry={handleRetry} />;
+    return <ContactFormStatus status={status} onRetry={handleRetry} errorMessage={errorMessage} />;
   }
 
   return (

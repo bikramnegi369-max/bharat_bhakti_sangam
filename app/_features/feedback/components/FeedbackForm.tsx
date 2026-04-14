@@ -13,6 +13,7 @@ export function FeedbackForm() {
   const methods = useForm<FeedbackFormData>({
     resolver: zodResolver(feedbackSchema),
     mode: "onTouched",
+    reValidateMode: "onChange",
     defaultValues: {
       fullName: "",
       email: "",
@@ -21,7 +22,7 @@ export function FeedbackForm() {
     },
   });
 
-  const { handleSubmit, isSubmitting, status, reset } = useFeedbackForm();
+  const { handleSubmit, isSubmitting, status, errorMessage, reset } = useFeedbackForm();
 
   const handleRetry = () => {
     reset();
@@ -29,7 +30,7 @@ export function FeedbackForm() {
   };
 
   if (status === "success" || status === "error") {
-    return <FeedbackFormStatus status={status} onRetry={handleRetry} />;
+    return <FeedbackFormStatus status={status} onRetry={handleRetry} errorMessage={errorMessage} />;
   }
 
   return (

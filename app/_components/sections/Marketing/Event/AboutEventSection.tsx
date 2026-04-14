@@ -31,7 +31,7 @@ export default function AboutEventSection({
 }: AboutEventSectionProps) {
   return (
     <section className="h-full">
-      <div className="h-full max-w-7xl mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] border-3 border-primary rounded-md p-6 lg:p-8 bg-primary_light flex flex-col">
+      <div className="h-full border-3 border-primary rounded-md p-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] bg-primary_light flex flex-col">
         {/* Heading */}
         <h2
           className={clsx(

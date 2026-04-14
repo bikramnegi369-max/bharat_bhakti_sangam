@@ -13,7 +13,7 @@ const cinzel = Cinzel({
 });
 
 export function FeedbackRatings() {
-  const { control } = useFormContext<FeedbackFormData>();
+  const { control, formState: { errors } } = useFormContext<FeedbackFormData>();
 
   return (
     <div
@@ -29,7 +29,7 @@ export function FeedbackRatings() {
       </h2>
 
       {/* Ratings List */}
-      <div className="space-y-4">
+      <div className="space-y-4 lg:space-y-8">
         {FEEDBACK_RATINGS.map((item) => (
           <div key={item.key} className="flex items-center justify-between">
             <span className="text-[clamp(0.875rem,calc(0.511rem+1.818vw),1.875rem)] font-medium text-para tracking-wider">
@@ -40,11 +40,21 @@ export function FeedbackRatings() {
               name={`ratings.${item.key}`}
               control={control}
               render={({ field }) => (
-                <Rating
-                  value={field.value}
-                  onChange={field.onChange}
-                  className="w-[clamp(1.25rem,calc(0.568rem+3.409vw),3.125rem)] h-[clamp(1.25rem,calc(0.568rem+3.409vw),3.125rem)]"
-                />
+                <div className="flex flex-col items-end gap-1">
+                  <Rating
+                    value={field.value}
+                    onChange={(val) => {
+                      field.onChange(val);
+                      field.onBlur();
+                    }}
+                    className="w-[clamp(1.25rem,calc(0.568rem+3.409vw),3.125rem)] h-[clamp(1.25rem,calc(0.568rem+3.409vw),3.125rem)]"
+                  />
+                  {errors.ratings?.[item.key] && (
+                    <span className="text-xs text-red-500">
+                      {errors.ratings[item.key]?.message}
+                    </span>
+                  )}
+                </div>
               )}
             />
           </div>

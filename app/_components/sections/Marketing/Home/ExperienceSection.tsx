@@ -48,19 +48,15 @@ export default function ExperienceSection() {
         </div>
 
         {/* Cards */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-3 justify-center items-center px-[clamp(3rem,calc(0.857rem+10.714vw),6rem)] lg:px-0">
+        <div className="mt-12 grid gap-6 lg:grid-cols-3 justify-center items-stretch px-[clamp(3rem,calc(0.857rem+10.714vw),6rem)] lg:px-0">
           {cards.map((card, index) => (
-            <div
+            <Card
               key={index}
-              className="sm:w-[clamp(15.813rem,calc(10.491rem+26.607vw),34.438rem)]! lg:w-full!"
-            >
-              <Card
-                icon={card.icon}
-                title={card.title}
-                description={card.description}
-                className="hover:-translate-y-1 hover:shadow-lg"
-              />
-            </div>
+              icon={card.icon}
+              title={card.title}
+              description={card.description}
+              className="hover:-translate-y-1 hover:shadow-lg"
+            />
           ))}
         </div>
       </div>

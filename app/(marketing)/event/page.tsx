@@ -12,16 +12,18 @@ export default function EventPage() {
       {/* Preload the hero image */}
       <link rel="preload" as="image" href="/event.jpg" fetchPriority="high" />
       <Hero title="Midnight Krishna Kirtan" backgroundImage="/event.jpg" />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-0 pt-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] lg:px-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]">
-        {/* LEFT */}
-        <div className="flex flex-col gap-6 h-full lg:col-span-2 ">
-          <AboutEventSection />
-          <AboutArtistSection />
-        </div>
+      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* LEFT */}
+          <div className="flex flex-col gap-6 h-full lg:col-span-2">
+            <AboutEventSection />
+            <AboutArtistSection />
+          </div>
 
-        {/* RIGHT */}
-        <div className="w-full h-full flex justify-center">
-          <EventInfoSection />
+          {/* RIGHT */}
+          <div className="w-full h-full flex justify-center">
+            <EventInfoSection />
+          </div>
         </div>
       </div>
       <SponsorSection />

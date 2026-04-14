@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/_store/provider";
+import { FloatingStack } from "./_components/common/Floating/FloatingStack";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en" className={`${poppins.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-secondary">
         <StoreProvider>{children}</StoreProvider>
+        <FloatingStack />
       </body>
     </html>
   );

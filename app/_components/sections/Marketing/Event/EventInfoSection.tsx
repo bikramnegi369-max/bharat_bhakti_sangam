@@ -51,8 +51,8 @@ export default function EventInfoSection({
   },
 }: EventInfoSectionProps) {
   return (
-    <section className="flex justify-center h-full ">
-      <div className="h-full max-w-7xl mx-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] border-3 border-primary rounded-md p-6 lg:p-8 bg-primary_light flex flex-col">
+    <section className="h-full w-full">
+      <div className="h-full w-full border-3 border-primary rounded-md p-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] bg-primary_light flex flex-col">
         <div className="grid grid-cols-1 gap-[clamp(0.75rem,calc(0.536rem+1.071vw),1.5rem)]">
           <InfoBlock icon={CalendarDays} label="DATE" value={date} />
 
@@ -99,7 +99,7 @@ export default function EventInfoSection({
           {/* BOOKING */}
           <div className="flex gap-4 justify-between items-start">
             <div className="flex gap-4">
-              <Ticket className="text-primary w-6 h-6 mt-1" />
+              <Ticket className="text-primary w-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] h-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] mt-1" />
               <div>
                 <p
                   className={clsx(
@@ -124,7 +124,7 @@ export default function EventInfoSection({
 
             <p
               className={clsx(
-                "text-primary font-bold text-lg",
+                "text-primary font-bold text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)]",
                 cinzel.className,
               )}
             >
@@ -134,7 +134,7 @@ export default function EventInfoSection({
         </div>
 
         {/* CTA */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-auto pt-[clamp(1.5rem,calc(1.25rem+1.25vw),2.5rem)] flex justify-center">
           <CTAButton
             href="/booking"
             label="Book Now"

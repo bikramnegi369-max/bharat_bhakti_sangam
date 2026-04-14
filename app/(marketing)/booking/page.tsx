@@ -24,9 +24,7 @@ export default function BookingPage() {
       <div className="relative lg:-mt-40 z-10">
         <section className="w-full flex justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
           {status === "success" || status === "error" ? (
-            <div className="w-full max-w-7xl">
-              <BookingFormStatus status={status} onRetry={reset} />
-            </div>
+            <BookingFormStatus status={status} onRetry={reset} />
           ) : (
             <FormProvider {...methods}>
               <form

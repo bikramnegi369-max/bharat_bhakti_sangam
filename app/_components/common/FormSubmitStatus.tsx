@@ -9,8 +9,8 @@ const cinzel = Cinzel({ weight: ["600", "700"], subsets: ["latin"] });
 export type FormSubmitStatus = "success" | "error";
 
 export type FormStatusConfig = {
-  success: { heading: string; message: string; action: null };
-  error: { heading: string; message: string; action: string };
+  success: { heading: string; message: string; action: string | null };
+  error: { heading: string; message: string; action: string | null };
 };
 
 type Props = {
@@ -18,6 +18,8 @@ type Props = {
   config: FormStatusConfig;
   onRetry: () => void;
   cardClassName?: string;
+  errorMessage?: string | null;
+  maxWidth?: string;
 };
 
 const ICONS: Record<FormSubmitStatus, React.ReactNode> = {
@@ -62,18 +64,22 @@ export function FormSubmitStatusScreen({
   config,
   onRetry,
   cardClassName,
+  errorMessage,
+  maxWidth = "max-w-2xl",
 }: Props) {
   const { heading, message, action } = config[status];
+  const displayMessage = status === "error" && errorMessage ? errorMessage : message;
 
   return (
     <div
       role="status"
       aria-live="polite"
       className={clsx(
-        "w-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-6 text-center",
+        "w-full mx-auto flex flex-col items-center justify-center gap-6 text-center",
         "rounded-2xl shadow-2xl border-2 border-primary",
         "px-[clamp(1.375rem,calc(1.054rem+1.607vw),2.5rem)]",
         "py-[clamp(2.5rem,calc(2rem+2.5vw),5rem)]",
+        maxWidth,
         cardClassName,
       )}
     >
@@ -89,20 +95,22 @@ export function FormSubmitStatusScreen({
       </h2>
 
       <p className="text-[clamp(0.875rem,calc(0.75rem+0.625vw),1.125rem)] text-para max-w-md leading-relaxed">
-        {message}
+        {displayMessage}
       </p>
 
-      {action && (
-        <Button
-          type="button"
-          variant="primary"
-          onClick={onRetry}
-          className="mt-2 h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)]"
-        >
-          <span className="text-sm sm:text-base font-semibold tracking-widest uppercase">
-            {action}
-          </span>
-        </Button>
+      {action !== null && (
+        <div className="w-full">
+          <Button
+            type="button"
+            variant="primary"
+            onClick={onRetry}
+            className="!w-full h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)] mt-4"
+          >
+            <span className="text-sm sm:text-base font-semibold tracking-widest uppercase">
+              {action}
+            </span>
+          </Button>
+        </div>
       )}
     </div>
   );
