@@ -101,7 +101,24 @@ export default async function HomePage() {
       />
       <WelcomeSection />
       <ExperienceSection />
-      <BookingSection />
+      <BookingSection
+        eventDate={getEventDisplayDate(event) || ""}
+        eventTime={`${event.time} Onwards`}
+        eventDay={new Date(event.date).toLocaleDateString("en-US", {
+          weekday: "long",
+        })}
+        venueName={getEventVenueName(event) || ""}
+        venueAddress={getEventVenueAddress(event) || ""}
+        ticketTypes={(Array.isArray(event.bookingType)
+          ? event.bookingType
+          : [event.bookingType]
+        )
+          .filter((t) => !!t)
+          .map((t) => ({
+            name: t?.name || "Pass",
+            price: t?.price || 0,
+          }))}
+      />
       <GallerySection images={IMAGES} />
     </>
   );

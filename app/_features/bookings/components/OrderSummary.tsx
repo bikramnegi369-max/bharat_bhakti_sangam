@@ -4,20 +4,28 @@ import clsx from "clsx";
 import { Info, Ticket } from "lucide-react";
 import { Cinzel } from "next/font/google";
 import { useFormContext, useWatch } from "react-hook-form";
-import { BookingConfig } from "@/_types/Booking.types";
 
-type Props = BookingConfig & { isSubmitting: boolean };
+type Props = {
+  eventDate?: string;
+  isSubmitting: boolean;
+  ticketTypes: { name: string; price: number }[];
+};
 
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
-export const OrderSummary = ({ eventDate, pricing, isSubmitting }: Props) => {
+export const OrderSummary = ({
+  eventDate,
+  ticketTypes,
+  isSubmitting,
+}: Props) => {
   const { control } = useFormContext<BookingFormData>();
   const data = useWatch({ control });
 
-  const total = (data?.tickets || 0) * (pricing[data?.ticketType ?? ""] ?? 0);
+  const selectedTicket = ticketTypes.find((t) => t.name === data.ticketType);
+  const total = (data?.tickets || 0) * (selectedTicket?.price || 0);
 
   return (
     <div className="hidden lg:visible bg-primary_light border-2 border-primary lg:border-l-0 rounded-lg lg:rounded-r-3xl! lg:rounded-t-none lg:rounded-b-none  space-y-8 lg:space-y-16 p-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] lg:flex flex-col h-full">

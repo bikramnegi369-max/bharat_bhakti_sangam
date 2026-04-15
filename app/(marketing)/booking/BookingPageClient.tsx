@@ -6,25 +6,39 @@ import { BookingFormStatus } from "@/_features/bookings/components/BookingFormSt
 import { OrderSummary } from "@/_features/bookings/components/OrderSummary";
 import { useBookingForm } from "@/_hooks/useBookingForm";
 import { FormProvider } from "react-hook-form";
-import { bookingConfig } from "@/_config/booking.config";
+
+type TicketType = {
+  name: string;
+  price: number;
+};
 
 type BookingPageClientProps = {
   eventTitle: string;
   eventDate?: string;
   eventLocation: string;
+  eventAddress?: string;
   heroImage: string;
+  ticketTypes: TicketType[];
 };
 
 export function BookingPageClient({
   eventTitle,
   eventDate,
   eventLocation,
+  eventAddress,
   heroImage,
+  ticketTypes,
 }: BookingPageClientProps) {
-  const { methods, onSubmit, isSubmitting, status, reset } = useBookingForm();
+  const { methods, onSubmit, isSubmitting, status, reset } = useBookingForm(
+    ticketTypes[0]?.name,
+  );
+
   const bookingDetails = {
-    ...bookingConfig,
-    eventDate: eventDate ?? bookingConfig.eventDate,
+    eventTitle,
+    eventDate,
+    eventLocation,
+    eventAddress,
+    ticketTypes,
   };
 
   return (
@@ -33,6 +47,7 @@ export function BookingPageClient({
       <Hero
         title={eventTitle}
         location={eventLocation}
+        address={eventAddress}
         date={eventDate}
         backgroundImage={heroImage}
       />
@@ -48,8 +63,14 @@ export function BookingPageClient({
                 className="w-full max-w-7xl"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6 lg:gap-0">
-                  <BookingForm {...bookingDetails} isSubmitting={isSubmitting} />
-                  <OrderSummary {...bookingDetails} isSubmitting={isSubmitting} />
+                  <BookingForm
+                    {...bookingDetails}
+                    isSubmitting={isSubmitting}
+                  />
+                  <OrderSummary
+                    {...bookingDetails}
+                    isSubmitting={isSubmitting}
+                  />
                 </div>
               </form>
             </FormProvider>

@@ -4,6 +4,7 @@ import { getSeoKeywords } from "@/_config/Seo.config";
 import {
   getEventDisplayDate,
   getEventImage,
+  getEventVenueAddress,
   getEventVenueName,
 } from "@/_lib/helpers";
 import { createPageMetadata, createPageMetadataFromConfig } from "@/_lib/seo";
@@ -58,7 +59,17 @@ export default async function BookingPage() {
       eventTitle={event.eventName}
       eventDate={getEventDisplayDate(event)}
       eventLocation={getEventVenueName(event)}
+      eventAddress={getEventVenueAddress(event)}
       heroImage={getEventImage(event)}
+      ticketTypes={(Array.isArray(event.bookingType)
+        ? event.bookingType
+        : [event.bookingType]
+      )
+        .filter((t) => !!t)
+        .map((t) => ({
+          name: t?.name || "Pass",
+          price: t?.price || 0,
+        }))}
     />
   );
 }

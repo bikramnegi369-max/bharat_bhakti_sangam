@@ -3,13 +3,38 @@
 import { MapPin, Clock, BadgeCheck, CalendarDays } from "lucide-react";
 import { Cinzel } from "next/font/google";
 import { Button } from "@/_components/ui/Button";
+import Link from "next/link";
 
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
 
-export default function BookingSection() {
+type TicketType = {
+  name: string;
+  price: number;
+};
+
+type BookingSectionProps = {
+  eventDate: string;
+  eventTime: string;
+  eventDay: string;
+  venueName: string;
+  venueAddress: string;
+  ticketTypes: TicketType[];
+};
+
+export default function BookingSection({
+  eventDate,
+  eventTime,
+  eventDay,
+  venueName,
+  venueAddress,
+  ticketTypes,
+}: BookingSectionProps) {
+  const minPrice =
+    ticketTypes.length > 0 ? Math.min(...ticketTypes.map((t) => t.price)) : 0;
+
   return (
     <section className="py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
       <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid grid-cols-1 lg:grid-cols-2 gap-8 place-items-center">
@@ -25,7 +50,7 @@ export default function BookingSection() {
           <div className="mt-4 flex items-center justify-center gap-2 text-gray-600">
             <CalendarDays className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)]" />
             <span className="font-medium uppercase text-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)]">
-              14 June
+              {eventDate}
             </span>
           </div>
         </div>
@@ -41,10 +66,10 @@ export default function BookingSection() {
                 <p
                   className={`font-bold text-heading ${cinzel.className} text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]`}
                 >
-                  XYZ Banquet
+                  {venueName}
                 </p>
                 <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para font-medium">
-                  Nawada, New Delhi
+                  {venueAddress}
                 </p>
               </div>
             </div>
@@ -56,10 +81,10 @@ export default function BookingSection() {
                 <p
                   className={`font-bold text-heading ${cinzel.className} text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]`}
                 >
-                  Sunday
+                  {eventDay}
                 </p>
                 <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para font-medium">
-                  5:00 PM Onwards
+                  {eventTime}
                 </p>
               </div>
             </div>
@@ -71,13 +96,15 @@ export default function BookingSection() {
           {/* SECTION 2 */}
           <div className="text-center flex flex-col space-between">
             <p className="text-heading text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-semibold">
-              Contribution Pass
+              {ticketTypes.length > 1
+                ? "Passes Starting From"
+                : `${ticketTypes[0]?.name || "VVIP"} Pass`}
             </p>
 
             <p
               className={`text-[clamp(1.063rem,calc(0.741rem+1.607vw),2.188rem)] font-bold text-primary mt-2 ${cinzel.className}`}
             >
-              ₹250
+              ₹{minPrice}
             </p>
 
             <p className="text-[clamp(0.375rem,calc(0.268rem+0.536vw),0.75rem)] text-para mt-1 font-bold">
@@ -87,12 +114,14 @@ export default function BookingSection() {
 
           {/* CTA */}
           <div className="flex justify-center mt-4 px-4">
-            <Button
-              variant="primary"
-              className="w-full text-[clamp(0.688rem,calc(0.491rem+0.982vw),1.375rem)] font-semibold py-2"
-            >
-              Book Now
-            </Button>
+            <Link href="/booking" className="w-full">
+              <Button
+                variant="primary"
+                className="w-full text-[clamp(0.688rem,calc(0.491rem+0.982vw),1.375rem)] font-semibold py-2"
+              >
+                Book Now
+              </Button>
+            </Link>
           </div>
         </div>
 
