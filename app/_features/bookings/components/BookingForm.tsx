@@ -127,7 +127,7 @@ export const BookingForm = ({
           disabled={isSubmitting}
           className="w-full h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)] py-3"
         >
-          <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] text-heading font-semibold tracking-widest uppercase">
+          <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] font-semibold tracking-widest uppercase">
             {isSubmitting ? "Booking..." : "Book Now"}
           </span>
         </Button>
