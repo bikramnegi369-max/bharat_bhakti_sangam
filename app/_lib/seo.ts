@@ -80,7 +80,7 @@ export function createPageMetadataFromConfig(
     title: overrides?.title ?? base.title,
     description: overrides?.description ?? base.description,
     path: overrides?.path ?? base.path,
-    image: overrides?.image ?? base.image,
+    image: overrides?.image ?? base.image ?? siteConfig.ogImage,
     keywords: overrides?.keywords ?? base.keywords,
     noIndex: overrides?.noIndex ?? base.noIndex ?? false,
   });

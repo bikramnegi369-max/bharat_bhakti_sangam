@@ -1,4 +1,13 @@
-export const seoConfig = {
+type SeoPage = {
+  path: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  image?: string;
+  noIndex?: boolean;
+};
+
+export const _seoConfig = {
   home: {
     path: "/",
     image: "/home_hero.jpg",
@@ -110,7 +119,27 @@ export const seoConfig = {
     title: "Latest Event",
     description:
       "Explore the latest devotional event from Bharat Bhakti Sangam.",
-    keywords: ["krishna event mumbai", "bhajan concert mumbai"],
+    keywords: [
+      "bhajan clubbing",
+      "devotional music experience",
+      "kirtan concert in india",
+      "modern bhajan jalsa night",
+      "spiritual event contact",
+      "chant",
+      "celebrate",
+      "connect & feel spiritual energy together",
+      "bhakti",
+      "kirtan",
+      "mantra chanting",
+      "electronic bhakti",
+      "live devotional band performances",
+      "immersive devotional nightlife experiences",
+      "bhajan clubbing concert",
+      "kirtan event",
+      "bhajan clubbing tickets booking",
+      "bhajan clubbing tickets",
+      "devotional music experience",
+    ],
   },
   booking: {
     path: "/booking",
@@ -169,6 +198,7 @@ export const seoConfig = {
   sponsors: {
     path: "/sponsors",
     noIndex: true,
+    image: "/event.jpg",
     title: "Sponsors",
     description:
       "Sponsorship information for Bharat Bhakti Sangam will be available soon.",
@@ -189,7 +219,7 @@ export const seoConfig = {
       "kirtan event",
     ],
   },
-} as const;
+} satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;
 
@@ -217,3 +247,5 @@ export function getSeoPageConfig(
     keywords: overrides?.keywords ?? seoConfig[page].keywords,
   };
 }
+
+export const seoConfig: Record<string, SeoPage> = _seoConfig;
