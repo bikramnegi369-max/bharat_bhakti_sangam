@@ -149,7 +149,7 @@ export default async function EventPage() {
               }}
               capacity={{
                 current: event.bookedSeats,
-                total: (event.availableTickets ?? 0) || 1,
+                total: (event.maxSeats ?? 0) || 1,
               }}
               booking={bookingCategories}
             />

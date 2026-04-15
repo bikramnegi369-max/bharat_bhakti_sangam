@@ -41,6 +41,7 @@ export interface LatestEvent {
   >;
   bannerImage?: string;
   ticketPrice?: number;
+  maxSeats?: number;
   availableTickets?: number;
   bookedSeats: number;
   isActive?: boolean;

@@ -31,10 +31,14 @@ export function BookingPageClient({
   heroImage,
   ticketTypes,
 }: BookingPageClientProps) {
-  const { methods, onSubmit, isSubmitting, status, reset } = useBookingForm(
-    ticketTypes[0]?.name,
-    eventId,
-  );
+  const {
+    methods,
+    onSubmit,
+    isSubmitting,
+    status,
+    specificErrorMessage,
+    reset,
+  } = useBookingForm(ticketTypes[0]?.name, eventId);
 
   const bookingDetails = {
     eventTitle,
@@ -58,7 +62,11 @@ export function BookingPageClient({
       <div className="relative lg:-mt-40 z-10">
         <section className="w-full flex justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
           {status === "success" || status === "error" ? (
-            <BookingFormStatus status={status} onRetry={reset} />
+            <BookingFormStatus
+              status={status}
+              onRetry={reset}
+              errorMessage={specificErrorMessage}
+            />
           ) : (
             <FormProvider {...methods}>
               <form

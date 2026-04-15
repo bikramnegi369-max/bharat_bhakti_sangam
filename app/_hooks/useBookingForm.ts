@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { submitBooking } from "@/_features/bookings/services/booking.service";
 import { FormSubmitStatus } from "@/_components/common/FormSubmitStatus";
+import { ApiError } from "@/_lib/axios";
 
 export function useBookingForm(
   defaultTicketType: string = "",
@@ -13,6 +14,9 @@ export function useBookingForm(
 ) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<FormSubmitStatus | "idle">("idle");
+  const [specificErrorMessage, setSpecificErrorMessage] = useState<
+    string | null
+  >(null);
 
   const methods = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
@@ -26,13 +30,21 @@ export function useBookingForm(
   });
 
   const onSubmit = async (data: BookingFormData) => {
+    setSpecificErrorMessage(null); // Clear previous specific error message
     try {
       setIsSubmitting(true);
       await submitBooking(data, eventId);
       setStatus("success");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Booking submission failed:", error);
       setStatus("error");
+
+      if (
+        error instanceof ApiError &&
+        error.backendMessage?.toLowerCase().includes("tickets sold out")
+      ) {
+        setSpecificErrorMessage("Tickets sold out");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -40,8 +52,16 @@ export function useBookingForm(
 
   const reset = () => {
     setStatus("idle");
+    setSpecificErrorMessage(null); // Clear specific error message on reset
     methods.reset();
   };
 
-  return { methods, onSubmit, isSubmitting, status, reset };
+  return {
+    methods,
+    onSubmit,
+    isSubmitting,
+    status,
+    specificErrorMessage,
+    reset,
+  };
 }

@@ -68,7 +68,8 @@ export function FormSubmitStatusScreen({
   maxWidth = "max-w-2xl",
 }: Props) {
   const { heading, message, action } = config[status];
-  const displayMessage = status === "error" && errorMessage ? errorMessage : message;
+  const displayMessage =
+    status === "error" && errorMessage ? errorMessage : message;
 
   return (
     <div
@@ -104,7 +105,7 @@ export function FormSubmitStatusScreen({
             type="button"
             variant="primary"
             onClick={onRetry}
-            className="!w-full h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)] mt-4"
+            className="w-full! h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)] mt-4"
           >
             <span className="text-sm sm:text-base font-semibold tracking-widest uppercase">
               {action}
