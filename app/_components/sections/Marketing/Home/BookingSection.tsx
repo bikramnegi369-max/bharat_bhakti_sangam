@@ -101,11 +101,11 @@ export default function BookingSection({
                 : `${ticketTypes[0]?.name || "VVIP"} Pass`}
             </p>
 
-            <p
+            {/* <p
               className={`text-[clamp(1.063rem,calc(0.741rem+1.607vw),2.188rem)] font-bold text-primary mt-2 ${cinzel.className}`}
             >
               ₹{minPrice}
-            </p>
+            </p> */}
 
             <p className="text-[clamp(0.375rem,calc(0.268rem+0.536vw),0.75rem)] text-para mt-1 font-bold">
               *Includes Premium High Tea & Snacks

@@ -102,12 +102,12 @@ export default function EventInfoSection({
           )}
 
           {/* BOOKING */}
-          <div className="flex flex-col gap-4">
+          {/* <div className="flex flex-col gap-4">
             <div className="flex items-start gap-4">
               <Ticket className="text-primary w-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] h-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] mt-1 shrink-0" />
 
               <div className="flex flex-col w-full gap-3">
-                {/* Heading */}
+                
                 <p
                   className={clsx(
                     "text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)]",
@@ -118,7 +118,7 @@ export default function EventInfoSection({
                   Booking
                 </p>
 
-                {/* Booking List */}
+               
                 {booking?.length ? (
                   <div className="flex flex-col gap-2 w-full">
                     {booking.map((cat) => {
@@ -152,7 +152,7 @@ export default function EventInfoSection({
                 )}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* CTA */}
