@@ -36,7 +36,7 @@ export const footerConfig: FooterConfig = {
         { label: "Events", href: "/event" },
         { label: "About Us", href: "/about" },
         { label: "Contact Us", href: "/contact" },
-        { label: "Sponsors", href: "/sponsors" },
+        // { label: "Sponsors", href: "/sponsors" },
         { label: "Feedback", href: "/feedback" },
       ],
     },

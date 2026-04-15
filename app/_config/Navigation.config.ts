@@ -5,6 +5,6 @@ export const NAV_LINKS = [
   { label: "Event", href: routes.event },
   { label: "About", href: routes.about },
   { label: "Contact", href: routes.contact },
-  { label: "Sponsors", href: routes.sponsors },
+  // { label: "Sponsors", href: routes.sponsors },
   { label: "Feedback", href: routes.feedback },
 ];

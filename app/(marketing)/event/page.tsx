@@ -156,7 +156,7 @@ export default async function EventPage() {
           </div>
         </div>
       </div>
-      <SponsorSection />
+      {/* <SponsorSection /> */}
       <FAQSection />
       <AboutArtistsDetailedSection
         artists={artistSummaries.map((artist) => ({

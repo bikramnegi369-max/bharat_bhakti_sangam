@@ -142,7 +142,7 @@ export default function BookingSection({
               "A Spiritually Elevated Environment",
               "Experience a unique blend of meditation & music.",
             ].map((item, index) => (
-              <li key={index} className="flex gap-3 items-center">
+              <li key={index} className="flex gap-3 items-start">
                 <BadgeCheck className="text-primary w-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)] h-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)]" />
                 <span className="text-para text-[clamp(0.5rem,calc(0.286rem+1.071vw),1.25rem)]">
                   {item}
