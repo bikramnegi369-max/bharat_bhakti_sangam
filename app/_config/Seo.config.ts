@@ -11,7 +11,7 @@ export const _seoConfig = {
   home: {
     path: "/",
     image: "/home_hero.jpg",
-    title: "Bharat bhakti sangam",
+    title: "Bharat Bhakti Sangam",
     description:
       "India’s most energetic devotional music experience where traditional bhajans, kirtans, and mantra chanting blend with modern beats and live performances.Book your Bhajan Clubbing tickets, join immersive spiritual EDM nights, and experience devotion like never before",
     keywords: [

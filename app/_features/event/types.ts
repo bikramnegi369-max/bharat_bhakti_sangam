@@ -39,7 +39,7 @@ export interface LatestEvent {
         about?: string;
       }
   >;
-  bannerImage?: string;
+  eventBanner?: string;
   ticketPrice?: number;
   maxSeats?: number;
   availableTickets?: number;

@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: "BBS",
   tagline: "Spiritual Vibes Meet Celebration",
   description:
-    "Join Bharat Bhakti Sangam for Krishna bhajans, kirtan gatherings, and devotional events in Mumbai.",
+    "Join Bharat Bhakti Sangam for bhajans, kirtan gatherings, and devotional events.",
   url: "https://bharatbhaktisangam.com",
   locale: "en_IN",
   ogImage: "/home_hero.jpg",

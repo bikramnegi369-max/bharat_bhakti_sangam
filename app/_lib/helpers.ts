@@ -43,7 +43,7 @@ export function getEventUrl() {
 }
 
 export function getEventImage(event: LatestEvent) {
-  return event.bannerImage?.trim() ? event.bannerImage : "/event.jpg";
+  return event.eventBanner?.trim() ? event.eventBanner : "/event.jpg";
 }
 
 export function getAbsoluteEventImageUrl(event: LatestEvent) {
