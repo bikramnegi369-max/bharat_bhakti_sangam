@@ -73,7 +73,10 @@ export function BookingPageClient({
       <div className="relative lg:-mt-40 z-10">
         <section className="w-full flex justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
           {status === "success" || status === "error" ? (
-            <div ref={statusRef} className="w-full flex justify-center">
+            <div
+              ref={statusRef}
+              className="w-full flex justify-center max-w-2xl"
+            >
               <BookingFormStatus
                 status={status}
                 onRetry={reset}
