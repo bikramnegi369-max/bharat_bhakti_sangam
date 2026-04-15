@@ -1,6 +1,10 @@
+import type { Metadata } from "next";
 import MissionSection from "@/_components/sections/Marketing/About/MissionSection";
 import ValuesSection from "@/_components/sections/Marketing/About/ValuesSection";
 import Hero from "@/_components/sections/Marketing/Hero";
+import { createPageMetadataFromConfig } from "@/_lib/seo";
+
+export const metadata: Metadata = createPageMetadataFromConfig("about");
 
 export default function AboutPage() {
   return (

@@ -4,3 +4,8 @@ export type BookingConfig = {
   eventDate: string;
   pricing: Pricing;
 };
+
+export interface BookingCategory {
+  name: string;
+  price: number;
+}

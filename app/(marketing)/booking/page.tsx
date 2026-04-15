@@ -1,45 +1,64 @@
-"use client";
+import type { Metadata } from "next";
+import { EventUnavailable } from "@/_components/common/EventUnavailable";
+import { getSeoKeywords } from "@/_config/Seo.config";
+import {
+  getEventDisplayDate,
+  getEventImage,
+  getEventVenueName,
+} from "@/_lib/helpers";
+import { createPageMetadata, createPageMetadataFromConfig } from "@/_lib/seo";
+import { BookingPageClient } from "./BookingPageClient";
+import {
+  EventApiError,
+  getLatestEvent,
+} from "@/_features/event/services/event.api";
 
-import Hero from "@/_components/sections/Marketing/Hero";
-import { bookingConfig } from "@/_config/booking.config";
-import { BookingForm } from "@/_features/bookings/components/BookingForm";
-import { BookingFormStatus } from "@/_features/bookings/components/BookingFormStatus";
-import { OrderSummary } from "@/_features/bookings/components/OrderSummary";
-import { useBookingForm } from "@/_hooks/useBookingForm";
-import { FormProvider } from "react-hook-form";
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const event = await getLatestEvent();
 
-export default function BookingPage() {
-  const { methods, onSubmit, isSubmitting, status, reset } = useBookingForm();
+    return createPageMetadata({
+      title: `Book Tickets for ${event.eventName}`,
+      description: `Reserve your seat for ${event.eventName} at ${getEventVenueName(event)}.`,
+      path: "/booking",
+      image: getEventImage(event),
+      keywords: getSeoKeywords("booking", [
+        `book ${event.eventName.toLowerCase()} tickets`,
+      ]),
+    });
+  } catch {
+    return createPageMetadataFromConfig("booking");
+  }
+}
+
+export default async function BookingPage() {
+  let event;
+  let message: string | null = null;
+
+  try {
+    event = await getLatestEvent();
+  } catch (error) {
+    message =
+      error instanceof EventApiError
+        ? error.message
+        : "Booking is temporarily unavailable because the latest event could not be loaded.";
+  }
+
+  if (!event) {
+    return (
+      <EventUnavailable
+        title="Booking Unavailable"
+        message={message ?? "Booking is temporarily unavailable."}
+      />
+    );
+  }
 
   return (
-    <div className="relative">
-      <link rel="preload" as="image" href="/home_hero.jpg" fetchPriority="high" />
-      <Hero
-        title="Midnight Krishna Kirtan"
-        location="ISKCON Temple Hall | Hare Krishna Land, Juhu, Mumbai 400049"
-        date={bookingConfig.eventDate}
-        backgroundImage="/home_hero.jpg"
-      />
-
-      <div className="relative lg:-mt-40 z-10">
-        <section className="w-full flex justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
-          {status === "success" || status === "error" ? (
-            <BookingFormStatus status={status} onRetry={reset} />
-          ) : (
-            <FormProvider {...methods}>
-              <form
-                onSubmit={methods.handleSubmit(onSubmit)}
-                className="w-full max-w-7xl"
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6 lg:gap-0">
-                  <BookingForm {...bookingConfig} isSubmitting={isSubmitting} />
-                  <OrderSummary {...bookingConfig} isSubmitting={isSubmitting} />
-                </div>
-              </form>
-            </FormProvider>
-          )}
-        </section>
-      </div>
-    </div>
+    <BookingPageClient
+      eventTitle={event.eventName}
+      eventDate={getEventDisplayDate(event)}
+      eventLocation={getEventVenueName(event)}
+      heroImage={getEventImage(event)}
+    />
   );
 }

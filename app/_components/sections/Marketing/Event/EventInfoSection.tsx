@@ -12,6 +12,7 @@ import {
 import { Cinzel } from "next/font/google";
 import clsx from "clsx";
 import { CTAButton } from "@/_components/ui/CTAButton";
+import { BookingCategory } from "@/_types/Booking.types";
 
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
@@ -23,17 +24,14 @@ type EventInfoSectionProps = {
   time?: string;
   venue?: {
     name: string;
-    address: string;
+    address?: string;
   };
   capacity?: {
     current: number;
     total: number;
   };
   type?: string;
-  booking?: {
-    categories: string[];
-    price: string;
-  };
+  booking?: BookingCategory[];
 };
 
 export default function EventInfoSection({
@@ -45,10 +43,12 @@ export default function EventInfoSection({
   },
   capacity = { current: 150, total: 200 },
   type = "Public | Indoor | Classical Dance | Singing",
-  booking = {
-    categories: ["General Sitting", "Premium Seating"],
-    price: "₹250",
-  },
+  booking = [
+    {
+      name: "General Sitting",
+      price: 800,
+    },
+  ],
 }: EventInfoSectionProps) {
   return (
     <section className="h-full w-full">
@@ -76,7 +76,9 @@ export default function EventInfoSection({
                 Venue
               </p>
               <p className="font-semibold text-para">{venue.name}</p>
-              <p className="text-sm text-para">{venue.address}</p>
+              {venue.address && (
+                <p className="text-sm text-para">{venue.address}</p>
+              )}
             </div>
           </div>
 
@@ -92,15 +94,20 @@ export default function EventInfoSection({
 
           <Divider />
 
-          <InfoBlock icon={BookmarkMinus} label="Type" value={type} />
-
-          <Divider />
+          {type && (
+            <>
+              <InfoBlock icon={BookmarkMinus} label="Type" value={type} />
+              <Divider />
+            </>
+          )}
 
           {/* BOOKING */}
-          <div className="flex gap-4 justify-between items-start">
-            <div className="flex gap-4">
-              <Ticket className="text-primary w-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] h-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] mt-1" />
-              <div>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-start gap-4">
+              <Ticket className="text-primary w-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] h-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] mt-1 shrink-0" />
+
+              <div className="flex flex-col w-full gap-3">
+                {/* Heading */}
                 <p
                   className={clsx(
                     "text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)]",
@@ -111,25 +118,40 @@ export default function EventInfoSection({
                   Booking
                 </p>
 
-                {booking.categories.map((cat, i) => (
-                  <p
-                    key={i}
-                    className="text-para text-[clamp(0.813rem,calc(0.723rem+0.446vw),1.125rem)] font-medium"
-                  >
-                    {cat}
+                {/* Booking List */}
+                {booking?.length ? (
+                  <div className="flex flex-col gap-2 w-full">
+                    {booking.map((cat) => {
+                      const key = `${cat.name}-${cat.price}`;
+
+                      return (
+                        <div
+                          key={key}
+                          className="flex justify-between items-center"
+                        >
+                          <p className="text-para text-[clamp(0.813rem,calc(0.723rem+0.446vw),1.125rem)] font-medium">
+                            {cat.name}
+                          </p>
+
+                          <p
+                            className={clsx(
+                              "text-primary font-bold text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)]",
+                              cinzel.className,
+                            )}
+                          >
+                            ₹{cat.price.toLocaleString("en-IN")}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p className="text-para text-[clamp(0.813rem,calc(0.723rem+0.446vw),1.125rem)] font-medium opacity-70">
+                    Tickets information unavailable
                   </p>
-                ))}
+                )}
               </div>
             </div>
-
-            <p
-              className={clsx(
-                "text-primary font-bold text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)]",
-                cinzel.className,
-              )}
-            >
-              {booking.price}
-            </p>
           </div>
         </div>
 

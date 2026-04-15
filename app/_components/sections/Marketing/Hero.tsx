@@ -7,6 +7,7 @@ import { CTAButton } from "../../ui/CTAButton";
 type HeroProps = {
   title?: string;
   location?: string;
+  address?: string;
   date?: string;
   primaryCta?: {
     label: string;
@@ -27,6 +28,7 @@ const cinzel = Cinzel({
 export default function Hero({
   title,
   location,
+  address,
   date,
   primaryCta,
   secondaryCta,
@@ -63,10 +65,12 @@ export default function Hero({
           </h1>
         )}
 
-        {/* Location */}
-        {location && (
+        {/* Location & Address */}
+        {(location || address) && (
           <p className="mt-4 text-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)] text-gray-200">
             {location}
+            {location && address && <span className="mx-2">|</span>}
+            {address}
           </p>
         )}
 

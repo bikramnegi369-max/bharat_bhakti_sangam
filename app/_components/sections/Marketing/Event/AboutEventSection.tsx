@@ -48,39 +48,43 @@ export default function AboutEventSection({
         </p>
 
         {/* Instruments */}
-        <div className="mt-8">
-          <p className="font-semibold text-para text-[clamp(0.813rem,calc(0.652rem+0.804vw),1.375rem)] mb-3 uppercase">
-            Instruments
-          </p>
+        {instruments.length > 0 && (
+          <div className="mt-8">
+            <p className="font-semibold text-para text-[clamp(0.813rem,calc(0.652rem+0.804vw),1.375rem)] mb-3 uppercase">
+              Instruments
+            </p>
 
-          <div className="flex flex-wrap gap-3">
-            {instruments.map((item, index) => (
-              <span
-                key={index}
-                className="px-4 py-1.5 rounded-full border border-primary bg-secondary text-primary text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)] font-medium hover:bg-primary/10 transition"
-              >
-                {item}
-              </span>
-            ))}
+            <div className="flex flex-wrap gap-3">
+              {instruments.map((item, index) => (
+                <span
+                  key={index}
+                  className="px-4 py-1.5 rounded-full border border-primary bg-secondary text-primary text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)] font-medium hover:bg-primary/10 transition"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Divider */}
-        <div className="my-8 h-px w-full bg-para/30" />
+        {hashtags.length > 0 && (
+          <>
+            <div className="my-8 h-px w-full bg-para/30" />
 
-        {/* Hashtags */}
-        <div>
-          <div className="flex flex-wrap gap-3">
-            {hashtags.map((tag, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 rounded-full border border-heading text-para text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)]"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
+            <div>
+              <div className="flex flex-wrap gap-3">
+                {hashtags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 rounded-full border border-heading text-para text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)]"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

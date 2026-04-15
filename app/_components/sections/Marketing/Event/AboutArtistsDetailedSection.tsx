@@ -103,36 +103,53 @@ export default function AboutArtistsDetailedSection({
                           fill
                           className="object-cover"
                           sizes="(max-width: 1024px) 90vw, 45vw"
-                          loading="lazy"
+                          priority={index === 0 && i === 0}
+                          loading={index === 0 && i === 0 ? undefined : "lazy"}
                         />
                       </div>
                     ))}
                   </div>
 
                   {/* Desktop (staggered layout) */}
-                  <div className="hidden lg:block relative h-[clamp(25rem,calc(15.769rem+14.423vw),28.75rem)]">
-                    {/* Image 1 */}
-                    <div className="absolute left-0 top-0 w-[clamp(15.875rem,calc(13.482rem+11.964vw),24.25rem)] h-[clamp(8.875rem,calc(7.536rem+6.696vw),13.563rem)] rounded-lg overflow-hidden border-2 border-primary shadow-md group">
-                      <Image
-                        src={artist.images[0]}
-                        alt={`${artist.name}-1`}
-                        fill
-                        sizes="(max-width: 1024px) 90vw, 45vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                    </div>
+                  {artist.images.length >= 2 && (
+                    <div className="hidden lg:block relative h-[clamp(25rem,calc(15.769rem+14.423vw),28.75rem)]">
+                      {/* Image 1 */}
+                      <div className="absolute left-0 top-0 w-[clamp(15.875rem,calc(13.482rem+11.964vw),24.25rem)] h-[clamp(8.875rem,calc(7.536rem+6.696vw),13.563rem)] rounded-lg overflow-hidden border-2 border-primary shadow-md group">
+                        <Image
+                          src={artist.images[0]}
+                          alt={`${artist.name}-1`}
+                          fill
+                          sizes="(max-width: 1024px) 90vw, 45vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
 
-                    {/* Image 2 */}
-                    <div className="absolute right-0 bottom-0 w-[clamp(15.875rem,calc(13.482rem+11.964vw),24.25rem)] h-[clamp(8.875rem,calc(7.536rem+6.696vw),13.563rem)] rounded-lg overflow-hidden border-2 border-primary shadow-md group">
-                      <Image
-                        src={artist.images[1]}
-                        alt={`${artist.name}-2`}
-                        fill
-                        sizes="(max-width: 1024px) 90vw, 45vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
+                      {/* Image 2 */}
+                      <div className="absolute right-0 bottom-0 w-[clamp(15.875rem,calc(13.482rem+11.964vw),24.25rem)] h-[clamp(8.875rem,calc(7.536rem+6.696vw),13.563rem)] rounded-lg overflow-hidden border-2 border-primary shadow-md group">
+                        <Image
+                          src={artist.images[1]}
+                          alt={`${artist.name}-2`}
+                          fill
+                          sizes="(max-width: 1024px) 90vw, 45vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
+
+                  {artist.images.length === 1 && (
+                    <div className="hidden lg:block relative h-[clamp(16rem,calc(12rem+8vw),20rem)]">
+                      <div className="absolute inset-x-0 top-0 mx-auto w-[clamp(15.875rem,calc(13.482rem+11.964vw),24.25rem)] h-[clamp(8.875rem,calc(7.536rem+6.696vw),13.563rem)] rounded-lg overflow-hidden border-2 border-primary shadow-md group">
+                        <Image
+                          src={artist.images[0]}
+                          alt={`${artist.name}-1`}
+                          fill
+                          sizes="(max-width: 1024px) 90vw, 45vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             );

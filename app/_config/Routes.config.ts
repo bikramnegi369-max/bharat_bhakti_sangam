@@ -10,6 +10,7 @@ export const routes = {
 
 export const apiRoutes = {
   event: "/event",
+  latestEvent: "/event/latest",
   contact: "/contact",
   booking: "/booking",
   feedback: "/feedback",
