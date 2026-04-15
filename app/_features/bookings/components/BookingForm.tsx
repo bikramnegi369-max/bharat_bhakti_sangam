@@ -2,6 +2,7 @@ import { Button } from "@/_components/ui/Button";
 import { Counter } from "@/_components/ui/Counter";
 import { Dropdown } from "@/_components/ui/Dropdown/index";
 import { Field } from "@/_components/ui/Field/Field";
+import { BOOKING_CONFIG } from "@/_lib/constants/booking.constants";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
 import { Info } from "lucide-react";
@@ -44,12 +45,12 @@ export const BookingForm = ({
 
   return (
     <div
-      className="bg-white border-2 border-primary  rounded-lg lg:border-r-0 lg:rounded-t-none lg:rounded-b-none  lg:rounded-l-3xl! shadow-sm space-y-8 lg:space-y-16  px-[clamp(1.375rem,calc(1.054rem+1.607vw),2.5rem)]
+      className="w-full bg-white border-2 border-primary rounded-3xl! shadow-sm space-y-8 lg:space-y-16  px-[clamp(1.375rem,calc(1.054rem+1.607vw),2.5rem)]
            py-[clamp(1.875rem,calc(1.554rem+1.607vw),3rem)] "
     >
       <h2
         className={clsx(
-          "text-[clamp(1.313rem,calc(1.063rem+1.25vw),2.188rem)] font-bold text-heading",
+          "text-[clamp(1.313rem,calc(1.063rem+1.25vw),2.188rem)] font-bold text-heading text-center",
           cinzel.className,
         )}
       >
@@ -58,7 +59,8 @@ export const BookingForm = ({
       <Field
         as="input"
         type="text"
-        label="Full Name"
+        label={BOOKING_CONFIG.form.fullNameLabel}
+        placeholder={BOOKING_CONFIG.form.fullNamePlaceholder}
         {...register("fullName")}
         error={errors.fullName?.message as string}
         labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
@@ -66,7 +68,8 @@ export const BookingForm = ({
       <Field
         as="input"
         type="email"
-        label="Email"
+        label={BOOKING_CONFIG.form.emailLabel}
+        placeholder={BOOKING_CONFIG.form.emailPlaceholder}
         {...register("email")}
         error={errors.email?.message as string}
         labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
@@ -74,13 +77,14 @@ export const BookingForm = ({
       <Field
         as="input"
         type="tel"
-        label="Mobile"
+        label={BOOKING_CONFIG.form.phoneLabel}
+        placeholder={BOOKING_CONFIG.form.phonePlaceholder}
         {...register("mobile")}
         error={errors.mobile?.message as string}
         maxLength={10}
         labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
       />
-      <div className="flex flex-col justify-center gap-8">
+      {/* <div className="flex flex-col justify-center gap-8">
         <Controller
           name="ticketType"
           control={control}
@@ -93,7 +97,7 @@ export const BookingForm = ({
             />
           )}
         />
-      </div>
+      </div> */}
       <div className="flex flex-col justify-center gap-3">
         <span className="text-[clamp(0.813rem,calc(0.741rem+0.357vw),1.063rem)] font-semibold tracking-[0.25em] uppercase text-gray-500 ">
           Number of Tickets
@@ -105,10 +109,10 @@ export const BookingForm = ({
         />
       </div>
 
-      <hr className="lg:hidden border-para opacity-20" />
+      <hr className=" border-para opacity-20" />
 
-      <div className="lg:hidden flex flex-col gap-4">
-        <div className="flex justify-between items-center">
+      <div className=" flex flex-col gap-4">
+        {/* <div className="flex justify-between items-center">
           <span className="text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] font-semibold text-para tracking-wider">
             Grand Total :
           </span>
@@ -120,7 +124,7 @@ export const BookingForm = ({
           >
             ₹{total}
           </span>
-        </div>
+        </div> */}
         <Button
           type="submit"
           variant="primary"
@@ -133,7 +137,7 @@ export const BookingForm = ({
         </Button>
         <div className="flex gap-2 p-2 border rounded-md border-primary m-auto">
           <Info size={14} className="text-primary" />
-          <span className="text-[8px] text-primary">
+          <span className="text-[8px] lg:text-sm text-primary">
             Valid for {values?.tickets}{" "}
             {values?.tickets === 1 ? "entry" : "entries"} for the event on{" "}
             {eventDate}.

@@ -1,4 +1,3 @@
-
 export const routes = {
   home: "/",
   event: "/event",
@@ -12,6 +11,6 @@ export const apiRoutes = {
   event: "/event",
   latestEvent: "/event/latest",
   contact: "/contact",
-  booking: "/booking",
+  booking: "/booking/create-ticket",
   feedback: "/feedback",
 };

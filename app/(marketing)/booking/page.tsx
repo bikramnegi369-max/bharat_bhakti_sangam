@@ -56,6 +56,7 @@ export default async function BookingPage() {
 
   return (
     <BookingPageClient
+      eventId={event._id}
       eventTitle={event.eventName}
       eventDate={getEventDisplayDate(event)}
       eventLocation={getEventVenueName(event)}

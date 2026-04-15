@@ -25,16 +25,18 @@ export default function WelcomeSection() {
           </h2>
 
           <p className="mt-6 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center">
-            Where devotion transforms into celebration and music becomes
-            meditation. This is not just a concert. This is not just a bhajan
-            evening.
+            India’s most energetic devotional music experience where traditional
+            bhajans, kirtans, and mantra chanting blend with modern beats and
+            live performances.
           </p>
 
           <p className="mt-4 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center">
-            <span className="font-semibold text-black">BhajanClubbingLive</span>{" "}
-            is a spiritually immersive live experience designed to connect
-            hearts, uplift souls, and unite communities through the power of
-            divine music and modern stage energy.
+            Book your{" "}
+            <span className="font-semibold text-black">
+              Bhajan Clubbing tickets
+            </span>{" "}
+            , join immersive spiritual EDM nights, and experience devotion like
+            never before.
           </p>
         </div>
 

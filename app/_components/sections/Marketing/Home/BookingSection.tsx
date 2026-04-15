@@ -135,12 +135,12 @@ export default function BookingSection({
 
           <ul className="space-y-3">
             {[
-              "Live Devotional Performances",
-              "Bhakti-Based Bollywood Melodies",
+              "Enjoy powerful live bhajan and kirtan concerts.",
+              "Dance to uplifting electronic bhakti beats.",
               "Collective Mantra Chanting",
-              "High-Quality Sound & Lighting",
+              "Celebrate devotion in a vibrant setting.",
               "A Spiritually Elevated Environment",
-              "Community Networking & High Tea Experience",
+              "Experience a unique blend of meditation & music.",
             ].map((item, index) => (
               <li key={index} className="flex gap-3 items-center">
                 <BadgeCheck className="text-primary w-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)] h-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)]" />

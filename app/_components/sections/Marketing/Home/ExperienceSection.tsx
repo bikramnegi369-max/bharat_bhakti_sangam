@@ -42,8 +42,11 @@ export default function ExperienceSection() {
           </h2>
 
           <p className="mt-4 text-gray-600 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)]">
-            BhajanClubbingLive is a premium devotional concert series that
-            redefines how spirituality is experienced in the modern world.
+            Bhajan Clubbing is more than a concert — it’s a movement redefining
+            how India experiences spirituality. From interactive kirtan sessions
+            and live devotional band performances to electronic bhakti festivals
+            and Bharat Bhakti Sangam gatherings, every event creates a powerful
+            connection between music, energy, and devotion.
           </p>
         </div>
 

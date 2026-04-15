@@ -13,6 +13,7 @@ type TicketType = {
 };
 
 type BookingPageClientProps = {
+  eventId: string;
   eventTitle: string;
   eventDate?: string;
   eventLocation: string;
@@ -22,6 +23,7 @@ type BookingPageClientProps = {
 };
 
 export function BookingPageClient({
+  eventId,
   eventTitle,
   eventDate,
   eventLocation,
@@ -31,6 +33,7 @@ export function BookingPageClient({
 }: BookingPageClientProps) {
   const { methods, onSubmit, isSubmitting, status, reset } = useBookingForm(
     ticketTypes[0]?.name,
+    eventId,
   );
 
   const bookingDetails = {
@@ -42,7 +45,7 @@ export function BookingPageClient({
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full min-h-screen overflow-hidden">
       <link rel="preload" as="image" href={heroImage} fetchPriority="high" />
       <Hero
         title={eventTitle}
@@ -60,17 +63,17 @@ export function BookingPageClient({
             <FormProvider {...methods}>
               <form
                 onSubmit={methods.handleSubmit(onSubmit)}
-                className="w-full max-w-7xl"
+                className="w-full max-w-7xl flex justify-center items-center"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6 lg:gap-0">
+                <div className="w-full grid grid-cols-1 place-items-center max-w-2xl">
                   <BookingForm
                     {...bookingDetails}
                     isSubmitting={isSubmitting}
                   />
-                  <OrderSummary
+                  {/* <OrderSummary
                     {...bookingDetails}
                     isSubmitting={isSubmitting}
-                  />
+                  /> */}
                 </div>
               </form>
             </FormProvider>

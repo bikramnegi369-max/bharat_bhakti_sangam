@@ -7,7 +7,10 @@ import { useForm } from "react-hook-form";
 import { submitBooking } from "@/_features/bookings/services/booking.service";
 import { FormSubmitStatus } from "@/_components/common/FormSubmitStatus";
 
-export function useBookingForm(defaultTicketType: string = "") {
+export function useBookingForm(
+  defaultTicketType: string = "",
+  eventId: string = "",
+) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<FormSubmitStatus | "idle">("idle");
 
@@ -25,7 +28,7 @@ export function useBookingForm(defaultTicketType: string = "") {
   const onSubmit = async (data: BookingFormData) => {
     try {
       setIsSubmitting(true);
-      await submitBooking(data);
+      await submitBooking(data, eventId);
       setStatus("success");
     } catch (error) {
       console.error("Booking submission failed:", error);
