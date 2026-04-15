@@ -8,6 +8,7 @@ import { FeedbackFormActions } from "./FeedbackFormActions";
 import { FeedbackFormStatus } from "./FeedbackFormStatus";
 import { FeedbackFormData, feedbackSchema } from "@/_schemas/feedback.schema";
 import { useFeedbackForm } from "@/_hooks/useFeedbackForm";
+import { useEffect, useRef } from "react";
 
 export function FeedbackForm() {
   const methods = useForm<FeedbackFormData>({
@@ -22,29 +23,47 @@ export function FeedbackForm() {
     },
   });
 
-  const { handleSubmit, isSubmitting, status, errorMessage, reset } = useFeedbackForm();
+  const { handleSubmit, isSubmitting, status, errorMessage, reset } =
+    useFeedbackForm();
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if ((status === "success" || status === "error") && containerRef.current) {
+      containerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [status]);
 
   const handleRetry = () => {
     reset();
     methods.reset();
   };
 
-  if (status === "success" || status === "error") {
-    return <FeedbackFormStatus status={status} onRetry={handleRetry} errorMessage={errorMessage} />;
-  }
-
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(handleSubmit)}
-        className="w-full max-w-2xl mx-auto rounded-2xl space-y-8"
-        noValidate
-      >
-        <FeedbackRatings />
-        <hr className="border-gray-200" />
-        <FeedbackFormFields />
-        <FeedbackFormActions isSubmitting={isSubmitting} />
-      </form>
-    </FormProvider>
+    <div ref={containerRef}>
+      {status === "success" || status === "error" ? (
+        <FeedbackFormStatus
+          status={status}
+          onRetry={handleRetry}
+          errorMessage={errorMessage}
+        />
+      ) : (
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit(handleSubmit)}
+            className="w-full max-w-2xl mx-auto rounded-2xl space-y-8"
+            noValidate
+          >
+            <FeedbackRatings />
+            <hr className="border-gray-200" />
+            <FeedbackFormFields />
+            <FeedbackFormActions isSubmitting={isSubmitting} />
+          </form>
+        </FormProvider>
+      )}
+    </div>
   );
 }
