@@ -5,6 +5,7 @@ import { BookingForm } from "@/_features/bookings/components/BookingForm";
 import { BookingFormStatus } from "@/_features/bookings/components/BookingFormStatus";
 import { OrderSummary } from "@/_features/bookings/components/OrderSummary";
 import { useBookingForm } from "@/_hooks/useBookingForm";
+import { useEffect, useRef } from "react";
 import { FormProvider } from "react-hook-form";
 
 type TicketType = {
@@ -39,6 +40,7 @@ export function BookingPageClient({
     specificErrorMessage,
     reset,
   } = useBookingForm(ticketTypes[0]?.name, eventId);
+  const statusRef = useRef<HTMLDivElement | null>(null);
 
   const bookingDetails = {
     eventTitle,
@@ -47,6 +49,15 @@ export function BookingPageClient({
     eventAddress,
     ticketTypes,
   };
+
+  useEffect(() => {
+    if ((status === "success" || status === "error") && statusRef.current) {
+      statusRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [status]);
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
@@ -62,11 +73,13 @@ export function BookingPageClient({
       <div className="relative lg:-mt-40 z-10">
         <section className="w-full flex justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
           {status === "success" || status === "error" ? (
-            <BookingFormStatus
-              status={status}
-              onRetry={reset}
-              errorMessage={specificErrorMessage}
-            />
+            <div ref={statusRef} className="w-full flex justify-center">
+              <BookingFormStatus
+                status={status}
+                onRetry={reset}
+                errorMessage={specificErrorMessage}
+              />
+            </div>
           ) : (
             <FormProvider {...methods}>
               <form
