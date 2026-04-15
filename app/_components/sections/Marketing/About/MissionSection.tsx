@@ -26,19 +26,25 @@ export default function MissionSection() {
             </h2>
           </div>
 
-          <p className="mt-6 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center">
-            Bhajan-Clubbing.com was born from a simple belief — that devotional
-            music has the power to unite people across cities, cultures, and
-            generations. We provide a modern digital platform where devotees can
-            participate in bhajan events anywhere in the world. we make it easy
-            to come together in devotion.
-          </p>
+          <div className="mt-6 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center flex flex-col gap-4">
+            <span>
+              Our mission is to create a new-age devotional experience where
+              people can chant, celebrate, connect, and feel spiritual energy
+              together through immersive bhajan clubbing concerts, interactive
+              kirtan sessions, and modern bhakti music festivals across India.
+            </span>
+            <span>
+              We aim to build a community where spirituality feels joyful,
+              inclusive, and alive for everyone — especially the younger
+              generation.
+            </span>
+          </div>
         </div>
 
         {/* IMAGE */}
         <div className="relative w-[clamp(15.813rem,calc(10.491rem+26.607vw),34.438rem)] h-[clamp(10.313rem,calc(6.866rem+17.232vw),22.375rem)] rounded-lg overflow-hidden mx-auto group aspect-video border-3 border-primary">
           <Image
-            src="/about_mission.png" // replace with your image
+            src="/about_mission.png"
             alt="Our Mission"
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"

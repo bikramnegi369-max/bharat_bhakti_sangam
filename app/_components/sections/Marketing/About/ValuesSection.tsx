@@ -1,12 +1,5 @@
 import Card from "@/_components/ui/Card";
-import {
-  Brain,
-  CalendarCheck,
-  HeartPulse,
-  Music,
-  Sparkles,
-  Users,
-} from "lucide-react";
+import { Brain, Gem, HeartPulse, Music, Sparkles, Users } from "lucide-react";
 import { Cinzel } from "next/font/google";
 
 const cards = [
@@ -14,37 +7,37 @@ const cards = [
     icon: Brain,
     title: "Spiritual Roots, Modern Soul",
     description:
-      "We respect the spiritual essence of bhajans while presenting them in a modern way.",
+      "We keep the essence of bhakti, kirtan, and mantra chanting at the heart of every experience.",
   },
   {
     icon: Music,
     title: "Multi-Sensory Experiences",
     description:
-      "We create events that engage all senses — music, lights, and energy.",
+      "From traditional bhajans to electronic bhakti and live devotional band performances.",
   },
   {
     icon: HeartPulse,
     title: "Rhythm with Purpose",
     description:
-      "Every beat and rhythm is designed to uplift, not distract from devotion.",
+      "Bhajan Clubbing events bring people together to share energy, positivity.",
   },
   {
     icon: Sparkles,
     title: "Seamless & Premium",
     description:
-      "From sound to venue, we ensure a premium and seamless experience.",
+      "We transform traditional gatherings into immersive devotional nightlife experiences.",
   },
   {
     icon: Users,
     title: "Devotion Reimagined",
     description:
-      "We make devotion accessible and relevant for today's generation.",
+      "Our events welcome everyone — whether you are deeply spiritual, curious about bhakti music.",
   },
   {
-    icon: CalendarCheck,
+    icon: Gem,
     title: "Hassle-Free Journey",
     description:
-      "We keep everything easy — from booking to attending the event.",
+      "Every Bhajan Clubbing concert and kirtan event is designed to uplift minds & energize hearts",
   },
 ];
 
