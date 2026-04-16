@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/_store/provider";
-import { FloatingStack } from "./_components/common/Floating/FloatingStack";
 import { siteConfig } from "@/_config/Site.config";
 import { jsonLdScript } from "@/_lib/seo";
 
@@ -11,42 +10,42 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: `${siteConfig.name} | Spiritual Devotion, Bhajans, and Kirtan Events`,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  applicationName: siteConfig.name,
-  keywords: siteConfig.keywords,
-  authors: [{ name: `${siteConfig.name} Team` }],
-  creator: siteConfig.name,
-  publisher: siteConfig.name,
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    locale: siteConfig.locale,
-    type: "website",
-    images: [
-      {
-        url: siteConfig.ogImage,
-        alt: siteConfig.name,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [siteConfig.ogImage],
-  },
-};
+// export const metadata: Metadata = {
+//   metadataBase: new URL(siteConfig.url),
+//   title: {
+//     default: `${siteConfig.name} | Spiritual Devotion, Bhajans, and Kirtan Events`,
+//     template: `%s | ${siteConfig.name}`,
+//   },
+//   description: siteConfig.description,
+//   applicationName: siteConfig.name,
+//   keywords: siteConfig.keywords,
+//   authors: [{ name: `${siteConfig.name} Team` }],
+//   creator: siteConfig.name,
+//   publisher: siteConfig.name,
+//   alternates: {
+//     canonical: "/",
+//   },
+//   openGraph: {
+//     title: siteConfig.name,
+//     description: siteConfig.description,
+//     url: siteConfig.url,
+//     siteName: siteConfig.name,
+//     locale: siteConfig.locale,
+//     type: "website",
+//     images: [
+//       {
+//         url: siteConfig.ogImage,
+//         alt: siteConfig.name,
+//       },
+//     ],
+//   },
+//   twitter: {
+//     card: "summary_large_image",
+//     title: siteConfig.name,
+//     description: siteConfig.description,
+//     images: [siteConfig.ogImage],
+//   },
+// };
 
 export default function RootLayout({
   children,
@@ -69,7 +68,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd)}
         />
         <StoreProvider>{children}</StoreProvider>
-        <FloatingStack />
       </body>
     </html>
   );

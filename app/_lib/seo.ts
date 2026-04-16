@@ -78,9 +78,6 @@ export function createPageMetadata({
     ogKey,
   );
 
-  console.log(absoluteImage);
-
-
   const finalTitle = optimizeTitle(title);
   const finalDescription = optimizeDescription(description);
 

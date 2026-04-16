@@ -1,3 +1,5 @@
+"use client";
+
 import { EventsTable } from "@/_features/event/components/EventsTable";
 
 export default function AdminPage() {
