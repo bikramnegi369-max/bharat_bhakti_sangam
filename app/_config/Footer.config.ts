@@ -22,7 +22,7 @@ export const footerConfig: FooterConfig = {
     },
     {
       platform: "youtube",
-      href: "#",
+      href: "https://www.youtube.com/@Bharat.Bhakti.Sangam",
       label: "YouTube",
       icon: "/social_media/youtube_logo.png",
     },

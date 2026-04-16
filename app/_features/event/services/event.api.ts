@@ -113,7 +113,6 @@ export const getLatestEvent = cache(async (): Promise<LatestEvent> => {
 
   try {
     payload = await response.json();
-    console.log(payload);
   } catch {
     throw new EventApiError(
       "Latest event API returned invalid JSON.",

@@ -43,7 +43,7 @@ export default function AboutArtistSection({
           {artists.map((artist, index) => (
             <div
               key={index}
-              className="flex items-center justify-between text-[clamp(0.75rem,calc(0.607rem+0.714vw), 1.25rem)]"
+              className="flex items-center justify-between text-[clamp(0.813rem,calc(0.723rem+0.446vw),1.125rem)]"
             >
               {/* Name */}
               <p className="font-medium text-heading">{artist.name}</p>
