@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         hostname: "upload.wikimedia.org",
       },
     ],
-    qualities: [25, 50, 65, 75],
+    qualities: [25, 50, 60, 65, 75],
   },
 };
 
