@@ -58,7 +58,7 @@ export default function AboutEventSection({
               {instruments.map((item, index) => (
                 <span
                   key={index}
-                  className="px-4 py-1.5 rounded-full border border-primary bg-secondary text-primary text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)] font-medium hover:bg-primary/10 transition"
+                  className="px-4 py-1.5 rounded-full border border-primary bg-secondary text-para text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)] font-medium hover:bg-primary/10 transition"
                 >
                   {item}
                 </span>

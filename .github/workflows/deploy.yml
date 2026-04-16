@@ -1,0 +1,42 @@
+name: Deploy Bharat Bhakti Sangam to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/bharat_bhakti_sangam
+
+            echo "Loading environment..."
+            source ~/.bashrc || true
+
+            echo "Ensure pnpm exists..."
+            command -v pnpm >/dev/null 2>&1 || npm install -g pnpm
+
+            echo "Pull latest code..."
+            git fetch --all
+            git reset --hard origin/main
+
+            echo "Install deps..."
+            pnpm install --frozen-lockfile
+
+            echo "Build app..."
+            pnpm build
+
+            echo "Reload app (zero downtime)..."
+            pm2 reload bbs-app || pm2 start pnpm --name "bbs-app" -- start
+
+            echo "Save PM2..."
+            pm2 save
