@@ -9,24 +9,56 @@ type CreatePageMetadataOptions = {
   image?: string;
   keywords?: string[];
   noIndex?: boolean;
+  ogKey?: string;
 };
 
 /* -------------------------------- HELPERS -------------------------------- */
 
-function toAbsoluteUrl(url: string) {
+function withCacheBusting(url: string, key?: string) {
+  if (!key) return url;
+  return `${url}${url.includes("?") ? "&" : "?"}v=${encodeURIComponent(key)}`;
+}
+
+function toAbsoluteUrl(url?: string) {
   if (!url) return siteConfig.url;
-  if (url.startsWith("http")) return url;
-  return `${siteConfig.url}${url}`;
+
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  }
+
+  if (url.startsWith("//")) {
+    return `https:${url}`;
+  }
+
+  const normalized = url.startsWith("/") ? url : `/${url}`;
+  return `${siteConfig.url}${normalized}`;
 }
 
 function optimizeTitle(title: string) {
-  if (title.length >= 50) return title;
-  return `${title}`;
+  if (title.includes(siteConfig.name)) return title;
+  return `${title} | ${siteConfig.name}`;
 }
 
 function optimizeDescription(description: string) {
   if (description.length >= 110) return description;
-  return `${description} Explore events, book tickets, and experience unforgettable moments.`;
+  return `${description} ${siteConfig.tagline}.`;
+}
+
+function isCloudinaryUrl(url?: string) {
+  return !!url && url.includes("res.cloudinary.com");
+}
+
+function getOptimizedOgImage(url?: string) {
+  if (!url) return siteConfig.ogImage;
+
+  if (!isCloudinaryUrl(url)) {
+    return toAbsoluteUrl(url);
+  }
+
+  return url.replace(
+    "/upload/",
+    "/upload/w_1200,h_630,c_fill,q_auto:eco,f_auto/",
+  );
 }
 
 /* --------------------------- MAIN METADATA BUILDER --------------------------- */
@@ -38,9 +70,16 @@ export function createPageMetadata({
   image = siteConfig.ogImage,
   keywords = [],
   noIndex = false,
+  ogKey,
 }: CreatePageMetadataOptions): Metadata {
   const absoluteUrl = toAbsoluteUrl(path);
-  const absoluteImage = toAbsoluteUrl(image);
+  const absoluteImage = withCacheBusting(
+    getOptimizedOgImage(image || siteConfig.ogImage),
+    ogKey,
+  );
+
+  console.log(absoluteImage);
+
 
   const finalTitle = optimizeTitle(title);
   const finalDescription = optimizeDescription(description);
@@ -79,6 +118,8 @@ export function createPageMetadata({
       title: finalTitle,
       description: finalDescription,
       images: [absoluteImage],
+      creator: siteConfig.twitter?.handle,
+      site: siteConfig.twitter?.site,
     },
 
     robots: noIndex
@@ -103,9 +144,11 @@ export function createPageMetadata({
           },
         },
 
-    // 🔥 underrated but useful
-    authors: [{ name: siteConfig.name }],
-    creator: siteConfig.name,
+    // underrated but useful
+    authors: [{ name: siteConfig.author.name }],
+    creator: siteConfig.creator.name,
+    publisher: siteConfig.publisher.name,
+    applicationName: siteConfig.name,
     icons: {
       icon: "/favicon.ico",
     },

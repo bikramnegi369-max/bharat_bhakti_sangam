@@ -46,6 +46,10 @@ export function getEventImage(event: LatestEvent) {
   return event.eventBanner?.trim() ? event.eventBanner : "/event.jpg";
 }
 
+export function getOgImageUrl(event: LatestEvent) {
+  return event.ogImage?.trim() ? event.ogImage : getEventImage(event);
+}
+
 export function getAbsoluteEventImageUrl(event: LatestEvent) {
   const image = getEventImage(event);
 

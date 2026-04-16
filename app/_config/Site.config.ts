@@ -6,7 +6,7 @@ export const siteConfig = {
     "Join Bharat Bhakti Sangam for bhajans, kirtan gatherings, and devotional events.",
   url: "https://bharatbhaktisangam.com",
   locale: "en_IN",
-  ogImage: "/home_hero.jpg",
+  ogImage: "/ogDefault.png",
   keywords: [
     "bhajan clubbing",
     "bharat bhakti sangam",
@@ -19,5 +19,26 @@ export const siteConfig = {
   organization: {
     name: "Bharat Bhakti Sangam",
     type: "Organization",
+  },
+  author: {
+    name: "Bharat Bhakti Sangam",
+    type: "Organization",
+  },
+  publisher: {
+    name: "Bharat Bhakti Sangam",
+    type: "Organization",
+  },
+  creator: {
+    name: "Bharat Bhakti Sangam",
+    type: "Organization",
+  },
+  sponsor: {
+    name: "Bharat Bhakti Sangam",
+    type: "Organization",
+  },
+  twitter: {
+    site: "@BharatBhaktiSangam",
+    creator: "@BharatBhaktiSangam",
+    handle: "@BharatBhaktiSangam",
   },
 };

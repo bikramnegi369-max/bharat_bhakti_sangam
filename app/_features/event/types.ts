@@ -40,6 +40,7 @@ export interface LatestEvent {
       }
   >;
   eventBanner?: string;
+  ogImage?: string;
   ticketPrice?: number;
   maxSeats?: number;
   availableTickets?: number;

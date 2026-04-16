@@ -13,6 +13,7 @@ import {
   getEventImage,
   getEventVenueAddress,
   getEventVenueName,
+  getOgImageUrl,
 } from "@/_lib/helpers";
 import {
   createPageMetadata,
@@ -33,7 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${event.eventName} | ${seoPage.title}`,
       description: getEventDescription(event),
       path: "/",
-      image: getEventImage(event),
+      image: getOgImageUrl(event),
+      ogKey: `${event._id}-${event.updatedAt ?? ""}`,
       keywords: getSeoKeywords("home", [event.eventName.toLowerCase()]),
     });
   } catch {
