@@ -1,4 +1,4 @@
-import { PaginationProps } from "@/_features/event/types";
+import { PaginationProps } from "@/_types/Table.types";
 
 export function TablePagination({
   page,

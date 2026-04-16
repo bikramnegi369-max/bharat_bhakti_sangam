@@ -193,5 +193,5 @@ export function getOptimizedImageUrl(
 
   if (url.includes("?")) return url;
 
-  return `${url}?w=${width}&q=${quality}&auto=format`;
+  return `${url}`;
 }

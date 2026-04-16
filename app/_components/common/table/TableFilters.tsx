@@ -1,4 +1,4 @@
-import { FilterConfig } from "@/_features/event/types";
+import { FilterConfig } from "@/_types/Table.types";
 import { ReactNode } from "react";
 
 const updateFilterValue = (
@@ -53,7 +53,9 @@ export function TableFilters({
                 type={filter.type}
                 value={value}
                 onChange={(e) =>
-                  onChange(updateFilterValue(values, filter.key, e.target.value))
+                  onChange(
+                    updateFilterValue(values, filter.key, e.target.value),
+                  )
                 }
                 className="px-3 py-2 border rounded-md text-sm"
               />
