@@ -32,3 +32,4 @@ export function Rating({ value, onChange, className }: RatingProps) {
     </div>
   );
 }
+//
