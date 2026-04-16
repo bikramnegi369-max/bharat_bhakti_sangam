@@ -16,6 +16,7 @@ export function FooterNav({ navSections, legalLinks }: Props) {
             key={link.label}
             href={link.href}
             className="block text-sm text-white/90 hover:text-white transition-colors"
+            scroll={true}
           >
             {link.label}
           </Link>
