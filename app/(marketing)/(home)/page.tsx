@@ -13,6 +13,7 @@ import {
   getEventImage,
   getEventVenueAddress,
   getEventVenueName,
+  getHomeImage,
   getOgImageUrl,
 } from "@/_lib/helpers";
 import {
@@ -83,7 +84,7 @@ export default async function HomePage() {
       <link
         rel="preload"
         as="image"
-        href={getEventImage(event)}
+        href={getHomeImage(event)}
         fetchPriority="high"
       />
       <Hero
@@ -91,7 +92,7 @@ export default async function HomePage() {
         location={getEventVenueName(event)}
         address={getEventVenueAddress(event)}
         date={getEventDisplayDate(event)}
-        backgroundImage={getEventImage(event)}
+        backgroundImage={getHomeImage(event)}
         primaryCta={{
           label: "Book Now",
           href: "/booking",

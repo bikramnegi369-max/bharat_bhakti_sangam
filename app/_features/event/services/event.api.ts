@@ -72,7 +72,7 @@ function isApiEnvelope<T>(
   );
 }
 
-export const getLatestEvent = cache(async (): Promise<LatestEvent> => {
+export const getLatestEvent = async (): Promise<LatestEvent> => {
   if (!API_URL) {
     throw new EventApiError(
       "Latest event API URL is not configured.",
@@ -141,7 +141,7 @@ export const getLatestEvent = cache(async (): Promise<LatestEvent> => {
   }
 
   return event;
-});
+};
 
 export const eventService: TableService<Event> = {
   getAll: async (params) => {

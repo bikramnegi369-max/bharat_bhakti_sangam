@@ -46,6 +46,10 @@ export function getEventImage(event: LatestEvent) {
   return event.eventBanner?.trim() ? event.eventBanner : "/event.jpg";
 }
 
+export function getHomeImage(event: LatestEvent) {
+  return event.homeBanner?.trim() ? event.homeBanner : getEventImage(event);
+}
+
 export function getOgImageUrl(event: LatestEvent) {
   return event.ogImage?.trim() ? event.ogImage : getEventImage(event);
 }
@@ -170,4 +174,24 @@ export function formatTicketPrice(price: number) {
     currency: "INR",
     maximumFractionDigits: 0,
   }).format(price);
+}
+
+type OptimizeOptions = {
+  width?: number;
+  quality?: number;
+};
+
+export function getOptimizedImageUrl(
+  url?: string,
+  { width = 1200, quality = 70 }: OptimizeOptions = {},
+) {
+  if (!url) return "/fallback.jpg";
+
+  if (url.includes("res.cloudinary.com")) {
+    return url.replace("/upload/", `/upload/f_auto,q_${quality},w_${width}/`);
+  }
+
+  if (url.includes("?")) return url;
+
+  return `${url}?w=${width}&q=${quality}&auto=format`;
 }

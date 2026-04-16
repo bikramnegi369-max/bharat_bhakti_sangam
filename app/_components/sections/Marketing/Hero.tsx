@@ -3,6 +3,7 @@
 import { Cinzel } from "next/font/google";
 import Image from "next/image"; // ADD THIS
 import { CTAButton } from "../../ui/CTAButton";
+import { getOptimizedImageUrl } from "@/_lib/helpers";
 
 type HeroProps = {
   title?: string;
@@ -36,23 +37,22 @@ export default function Hero({
 }: HeroProps) {
   return (
     <section className="relative h-[clamp(14.375rem,calc(6.339rem+40.179vw),42.5rem)] w-full flex items-center justify-center text-center text-white overflow-hidden my-auto">
-      {/* Background Image - REPLACED with Next.js Image */}
       {backgroundImage && (
         <Image
-          src={backgroundImage}
+          src={getOptimizedImageUrl(backgroundImage, { width: 1200 })}
           alt="Hero background"
           fill
-          priority // critical for hero LCP
-          sizes="100vw"
+          priority
+          sizes="(max-width: 640px) 100vw,
+       (max-width: 1024px) 100vw,
+       1200px"
           className="object-cover"
-          quality={75} // reduces file size
-          fetchPriority="high"
-          loading="eager"
+          quality={60}
         />
       )}
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-black/30" />
 
       {/*Content */}
       <div className="relative z-10 max-w-3xl px-6">
