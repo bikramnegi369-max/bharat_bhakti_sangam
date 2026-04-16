@@ -9,13 +9,6 @@ export const metadata: Metadata = createPageMetadataFromConfig("about");
 export default function AboutPage() {
   return (
     <>
-      {/* Preload the hero image */}
-      <link
-        rel="preload"
-        as="image"
-        href="/about_hero.jpg"
-        fetchPriority="high"
-      />
       <Hero title="About Us" backgroundImage="/about_hero.jpg" />
       <MissionSection />
       <ValuesSection />

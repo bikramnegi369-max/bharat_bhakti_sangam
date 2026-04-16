@@ -112,8 +112,6 @@ export default async function EventPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(eventJsonLd)}
       />
-      {/* Preload the hero image */}
-      <link rel="preload" as="image" href={image} fetchPriority="high" />
       <Hero
         title={event.eventName}
         location={getEventVenueName(event)}

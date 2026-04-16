@@ -18,8 +18,6 @@ export function FeedbackPageClient({
 }: FeedbackPageClientProps) {
   return (
     <section className="relative w-full min-h-screen overflow-hidden">
-      <link rel="preload" as="image" href={heroImage} fetchPriority="high" />
-
       <Hero
         title={eventTitle}
         location={eventLocation}

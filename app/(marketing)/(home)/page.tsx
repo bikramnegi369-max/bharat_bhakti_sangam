@@ -80,13 +80,6 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd)}
       />
-      {/* Preload the hero image */}
-      <link
-        rel="preload"
-        as="image"
-        href={getHomeImage(event)}
-        fetchPriority="high"
-      />
       <Hero
         title={event.eventName}
         location={getEventVenueName(event)}
