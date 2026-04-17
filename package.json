@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 3011",
-    "lint": "eslint",
-    "clean": "rm -rf .next",
-    "rebuild": "pnpm run clean && pnpm run build"
+    "lint": "eslint"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.19",
