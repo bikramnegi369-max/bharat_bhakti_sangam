@@ -6,7 +6,6 @@ import {
   MapPin,
   UsersRound,
   BookmarkMinus,
-  Ticket,
   LucideIcon,
 } from "lucide-react";
 import { Cinzel } from "next/font/google";
@@ -17,6 +16,7 @@ import { BookingCategory } from "@/_types/Booking.types";
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 type EventInfoSectionProps = {

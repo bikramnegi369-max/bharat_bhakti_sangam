@@ -69,6 +69,7 @@ export default function Navbar() {
         {/* Mobile Button */}
         <button
           className="lg:hidden text-white"
+          aria-label="Toggle navigation menu"
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <Menu size={30} />
@@ -127,7 +128,9 @@ export default function Navbar() {
       >
         <div className="p-4 border-b border-heading flex justify-between items-center">
           <span className="font-semibold text-heading">Menu</span>
-          <button onClick={() => setIsOpen(false)}>✕</button>
+          <button onClick={() => setIsOpen(false)} aria-label="Close menu">
+            ✕
+          </button>
         </div>
 
         <div className="p-4 space-y-3">

@@ -7,7 +7,7 @@ import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
 import { Info } from "lucide-react";
 import { Cinzel } from "next/font/google";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import {  useFormContext, useWatch } from "react-hook-form";
 
 type Props = {
   eventDate?: string;
@@ -18,6 +18,7 @@ type Props = {
 const cinzel = Cinzel({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const BookingForm = ({

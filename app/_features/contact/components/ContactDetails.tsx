@@ -4,6 +4,7 @@ import { Cinzel } from "next/font/google";
 const cinzel = Cinzel({
   weight: ["500", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 export function ContactDetails() {

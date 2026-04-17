@@ -94,7 +94,6 @@ export default async function HomePage() {
           href: "/event",
         }}
       />
-      <div></div>
       <WelcomeSection />
       <ExperienceSection />
       <BookingSection

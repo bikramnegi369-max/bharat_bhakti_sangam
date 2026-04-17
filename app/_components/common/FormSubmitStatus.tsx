@@ -4,7 +4,11 @@ import { Button } from "@/_components/ui/Button";
 import clsx from "clsx";
 import { Cinzel } from "next/font/google";
 
-const cinzel = Cinzel({ weight: ["600", "700"], subsets: ["latin"] });
+const cinzel = Cinzel({
+  weight: ["600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export type FormSubmitStatus = "success" | "error";
 

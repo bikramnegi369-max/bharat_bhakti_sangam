@@ -10,10 +10,14 @@ import { Controller, useFormContext } from "react-hook-form";
 const cinzel = Cinzel({
   weight: ["500", "600", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 export function FeedbackRatings() {
-  const { control, formState: { errors } } = useFormContext<FeedbackFormData>();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<FeedbackFormData>();
 
   return (
     <div
