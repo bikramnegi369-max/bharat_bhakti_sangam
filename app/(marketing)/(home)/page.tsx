@@ -10,7 +10,6 @@ import { siteConfig } from "@/_config/Site.config";
 import {
   getEventDescription,
   getEventDisplayDate,
-  getEventImage,
   getEventVenueAddress,
   getEventVenueName,
   getHomeImage,
@@ -95,6 +94,7 @@ export default async function HomePage() {
           href: "/event",
         }}
       />
+      <div></div>
       <WelcomeSection />
       <ExperienceSection />
       <BookingSection

@@ -7,7 +7,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import clsx from "clsx";
-import { Menu } from "lucide-react";
+import { Mail, Menu, Phone, Ticket } from "lucide-react";
+import { Marquee } from "../ui/Marquee/Marquee";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -73,6 +74,40 @@ export default function Navbar() {
           <Menu size={30} />
         </button>
       </header>
+      <Marquee
+        speed={25}
+        gap={48}
+        className="py-3"
+        items={[
+          {
+            id: "1",
+            content: (
+              <div className="flex items-center gap-6">
+                <span>Contact Us : </span>
+                <span className="flex gap-2 items-center">
+                  <Phone className="w-4 h-4" />
+                  +91 8796086743
+                </span>
+                <span className="flex gap-2 items-center">
+                  <Mail className="w-4 h-4" />
+                  info@bharatbhaktisangam.com
+                </span>
+              </div>
+            ),
+          },
+          {
+            id: "2",
+            content: (
+              <div className="flex items-center">
+                <span className="flex gap-2 items-center">
+                  <Ticket className="w-4 h-4" />
+                  Book your tickets now
+                </span>
+              </div>
+            ),
+          },
+        ]}
+      />
 
       {/* OVERLAY */}
       {isOpen && (
