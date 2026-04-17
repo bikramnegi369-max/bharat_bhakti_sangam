@@ -25,12 +25,21 @@ import {
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
+  {
+    loading: () => null,
+  },
 );
 const BookingSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/BookingSection"),
+  {
+    loading: () => null,
+  },
 );
 const GallerySection = dynamic(
   () => import("@/_components/sections/Marketing/Home/GallerySection"),
+  {
+    loading: () => null,
+  },
 );
 
 export async function generateMetadata(): Promise<Metadata> {

@@ -1,25 +1,18 @@
 import { Button } from "@/_components/ui/Button";
 import { Counter } from "@/_components/ui/Counter";
-import { Dropdown } from "@/_components/ui/Dropdown/index";
 import { Field } from "@/_components/ui/Field/Field";
 import { BOOKING_CONFIG } from "@/_lib/constants/booking.constants";
+import { cinzel } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
 import { Info } from "lucide-react";
-import { Cinzel } from "next/font/google";
-import {  useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 type Props = {
   eventDate?: string;
   isSubmitting: boolean;
   ticketTypes: { name: string; price: number }[];
 };
-
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const BookingForm = ({
   eventDate,

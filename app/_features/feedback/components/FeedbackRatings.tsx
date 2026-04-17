@@ -3,15 +3,10 @@ import {
   FEEDBACK_FORM_CONTENT,
   FEEDBACK_RATINGS,
 } from "@/_lib/constants/feedback.constants";
+import { cinzel } from "@/_lib/fonts";
 import { FeedbackFormData } from "@/_schemas/feedback.schema";
-import { Cinzel } from "next/font/google";
 import { Controller, useFormContext } from "react-hook-form";
 
-const cinzel = Cinzel({
-  weight: ["500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export function FeedbackRatings() {
   const {

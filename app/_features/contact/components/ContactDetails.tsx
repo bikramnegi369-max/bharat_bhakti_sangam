@@ -1,11 +1,5 @@
+import { cinzel } from "@/_lib/fonts";
 import { Contact } from "lucide-react";
-import { Cinzel } from "next/font/google";
-
-const cinzel = Cinzel({
-  weight: ["500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export function ContactDetails() {
   return (

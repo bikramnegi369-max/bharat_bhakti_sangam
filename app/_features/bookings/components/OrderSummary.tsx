@@ -1,8 +1,8 @@
 import { Button } from "@/_components/ui/Button";
+import { cinzel } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
 import { Info, Ticket } from "lucide-react";
-import { Cinzel } from "next/font/google";
 import { useFormContext, useWatch } from "react-hook-form";
 
 type Props = {
@@ -11,11 +11,6 @@ type Props = {
   ticketTypes: { name: string; price: number }[];
 };
 
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const OrderSummary = ({
   eventDate,

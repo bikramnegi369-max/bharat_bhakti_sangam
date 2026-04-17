@@ -1,14 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Cinzel } from "next/font/google";
 import clsx from "clsx";
-
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
+import { cinzel } from "@/_lib/fonts";
 
 type Artist = {
   name: string;

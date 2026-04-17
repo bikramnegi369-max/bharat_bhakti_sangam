@@ -1,9 +1,8 @@
-"use client";
 
-import { Cinzel } from "next/font/google";
 import Image from "next/image"; // ADD THIS
 import { CTAButton } from "../../ui/CTAButton";
 import { getOptimizedImageUrl } from "@/_lib/helpers";
+import { cinzel } from "@/_lib/fonts";
 
 type HeroProps = {
   title?: string;
@@ -21,11 +20,6 @@ type HeroProps = {
   backgroundImage?: string;
 };
 
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default function Hero({
   title,

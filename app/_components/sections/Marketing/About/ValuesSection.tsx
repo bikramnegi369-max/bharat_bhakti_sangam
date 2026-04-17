@@ -1,4 +1,5 @@
 import Card from "@/_components/ui/Card";
+import { cinzel } from "@/_lib/fonts";
 import { Brain, Gem, HeartPulse, Music, Sparkles, Users } from "lucide-react";
 import { Cinzel } from "next/font/google";
 
@@ -40,12 +41,6 @@ const cards = [
       "Every Bhajan Clubbing concert and kirtan event is designed to uplift minds & energize hearts",
   },
 ];
-
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default function ValuesSection() {
   return (

@@ -1,15 +1,9 @@
 "use client";
 
 import { MapPin, Clock, BadgeCheck, CalendarDays } from "lucide-react";
-import { Cinzel } from "next/font/google";
 import { Button } from "@/_components/ui/Button";
 import Link from "next/link";
-
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-});
+import { cinzel } from "@/_lib/fonts";
 
 type TicketType = {
   name: string;

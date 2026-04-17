@@ -1,13 +1,6 @@
 "use client";
 
 import { CONTACT_CONTENT } from "@/_lib/constants/contact.constants";
-import { Cinzel } from "next/font/google";
-
-const cinzel = Cinzel({
-  weight: ["500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export function ContactFormHeader() {
   return (

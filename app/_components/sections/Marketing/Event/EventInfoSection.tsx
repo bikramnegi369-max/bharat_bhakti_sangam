@@ -8,16 +8,10 @@ import {
   BookmarkMinus,
   LucideIcon,
 } from "lucide-react";
-import { Cinzel } from "next/font/google";
 import clsx from "clsx";
 import { CTAButton } from "@/_components/ui/CTAButton";
 import { BookingCategory } from "@/_types/Booking.types";
-
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
+import { cinzel } from "@/_lib/fonts";
 
 type EventInfoSectionProps = {
   date?: string;

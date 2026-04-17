@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/_lib/seo";
 import { AdminLayoutShell } from "./AdminLayoutShell";
+import StoreProvider from "@/_store/provider";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Admin",
@@ -14,5 +15,9 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AdminLayoutShell>{children}</AdminLayoutShell>;
+  return (
+    <StoreProvider>
+      <AdminLayoutShell>{children}</AdminLayoutShell>
+    </StoreProvider>
+  );
 }

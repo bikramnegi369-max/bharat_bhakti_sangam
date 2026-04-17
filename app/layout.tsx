@@ -1,14 +1,9 @@
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+
 import "./globals.css";
-import StoreProvider from "@/_store/provider";
 import { siteConfig } from "@/_config/Site.config";
 import { jsonLdScript } from "@/_lib/seo";
+import { poppins } from "./_lib/fonts";
 
-const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["latin"],
-});
 
 // export const metadata: Metadata = {
 //   metadataBase: new URL(siteConfig.url),
@@ -67,7 +62,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd)}
         />
-        <StoreProvider>{children}</StoreProvider>
+        {children}
       </body>
     </html>
   );

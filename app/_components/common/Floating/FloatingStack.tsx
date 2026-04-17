@@ -2,7 +2,7 @@
 
 import { WhatsAppCTA } from "./WhatsAppCTA";
 
-export function FloatingStack() {
+export default function FloatingStack() {
   return (
     <div
       className="

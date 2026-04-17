@@ -1,14 +1,8 @@
 "use client";
 
 import { Button } from "@/_components/ui/Button";
+import { cinzel } from "@/_lib/fonts";
 import clsx from "clsx";
-import { Cinzel } from "next/font/google";
-
-const cinzel = Cinzel({
-  weight: ["600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export type FormSubmitStatus = "success" | "error";
 

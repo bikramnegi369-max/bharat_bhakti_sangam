@@ -1,6 +1,6 @@
 import Card from "@/_components/ui/Card";
+import { cinzel } from "@/_lib/fonts";
 import { Brain, Music, UsersRound } from "lucide-react";
-import { Cinzel } from "next/font/google";
 
 const cards = [
   {
@@ -22,12 +22,6 @@ const cards = [
       "A space where families gather together to experience positivity.",
   },
 ];
-
-const cinzel = Cinzel({
-  weight: ["400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export default function ExperienceSection() {
   return (
