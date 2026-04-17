@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${event.eventName} Feedback`,
       description: `Share your feedback for ${event.eventName} so we can improve future devotional events.`,
       path: "/feedback",
-      image: getEventImage(event),
+      image: getEventImage(event) ?? "/feedback.webp",
       keywords: getSeoKeywords("feedback", [event.eventName.toLowerCase()]),
       noIndex: true,
     });
@@ -59,7 +59,7 @@ export default async function FeedbackPage() {
       eventDate={getEventDisplayDate(event)}
       eventLocation={getEventVenueName(event)}
       eventAddress={getEventVenueAddress(event)}
-      heroImage={getEventImage(event)}
+      heroImage={"/feedback.webp"}
     />
   );
 }

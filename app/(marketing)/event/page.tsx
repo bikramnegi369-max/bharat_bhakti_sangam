@@ -29,6 +29,7 @@ import {
 import {
   EventApiError,
   getLatestEvent,
+  getLatestEventCapacity,
 } from "@/_features/event/services/event.api";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -51,9 +52,13 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function EventPage() {
   let event;
+  let capacity;
 
   try {
-    event = await getLatestEvent();
+    [event, capacity] = await Promise.all([
+      getLatestEvent(),
+      getLatestEventCapacity(),
+    ]);
   } catch (error) {
     const message =
       error instanceof EventApiError
@@ -92,7 +97,9 @@ export default async function EventPage() {
       name: cat.name,
       price: cat.price,
       priceCurrency: "INR",
-      availability: "https://schema.org/InStock",
+      availability: capacity.isSoldOut
+        ? "https://schema.org/SoldOut"
+        : "https://schema.org/InStock",
       url: getEventUrl(),
     })),
     organizer: {
@@ -148,8 +155,8 @@ export default async function EventPage() {
                 address: getEventVenueAddress(event),
               }}
               capacity={{
-                current: event.bookedSeats,
-                total: (event.maxSeats ?? 0) || 1,
+                current: capacity.bookedSeats,
+                total: (capacity.maxSeats ?? 0) || 1,
               }}
               booking={bookingCategories}
             />

@@ -10,7 +10,7 @@ type SeoPage = {
 export const _seoConfig = {
   home: {
     path: "/",
-    image: "/home_hero.jpg",
+    image: "/home_hero.webp",
     title: "Bharat Bhakti Sangam",
     description:
       "India’s most energetic devotional music experience where traditional bhajans, kirtans, and mantra chanting blend with modern beats and live performances.Book your Bhajan Clubbing tickets, join immersive spiritual EDM nights, and experience devotion like never before",
@@ -44,7 +44,7 @@ export const _seoConfig = {
   },
   about: {
     path: "/about",
-    image: "/about_hero.jpg",
+    image: "/about_hero.webp",
     title: "About Bharat Bhakti Sangam",
     description:
       "Our mission is to create a new-age devotional experience where people can chant, celebrate, connect, and feel spiritual energy together through immersive bhajan clubbing concerts, interactive kirtan sessions, and modern bhakti music festivals across India.We aim to build a community where spirituality feels joyful, inclusive, and alive for everyone — especially the younger generation.",
@@ -81,7 +81,7 @@ export const _seoConfig = {
   },
   contact: {
     path: "/contact",
-    image: "/home_hero.jpg",
+    image: "/contact_hero.webp",
     title: "Contact Bharat Bhakti Sangam",
     description:
       "Get in touch with Bharat Bhakti Sangam for event details, collaboration opportunities, and spiritual gathering inquiries.",
@@ -115,7 +115,7 @@ export const _seoConfig = {
   },
   event: {
     path: "/event",
-    image: "/event.jpg",
+    image: "/event.webp",
     title: "Latest Event",
     description:
       "Explore the latest devotional event from Bharat Bhakti Sangam.",
@@ -143,7 +143,7 @@ export const _seoConfig = {
   },
   booking: {
     path: "/booking",
-    image: "/event.jpg",
+    image: "/event.webp",
     title: "Event Booking",
     description: "Book tickets for the latest Bharat Bhakti Sangam event.",
     keywords: [
@@ -173,7 +173,7 @@ export const _seoConfig = {
   },
   feedback: {
     path: "/feedback",
-    image: "/event.jpg",
+    image: "/feedback.webp",
     noIndex: true,
     title: "Event Feedback",
     description:
@@ -198,7 +198,7 @@ export const _seoConfig = {
   sponsors: {
     path: "/sponsors",
     noIndex: true,
-    image: "/event.jpg",
+    image: "/event.webp",
     title: "Sponsors",
     description:
       "Sponsorship information for Bharat Bhakti Sangam will be available soon.",
@@ -217,6 +217,61 @@ export const _seoConfig = {
       "immersive devotional nightlife experiences",
       "bhajan clubbing concert",
       "kirtan event",
+    ],
+  },
+  privacyPolicy: {
+    path: "/privacy-policy",
+    noIndex: true,
+    image: "/policy_hero.webp",
+    title: "Privacy Policy",
+    description: "Privacy policy for Bharat Bhakti Sangam ",
+    keywords: [
+      "bharat bhakti sangam privacy policy",
+      "event privacy policy",
+      "spiritual event contact",
+      "privacy policy",
+      "data protection",
+      "user data",
+      "information security",
+      "digital privacy",
+      "online privacy",
+      "personal data",
+      "user privacy",
+      "gdpr compliance",
+      "data privacy",
+      "cookie policy",
+      "terms of service",
+      "website privacy policy",
+      "event privacy policy",
+      "bhajan clubbing privacy policy",
+      "devotional event privacy policy",
+      "spiritual event privacy policy",
+      "bharat bhakti sangam privacy policy",
+    ],
+  },
+  termsAndConditions: {
+    path: "/terms-and-conditions",
+    noIndex: true,
+    image: "/policy_hero.webp",
+    title: "Terms and Conditions",
+    description: "Terms and conditions for Bharat Bhakti Sangam",
+    keywords: [
+      "bharat bhakti sangam terms and conditions",
+      "event terms and conditions",
+      "spiritual event contact",
+      "terms and conditions",
+      "event rules",
+      "user agreement",
+      "website terms",
+      "service terms",
+      "booking terms",
+      "ticket terms",
+      "event policies",
+      "organizer terms",
+      "bhajan clubbing terms and conditions",
+      "devotional event terms and conditions",
+      "spiritual event terms and conditions",
+      "bharat bhakti sangam terms and conditions",
     ],
   },
 } satisfies Record<string, SeoPage>;

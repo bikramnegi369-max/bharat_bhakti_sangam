@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { apiRoutes } from "@/_config/Routes.config";
 import axios from "@/_lib/axios";
 import { dummyEvents } from "@/_lib/DummyData/EventData";
@@ -9,8 +8,21 @@ export const getEvents = () => axios.get<Event[]>(apiRoutes.event);
 export const getEvent = getEvents;
 
 const API_URL = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
+
 const LATEST_EVENT_REVALIDATE_SECONDS = 300;
 const LATEST_EVENT_TAG = "latest-event";
+const EVENT_CAPACITY_TAG = "latest_event-capacity";
+
+const DEFAULT_TIMEOUT_MS = 5000;
+const CAPACITY_TIMEOUT_MS = 3000;
+
+export type EventCapacity = {
+  eventId: string;
+  maxSeats: number;
+  bookedSeats: number;
+  availableTickets: number;
+  isSoldOut: boolean;
+};
 
 export class EventApiError extends Error {
   constructor(
@@ -25,6 +37,30 @@ export class EventApiError extends Error {
   ) {
     super(message);
     this.name = "EventApiError";
+  }
+}
+
+/**
+ * Reusable production fetch timeout helper
+ */
+async function fetchWithTimeout(
+  input: RequestInfo | URL,
+  init?: RequestInit,
+  timeoutMs = DEFAULT_TIMEOUT_MS,
+): Promise<Response> {
+  const controller = new AbortController();
+
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+  }, timeoutMs);
+
+  try {
+    return await fetch(input, {
+      ...init,
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
@@ -56,6 +92,20 @@ function isLatestEventRecord(value: unknown): value is LatestEvent {
   );
 }
 
+function isEventCapacityRecord(value: unknown): value is EventCapacity {
+  if (!value || typeof value !== "object") return false;
+
+  const record = value as Record<string, unknown>;
+
+  return (
+    typeof record.eventId === "string" &&
+    typeof record.maxSeats === "number" &&
+    typeof record.bookedSeats === "number" &&
+    typeof record.availableTickets === "number" &&
+    typeof record.isSoldOut === "boolean"
+  );
+}
+
 function isApiEnvelope<T>(
   value: unknown,
   dataGuard: (input: unknown) => input is T,
@@ -83,20 +133,23 @@ export const getLatestEvent = async (): Promise<LatestEvent> => {
   let response: Response;
 
   try {
-    // Use Next's native fetch cache for SEO-critical server data.
-    // This lets pages, metadata, and sitemap share the same cached response
-    // and supports time-based or tag-based revalidation in production.
-    response = await fetch(`${API_URL}${apiRoutes.latestEvent}`, {
-      next: {
-        revalidate: LATEST_EVENT_REVALIDATE_SECONDS,
-        tags: [LATEST_EVENT_TAG],
+    response = await fetchWithTimeout(
+      `${API_URL}${apiRoutes.latestEvent}`,
+      {
+        next: {
+          revalidate: LATEST_EVENT_REVALIDATE_SECONDS,
+          tags: [LATEST_EVENT_TAG],
+        },
       },
-    });
+      DEFAULT_TIMEOUT_MS,
+    );
   } catch (error) {
     throw new EventApiError(
-      error instanceof Error
-        ? `Unable to reach latest event API: ${error.message}`
-        : "Unable to reach latest event API.",
+      error instanceof Error && error.name === "AbortError"
+        ? "Latest event API request timed out."
+        : error instanceof Error
+          ? `Unable to reach latest event API: ${error.message}`
+          : "Unable to reach latest event API.",
       "NETWORK_ERROR",
     );
   }
@@ -129,7 +182,7 @@ export const getLatestEvent = async (): Promise<LatestEvent> => {
 
   if (!payload.status) {
     throw new EventApiError(
-      payload.message || "Latest event API returned an unsuccessful response.",
+      payload.message || "Latest event API returned unsuccessful response.",
       "INVALID_RESPONSE",
     );
   }
@@ -143,22 +196,97 @@ export const getLatestEvent = async (): Promise<LatestEvent> => {
   return event;
 };
 
+export const getLatestEventCapacity = async (): Promise<EventCapacity> => {
+  if (!API_URL) {
+    throw new EventApiError(
+      "Capacity API URL is not configured.",
+      "MISSING_API_URL",
+    );
+  }
+
+  let response: Response;
+
+  try {
+    response = await fetchWithTimeout(
+      `${API_URL}${apiRoutes.latestCapacity}`,
+      {
+        cache: "no-store",
+        next: {
+          tags: [EVENT_CAPACITY_TAG],
+        },
+      },
+      CAPACITY_TIMEOUT_MS,
+    );
+  } catch (error) {
+    throw new EventApiError(
+      error instanceof Error && error.name === "AbortError"
+        ? "Capacity API request timed out."
+        : error instanceof Error
+          ? `Unable to reach capacity API: ${error.message}`
+          : "Unable to reach capacity API.",
+      "NETWORK_ERROR",
+    );
+  }
+
+  if (!response.ok) {
+    throw new EventApiError(
+      `Capacity API responded with status ${response.status}.`,
+      "BAD_STATUS",
+      response.status,
+    );
+  }
+
+  let payload: unknown;
+
+  try {
+    payload = await response.json();
+  } catch {
+    throw new EventApiError(
+      "Capacity API returned invalid JSON.",
+      "INVALID_RESPONSE",
+    );
+  }
+
+  if (!isApiEnvelope(payload, isEventCapacityRecord)) {
+    throw new EventApiError(
+      "Capacity API returned invalid payload shape.",
+      "INVALID_RESPONSE",
+    );
+  }
+
+  if (!payload.status) {
+    throw new EventApiError(
+      payload.message || "Capacity API returned unsuccessful response.",
+      "INVALID_RESPONSE",
+    );
+  }
+
+  return payload.data;
+};
+
 export const eventService: TableService<Event> = {
   getAll: async (params) => {
     const search =
       typeof params.search === "string"
         ? params.search.trim().toLowerCase()
         : "";
+
     const date = typeof params.date === "string" ? params.date : "";
+
     const time = typeof params.time === "string" ? params.time : "";
+
     const sortBy = typeof params.sortBy === "string" ? params.sortBy : "";
+
     const order = params.order === "desc" ? "desc" : "asc";
+
     const limit = params.limit ?? 5;
+
     let items = [...dummyEvents];
 
     if (search) {
       items = items.filter((event) => {
         const haystack = `${event.title} ${event.description}`.toLowerCase();
+
         return haystack.includes(search);
       });
     }
@@ -175,6 +303,7 @@ export const eventService: TableService<Event> = {
       items.sort((left, right) => {
         const a = String(left[sortBy]);
         const b = String(right[sortBy]);
+
         return order === "desc" ? b.localeCompare(a) : a.localeCompare(b);
       });
     }
@@ -192,10 +321,13 @@ export const eventService: TableService<Event> = {
       }, 2000);
     });
   },
+
   getOne: async (id) => {
     const res = await axios.get<Event>(`${apiRoutes.event}/${id}`);
+
     return res.data;
   },
+
   delete: async (id) => {
     await axios.delete(`${apiRoutes.event}/${id}`);
   },
