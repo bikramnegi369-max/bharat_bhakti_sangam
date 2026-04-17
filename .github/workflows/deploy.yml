@@ -17,6 +17,8 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            set -e
+
             cd /var/www/bharat_bhakti_sangam
 
             echo "Loading environment..."
@@ -33,10 +35,15 @@ jobs:
             pnpm install --frozen-lockfile
 
             echo "Build app..."
+            rm -rf .next
             pnpm build
 
-            echo "Reload app (zero downtime)..."
-            pm2 reload bbs-app || pm2 start pnpm --name "bbs-app" -- start
+            echo "Deploy with PM2..."
+            if pm2 describe bbs-app > /dev/null; then
+              pm2 reload bbs-app --update-env
+            else
+              pm2 start pnpm --name "bbs-app" -- start
+            fi
 
             echo "Save PM2..."
             pm2 save

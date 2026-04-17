@@ -117,7 +117,7 @@ export default async function EventPage() {
         location={getEventVenueName(event)}
         address={getEventVenueAddress(event)}
         date={eventDate}
-        backgroundImage={image}
+        backgroundImage={image ?? "/event.webp"}
       />
       <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

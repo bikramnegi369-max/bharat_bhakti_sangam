@@ -9,7 +9,7 @@ export const metadata: Metadata = createPageMetadataFromConfig("about");
 export default function AboutPage() {
   return (
     <>
-      <Hero title="About Us" backgroundImage="/about_hero.jpg" />
+      <Hero title="About Us" backgroundImage="/about_hero.webp" />
       <MissionSection />
       <ValuesSection />
     </>
