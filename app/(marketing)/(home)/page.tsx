@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
-import BookingSection from "@/_components/sections/Marketing/Home/BookingSection";
-import ExperienceSection from "@/_components/sections/Marketing/Home/ExperienceSection";
-import GallerySection from "@/_components/sections/Marketing/Home/GallerySection";
 import Hero from "@/_components/sections/Marketing/Hero";
 import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
 import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
@@ -24,6 +22,16 @@ import {
   EventApiError,
   getLatestEvent,
 } from "@/_features/event/services/event.api";
+
+const ExperienceSection = dynamic(
+  () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
+);
+const BookingSection = dynamic(
+  () => import("@/_components/sections/Marketing/Home/BookingSection"),
+);
+const GallerySection = dynamic(
+  () => import("@/_components/sections/Marketing/Home/GallerySection"),
+);
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

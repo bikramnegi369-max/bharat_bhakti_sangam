@@ -1,6 +1,12 @@
+import dynamic from "next/dynamic";
 import Navbar from "@/_components/layout/Navbar";
-import Footer from "@/_components/layout/Footer/Footer";
-import { FloatingStack } from "@/_components/common/Floating/FloatingStack";
+
+const Footer = dynamic(() => import("@/_components/layout/Footer/Footer"));
+const FloatingStack = dynamic(() =>
+  import("@/_components/common/Floating/FloatingStack").then(
+    (mod) => mod.FloatingStack,
+  ),
+);
 
 export default function MarketingLayout({
   children,
