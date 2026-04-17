@@ -43,7 +43,7 @@ export default function WelcomeSection() {
         {/* IMAGE */}
         <div className="relative w-[clamp(15.813rem,calc(10.491rem+26.607vw),34.438rem)] h-[clamp(10.313rem,calc(6.866rem+17.232vw),22.375rem)] rounded-lg overflow-hidden mx-auto group aspect-video border-3 border-primary">
           <Image
-            src="/welcome.png" // replace with your image
+            src="/welcome.webp"
             alt="Bhajan Clubbing Experience"
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"

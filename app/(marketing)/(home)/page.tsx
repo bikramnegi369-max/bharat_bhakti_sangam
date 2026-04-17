@@ -45,9 +45,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const IMAGES = [
-  { src: "/gallery/gallery_1.png" },
-  { src: "/gallery/gallery_2.png" },
-  { src: "/gallery/gallery_3.png" },
+  { src: "/gallery/gallery_1.webp" },
+  { src: "/gallery/gallery_2.webp" },
+  { src: "/gallery/gallery_3.webp" },
 ];
 
 export default async function HomePage() {
