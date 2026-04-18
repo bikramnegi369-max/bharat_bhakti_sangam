@@ -9,10 +9,8 @@ import {
 } from "@/_lib/helpers";
 import { createPageMetadata, createPageMetadataFromConfig } from "@/_lib/seo";
 import { FeedbackPageClient } from "./FeedbackPageClient";
-import {
-  EventApiError,
-  getLatestEvent,
-} from "@/_features/event/services/event.api";
+import { getLatestEvent } from "@/_features/event/services/event.service";
+import { EventApiError } from "@/_features/event/class/EventApiError";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -59,7 +57,7 @@ export default async function FeedbackPage() {
       eventDate={getEventDisplayDate(event)}
       eventLocation={getEventVenueName(event)}
       eventAddress={getEventVenueAddress(event)}
-      heroImage={"/feedback.webp"}
+      heroImage={"/feedback_hero.webp"}
     />
   );
 }

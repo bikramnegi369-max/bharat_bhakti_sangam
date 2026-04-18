@@ -18,10 +18,8 @@ import {
   createPageMetadataFromConfig,
   jsonLdScript,
 } from "@/_lib/seo";
-import {
-  EventApiError,
-  getLatestEvent,
-} from "@/_features/event/services/event.api";
+import { getLatestEvent } from "@/_features/event/services/event.service";
+import { EventApiError } from "@/_features/event/class/EventApiError";
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),

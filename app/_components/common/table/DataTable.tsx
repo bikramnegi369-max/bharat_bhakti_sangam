@@ -43,7 +43,10 @@ const getErrorMessage = (error: unknown) => {
 
 export function DataTable<T, TValue = unknown>({ config }: Props<T, TValue>) {
   const controller = useTableController(config);
-  const table = useDataTable(controller, config.columns);
+  const tableData = controller.data?.data;
+  const tableController = { ...controller, data: tableData };
+
+  const table = useDataTable(tableController, config.columns);
 
   if (controller.isLoading) return <TableLoading />;
   if (controller.error) {
@@ -78,7 +81,7 @@ export function DataTable<T, TValue = unknown>({ config }: Props<T, TValue>) {
       {/* Pagination */}
       <TablePagination
         page={controller.page}
-        total={controller.data?.total || 0}
+        total={tableData?.total || 0}
         onPageChange={controller.setPage}
       />
 

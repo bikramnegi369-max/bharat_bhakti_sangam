@@ -17,4 +17,5 @@ export const apiRoutes = {
   contact: "/contact",
   booking: "/booking/create-ticket",
   feedback: "/feedback",
+  subscribe: "/subscriber",
 };

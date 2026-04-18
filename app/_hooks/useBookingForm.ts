@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { submitBooking } from "@/_features/bookings/services/booking.service";
 import { FormSubmitStatus } from "@/_components/common/FormSubmitStatus";
-import { ApiError } from "@/_lib/axios";
 
 export function useBookingForm(
   defaultTicketType: string = "",
@@ -33,18 +32,19 @@ export function useBookingForm(
     setSpecificErrorMessage(null); // Clear previous specific error message
     try {
       setIsSubmitting(true);
-      await submitBooking(data, eventId);
-      setStatus("success");
-    } catch (error: any) {
+      const res = await submitBooking(data, eventId);
+
+      if (res.success) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        if (res.error?.toLowerCase().includes("tickets sold out")) {
+          setSpecificErrorMessage("Tickets sold out");
+        }
+      }
+    } catch (error) {
       console.error("Booking submission failed:", error);
       setStatus("error");
-
-      if (
-        error instanceof ApiError &&
-        error.backendMessage?.toLowerCase().includes("tickets sold out")
-      ) {
-        setSpecificErrorMessage("Tickets sold out");
-      }
     } finally {
       setIsSubmitting(false);
     }

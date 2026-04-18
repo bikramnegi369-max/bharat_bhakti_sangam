@@ -27,10 +27,10 @@ import {
   jsonLdScript,
 } from "@/_lib/seo";
 import {
-  EventApiError,
   getLatestEvent,
   getLatestEventCapacity,
-} from "@/_features/event/services/event.api";
+} from "@/_features/event/services/event.service";
+import { EventApiError } from "@/_features/event/class/EventApiError";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

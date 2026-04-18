@@ -5,6 +5,7 @@ import { FooterSocials } from "./FooterSocials";
 import { FooterNav } from "./FooterNav";
 import { FooterCTA } from "./FooterCTA";
 import { FooterBottom } from "./FooterBottom";
+import { SubscribeForm } from "../../../_features/subscription/components/SubscribeForm";
 import { footerConfig } from "@/_config/Footer.config";
 import { usePathname } from "next/navigation";
 
@@ -39,8 +40,13 @@ export default function Footer({ config = footerConfig }: FooterProps) {
 
           {/* Right */}
           {pathname !== "/booking" && (
-            <div className="flex justify-start lg:justify-end">
-              <FooterCTA label={config.cta.label} href={config.cta.href} />
+            <div className="flex flex-col gap-10 justify-start lg:items-end">
+              <FooterCTA
+                label={config.cta.label}
+                href={config.cta.href}
+                className="w-45! h-9.5! py-0! text-2xl!"
+              />
+              <SubscribeForm className="w-full max-w-sm lg:text-right" />
             </div>
           )}
         </div>

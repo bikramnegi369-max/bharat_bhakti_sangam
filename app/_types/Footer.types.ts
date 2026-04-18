@@ -5,7 +5,7 @@ export type FooterLink = {
 };
 
 export type SocialLink = {
-  platform: "facebook" | "instagram" | "youtube";
+  platform: "facebook" | "instagram" | "youtube" | "twitter";
   href: string;
   label: string;
   icon: string;

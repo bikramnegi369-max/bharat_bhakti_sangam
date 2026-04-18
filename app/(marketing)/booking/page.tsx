@@ -10,9 +10,9 @@ import {
 import { createPageMetadata, createPageMetadataFromConfig } from "@/_lib/seo";
 import { BookingPageClient } from "./BookingPageClient";
 import {
-  EventApiError,
   getLatestEvent,
-} from "@/_features/event/services/event.api";
+} from "@/_features/event/services/event.service";
+import { EventApiError } from "@/_features/event/class/EventApiError";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

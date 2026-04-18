@@ -1,9 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/_config/Site.config";
 import { getAbsoluteEventImageUrl } from "@/_lib/helpers";
-import {
-  getLatestEvent,
-} from "@/_features/event/services/event.api";
+import { getLatestEvent } from "@/_features/event/services/event.service";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicRoutes: Array<{
@@ -65,11 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...publicRoutes.map(
       ({ path, changeFrequency, priority, images, lastModified }) => ({
-      url: `${siteConfig.url}${path}`,
-      lastModified: lastModified ?? new Date(),
-      changeFrequency,
-      priority,
-      images,
-    })),
+        url: `${siteConfig.url}${path}`,
+        lastModified: lastModified ?? new Date(),
+        changeFrequency,
+        priority,
+        images,
+      }),
+    ),
   ];
 }

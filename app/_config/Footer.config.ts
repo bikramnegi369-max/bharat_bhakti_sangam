@@ -10,7 +10,7 @@ export const footerConfig: FooterConfig = {
   socials: [
     {
       platform: "facebook",
-      href: "#",
+      href: "facebook.com/BharatBhaktiSangam",
       label: "Facebook",
       icon: "/social_media/facebook_logo.png",
     },
@@ -25,6 +25,12 @@ export const footerConfig: FooterConfig = {
       href: "https://www.youtube.com/@Bharat.Bhakti.Sangam",
       label: "YouTube",
       icon: "/social_media/youtube_logo.png",
+    },
+    {
+      platform: "twitter",
+      href: "https://x.com/B_BhaktiSangam",
+      label: "Twitter",
+      icon: "/social_media/twitter_logo.png",
     },
   ],
 

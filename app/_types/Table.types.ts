@@ -1,5 +1,6 @@
 import { ColumnDef, SortingState } from "@tanstack/react-table";
 import { ReactNode } from "react";
+import { APIResponse } from "./Api.types";
 
 export type AccessorFn<T> = (row: T) => unknown;
 
@@ -44,15 +45,15 @@ export type TableQueryParams = {
   [key: string]: string | number | undefined;
 };
 
-export type TableResponse<T> = {
-  items: T[];
-  total: number;
-};
-
 export type TableService<T> = {
-  getAll: (params: TableQueryParams) => Promise<TableResponse<T>>;
-  getOne: (id: string) => Promise<T>;
-  delete?: (id: string) => Promise<void>;
+  getAll: (params: TableQueryParams) => Promise<
+    APIResponse<{
+      items: T[];
+      total: number;
+    }>
+  >;
+  getOne?: (id: string) => Promise<APIResponse>;
+  delete?: (id: string) => Promise<APIResponse>;
 };
 
 export interface TableController<T> {
