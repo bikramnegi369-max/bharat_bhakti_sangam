@@ -1,7 +1,6 @@
 "use client";
 
 import { submitContactForm } from "@/_features/contact/services/contact.service";
-import { ApiError } from "@/_lib/axios";
 import { ContactFormData } from "@/_schemas/contact.schema";
 import { useState } from "react";
 
@@ -16,16 +15,18 @@ export function useContactForm() {
     try {
       setIsSubmitting(true);
       setErrorMessage(null);
-      await submitContactForm(data);
-      setStatus("success");
+      const res = await submitContactForm(data);
+
+      if (res.success) {
+        setStatus("success");
+      } else {
+        setErrorMessage(res.error || "Something went wrong. Please try again.");
+        setStatus("error");
+      }
     } catch (error) {
       console.error("Contact form submit failed:", error);
-      setErrorMessage(
-        error instanceof ApiError
-          ? error.message
-          : "Something went wrong. Please try again.",
-      );
       setStatus("error");
+      setErrorMessage("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

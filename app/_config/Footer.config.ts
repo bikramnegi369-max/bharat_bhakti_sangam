@@ -10,7 +10,7 @@ export const footerConfig: FooterConfig = {
   socials: [
     {
       platform: "facebook",
-      href: "facebook.com/BharatBhaktiSangam",
+      href: "https://www.facebook.com/BharatBhaktiSangam",
       label: "Facebook",
       icon: "/social_media/facebook_logo.png",
     },

@@ -1,7 +1,6 @@
 "use client";
 
 import { submitFeedbackForm } from "@/_features/feedback/services/feedback.service";
-import { ApiError } from "@/_lib/axios";
 import { FeedbackFormData } from "@/_schemas/feedback.schema";
 import { useState } from "react";
 
@@ -16,16 +15,18 @@ export function useFeedbackForm() {
     try {
       setIsSubmitting(true);
       setErrorMessage(null);
-      await submitFeedbackForm(data);
-      setStatus("success");
+      const res = await submitFeedbackForm(data);
+
+      if (res.success) {
+        setStatus("success");
+      } else {
+        setErrorMessage(res.error || "Something went wrong. Please try again.");
+        setStatus("error");
+      }
     } catch (error) {
       console.error("Feedback submission failed:", error);
-      setErrorMessage(
-        error instanceof ApiError
-          ? error.message
-          : "Something went wrong. Please try again.",
-      );
       setStatus("error");
+      setErrorMessage("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
