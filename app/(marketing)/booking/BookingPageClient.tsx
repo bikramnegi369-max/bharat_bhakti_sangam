@@ -1,12 +1,25 @@
 "use client";
 
 import Hero from "@/_components/sections/Marketing/Hero";
-import { BookingForm } from "@/_features/bookings/components/BookingForm";
-import { BookingFormStatus } from "@/_features/bookings/components/BookingFormStatus";
 import { OrderSummary } from "@/_features/bookings/components/OrderSummary";
 import { useBookingForm } from "@/_hooks/useBookingForm";
-import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useMemo } from "react";
 import { FormProvider } from "react-hook-form";
+
+const BookingForm = dynamic(
+  () => import("@/_features/bookings/components/BookingForm"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-96 w-full animate-pulse bg-gray-100 rounded-3xl" />
+    ),
+  },
+);
+
+const BookingFormStatus = dynamic(
+  () => import("@/_features/bookings/components/BookingFormStatus"),
+);
 
 type TicketType = {
   name: string;
@@ -42,13 +55,16 @@ export function BookingPageClient({
   } = useBookingForm(ticketTypes[0]?.name, eventId);
   const statusRef = useRef<HTMLDivElement | null>(null);
 
-  const bookingDetails = {
-    eventTitle,
-    eventDate,
-    eventLocation,
-    eventAddress,
-    ticketTypes,
-  };
+  const bookingDetails = useMemo(
+    () => ({
+      eventTitle,
+      eventDate,
+      eventLocation,
+      eventAddress,
+      ticketTypes,
+    }),
+    [eventTitle, eventDate, eventLocation, eventAddress, ticketTypes],
+  );
 
   useEffect(() => {
     if ((status === "success" || status === "error") && statusRef.current) {

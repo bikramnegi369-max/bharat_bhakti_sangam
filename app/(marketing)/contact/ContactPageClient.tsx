@@ -2,11 +2,17 @@
 
 import Hero from "@/_components/sections/Marketing/Hero";
 import { ContactDetails } from "@/_features/contact/components/ContactDetails";
-import { ContactForm } from "@/_features/contact/components/ContactForm";
-import { createPageMetadataFromConfig } from "@/_lib/seo";
-import { Metadata } from "next";
+import dynamic from "next/dynamic";
 
-export const metadata: Metadata = createPageMetadataFromConfig("contact");
+const ContactForm = dynamic(
+  () => import("@/_features/contact/components/ContactForm"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-96 w-full animate-pulse bg-gray-100 rounded-3xl" />
+    ),
+  },
+);
 
 export function ContactPageClient() {
   return (

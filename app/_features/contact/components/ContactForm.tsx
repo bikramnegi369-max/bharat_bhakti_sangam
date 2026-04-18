@@ -10,7 +10,7 @@ import { ContactFormActions } from "./ContactFormActions";
 import { ContactFormStatus } from "./ContactFormStatus";
 import { useEffect, useRef } from "react";
 
-export function ContactForm() {
+export default function ContactForm() {
   const methods = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     mode: "onTouched",

@@ -1,5 +1,17 @@
+"use client";
+
 import Hero from "@/_components/sections/Marketing/Hero";
-import { FeedbackForm } from "@/_features/feedback/components/FeedbackForm";
+import dynamic from "next/dynamic";
+
+const FeedbackForm = dynamic(
+  () => import("@/_features/feedback/components/FeedbackForm"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-96 w-full animate-pulse bg-gray-100 rounded-3xl" />
+    ),
+  },
+);
 
 type FeedbackPageClientProps = {
   eventTitle: string;

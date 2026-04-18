@@ -14,11 +14,11 @@ type Props = {
   ticketTypes: { name: string; price: number }[];
 };
 
-export const BookingForm = ({
+export default function BookingForm({
   eventDate,
   isSubmitting,
   ticketTypes,
-}: Props) => {
+}: Props) {
   const {
     register,
     setValue,
@@ -143,4 +143,4 @@ export const BookingForm = ({
       </div>
     </div>
   );
-};
+}

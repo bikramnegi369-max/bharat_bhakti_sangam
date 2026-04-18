@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start -p 3011",
     "lint": "eslint"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.19",
     "@hookform/resolvers": "^5.2.2",
+    "@next/bundle-analyzer": "^16.2.4",
     "@reduxjs/toolkit": "^2.11.2",
     "@tanstack/react-query": "^5.96.2",
     "@tanstack/react-table": "^8.21.3",

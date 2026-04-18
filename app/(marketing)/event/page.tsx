@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import AboutArtistsDetailedSection from "@/_components/sections/Marketing/Event/AboutArtistsDetailedSection";
+import dynamic from "next/dynamic";
 import AboutArtistSection from "@/_components/sections/Marketing/Event/AboutArtistSection";
 import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEventSection";
 import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSection";
-import FAQSection from "@/_components/sections/Marketing/Event/FAQSection";
 import { SponsorSection } from "@/_components/sections/Marketing/Event/SponsorSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
@@ -31,6 +30,14 @@ import {
   getLatestEventCapacity,
 } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
+
+const FAQSection = dynamic(
+  () => import("@/_components/sections/Marketing/Event/FAQSection"),
+);
+const AboutArtistsDetailedSection = dynamic(
+  () =>
+    import("@/_components/sections/Marketing/Event/AboutArtistsDetailedSection"),
+);
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

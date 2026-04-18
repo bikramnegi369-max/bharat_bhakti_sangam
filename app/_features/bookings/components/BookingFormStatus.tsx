@@ -12,7 +12,11 @@ type Props = {
   errorMessage?: string | null;
 };
 
-export function BookingFormStatus({ status, onRetry, errorMessage }: Props) {
+export default function BookingFormStatus({
+  status,
+  onRetry,
+  errorMessage,
+}: Props) {
   return (
     <FormSubmitStatusScreen
       status={status}

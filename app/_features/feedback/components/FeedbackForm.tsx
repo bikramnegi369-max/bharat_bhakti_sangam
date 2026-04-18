@@ -10,7 +10,7 @@ import { FeedbackFormData, feedbackSchema } from "@/_schemas/feedback.schema";
 import { useFeedbackForm } from "@/_hooks/useFeedbackForm";
 import { useEffect, useRef } from "react";
 
-export function FeedbackForm() {
+export default function FeedbackForm() {
   const methods = useForm<FeedbackFormData>({
     resolver: zodResolver(feedbackSchema),
     mode: "onTouched",
