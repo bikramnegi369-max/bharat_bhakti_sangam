@@ -19,7 +19,7 @@ export default function Navbar() {
   return (
     <>
       {/* HEADER */}
-      <header className="h-[clamp(3.75rem,calc(3.304rem+2.232vw),5.313rem)] flex items-center justify-between  p-4 border-b sticky top-0 z-50 bg-header-bg">
+      <header className="h-[clamp(3.75rem,calc(3.304rem+2.232vw),5.313rem)] flex items-center justify-between  p-4 lg:px-8 border-b sticky top-0 z-50 bg-header-bg">
         {/* Logo */}
         <Image
           src="/logo.png"
