@@ -15,7 +15,6 @@ type GallerySectionProps = {
   images: GalleryItem[];
 };
 
-
 export default function GallerySection({
   title = "Experience The Energy",
   highlightWord = "Energy",
@@ -61,7 +60,6 @@ export default function GallerySection({
                 alt={img.alt || "Gallery image"}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
-                priority={false}
                 sizes="(max-width: 1024px) 90vw, 45vw"
                 loading="lazy"
               />

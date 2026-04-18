@@ -1,4 +1,3 @@
-
 import Image from "next/image"; // ADD THIS
 import { CTAButton } from "../../ui/CTAButton";
 import { getOptimizedImageUrl } from "@/_lib/helpers";
@@ -20,7 +19,6 @@ type HeroProps = {
   backgroundImage?: string;
 };
 
-
 export default function Hero({
   title,
   location,
@@ -37,7 +35,7 @@ export default function Hero({
           src={getOptimizedImageUrl(backgroundImage, { width: 1200 })}
           alt="Hero background"
           fill
-          priority
+          preload
           sizes="(max-width: 640px) 100vw,
        (max-width: 1024px) 100vw,
        1200px"

@@ -43,7 +43,6 @@ export default function MissionSection() {
             alt="Our Mission"
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
-            priority={false}
             loading="lazy"
             sizes="(max-width: 1024px) 90vw, 45vw"
           />

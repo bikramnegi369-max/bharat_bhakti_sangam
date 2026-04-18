@@ -26,7 +26,7 @@ export default function Navbar() {
           alt="Bharat Bhakti Sangam Logo"
           width={168}
           height={168}
-          priority
+          preload
           className="cursor-pointer h-[clamp(3.438rem,calc(2.991rem+2.232vw),5rem)] w-[clamp(3.438rem,calc(2.991rem+2.232vw),5rem)] object-contain"
           onClick={() => router.push(routes.home)}
         />
