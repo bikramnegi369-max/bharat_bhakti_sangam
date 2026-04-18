@@ -9,6 +9,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Mail, Menu, Phone, Ticket } from "lucide-react";
 import { Marquee } from "../ui/Marquee/Marquee";
+import { CTAButton } from "../ui/CTAButton";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -18,7 +19,7 @@ export default function Navbar() {
   return (
     <>
       {/* HEADER */}
-      <header className="h-[clamp(5rem,calc(4.554rem+2.232vw),6.563rem)] flex items-center justify-between  p-4 border-b sticky top-0 z-50 bg-header-bg">
+      <header className="h-[clamp(3.75rem,calc(3.304rem+2.232vw),5.313rem)] flex items-center justify-between  p-4 border-b sticky top-0 z-50 bg-header-bg">
         {/* Logo */}
         <Image
           src="/logo.png"
@@ -26,12 +27,20 @@ export default function Navbar() {
           width={168}
           height={168}
           priority
-          className="cursor-pointer h-[clamp(3.75rem,calc(3.036rem+3.571vw),6.25rem)] w-[clamp(3.75rem,calc(3.036rem+3.571vw),6.25rem)] object-contain"
+          className="cursor-pointer h-[clamp(3.438rem,calc(2.991rem+2.232vw),5rem)] w-[clamp(3.438rem,calc(2.991rem+2.232vw),5rem)] object-contain"
           onClick={() => router.push(routes.home)}
         />
 
+        {/* CTA BUTTON SHOW ON MOBILE */}
+        <CTAButton
+          href={routes.booking}
+          label={"Book Now"}
+          variant="primary"
+          className="lg:hidden"
+        />
+
         {/* Desktop Menu */}
-        <nav className="hidden lg:flex gap-6 relative mr-4">
+        <nav className="hidden lg:flex gap-6 relative items-center">
           {NAV_LINKS.map((link) => {
             const isActive =
               pathname === link.href || pathname.startsWith(link.href + "/");
@@ -64,6 +73,13 @@ export default function Navbar() {
               </Link>
             );
           })}
+          {/* CTA BUTTON SHOW ON DESKTOP */}
+          <CTAButton
+            href={routes.booking}
+            label={"Book Now"}
+            variant="primary"
+            className="hidden lg:block w-45! h-9.5! py-0! text-2xl!"
+          />
         </nav>
 
         {/* Mobile Button */}
@@ -75,10 +91,12 @@ export default function Navbar() {
           <Menu size={30} />
         </button>
       </header>
+
+      {/* Marquee */}
       <Marquee
         speed={25}
         gap={48}
-        className="py-3"
+        className="py-1"
         items={[
           {
             id: "1",
@@ -86,11 +104,11 @@ export default function Navbar() {
               <div className="flex items-center gap-6">
                 <span>Contact Us : </span>
                 <span className="flex gap-2 items-center">
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-3 h-3" />
                   +91 8796086743
                 </span>
                 <span className="flex gap-2 items-center">
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-3 h-3" />
                   info@bharatbhaktisangam.com
                 </span>
               </div>

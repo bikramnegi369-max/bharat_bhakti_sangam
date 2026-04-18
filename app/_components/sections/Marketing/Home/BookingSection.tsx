@@ -32,7 +32,7 @@ export default function BookingSection({
 
   return (
     <section className="py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
-      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid grid-cols-1 lg:grid-cols-2 gap-8 place-items-center">
+      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch justify-items-center">
         {/* Heading */}
         <div className="text-center lg:col-span-2">
           <h2
@@ -51,7 +51,7 @@ export default function BookingSection({
         </div>
 
         {/* Main Card */}
-        <div className="mt-5 lg:mt-10 bg-white  rounded-lg p-6 lg:p-8 shadow-2xl w-[clamp(14.688rem,calc(10.295rem+21.964vw),30.063rem)]  flex flex-col justify-between">
+        <div className="mt-5 lg:mt-10 bg-white rounded-lg p-6 lg:p-8 shadow-2xl w-full max-w-[22.813rem] lg:max-w-none flex flex-col justify-between">
           {/* SECTION 1 */}
           <div className="grid gap-3 lg:gap-6">
             {/* Location */}
@@ -89,7 +89,7 @@ export default function BookingSection({
           <div className="my-3 lg:my-6 border-t border border-heading/20" />
 
           {/* SECTION 2 */}
-          <div className="text-center flex flex-col space-between">
+          <div className="text-center flex flex-col justify-between">
             <p className="text-heading text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-semibold">
               {ticketTypes.length > 1
                 ? "Passes Starting From"
@@ -121,14 +121,14 @@ export default function BookingSection({
         </div>
 
         {/* What to Expect */}
-        <div className="mt-5 lg:mt-10 bg-primary_light border-3 border-primary rounded-lg p-6 lg:p-8">
+        <div className="mt-5 lg:mt-10 bg-primary_light border-3 border-primary rounded-lg p-6 lg:p-8 w-full max-w-[22.813rem] lg:max-w-none flex flex-col justify-between">
           <h3
             className={`text-[clamp(0.938rem,calc(0.491rem+2.232vw),2.5rem)] text-heading font-bold mb-4 ${cinzel.className}`}
           >
             What to expect
           </h3>
 
-          <ul className="space-y-3">
+          <ul className="space-y-3 flex-grow">
             {[
               "Enjoy powerful live bhajan and kirtan concerts.",
               "Dance to uplifting electronic bhakti beats.",

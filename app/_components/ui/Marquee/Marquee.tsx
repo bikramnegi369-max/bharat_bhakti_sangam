@@ -122,10 +122,7 @@ export function Marquee({
   return (
     <div
       ref={wrapperRef}
-      className={clsx(
-        "relative overflow-hidden bg-primary text-white w-full",
-        className,
-      )}
+      className={clsx("relative overflow-hidden bg-primary w-full", className)}
       onMouseEnter={() => pauseOnHover && setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={() => pauseOnTouch && setPaused(true)}

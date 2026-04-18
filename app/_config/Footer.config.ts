@@ -1,7 +1,7 @@
 import { FooterConfig } from "@/_types/Footer.types";
 
 export const footerConfig: FooterConfig = {
-  logoSrc: "/logo.png",
+  logoSrc: "/logoTM.png",
   logoAlt: "Bharat Bhakti Samaj Logo",
 
   description:
@@ -16,7 +16,7 @@ export const footerConfig: FooterConfig = {
     },
     {
       platform: "instagram",
-      href: "#",
+      href: "https://www.instagram.com/bharatbhaktisangam",
       label: "Instagram",
       icon: "/social_media/instagram_logo.png",
     },

@@ -12,7 +12,7 @@ type Props = {
 export function FooterBrand({ logoSrc, logoAlt, description }: Props) {
   return (
     <div className="space-y-6 max-w-md">
-      <Link href="/" className="block relative w-20 h-20">
+      <Link href="/" className="block relative w-25 h-25">
         <Image
           src={logoSrc}
           alt={logoAlt}

@@ -16,6 +16,7 @@ export function MarqueeItem({ children }: Props) {
         whitespace-nowrap
         flex
         items-center
+        text-xs lg:text-sm
       "
     >
       {children}
