@@ -5,7 +5,7 @@ import { BOOKING_CONFIG } from "@/_lib/constants/booking.constants";
 import { cinzel } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
-import { Info } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 type Props = {
@@ -123,8 +123,11 @@ export const BookingForm = ({
           type="submit"
           variant="primary"
           disabled={isSubmitting}
-          className="w-full h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)] py-3"
+          className="w-full h-[clamp(2.5rem,calc(2.232rem+1.339vw),3.438rem)] py-3 flex gap-4 justify-center items-center"
         >
+          {isSubmitting && (
+            <Loader2 className="w-4 h-4 lg:w-8 lg:h-8 animate-spin" />
+          )}
           <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] font-semibold tracking-widest uppercase">
             {isSubmitting ? "Booking..." : "Book Now"}
           </span>
