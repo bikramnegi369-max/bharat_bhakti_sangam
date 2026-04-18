@@ -31,7 +31,7 @@ export default function Footer({ config = footerConfig }: FooterProps) {
           </div>
 
           {/* Center */}
-          <div className="flex justify-start lg:justify-center">
+          <div className="flex justify-start lg:justify-center lg:mt-5">
             <FooterNav
               navSections={config.navSections}
               legalLinks={config.legalLinks}
@@ -40,7 +40,7 @@ export default function Footer({ config = footerConfig }: FooterProps) {
 
           {/* Right */}
           {pathname !== "/booking" && (
-            <div className="flex flex-col gap-10 justify-start lg:items-end">
+            <div className="flex flex-col gap-10 justify-start lg:items-end lg:mt-5">
               <FooterCTA
                 label={config.cta.label}
                 href={config.cta.href}
