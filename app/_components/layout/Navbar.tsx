@@ -32,12 +32,14 @@ export default function Navbar() {
         />
 
         {/* CTA BUTTON SHOW ON MOBILE */}
-        <CTAButton
-          href={routes.booking}
-          label={"Book Now"}
-          variant="primary"
-          className="lg:hidden"
-        />
+        {pathname !== "/booking" && (
+          <CTAButton
+            href={routes.booking}
+            label={"Book Now"}
+            variant="primary"
+            className="lg:hidden"
+          />
+        )}
 
         {/* Desktop Menu */}
         <nav className="hidden lg:flex gap-6 relative items-center">
@@ -74,12 +76,14 @@ export default function Navbar() {
             );
           })}
           {/* CTA BUTTON SHOW ON DESKTOP */}
-          <CTAButton
-            href={routes.booking}
-            label={"Book Now"}
-            variant="primary"
-            className="hidden lg:block w-45! h-9.5! py-0! text-2xl!"
-          />
+          {pathname !== "/booking" && (
+            <CTAButton
+              href={routes.booking}
+              label={"Book Now"}
+              variant="primary"
+              className="hidden lg:block w-45! h-9.5! py-0! text-2xl!"
+            />
+          )}
         </nav>
 
         {/* Mobile Button */}
