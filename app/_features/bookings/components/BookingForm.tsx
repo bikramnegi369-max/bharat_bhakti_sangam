@@ -103,7 +103,7 @@ export default function BookingForm({
         />
       </div>
 
-      <hr className=" border-para opacity-20" />
+      {/* <hr className=" border-para opacity-20" /> */}
 
       <div className=" flex flex-col gap-4">
         {/* <div className="flex justify-between items-center">
