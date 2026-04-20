@@ -136,6 +136,7 @@ export default function BookingSection({
               "Celebrate devotion in a vibrant setting.",
               "A Spiritually Elevated Environment",
               "Experience a unique blend of meditation & music.",
+              "Immerse in soul-stirring devotional performances by renowned artists.",
             ].map((item, index) => (
               <li key={index} className="flex gap-3 items-start">
                 <BadgeCheck className="text-primary w-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] h-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]" />

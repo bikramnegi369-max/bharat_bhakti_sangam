@@ -33,7 +33,7 @@ export function WhatsAppCTA() {
       <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-20 animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]" />
 
       {/* Icon (proper spacing) */}
-      <WhatsAppIcon className="w-7 h-7 sm:w-9 sm:h-9 text-white relative z-10" />
+      <WhatsAppIcon className="w-9 h-9 md:w-12 md:h-12 text-white relative z-10" />
     </a>
   );
 }

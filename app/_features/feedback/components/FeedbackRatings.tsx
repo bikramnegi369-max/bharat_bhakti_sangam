@@ -45,7 +45,7 @@ export function FeedbackRatings() {
                       field.onChange(val);
                       field.onBlur();
                     }}
-                    className="w-[clamp(1.25rem,calc(0.857rem+1.964vw),2.625rem)] h-[clamp(1.25rem,calc(0.857rem+1.964vw),2.625rem)]"
+                    className="w-[clamp(1.25rem,calc(0.857rem+1.964vw),2.625rem)] h-[clamp(1.25rem,calc(0.857rem+1.964vw),2.625rem)] text-para"
                   />
                   {errors.ratings?.[item.key] && (
                     <span className="text-xs text-red-500">
