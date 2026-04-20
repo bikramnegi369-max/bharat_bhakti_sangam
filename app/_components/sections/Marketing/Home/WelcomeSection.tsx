@@ -16,7 +16,7 @@ export default function WelcomeSection() {
           <h2
             className={`${cinzel.className} text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] text-primary font-bold leading-widest text-center`}
           >
-            Bhajanclubbing
+            Bhajan clubbing
           </h2>
 
           <p className="mt-6 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center">

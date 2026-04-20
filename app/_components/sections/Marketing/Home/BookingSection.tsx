@@ -38,7 +38,7 @@ export default function BookingSection({
           <h2
             className={`text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] font-bold ${cinzel.className}`}
           >
-            Divine <span className="text-primary">Bhajanclubbing</span>
+            Divine <span className="text-primary">Bhajan clubbing</span>
           </h2>
 
           {/* Date */}
