@@ -1,5 +1,3 @@
-"use client";
-
 import { cinzel } from "@/_lib/fonts";
 import clsx from "clsx";
 
