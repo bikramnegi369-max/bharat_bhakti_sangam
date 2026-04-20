@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
     ],
     qualities: [25, 50, 60, 65, 75],
   },
+  compress: true,
 };
 
 const withBundleAnalyzer = bundleAnalyzer({
