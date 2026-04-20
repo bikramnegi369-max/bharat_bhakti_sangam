@@ -113,7 +113,7 @@ export default function Navbar() {
                 </span>
                 <span className="flex gap-2 items-center">
                   <Mail className="w-3 h-3" />
-                  info@bharatbhaktisangam.com
+                  contact@bharatbhaktisangam.com
                 </span>
               </div>
             ),
