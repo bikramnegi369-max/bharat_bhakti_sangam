@@ -22,7 +22,7 @@ export default function Navbar() {
       <header className="h-[clamp(3.75rem,calc(3.304rem+2.232vw),5.313rem)] flex items-center justify-between  p-4 lg:px-8 border-b sticky top-0 z-50 bg-header-bg">
         {/* Logo */}
         <Image
-          src="/logo.png"
+          src="/logo.webp"
           alt="Bharat Bhakti Sangam Logo"
           width={168}
           height={168}

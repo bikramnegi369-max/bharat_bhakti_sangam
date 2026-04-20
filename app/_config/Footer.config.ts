@@ -1,7 +1,7 @@
 import { FooterConfig } from "@/_types/Footer.types";
 
 export const footerConfig: FooterConfig = {
-  logoSrc: "/logoTM.png",
+  logoSrc: "/logoTM.webp",
   logoAlt: "Bharat Bhakti Samaj Logo",
 
   description:
