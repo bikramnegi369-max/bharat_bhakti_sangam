@@ -6,7 +6,7 @@ import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSe
 import { SponsorSection } from "@/_components/sections/Marketing/Event/SponsorSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
-import { getSeoKeywords } from "@/_config/Seo.config";
+import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
 import {
   getAbsoluteEventImageUrl,
   getEventArtistNames,
@@ -43,9 +43,10 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     const event = await getLatestEvent();
     const description = getEventDescription(event);
+    const seoPage = getSeoPageConfig("event");
 
     return createPageMetadata({
-      title: `${event.eventName} Event in Mumbai`,
+      title: `${event.eventName} Event | ${seoPage.title}`,
       description,
       path: "/event",
       image: getOgImageUrl(event),

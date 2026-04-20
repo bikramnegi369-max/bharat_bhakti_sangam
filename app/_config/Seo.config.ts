@@ -116,7 +116,7 @@ export const _seoConfig = {
   event: {
     path: "/event",
     image: "/event.webp",
-    title: "Latest Event",
+    title: "Bharat Bhakti Sangam",
     description:
       "Explore the latest devotional event from Bharat Bhakti Sangam.",
     keywords: [
