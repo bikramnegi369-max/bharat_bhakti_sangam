@@ -36,11 +36,22 @@ export function ContactDetails() {
         </div>
         <div className="text-[clamp(0.75rem,calc(0.432rem+1.591vw),1.625rem)] flex flex-col gap-2 lg:gap-4 text-para">
           <p>
-            <span className="font-semibold">Phone : </span> +91 8796086743
+            <span className="font-semibold">Phone : </span>{" "}
+            <a
+              href="tel:+918796086743"
+              className="hover:underline hover:text-primary transition-colors"
+            >
+              +91 8796086743
+            </a>
           </p>
           <p>
             <span className="font-semibold">Email : </span>{" "}
-            contact@bharatbhaktisangam.com
+            <a
+              href="mailto:contact@bharatbhaktisangam.com"
+              className="hover:underline hover:text-primary transition-colors"
+            >
+              contact@bharatbhaktisangam.com
+            </a>
           </p>
         </div>
       </div>
