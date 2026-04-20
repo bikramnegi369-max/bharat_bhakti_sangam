@@ -38,7 +38,7 @@ export default function Card({
         {Icon && (
           <div className="flex justify-center">
             <Icon
-              className="text-primary w-[clamp(2rem,calc(1.5rem+2.5vw),4rem)] h-[clamp(2rem,calc(1.5rem+2.5vw),4rem)]"
+              className="text-primary w-[clamp(2rem,calc(1.607rem+1.964vw),3.375rem)] h-[clamp(2rem,calc(1.607rem+1.964vw),3.375rem)]"
               strokeWidth={1.5}
             />
           </div>
@@ -46,14 +46,14 @@ export default function Card({
 
         {/* Title */}
         {title && (
-          <h3 className="font-semibold text-para text-[clamp(0.938rem,calc(0.813rem+0.625vw),1.375rem)] leading-snug">
+          <h3 className="font-semibold text-para text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] leading-snug">
             {title}
           </h3>
         )}
 
         {/* Description */}
         {description && (
-          <p className="text-sub_text text-[clamp(0.75rem,calc(0.625rem+0.625vw),1.063rem)] leading-relaxed grow">
+          <p className="text-sub_text text-[clamp(0.75rem,calc(0.696rem+0.268vw),0.938rem)] leading-relaxed grow">
             {description}
           </p>
         )}

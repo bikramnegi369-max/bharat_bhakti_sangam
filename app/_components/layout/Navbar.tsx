@@ -81,7 +81,7 @@ export default function Navbar() {
               href={routes.booking}
               label={"Book Now"}
               variant="primary"
-              className="hidden lg:block w-45! h-9.5! py-0! text-2xl!"
+              className="hidden lg:block w-45! h-9.5! py-0! text-[clamp(0.5rem,calc(0.25rem+1.25vw),1.375rem)]!"
             />
           )}
         </nav>

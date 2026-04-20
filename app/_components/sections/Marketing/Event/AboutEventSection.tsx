@@ -30,7 +30,7 @@ export default function AboutEventSection({
         {/* Heading */}
         <h2
           className={clsx(
-            "text-[clamp(1.25rem,calc(0.982rem+1.339vw),2.188rem)] font-bold mb-6",
+            "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-6",
             cinzel.className,
           )}
         >
@@ -38,14 +38,14 @@ export default function AboutEventSection({
         </h2>
 
         {/* Description */}
-        <p className="text-para text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] font-medium leading-relaxed">
+        <p className="text-para text-[clamp(0.75rem,calc(0.679rem+0.357vw),1rem)] font-medium leading-relaxed">
           {description}
         </p>
 
         {/* Instruments */}
         {instruments.length > 0 && (
           <div className="mt-8">
-            <p className="font-semibold text-para text-[clamp(0.813rem,calc(0.652rem+0.804vw),1.375rem)] mb-3 uppercase">
+            <p className="font-semibold text-para text-[clamp(0.813rem,calc(0.688rem+0.625vw),1.25rem)] mb-3 uppercase">
               Instruments
             </p>
 
@@ -53,7 +53,7 @@ export default function AboutEventSection({
               {instruments.map((item, index) => (
                 <span
                   key={index}
-                  className="px-4 py-1.5 rounded-full border border-primary bg-secondary text-para text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)] font-medium hover:bg-primary/10 transition"
+                  className="px-4 py-1.5 rounded-full border border-primary bg-secondary text-para text-[clamp(0.563rem,calc(0.509rem+0.268vw),0.75rem)] font-medium hover:bg-primary/10 transition"
                 >
                   {item}
                 </span>
@@ -71,7 +71,7 @@ export default function AboutEventSection({
                 {hashtags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 rounded-full border border-heading text-para text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)]"
+                    className="px-3 py-1 rounded-full border border-heading text-para text-[clamp(0.563rem,calc(0.509rem+0.268vw),0.75rem)]"
                   >
                     {tag}
                   </span>

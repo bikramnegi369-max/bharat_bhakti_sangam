@@ -27,14 +27,14 @@ export default function GallerySection({
         {/* Heading */}
         <div className="text-center">
           <h2
-            className={`text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] font-bold ${cinzel.className}`}
+            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${cinzel.className}`}
           >
             {title.split(highlightWord)[0]}
             <span className="text-primary">{highlightWord}</span>
           </h2>
 
           {/* Tags */}
-          <div className="mt-4 flex flex-wrap justify-center items-center gap-3 text-[clamp(0.625rem,calc(0.304rem+1.607vw),1.75rem)] text-para">
+          <div className="mt-4 flex flex-wrap justify-center items-center gap-6 text-[clamp(0.625rem,calc(0.375rem+1.25vw),1.5rem)] text-para">
             {tags.map((tag, index) => (
               <div key={index} className="flex items-center gap-2">
                 {/* Dot */}

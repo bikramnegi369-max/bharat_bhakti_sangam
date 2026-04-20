@@ -46,7 +46,7 @@ export default function AboutArtistsDetailedSection({
         {/* Heading */}
         <h2
           className={clsx(
-            "text-[clamp(1.5rem,calc(1rem+2vw),2.5rem)] font-bold mb-10 lg:mb-16 text-center",
+            "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-10 lg:mb-16 text-center",
             cinzel.className,
           )}
         >

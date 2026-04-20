@@ -9,13 +9,13 @@ export default function MissionSection() {
         <div>
           <div className="flex justify-center items-center gap-2">
             <h2
-              className={`${cinzel.className} text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] font-bold uppercase tracking-widest text-heading text-center`}
+              className={`${cinzel.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold uppercase tracking-widest text-heading text-center`}
             >
               Our
             </h2>
 
             <h2
-              className={`${cinzel.className} text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] text-primary font-bold leading-widest text-center`}
+              className={`${cinzel.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] text-primary font-bold leading-widest text-center`}
             >
               Mission
             </h2>

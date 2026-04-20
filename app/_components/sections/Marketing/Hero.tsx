@@ -52,7 +52,7 @@ export default function Hero({
         {/* Title */}
         {title && (
           <h1
-            className={`${cinzel.className} text-[clamp(1.25rem,calc(0.536rem+3.571vw),3.75rem)] font-bold leading-tight`}
+            className={`${cinzel.className} text-[clamp(1.25rem,calc(0.714rem+2.679vw),3.125rem)] font-bold leading-tight`}
           >
             {title}
           </h1>
@@ -60,7 +60,7 @@ export default function Hero({
 
         {/* Location & Address */}
         {(location || address) && (
-          <p className="mt-4 text-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)] text-gray-200">
+          <p className="mt-5 text-[clamp(0.625rem,calc(0.357rem+1.339vw),1.563rem)] text-gray-200">
             {location}
             {location && address && <span className="mx-2">|</span>}
             {address}
@@ -69,7 +69,7 @@ export default function Hero({
 
         {/* Date */}
         {date && (
-          <p className="mt-2 text-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)] text-gray-300">
+          <p className="mt-2 text-[clamp(0.625rem,calc(0.357rem+1.339vw),1.563rem)] text-gray-300">
             {date}
           </p>
         )}

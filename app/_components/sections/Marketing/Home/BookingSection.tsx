@@ -36,7 +36,7 @@ export default function BookingSection({
         {/* Heading */}
         <div className="text-center lg:col-span-2">
           <h2
-            className={`text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] font-bold ${cinzel.className}`}
+            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${cinzel.className}`}
           >
             Divine <span className="text-primary">Bhajan clubbing</span>
           </h2>
@@ -112,7 +112,7 @@ export default function BookingSection({
             <Link href="/booking" className="w-full">
               <Button
                 variant="primary"
-                className="w-full text-[clamp(0.688rem,calc(0.491rem+0.982vw),1.375rem)] font-semibold py-2"
+                className="w-full text-[clamp(0.688rem,calc(0.491rem+0.982vw),1.375rem)] py-2"
               >
                 Book Now
               </Button>
@@ -123,12 +123,12 @@ export default function BookingSection({
         {/* What to Expect */}
         <div className="mt-5 lg:mt-10 bg-primary_light border-3 border-primary rounded-lg p-6 lg:p-8 w-full max-w-[22.813rem] lg:max-w-none flex flex-col justify-between">
           <h3
-            className={`text-[clamp(0.938rem,calc(0.491rem+2.232vw),2.5rem)] text-heading font-bold mb-4 ${cinzel.className}`}
+            className={`text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] text-heading font-bold mb-4 ${cinzel.className}`}
           >
             What to expect
           </h3>
 
-          <ul className="space-y-3 flex-grow">
+          <ul className="space-y-3 grow">
             {[
               "Enjoy powerful live bhajan and kirtan concerts.",
               "Dance to uplifting electronic bhakti beats.",
@@ -138,8 +138,8 @@ export default function BookingSection({
               "Experience a unique blend of meditation & music.",
             ].map((item, index) => (
               <li key={index} className="flex gap-3 items-start">
-                <BadgeCheck className="text-primary w-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)] h-[clamp(0.625rem,calc(0.268rem+1.786vw),1.875rem)]" />
-                <span className="text-para text-[clamp(0.5rem,calc(0.286rem+1.071vw),1.25rem)]">
+                <BadgeCheck className="text-primary w-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] h-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]" />
+                <span className="text-para text-[clamp(0.5rem,calc(0.375rem+0.625vw),0.938rem)]">
                   {item}
                 </span>
               </li>

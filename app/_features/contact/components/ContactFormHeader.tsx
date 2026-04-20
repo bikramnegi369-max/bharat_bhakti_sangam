@@ -14,7 +14,7 @@ export function ContactFormHeader() {
         {CONTACT_CONTENT.heading}
       </h1> */}
 
-      <p className="mx-auto max-w-lg text-[clamp(0.75rem,calc(0.432rem+1.591vw),1.625rem)] text-para leading-relaxed">
+      <p className="mx-auto max-w-lg text-[clamp(0.875rem,calc(0.696rem+0.893vw),1.5rem)] text-para leading-relaxed">
         {CONTACT_CONTENT.subHeading}
       </p>
     </header>

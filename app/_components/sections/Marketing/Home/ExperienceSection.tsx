@@ -30,7 +30,7 @@ export default function ExperienceSection() {
         {/* Heading */}
         <div className="text-center max-w-3xl mx-auto">
           <h2
-            className={`text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] font-bold ${cinzel.className}`}
+            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${cinzel.className}`}
           >
             Where <span className="text-primary">Devotion</span> Meets{" "}
             <span className="text-primary">Celebration</span>

@@ -8,13 +8,13 @@ export default function WelcomeSection() {
         {/* TEXT CONTENT */}
         <div>
           <h2
-            className={`${cinzel.className} text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] font-bold uppercase tracking-widest text-heading text-center`}
+            className={`${cinzel.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold uppercase tracking-widest text-heading text-center`}
           >
             Welcome to
           </h2>
 
           <h2
-            className={`${cinzel.className} text-[clamp(1.25rem,calc(0.625rem+3.125vw),3.438rem)] text-primary font-bold leading-widest text-center`}
+            className={`${cinzel.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] text-primary font-bold leading-widest text-center`}
           >
             Bhajan clubbing
           </h2>

@@ -44,7 +44,7 @@ export default function BookingForm({
     >
       <h2
         className={clsx(
-          "text-[clamp(1.313rem,calc(1.063rem+1.25vw),2.188rem)] font-bold text-heading text-center",
+          "text-[clamp(1.313rem,calc(1.116rem+0.982vw),2rem)] font-bold text-heading text-center",
           cinzel.className,
         )}
       >

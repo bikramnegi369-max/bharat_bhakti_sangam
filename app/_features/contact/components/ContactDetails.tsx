@@ -5,7 +5,7 @@ export function ContactDetails() {
   return (
     <div
       className="w-full
-              max-w-4xl
+              max-w-2xl
               mx-auto
               text-center
               rounded-2xl
@@ -18,11 +18,11 @@ export function ContactDetails() {
               space-y-4 lg:space-y-8"
     >
       <h2
-        className={`${cinzel.className} text-[clamp(1rem,calc(0.477rem+2.614vw),2.438rem)] font-bold text-heading`}
+        className={`${cinzel.className} text-[clamp(1rem,calc(0.714rem+1.429vw),2rem)] font-bold text-heading`}
       >
-        Connect with Bharat Bhakti Sangam
+        Connect with<span className="text-primary"> Bharat Bhakti Sangam</span>
       </h2>
-      <p className="text-[clamp(0.75rem,calc(0.432rem+1.591vw),1.625rem)] text-para">
+      <p className="text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para">
         Have feedback or something to share about Bharat Bhakti Sangam ? Connect
         with us here – we’d love to hear from you!
       </p>
@@ -34,7 +34,7 @@ export function ContactDetails() {
             CONTACT
           </h4>
         </div>
-        <div className="text-[clamp(0.75rem,calc(0.432rem+1.591vw),1.625rem)] flex flex-col gap-2 lg:gap-4 text-para">
+        <div className="text-[clamp(0.875rem,calc(0.696rem+0.893vw),1.5rem)] flex flex-col gap-2 lg:gap-4 text-para">
           <p>
             <span className="font-semibold">Phone : </span>{" "}
             <a

@@ -55,7 +55,7 @@ export default function FAQSection({
           {/* Heading */}
           <h2
             className={clsx(
-              "text-[clamp(1.25rem,calc(0.982rem+1.339vw),2.188rem)] font-bold mb-10",
+              "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-10",
               cinzel.className,
               "text-center",
             )}
@@ -78,7 +78,7 @@ export default function FAQSection({
                     onClick={() => toggle(index)}
                     className="w-full flex items-center justify-between px-5 py-4 text-left"
                   >
-                    <span className="font-semibold text-heading text-[clamp(0.813rem,calc(0.652rem+0.804vw),1.375rem)]">
+                    <span className="font-semibold text-heading text-[clamp(0.813rem,calc(0.688rem+0.625vw),1.25rem)]">
                       {faq.title}
                     </span>
 

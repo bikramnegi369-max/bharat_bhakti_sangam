@@ -36,7 +36,7 @@ export default function EventInfoSection({
     address: "Hare Krishna Land, Juhu, Mumbai 400049",
   },
   capacity = { current: 150, total: 200 },
-  type = "Public | Indoor | Classical Dance | Singing",
+  type = "Private | Outdoor | Classical | Dance | Singing",
   booking = [
     {
       name: "General Sitting",
@@ -58,35 +58,37 @@ export default function EventInfoSection({
 
           {/* VENUE */}
           <div className="flex gap-4">
-            <MapPin className="text-primary w-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] h-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] mt-1" />
+            <MapPin className="text-primary w-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] h-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] shrink-0 mt-1" />
             <div>
               <p
                 className={clsx(
-                  "text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)]",
+                  "text-[clamp(1.188rem,calc(1.134rem+0.268vw),1.375rem)]",
                   cinzel.className,
                   "font-bold text-heading",
                 )}
               >
                 Venue
               </p>
-              <p className="font-semibold text-para">{venue.name}</p>
-              {venue.address && (
-                <p className="text-sm text-para">{venue.address}</p>
-              )}
+              <div className="flex flex-col gap-2">
+                <p className="font-semibold text-para">{venue.name}</p>
+                {venue.address && (
+                  <p className="text-sm text-para">{venue.address}</p>
+                )}
+              </div>
             </div>
           </div>
 
           <Divider />
 
           {/* CAPACITY */}
-          <InfoBlock
+          {/* <InfoBlock
             icon={UsersRound}
             label="Capacity"
             value={`${capacity.current} / ${capacity.total} Attending`}
             capacity={capacity}
-          />
+          /> */}
 
-          <Divider />
+          {/* <Divider /> */}
 
           {type && (
             <>
@@ -185,12 +187,12 @@ function InfoBlock({
 
   return (
     <div className="flex gap-4">
-      <Icon className="text-primary w-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] h-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] mt-1" />
+      <Icon className="text-primary w-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] h-[clamp(1.188rem,calc(1.152rem+0.179vw),1.313rem)] mt-1 shrink-0" />
 
       <div className="w-full">
         <p
           className={clsx(
-            "text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)] font-bold text-heading",
+            "text-[clamp(1.188rem,calc(1.134rem+0.268vw),1.375rem)] font-bold text-heading",
             cinzel.className,
           )}
         >

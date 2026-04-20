@@ -7,7 +7,6 @@ import { cinzel } from "@/_lib/fonts";
 import { FeedbackFormData } from "@/_schemas/feedback.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
-
 export function FeedbackRatings() {
   const {
     control,
@@ -22,7 +21,7 @@ export function FeedbackRatings() {
       {/* Heading */}
       <h2
         className={`${cinzel.className}
-      text-[clamp(1rem,calc(0.455rem+2.727vw),2.5rem)] font-semibold text-heading tracking-widest`}
+      text-[clamp(1rem,calc(0.714rem+1.429vw),2rem)] font-semibold text-heading tracking-widest`}
       >
         {FEEDBACK_FORM_CONTENT.heading}
       </h2>
@@ -31,7 +30,7 @@ export function FeedbackRatings() {
       <div className="space-y-4 lg:space-y-8">
         {FEEDBACK_RATINGS.map((item) => (
           <div key={item.key} className="flex items-center justify-between">
-            <span className="text-[clamp(0.875rem,calc(0.511rem+1.818vw),1.875rem)] font-medium text-para tracking-wider">
+            <span className="text-[clamp(0.875rem,calc(0.732rem+0.714vw),1.375rem)] font-medium text-para tracking-wider">
               {item.label}
             </span>
 
@@ -46,7 +45,7 @@ export function FeedbackRatings() {
                       field.onChange(val);
                       field.onBlur();
                     }}
-                    className="w-[clamp(1.25rem,calc(0.568rem+3.409vw),3.125rem)] h-[clamp(1.25rem,calc(0.568rem+3.409vw),3.125rem)]"
+                    className="w-[clamp(1.25rem,calc(0.857rem+1.964vw),2.625rem)] h-[clamp(1.25rem,calc(0.857rem+1.964vw),2.625rem)]"
                   />
                   {errors.ratings?.[item.key] && (
                     <span className="text-xs text-red-500">
