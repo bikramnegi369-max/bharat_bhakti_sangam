@@ -19,6 +19,7 @@ export function FooterBrand({ logoSrc, logoAlt, description }: Props) {
           fill
           className="object-contain"
           sizes="80px"
+          priority
         />
       </Link>
 
