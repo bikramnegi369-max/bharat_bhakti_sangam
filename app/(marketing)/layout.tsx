@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import Navbar from "@/_components/layout/Navbar";
+import Navbar from "@/_components/layout/Navbar/Navbar";
 
 const Footer = dynamic(() => import("@/_components/layout/Footer/Footer"));
 const FloatingStack = dynamic(
