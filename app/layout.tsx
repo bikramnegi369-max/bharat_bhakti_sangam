@@ -1,9 +1,7 @@
-
 import "./globals.css";
 import { siteConfig } from "@/_config/Site.config";
 import { jsonLdScript } from "@/_lib/seo";
 import { poppins } from "./_lib/fonts";
-
 
 // export const metadata: Metadata = {
 //   metadataBase: new URL(siteConfig.url),
