@@ -26,7 +26,7 @@ export default function NotFound() {
           Back to Home
         </Link>
         <Link
-          href="/events"
+          href="/event"
           className="w-full sm:w-auto px-10 py-4 text-sm font-bold text-gray-700 bg-white border border-gray-200 rounded-full hover:bg-gray-50 transition-all flex items-center justify-center"
         >
           View Events
