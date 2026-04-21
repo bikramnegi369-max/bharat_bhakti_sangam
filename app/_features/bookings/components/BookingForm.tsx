@@ -134,7 +134,7 @@ export default function BookingForm({
         </Button>
         <div className="flex gap-2 p-2 border rounded-md border-primary m-auto">
           <Info size={14} className="text-primary" />
-          <span className="text-[8px] lg:text-sm text-primary">
+          <span className="text-[10px] lg:text-sm text-primary">
             Valid for {values?.tickets}{" "}
             {values?.tickets === 1 ? "entry" : "entries"} for the event on{" "}
             {eventDate}.

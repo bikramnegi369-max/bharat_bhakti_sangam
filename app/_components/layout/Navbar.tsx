@@ -32,14 +32,14 @@ export default function Navbar() {
         />
 
         {/* CTA BUTTON SHOW ON MOBILE */}
-        {pathname !== "/booking" && (
+        {/* {pathname !== "/booking" && (
           <CTAButton
             href={routes.booking}
             label={"Book Now"}
             variant="primary"
             className="lg:hidden"
           />
-        )}
+        )} */}
 
         {/* Desktop Menu */}
         <nav className="hidden lg:flex gap-6 relative items-center">
@@ -87,13 +87,23 @@ export default function Navbar() {
         </nav>
 
         {/* Mobile Button */}
-        <button
-          className="lg:hidden text-white"
-          aria-label="Toggle navigation menu"
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
-          <Menu size={30} />
-        </button>
+        <div className="lg:hidden flex gap-4 items-center">
+          {pathname !== "/booking" && (
+            <CTAButton
+              href={routes.booking}
+              label={"Book Now"}
+              variant="primary"
+              className="lg:hidden bg-transparent! border border-primary text-primary"
+            />
+          )}
+          <button
+            className=" text-white"
+            aria-label="Toggle navigation menu"
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            <Menu size={30} />
+          </button>
+        </div>
       </header>
 
       {/* Marquee */}

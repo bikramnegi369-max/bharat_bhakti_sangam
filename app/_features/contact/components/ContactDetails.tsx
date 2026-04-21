@@ -22,7 +22,7 @@ export function ContactDetails() {
       >
         Connect with<span className="text-primary"> Bharat Bhakti Sangam</span>
       </h2>
-      <p className="text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para">
+      <p className="text-[clamp(0.844rem,calc(0.728rem+0.58vw),1.25rem)] text-para">
         Have feedback or something to share about Bharat Bhakti Sangam ? Connect
         with us here – we’d love to hear from you!
       </p>

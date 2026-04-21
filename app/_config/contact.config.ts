@@ -7,5 +7,5 @@ export const CONTACT_FORM_LIMITS = {
   queryMaxLength: 500,
   minQueryLength: 5,
   phoneMinLength: 10,
-  phoneMaxLength: 15,
+  phoneMaxLength: 10,
 };

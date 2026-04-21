@@ -53,7 +53,7 @@ export default function Card({
 
         {/* Description */}
         {description && (
-          <p className="text-sub_text text-[clamp(0.75rem,calc(0.696rem+0.268vw),0.938rem)] leading-relaxed grow">
+          <p className="text-heading/80 text-[clamp(0.75rem,calc(0.696rem+0.268vw),0.938rem)] leading-relaxed grow">
             {description}
           </p>
         )}

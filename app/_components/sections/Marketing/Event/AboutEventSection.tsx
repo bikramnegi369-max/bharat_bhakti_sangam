@@ -36,7 +36,7 @@ export default function AboutEventSection({
         </h2>
 
         {/* Description */}
-        <p className="text-para text-[clamp(0.75rem,calc(0.679rem+0.357vw),1rem)] font-medium leading-relaxed">
+        <p className="text-para/80 text-[clamp(0.875rem,calc(0.804rem+0.357vw),1.125rem)] font-medium leading-relaxed">
           {description}
         </p>
 
@@ -51,7 +51,7 @@ export default function AboutEventSection({
               {instruments.map((item, index) => (
                 <span
                   key={index}
-                  className="px-4 py-1.5 rounded-full border border-primary bg-secondary text-para text-[clamp(0.563rem,calc(0.509rem+0.268vw),0.75rem)] font-medium hover:bg-primary/10 transition"
+                  className="px-4 py-1.5 rounded-full border border-primary bg-secondary text-para text-[clamp(0.688rem,calc(0.634rem+0.268vw),0.875rem)] font-medium hover:bg-primary/10 transition"
                 >
                   {item}
                 </span>
@@ -69,7 +69,7 @@ export default function AboutEventSection({
                 {hashtags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 rounded-full border border-heading text-para text-[clamp(0.563rem,calc(0.509rem+0.268vw),0.75rem)]"
+                    className="px-3 py-1 rounded-full border border-heading text-para text-[clamp(0.688rem,calc(0.634rem+0.268vw),0.875rem)]"
                   >
                     {tag}
                   </span>

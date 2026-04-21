@@ -45,7 +45,7 @@ export default function Hero({
       )}
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-black/50" />
 
       {/*Content */}
       <div className="relative z-10 max-w-3xl px-6">
@@ -60,7 +60,7 @@ export default function Hero({
 
         {/* Location & Address */}
         {(location || address) && (
-          <p className="mt-5 text-[clamp(0.625rem,calc(0.357rem+1.339vw),1.563rem)] text-gray-200">
+          <p className="mt-5 text-[clamp(0.75rem,calc(0.518rem+1.161vw),1.563rem)] text-gray-200">
             {location}
             {location && address && <span className="mx-2">|</span>}
             {address}
@@ -69,7 +69,7 @@ export default function Hero({
 
         {/* Date */}
         {date && (
-          <p className="mt-2 text-[clamp(0.625rem,calc(0.357rem+1.339vw),1.563rem)] text-gray-300">
+          <p className="mt-2 font-semibold text-[clamp(0.625rem,calc(0.357rem+1.339vw),1.563rem)] text-gray-300">
             {date}
           </p>
         )}

@@ -56,14 +56,14 @@ export default function BookingSection({
           <div className="grid gap-3 lg:gap-6">
             {/* Location */}
             <div className="flex gap-3">
-              <MapPin className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)]" />
-              <div>
+              <MapPin className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] shrink-0 mt-1" />
+              <div className="flex flex-col gap-1">
                 <p
-                  className={`font-bold text-heading ${cinzel.className} text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]`}
+                  className={`font-bold text-heading ${cinzel.className} text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)]`}
                 >
                   {venueName}
                 </p>
-                <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para font-medium">
+                <p className="text-[clamp(0.688rem,calc(0.616rem+0.357vw),0.938rem)] text-para font-medium text">
                   {venueAddress}
                 </p>
               </div>
@@ -72,13 +72,13 @@ export default function BookingSection({
             {/* Time */}
             <div className="flex gap-3">
               <Clock className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] mt-1" />
-              <div>
+              <div className="flex flex-col gap-1">
                 <p
-                  className={`font-bold text-heading ${cinzel.className} text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]`}
+                  className={`font-bold text-heading ${cinzel.className} text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)]`}
                 >
                   {eventDay}
                 </p>
-                <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para font-medium">
+                <p className="text-[clamp(0.688rem,calc(0.616rem+0.357vw),0.938rem)] text-para font-medium">
                   {eventTime}
                 </p>
               </div>
@@ -90,10 +90,12 @@ export default function BookingSection({
 
           {/* SECTION 2 */}
           <div className="text-center flex flex-col justify-between">
-            <p className="text-heading text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] font-semibold">
+            <p
+              className={`text-heading text-[clamp(1.125rem,calc(0.946rem+0.893vw),1.75rem)] font-bold tracking-widest ${cinzel.className}`}
+            >
               {ticketTypes.length > 1
                 ? "Passes Starting From"
-                : `${ticketTypes[0]?.name || "VVIP"} Pass`}
+                : `${ticketTypes[0]?.name.toUpperCase() || "VVIP"} PASS`}
             </p>
 
             {/* <p
@@ -102,7 +104,7 @@ export default function BookingSection({
               ₹{minPrice}
             </p> */}
 
-            <p className="text-[clamp(0.375rem,calc(0.268rem+0.536vw),0.75rem)] text-para mt-1 font-bold">
+            <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para/60 mt-1 font-bold">
               *Includes Premium High Tea & Snacks
             </p>
           </div>
@@ -110,10 +112,7 @@ export default function BookingSection({
           {/* CTA */}
           <div className="flex justify-center mt-4 px-4">
             <Link href="/booking" className="w-full">
-              <Button
-                variant="primary"
-                className="w-full text-[clamp(0.688rem,calc(0.491rem+0.982vw),1.375rem)] py-2"
-              >
+              <Button variant="primary" className="w-full py-2">
                 Book Now
               </Button>
             </Link>
@@ -123,9 +122,9 @@ export default function BookingSection({
         {/* What to Expect */}
         <div className="mt-5 lg:mt-10 bg-primary_light border-3 border-primary rounded-lg p-6 lg:p-8 w-full max-w-[22.813rem] lg:max-w-none flex flex-col justify-between">
           <h3
-            className={`text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] text-heading font-bold mb-4 ${cinzel.className}`}
+            className={`text-[clamp(1rem,calc(0.821rem+0.893vw),1.625rem)] text-heading font-bold mb-4 ${cinzel.className}`}
           >
-            What to expect
+            What to expect ?
           </h3>
 
           <ul className="space-y-3 grow">
@@ -139,8 +138,8 @@ export default function BookingSection({
               "Immerse in soul-stirring devotional performances by renowned artists.",
             ].map((item, index) => (
               <li key={index} className="flex gap-3 items-start">
-                <BadgeCheck className="text-primary w-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)] h-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]" />
-                <span className="text-para text-[clamp(0.5rem,calc(0.375rem+0.625vw),0.938rem)]">
+                <BadgeCheck className="text-primary w-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] h-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] shrink-0 mt-1" />
+                <span className="text-para text-[clamp(0.75rem,calc(0.696rem+0.268vw),0.938rem)]">
                   {item}
                 </span>
               </li>

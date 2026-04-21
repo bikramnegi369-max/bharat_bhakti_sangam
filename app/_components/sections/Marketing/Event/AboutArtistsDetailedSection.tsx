@@ -72,11 +72,11 @@ export default function AboutArtistsDetailedSection({
                     isReverse && "lg:ml-auto lg:text-right",
                   )}
                 >
-                  <h3 className="text-primary font-semibold tracking-[0.2em] mb-4 text-[clamp(0.9rem,calc(0.7rem+0.8vw),1.4rem)]">
+                  <h3 className="text-primary font-semibold tracking-[0.2em] mb-4 text-[clamp(1rem,calc(0.857rem+0.714vw),1.5rem)]">
                     {artist.name}
                   </h3>
 
-                  <p className="text-para leading-relaxed text-[clamp(0.8rem,calc(0.6rem+0.7vw),1.2rem)]">
+                  <p className="text-para leading-relaxed text-[clamp(0.906rem,calc(0.822rem+0.42vw),1.2rem)]">
                     {artist.description}
                   </p>
                 </div>

@@ -28,7 +28,7 @@ export default function FAQSection({
     },
     {
       title: "Location",
-      content: "ISKCON Temple Hall, Hare Krishna Land, Juhu, Mumbai.",
+      content: "E Block Club Park, Vatika India Next Sec-82 Gurugram, Haryana",
     },
     {
       title: "Important Note",
@@ -78,7 +78,7 @@ export default function FAQSection({
                     onClick={() => toggle(index)}
                     className="w-full flex items-center justify-between px-5 py-4 text-left"
                   >
-                    <span className="font-semibold text-heading text-[clamp(0.813rem,calc(0.688rem+0.625vw),1.25rem)]">
+                    <span className="font-semibold text-heading text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)]">
                       {faq.title}
                     </span>
 
@@ -101,7 +101,7 @@ export default function FAQSection({
                     )}
                   >
                     <div className="overflow-hidden">
-                      <div className="px-5 pb-4 text-[clamp(0.563rem,calc(0.455rem+0.536vw),0.938rem)] text-para">
+                      <div className="px-5 pb-4 text-[clamp(0.75rem,calc(0.661rem+0.446vw),1.063rem)] text-para">
                         {faq.content}
                       </div>
                     </div>

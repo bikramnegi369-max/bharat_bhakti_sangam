@@ -156,7 +156,7 @@ export default function EventInfoSection({
           <CTAButton
             href="/booking"
             label="Book Now"
-            className="w-full text-[clamp(0.688rem,calc(0.491rem+0.982vw),1.375rem)] font-semibold py-2"
+            className="w-full font-semibold py-2"
           />
         </div>
       </div>

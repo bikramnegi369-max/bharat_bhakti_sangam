@@ -39,16 +39,13 @@ export default function Footer({ config = footerConfig }: FooterProps) {
           </div>
 
           {/* Right */}
-          {pathname !== "/booking" && (
-            <div className="flex flex-col gap-10 justify-start lg:items-end lg:mt-5">
-              <FooterCTA
-                label={config.cta.label}
-                href={config.cta.href}
-                className="w-45! h-9.5! py-0! text-2xl!"
-              />
-              <SubscribeForm className="w-full max-w-sm lg:text-right" />
-            </div>
-          )}
+
+          <div className="flex flex-col gap-10 justify-start lg:items-end lg:mt-5">
+            {pathname !== "/booking" && (
+              <FooterCTA label={config.cta.label} href={config.cta.href} />
+            )}
+            <SubscribeForm className="w-full max-w-sm lg:text-right" />
+          </div>
         </div>
 
         {/* Bottom */}
