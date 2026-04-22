@@ -1,11 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { routes } from "@/_config/Routes.config";
-
-const MobileMenu = dynamic(() => import("./NavbarMobileMenu"));
-const MarqueeBar = dynamic(() => import("./NavbarMarquee"));
-const NavbarDesktopActions = dynamic(() => import("./NavbarDesktopActions"));
+import MobileMenu from "./NavbarMobileMenu";
+import MarqueeBar from "./NavbarMarquee";
+import NavbarDesktopActions from "./NavbarDesktopActions";
 
 export default function Navbar() {
   return (

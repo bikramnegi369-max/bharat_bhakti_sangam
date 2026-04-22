@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import AboutArtistSection from "@/_components/sections/Marketing/Event/AboutArtistSection";
 import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEventSection";
+import AboutArtistsDetailedSection from "@/_components/sections/Marketing/Event/AboutArtistsDetailedSection";
 import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSection";
+import FAQSection from "@/_components/sections/Marketing/Event/FAQSection";
 import { SponsorSection } from "@/_components/sections/Marketing/Event/SponsorSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
@@ -27,17 +28,8 @@ import {
 } from "@/_lib/seo";
 import {
   getLatestEvent,
-  getLatestEventCapacity,
 } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
-
-const FAQSection = dynamic(
-  () => import("@/_components/sections/Marketing/Event/FAQSection"),
-);
-const AboutArtistsDetailedSection = dynamic(
-  () =>
-    import("@/_components/sections/Marketing/Event/AboutArtistsDetailedSection"),
-);
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -60,13 +52,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function EventPage() {
   let event;
-  // let capacity;
 
   try {
-    // [event, capacity] = await Promise.all([
-    //   getLatestEvent(),
-    //   getLatestEventCapacity(),
-    // ]);
     event = await getLatestEvent();
   } catch (error) {
     const message =
@@ -163,11 +150,6 @@ export default async function EventPage() {
                 name: getEventVenueName(event),
                 address: getEventVenueAddress(event),
               }}
-              // capacity={{
-              //   current: capacity.bookedSeats,
-              //   total: (capacity.maxSeats ?? 0) || 1,
-              // }}
-              booking={bookingCategories}
             />
           </div>
         </div>
