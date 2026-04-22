@@ -60,13 +60,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function EventPage() {
   let event;
-  let capacity;
+  // let capacity;
 
   try {
-    [event, capacity] = await Promise.all([
-      getLatestEvent(),
-      getLatestEventCapacity(),
-    ]);
+    // [event, capacity] = await Promise.all([
+    //   getLatestEvent(),
+    //   getLatestEventCapacity(),
+    // ]);
+    event = await getLatestEvent();
   } catch (error) {
     const message =
       error instanceof EventApiError
@@ -103,11 +104,11 @@ export default async function EventPage() {
     offers: bookingCategories.map((cat) => ({
       "@type": "Offer",
       name: cat.name,
-      price: cat.price,
-      priceCurrency: "INR",
-      availability: capacity.isSoldOut
-        ? "https://schema.org/SoldOut"
-        : "https://schema.org/InStock",
+      // price: cat.price,
+      // priceCurrency: "INR",
+      // availability: capacity.isSoldOut
+      //   ? "https://schema.org/SoldOut"
+      //   : "https://schema.org/InStock",
       url: getEventUrl(),
     })),
     organizer: {
@@ -162,10 +163,10 @@ export default async function EventPage() {
                 name: getEventVenueName(event),
                 address: getEventVenueAddress(event),
               }}
-              capacity={{
-                current: capacity.bookedSeats,
-                total: (capacity.maxSeats ?? 0) || 1,
-              }}
+              // capacity={{
+              //   current: capacity.bookedSeats,
+              //   total: (capacity.maxSeats ?? 0) || 1,
+              // }}
               booking={bookingCategories}
             />
           </div>
