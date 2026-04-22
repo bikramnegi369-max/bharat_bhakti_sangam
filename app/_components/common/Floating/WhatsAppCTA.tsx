@@ -1,5 +1,3 @@
-"use client";
-
 import { FLOATING_CONFIG } from "@/_lib/constants/floating.constants";
 import clsx from "clsx";
 import { WhatsAppIcon } from "./WhatsAppIcon";

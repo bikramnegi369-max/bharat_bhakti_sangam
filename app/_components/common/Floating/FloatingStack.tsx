@@ -1,5 +1,3 @@
-"use client";
-
 import { WhatsAppCTA } from "./WhatsAppCTA";
 
 export default function FloatingStack() {
