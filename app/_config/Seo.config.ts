@@ -13,7 +13,7 @@ export const _seoConfig = {
     image: "/home_hero.webp",
     title: "Bharat Bhakti Sangam",
     description:
-      "India’s most energetic devotional music experience where traditional bhajans, kirtans, and mantra chanting blend with modern beats and live performances.Book your Bhajan Clubbing tickets, join immersive spiritual EDM nights, and experience devotion like never before",
+      "India's most energetic devotional music experience where traditional bhajans, kirtans, and mantra chanting blend with modern beats and live performances. Book your Bhajan Clubbing tickets, join immersive spiritual EDM nights, and experience devotion like never before.",
     keywords: [
       "bhajan clubbing",
       "bhajan",
@@ -47,7 +47,7 @@ export const _seoConfig = {
     image: "/about_hero.webp",
     title: "About Bharat Bhakti Sangam",
     description:
-      "Our mission is to create a new-age devotional experience where people can chant, celebrate, connect, and feel spiritual energy together through immersive bhajan clubbing concerts, interactive kirtan sessions, and modern bhakti music festivals across India.We aim to build a community where spirituality feels joyful, inclusive, and alive for everyone — especially the younger generation.",
+      "Our mission is to create a new-age devotional experience where people can chant, celebrate, connect, and feel spiritual energy together through immersive bhajan clubbing concerts, interactive kirtan sessions, and modern bhakti music festivals across India. We aim to build a community where spirituality feels joyful, inclusive, and alive for everyone, especially the younger generation.",
     keywords: [
       "chant",
       "celebrate",

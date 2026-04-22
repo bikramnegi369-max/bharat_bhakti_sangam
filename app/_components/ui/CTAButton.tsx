@@ -1,6 +1,5 @@
 import Link from "next/link";
 import clsx from "clsx";
-import { cinzel } from "@/_lib/fonts";
 
 interface CTAButtonProps {
   label: string;

@@ -21,8 +21,9 @@ export function FooterSocials({ socials }: Props) {
           <div className="relative w-6 h-6 transition-transform group-hover:scale-110">
             <Image
               src={social.icon}
-              alt={social.label}
+              alt=""
               fill
+              aria-hidden="true"
               className="object-contain"
               sizes="24px"
             />

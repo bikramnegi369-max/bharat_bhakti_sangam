@@ -19,7 +19,7 @@ export default function AboutArtistsDetailedSection({
   highlightWord = "Artist",
   artists = [
     {
-      name: "SACHET–PARAMPARA",
+      name: "SACHET-PARAMPARA",
       description:
         "A powerful musical duo known for blending traditional bhajans with contemporary beats. Their devotional songs have strong emotional depth and are very popular among young listeners.",
       images: [
@@ -41,7 +41,6 @@ export default function AboutArtistsDetailedSection({
   return (
     <section className="py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
       <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
-        {/* Heading */}
         <h2
           className={clsx(
             "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-10 lg:mb-16 text-center",
@@ -52,7 +51,6 @@ export default function AboutArtistsDetailedSection({
           <span className="text-primary">{highlightWord}</span>
         </h2>
 
-        {/* Artists */}
         <div className="space-y-16 lg:space-y-24">
           {artists.map((artist, index) => {
             const isReverse = index % 2 !== 0;
@@ -65,7 +63,6 @@ export default function AboutArtistsDetailedSection({
                   isReverse && "lg:[&>div:first-child]:order-2",
                 )}
               >
-                {/* TEXT */}
                 <div
                   className={clsx(
                     "max-w-lg text-center lg:text-left",
@@ -81,9 +78,7 @@ export default function AboutArtistsDetailedSection({
                   </p>
                 </div>
 
-                {/* IMAGES */}
                 <div className="w-full">
-                  {/* Mobile (NO overflow, clean stacking) */}
                   <div className="grid gap-8 lg:hidden place-items-center">
                     {artist.images.map((img, i) => (
                       <div
@@ -92,37 +87,34 @@ export default function AboutArtistsDetailedSection({
                       >
                         <Image
                           src={img}
-                          alt={`${artist.name}-${i}`}
+                          alt={`${artist.name} portrait ${i + 1}`}
                           fill
                           className="object-cover"
-                          sizes="(max-width: 1024px) 90vw, 45vw"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                           loading={index === 0 && i === 0 ? undefined : "lazy"}
                         />
                       </div>
                     ))}
                   </div>
 
-                  {/* Desktop (staggered layout) */}
                   {artist.images.length >= 2 && (
                     <div className="hidden lg:block relative h-[clamp(25rem,calc(15.769rem+14.423vw),28.75rem)]">
-                      {/* Image 1 */}
                       <div className="absolute left-0 top-0 w-[clamp(15.875rem,calc(13.482rem+11.964vw),24.25rem)] h-[clamp(8.875rem,calc(7.536rem+6.696vw),13.563rem)] rounded-lg overflow-hidden border-2 border-primary shadow-md group">
                         <Image
                           src={artist.images[0]}
-                          alt={`${artist.name}-1`}
+                          alt={`${artist.name} portrait 1`}
                           fill
-                          sizes="(max-width: 1024px) 90vw, 45vw"
+                          sizes="(max-width: 1280px) 50vw, 33vw"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       </div>
 
-                      {/* Image 2 */}
                       <div className="absolute right-0 bottom-0 w-[clamp(15.875rem,calc(13.482rem+11.964vw),24.25rem)] h-[clamp(8.875rem,calc(7.536rem+6.696vw),13.563rem)] rounded-lg overflow-hidden border-2 border-primary shadow-md group">
                         <Image
                           src={artist.images[1]}
-                          alt={`${artist.name}-2`}
+                          alt={`${artist.name} portrait 2`}
                           fill
-                          sizes="(max-width: 1024px) 90vw, 45vw"
+                          sizes="(max-width: 1280px) 50vw, 33vw"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       </div>
@@ -134,9 +126,9 @@ export default function AboutArtistsDetailedSection({
                       <div className="absolute inset-x-0 top-0 mx-auto w-[clamp(15.875rem,calc(13.482rem+11.964vw),24.25rem)] h-[clamp(8.875rem,calc(7.536rem+6.696vw),13.563rem)] rounded-lg overflow-hidden border-2 border-primary shadow-md group">
                         <Image
                           src={artist.images[0]}
-                          alt={`${artist.name}-1`}
+                          alt={`${artist.name} portrait 1`}
                           fill
-                          sizes="(max-width: 1024px) 90vw, 45vw"
+                          sizes="(max-width: 1280px) 50vw, 33vw"
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       </div>

@@ -1,4 +1,4 @@
-import Image from "next/image"; // ADD THIS
+import Image from "next/image";
 import { CTAButton } from "../../ui/CTAButton";
 import { getOptimizedImageUrl } from "@/_lib/helpers";
 import { cinzel } from "@/_lib/fonts";
@@ -33,20 +33,22 @@ export default function Hero({
       {backgroundImage && (
         <Image
           src={getOptimizedImageUrl(backgroundImage, { width: 1200 })}
-          alt="Hero background"
+          alt=""
           fill
           priority
           fetchPriority="high"
-          sizes="(max-width: 640px) 100vw,
-       (max-width: 1024px) 100vw,
-       1200px"
+          aria-hidden="true"
+          sizes="100vw"
           className="object-cover object-center"
           quality={60}
         />
       )}
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50 will-change-transform" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-black/50 will-change-transform"
+      />
 
       {/*Content */}
       <div className="relative z-10 max-w-3xl px-6">

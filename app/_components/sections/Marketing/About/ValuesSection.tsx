@@ -1,7 +1,6 @@
 import Card from "@/_components/ui/Card";
 import { cinzel } from "@/_lib/fonts";
 import { Brain, Gem, HeartPulse, Music, Sparkles, Users } from "lucide-react";
-import { Cinzel } from "next/font/google";
 
 const cards = [
   {
@@ -32,13 +31,13 @@ const cards = [
     icon: Users,
     title: "Devotion Reimagined",
     description:
-      "Our events welcome everyone — whether you are deeply spiritual, curious about bhakti music.",
+      "Our events welcome everyone, whether you are deeply spiritual or just curious about bhakti music.",
   },
   {
     icon: Gem,
     title: "Hassle-Free Journey",
     description:
-      "Every Bhajan Clubbing concert and kirtan event is designed to uplift minds & energize hearts",
+      "Every Bhajan Clubbing concert and kirtan event is designed to uplift minds and energize hearts.",
   },
 ];
 
@@ -46,7 +45,6 @@ export default function ValuesSection() {
   return (
     <section className="py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
       <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
-        {/* Heading */}
         <div className="text-center max-w-3xl mx-auto">
           <h2
             className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${cinzel.className}`}
@@ -59,7 +57,6 @@ export default function ValuesSection() {
           </p>
         </div>
 
-        {/* Cards */}
         <div className="mt-12 grid gap-6 lg:grid-cols-3 justify-center items-stretch px-[clamp(3rem,calc(0.857rem+10.714vw),6rem)] lg:px-0">
           {cards.map((card, index) => (
             <Card
