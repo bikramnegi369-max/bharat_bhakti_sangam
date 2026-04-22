@@ -1,7 +1,3 @@
-/// =============================
-/// FILE: Marquee.tsx
-/// =============================
-
 "use client";
 
 import clsx from "clsx";

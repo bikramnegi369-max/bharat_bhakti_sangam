@@ -1,7 +1,6 @@
-"use client";
-
-import { Button } from "@/_components/ui/Button";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import clsx from "clsx";
+import { cinzel } from "@/_lib/fonts";
 
 interface CTAButtonProps {
   label: string;
@@ -18,29 +17,32 @@ export const CTAButton = ({
   className,
   external = false,
 }: CTAButtonProps) => {
-  const router = useRouter();
+  const buttonStyles = clsx(
+    "CTAButton relative overflow-hidden px-4 py-1.5 rounded-md font-medium transition-all duration-200 w-[clamp(6.875rem,calc(4.196rem+13.393vw),16.25rem)] text-[clamp(0.75rem,calc(0.518rem+1.161vw),1.563rem)] cursor-pointer flex items-center justify-center active:scale-95",
+    // Centered Ripple pseudo-element
+    "after:content-[''] after:absolute after:top-1/2 after:left-1/2 after:w-5 after:h-5 after:bg-white/40 after:rounded-full after:opacity-0 after:pointer-events-none after:-translate-x-1/2 after:-translate-y-1/2",
+    variant === "primary" && "bg-primary hover:bg-primary/90 text-black",
+    variant === "secondary" &&
+      "text-primary border-2 border-primary bg-primary/20 hover:bg-primary/10",
+    className,
+  );
 
   if (external) {
     return (
-      <Button
-        variant={variant}
-        type="button"
-        className={className}
-        onClick={() => window.open(href, "_blank", "noopener,noreferrer")}
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={buttonStyles}
       >
-        {label}
-      </Button>
+        <span className="relative z-10">{label}</span>
+      </a>
     );
   }
 
   return (
-    <Button
-      variant={variant}
-      type="button"
-      className={className}
-      onClick={() => router.push(href)}
-    >
-      {label}
-    </Button>
+    <Link href={href} className={buttonStyles}>
+      <span className="relative z-10">{label}</span>
+    </Link>
   );
 };

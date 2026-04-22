@@ -1,7 +1,3 @@
-/// =============================
-/// FILE: MarqueeItem.tsx
-/// =============================
-
 import { ReactNode } from "react";
 
 type Props = {

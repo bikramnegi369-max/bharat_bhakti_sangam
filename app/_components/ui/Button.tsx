@@ -29,22 +29,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         <span className="relative z-10">{children}</span>
-
-        <style>{`
-          @keyframes ripple-center {
-            0% {
-              transform: translate(-50%, -50%) scale(0);
-              opacity: 0.5;
-            }
-            100% {
-              transform: translate(-50%, -50%) scale(60);
-              opacity: 0;
-            }
-          }
-          button:active::after {
-            animation: ripple-center 0.6s ease-out;
-          }
-        `}</style>
       </button>
     );
   },

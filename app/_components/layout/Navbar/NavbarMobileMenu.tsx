@@ -1,8 +1,3 @@
-// ==============================
-// FILE: components/layout/Navbar/MobileMenu.tsx
-// Client Component
-// ==============================
-
 "use client";
 
 import { useState } from "react";
