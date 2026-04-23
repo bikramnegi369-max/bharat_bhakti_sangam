@@ -14,9 +14,13 @@ export const NAV_ITEMS: SidebarItem[] = [
           {
             id: "event-cats",
             label: "Categories",
-            href: "/admin/event-categories",
+            href: "/admin/event/management/categories",
           },
-          { id: "event-venues", label: "Venues", href: "/admin/event-venues" },
+          {
+            id: "event-venues",
+            label: "Venues",
+            href: "/admin/event/management/venues",
+          },
         ],
       },
     ],

@@ -58,7 +58,7 @@ const NavItem = ({ item, depth = 0, onItemClick }: NavItemProps) => {
         depth > 0 &&
           !isExactActive &&
           "text-gray-500 hover:text-gray-900 hover:bg-gray-100/80",
-        depth > 0 && "pl-6 text-[13px]",
+        depth > 0 && "pl-6 text-[14px]",
       )}
       onClick={handleToggle}
       role={hasChildren ? "button" : undefined}
