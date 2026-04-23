@@ -11,7 +11,6 @@ export function ContactDetails() {
               rounded-2xl
               bg-white/95
               backdrop-blur-sm
-              shadow-2xl
               border-2 border-primary
               px-[clamp(1.625rem,calc(1.216rem+2.045vw),2.75rem)]
               py-[clamp(1.875rem,calc(1.554rem+1.607vw),3rem)]
@@ -26,7 +25,7 @@ export function ContactDetails() {
         Have feedback or something to share about Bharat Bhakti Sangam ? Connect
         with us here – we’d love to hear from you!
       </p>
-      <div></div>
+
       <div className="flex flex-col gap-3 lg:gap-6">
         <div className="flex gap-2 lg:gap-4 items-center justify-center mr-4">
           <Contact className="text-para w-[clamp(0.875rem,calc(0.602rem+1.364vw),1.625rem)] h-[clamp(0.875rem,calc(0.602rem+1.364vw),1.625rem)]" />

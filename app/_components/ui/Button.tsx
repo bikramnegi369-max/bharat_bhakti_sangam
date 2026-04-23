@@ -28,7 +28,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={onClick}
         {...props}
       >
-        <span className="relative z-10">{children}</span>
+        {children}
       </button>
     );
   },
