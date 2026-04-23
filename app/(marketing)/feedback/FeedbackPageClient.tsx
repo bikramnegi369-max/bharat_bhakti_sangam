@@ -38,7 +38,7 @@ export function FeedbackPageClient({
         backgroundImage={heroImage}
       />
 
-      <div className="relative lg:-mt-40 z-10 flex items-center justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
+      <div className="relative -mt-20 lg:-mt-40 z-10 flex items-center justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
         <div className="w-full max-w-7xl">
           <FeedbackForm />
         </div>
