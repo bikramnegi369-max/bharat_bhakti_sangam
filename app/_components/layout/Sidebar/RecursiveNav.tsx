@@ -45,11 +45,20 @@ const NavItem = ({ item, depth = 0, onItemClick }: NavItemProps) => {
   const content = (
     <div
       className={clsx(
-        "group flex items-center justify-between px-3 py-2 cursor-pointer transition-all rounded-lg relative mb-1",
-        isActive
-          ? "bg-primary font-semibold shadow-sm shadow-primary/5"
-          : "text-gray-500 hover:text-gray-900 hover:bg-gray-100/80",
-        depth > 0 && "pl-4 text-[13px]",
+        "group flex items-center justify-between px-3.5 py-2 cursor-pointer transition-all rounded-lg relative mb-1",
+        // Top most parent styling
+        depth === 0 &&
+          isActive &&
+          "bg-primary font-semibold shadow-sm shadow-primary/5",
+        depth === 0 &&
+          !isActive &&
+          "text-gray-500 hover:text-gray-900 hover:bg-gray-100/80",
+        // Child item styling
+        depth > 0 && isExactActive && "text-primary font-bold",
+        depth > 0 &&
+          !isExactActive &&
+          "text-gray-500 hover:text-gray-900 hover:bg-gray-100/80",
+        depth > 0 && "pl-6 text-[13px]",
       )}
       onClick={handleToggle}
       role={hasChildren ? "button" : undefined}
@@ -61,9 +70,14 @@ const NavItem = ({ item, depth = 0, onItemClick }: NavItemProps) => {
           <span
             className={clsx(
               "shrink-0 transition-colors",
-              isActive
-                ? "text-primary"
-                : "text-gray-400 group-hover:text-gray-500",
+              depth === 0 && isActive && "text-white",
+              depth > 0 && isExactActive && "text-primary",
+              depth === 0 &&
+                !isActive &&
+                "text-gray-400 group-hover:text-gray-500",
+              depth > 0 &&
+                !isExactActive &&
+                "text-gray-400 group-hover:text-gray-500",
             )}
           >
             {item.icon}
@@ -74,9 +88,11 @@ const NavItem = ({ item, depth = 0, onItemClick }: NavItemProps) => {
       {hasChildren && (
         <ChevronDown
           className={clsx(
-            "h-3.5 w-3.5 transition-transform duration-200 text-gray-400 group-hover:text-gray-600",
+            "h-3.5 w-3.5 transition-transform duration-200",
+            depth === 0 && isActive
+              ? "text-black"
+              : "text-gray-400 group-hover:text-gray-600",
             isOpen && "rotate-180",
-            isActive && "text-black!",
           )}
         />
       )}
@@ -111,7 +127,7 @@ export const RecursiveNav = ({
   onItemClick?: () => void;
 }) => {
   return (
-    <ul className="flex flex-col w-full gap-1 px-2">
+    <ul className="flex flex-col w-full gap-1 px-4">
       {items.map((item) => (
         <NavItem key={item.id} item={item} onItemClick={onItemClick} />
       ))}
