@@ -35,9 +35,9 @@ export const MobileSidebar = ({
       {/* drawer */}
       <aside
         className={clsx(
-          "absolute right-0 top-0 h-full bg-header-bg flex flex-col py-6 gap-6 transform transition-transform duration-300 z-50",
+          "absolute left-0 top-0 h-full bg-header-bg flex flex-col py-6 gap-6 transform transition-transform duration-300 z-50",
           SIDEBAR_WIDTH,
-          open ? "translate-x-0" : "translate-x-full",
+          open ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="flex items-center justify-between px-5">

@@ -1,7 +1,7 @@
+
 "use server";
 
 import { apiRoutes } from "@/_config/Routes.config";
-import axios from "@/_lib/axios";
 import { dummyEvents } from "@/_lib/DummyData/EventData";
 import { Event, LatestEvent } from "../types";
 import { TableQueryParams } from "@/_types/Table.types";
@@ -21,15 +21,23 @@ import {
 } from "./guards";
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
+import { authorizedAdminRequest } from '@/_features/admin-auth/server/request';
+
 
 export async function getEvents() {
-  return await axios.get<Event[]>(apiRoutes.event);
+  const response = await authorizedAdminRequest(apiRoutes.event);
+
+  if (!response.ok) throw new Error("Failed to fetch events");
+  return (await response.json()) as Event[];
 }
 
 export async function getEvent() {
   return getEvents();
 }
 
+/**
+ * PUBLIC CALL: Fetches the latest event without authentication.
+ */
 export const getLatestEvent = async (): Promise<LatestEvent> => {
   if (!API_URL) {
     throw new EventApiError(
@@ -226,19 +234,33 @@ export async function getAllEvents(
   }
 }
 
+/**
+ * ADMIN CALL: Uses BFF logic to get a specific event.
+ */
 export async function getEventById(id: string): Promise<APIResponse<Event>> {
   try {
-    const res = await axios.get<Event>(`${apiRoutes.event}/${id}`);
-    return { success: true, data: res.data };
+    const res = await authorizedAdminRequest(`${apiRoutes.event}/${id}`);
+
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    return { success: true, data };
   } catch (error) {
     console.error("Error fetching event:", error);
     return { success: false, error: "Could not retrieve the event details." };
   }
 }
 
+/**
+ * ADMIN CALL: Uses BFF logic to delete an event.
+ */
 export async function deleteEvent(id: string): Promise<APIResponse> {
   try {
-    await axios.delete(`${apiRoutes.event}/${id}`);
+    const res = await authorizedAdminRequest(`${apiRoutes.event}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) throw new Error();
+
     return { success: true };
   } catch (error) {
     console.error("Error deleting event:", error);
