@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Navbar from "@/_components/layout/Navbar/Navbar";
 import { GoogleAnalytics } from "@next/third-parties/google";
+
+export const metadata: Metadata = {
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+  },
+};
 
 const Footer = dynamic(() => import("@/_components/layout/Footer/Footer"));
 const FloatingStack = dynamic(
