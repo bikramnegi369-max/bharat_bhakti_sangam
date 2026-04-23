@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/_components/layout/Navbar/Navbar";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const Footer = dynamic(() => import("@/_components/layout/Footer/Footer"));
 const FloatingStack = dynamic(
@@ -17,6 +18,7 @@ export default function MarketingLayout({
       <main className="min-h-screen">{children}</main>
       <Footer />
       <FloatingStack />
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </>
   );
 }

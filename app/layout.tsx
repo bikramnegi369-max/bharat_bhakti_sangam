@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { siteConfig } from "@/_config/Site.config";
 import { jsonLdScript } from "@/_lib/seo";
 import { poppins } from "./_lib/fonts";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -64,7 +63,6 @@ export default function RootLayout({
         />
         {children}
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </html>
   );
 }
