@@ -1,21 +1,32 @@
 "use server";
 
 import { apiRoutes } from "@/_config/Routes.config";
-import axiosInstance from "@/_lib/axios";
 import { FeedbackFormData } from "@/_schemas/feedback.schema";
 import { APIResponse } from "@/_types/Api.types";
 
 export async function submitFeedbackForm(
   data: FeedbackFormData,
 ): Promise<APIResponse> {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}${apiRoutes.feedback}`;
   const { feedback, ratings, ...rest } = data;
 
   try {
-    await axiosInstance.post(apiRoutes.feedback, {
-      ...rest,
-      message: feedback,
-      rating: ratings,
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...rest,
+        message: feedback,
+        rating: ratings,
+      }),
     });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Failed to submit feedback");
+    }
 
     return { success: true };
   } catch (error) {
@@ -23,7 +34,9 @@ export async function submitFeedbackForm(
     return {
       success: false,
       error:
-        "We couldn't submit your feedback right now. Please try again later.",
+        error instanceof Error
+          ? error.message
+          : "We couldn't submit your feedback right now. Please try again later.",
     };
   }
 }

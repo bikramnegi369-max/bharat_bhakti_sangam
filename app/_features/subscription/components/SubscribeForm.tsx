@@ -25,6 +25,7 @@ export function SubscribeForm({
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const [specificErrorMessage, setSpecificErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -40,6 +41,9 @@ export function SubscribeForm({
         setEmail("");
       } else {
         setStatus("error");
+        if (result.error?.toLowerCase().includes("email already subscribed")) {
+          setSpecificErrorMessage("Email already subscribed");
+        }
       }
     } catch (error) {
       setStatus("error");
@@ -91,7 +95,7 @@ export function SubscribeForm({
         )}
         {status === "error" && (
           <p className="text-xs text-red-400 mt-2 font-medium">
-            Something went wrong. Try again.
+            {specificErrorMessage || "Something went wrong. Try again."}
           </p>
         )}
       </form>

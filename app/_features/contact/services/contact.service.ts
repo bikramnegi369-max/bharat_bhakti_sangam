@@ -1,15 +1,28 @@
 "use server";
 
 import { apiRoutes } from "@/_config/Routes.config";
-import axiosInstance from "@/_lib/axios";
 import { ContactFormData } from "@/_schemas/contact.schema";
 import { APIResponse } from "@/_types/Api.types";
 
 export async function submitContactForm(
   payload: ContactFormData,
 ): Promise<APIResponse> {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}${apiRoutes.contact}`;
+
   try {
-    await axiosInstance.post(apiRoutes.contact, payload);
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Failed to submit form");
+    }
+
     return { success: true };
   } catch (error) {
     console.error("Contact Form Submission Error:", error);
