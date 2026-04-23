@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
-import logo from "../../../../public/logo.webp";
+import logo from "../../../../public/logo.png";
 
 export function SidebarLogo({
   className,

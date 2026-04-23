@@ -3,6 +3,7 @@ import { buildAdminLoginPath } from "@/_features/admin-auth/authorization";
 import { adminDefaultRedirectPath } from "@/_features/admin-auth/config";
 import { getStoredAdminSession } from "@/_features/admin-auth/server/session";
 import { redirect } from "next/navigation";
+import UIProvider from "@/providers/UIProvider";
 
 export default async function ProtectedAdminLayout({
   children,
@@ -15,5 +16,9 @@ export default async function ProtectedAdminLayout({
     redirect(buildAdminLoginPath(adminDefaultRedirectPath));
   }
 
-  return <AdminLayoutShell>{children}</AdminLayoutShell>;
+  return (
+    <UIProvider>
+      <AdminLayoutShell>{children}</AdminLayoutShell>
+    </UIProvider>
+  );
 }
