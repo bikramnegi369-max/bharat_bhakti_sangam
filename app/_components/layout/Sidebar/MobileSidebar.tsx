@@ -2,11 +2,10 @@
 
 import clsx from "clsx";
 import { X } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { SidebarItemComponent } from "./SidebarItemComponent";
 import { SidebarLogo } from "./SidebarLogo";
 import { SIDEBAR_WIDTH } from "@/_config/Sidebar.config";
 import { NAV_ITEMS } from "@/_lib/constants/sidebar.constants";
+import { RecursiveNav } from "@/_components/layout/Sidebar/RecursiveNav";
 
 export const MobileSidebar = ({
   open,
@@ -15,8 +14,6 @@ export const MobileSidebar = ({
   open: boolean;
   onClose: () => void;
 }) => {
-  const pathname = usePathname();
-
   return (
     <div
       className={clsx(
@@ -52,14 +49,8 @@ export const MobileSidebar = ({
           </button>
         </div>
 
-        <nav className="flex flex-col gap-4 w-full items-center">
-          {NAV_ITEMS.map((item) => (
-            <SidebarItemComponent
-              key={item.href}
-              item={item}
-              active={pathname === item.href}
-            />
-          ))}
+        <nav className="w-full overflow-y-auto">
+          <RecursiveNav items={NAV_ITEMS} onItemClick={onClose} />
         </nav>
       </aside>
     </div>

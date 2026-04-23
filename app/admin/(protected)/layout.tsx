@@ -1,4 +1,4 @@
-import { AdminLayoutShell } from "@/_admin/AdminLayoutShell";
+import { AdminLayoutShell } from "@/admin/(protected)/AdminLayoutShell";
 import { buildAdminLoginPath } from "@/_features/admin-auth/authorization";
 import { adminDefaultRedirectPath } from "@/_features/admin-auth/config";
 import { getStoredAdminSession } from "@/_features/admin-auth/server/session";

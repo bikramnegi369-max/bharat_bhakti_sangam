@@ -2,7 +2,7 @@
 
 import { EventsTable } from "@/_features/event/components/EventsTable";
 
-export default function AdminPage() {
+export default function AdminEventPage() {
   return (
     <section className="space-y-8">
       <div className="space-y-2">
