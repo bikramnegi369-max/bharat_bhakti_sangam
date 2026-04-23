@@ -15,7 +15,7 @@ export function TablePagination({
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="px-3 py-1 border rounded disabled:opacity-50"
+        className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer hover:bg-gray-300"
       >
         Prev
       </button>
@@ -24,7 +24,7 @@ export function TablePagination({
         <button
           key={p}
           onClick={() => onPageChange(p)}
-          className={`px-3 py-1 border rounded ${
+          className={`px-3 py-1 border rounded cursor-pointer hover:bg-gray-300 hover:text-black transition-colors ${
             p === page ? "bg-black text-white" : "bg-white"
           }`}
         >
@@ -35,7 +35,7 @@ export function TablePagination({
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="px-3 py-1 border rounded disabled:opacity-50"
+        className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer hover:bg-gray-300"
       >
         Next
       </button>
