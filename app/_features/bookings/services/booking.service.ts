@@ -1,7 +1,6 @@
 "use server";
 
 import { apiRoutes } from "@/_config/Routes.config";
-import axiosInstance, { ApiError } from "@/_lib/axios";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import { APIResponse } from "@/_types/Api.types";
 
@@ -9,22 +8,34 @@ export async function submitBooking(
   payload: BookingFormData,
   eventId: string,
 ): Promise<APIResponse> {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}${apiRoutes.booking}`;
+
   try {
-    await axiosInstance.post(apiRoutes.booking, {
-      username: payload.fullName,
-      eventId: eventId,
-      email: payload.email,
-      totalTicket: payload.tickets,
-      phone: payload.mobile,
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: payload.fullName,
+        eventId: eventId,
+        email: payload.email,
+        totalTicket: payload.tickets,
+        phone: payload.mobile,
+      }),
     });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Booking failed");
+    }
+
     return { success: true };
   } catch (error) {
+    console.error("Booking Submission Error:", error);
     return {
       success: false,
-      error:
-        error instanceof ApiError
-          ? error.backendMessage || error.message
-          : "Booking failed",
+      error: error instanceof Error ? error.message : "Booking failed",
     };
   }
 }
