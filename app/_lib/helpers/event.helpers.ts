@@ -1,30 +1,6 @@
 import { EventCapacity } from "@/_features/event/services/constants";
 import { ApiEnvelope, LatestEvent } from "@/_features/event/types";
-import { DEFAULT_TIMEOUT_MS } from "@/_utils/fetch";
 
-/**
- * Reusable production fetch timeout helper
- */
-export async function fetchWithTimeout(
-  input: RequestInfo | URL,
-  init?: RequestInit,
-  timeoutMs = DEFAULT_TIMEOUT_MS,
-): Promise<Response> {
-  const controller = new AbortController();
-
-  const timeoutId = setTimeout(() => {
-    controller.abort();
-  }, timeoutMs);
-
-  try {
-    return await fetch(input, {
-      ...init,
-      signal: controller.signal,
-    });
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
 
 export function isLatestEventRecord(value: unknown): value is LatestEvent {
   if (!value || typeof value !== "object") return false;

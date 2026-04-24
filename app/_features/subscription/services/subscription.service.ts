@@ -2,6 +2,7 @@
 
 import { apiRoutes } from "@/_config/Routes.config";
 import { APIResponse } from "@/_types/Api.types";
+import { fetchWithTimeout } from "@/_utils/fetch";
 
 export async function subscribeToNewsletter(
   email: string,
@@ -13,7 +14,7 @@ export async function subscribeToNewsletter(
   const url = `${process.env.NEXT_PUBLIC_API_URL}${apiRoutes.subscribe}`;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

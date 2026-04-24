@@ -3,6 +3,7 @@
 import { apiRoutes } from "@/_config/Routes.config";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import { APIResponse } from "@/_types/Api.types";
+import { fetchWithTimeout } from "@/_utils/fetch";
 
 export async function submitBooking(
   payload: BookingFormData,
@@ -11,7 +12,7 @@ export async function submitBooking(
   const url = `${process.env.NEXT_PUBLIC_API_URL}${apiRoutes.booking}`;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
