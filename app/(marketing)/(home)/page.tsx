@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return createPageMetadata({
       title: `${event.eventName} Event | ${seoPage.title}`,
-      description: getEventDescription(event),
+      description: " " + getEventDescription(event),
       path: "/",
       image: getOgImageUrl(event),
       ogKey: `${event._id}-${event.updatedAt ?? ""}`,
