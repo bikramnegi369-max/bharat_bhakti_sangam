@@ -3,6 +3,7 @@
 import { apiRoutes } from "@/_config/Routes.config";
 import { FeedbackFormData } from "@/_schemas/feedback.schema";
 import { APIResponse } from "@/_types/Api.types";
+import { fetchWithTimeout } from "@/_utils/fetch";
 
 export async function submitFeedbackForm(
   data: FeedbackFormData,
@@ -11,7 +12,7 @@ export async function submitFeedbackForm(
   const { feedback, ratings, ...rest } = data;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
