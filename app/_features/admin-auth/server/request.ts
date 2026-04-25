@@ -1,5 +1,3 @@
-"use server";
-
 import { requestAdminBackend, refreshAgainstBackend } from "./backend";
 import {
   getAdminAuthStateFromCookies,

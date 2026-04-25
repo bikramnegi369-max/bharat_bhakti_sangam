@@ -1,3 +1,4 @@
+import { fetchWithTimeout } from "@/_utils/fetch";
 import { adminAuthConfig } from "../config";
 import type {
   AdminLoginFormValues,
@@ -81,7 +82,7 @@ export async function requestAdminBackend(
 ): Promise<Response> {
   const headers = createHeaders(options.headers, options.accessToken);
 
-  return fetch(buildAdminBackendUrl(pathname, options.search), {
+  return fetchWithTimeout(buildAdminBackendUrl(pathname, options.search), {
     method: options.method ?? "GET",
     body: options.body,
     cache: "no-store",
