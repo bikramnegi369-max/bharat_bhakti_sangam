@@ -17,6 +17,7 @@ type Props<T> = {
   floatingRef: (node: HTMLElement | null) => void;
   floatingStyles: React.CSSProperties;
   floatingProps: Record<string, unknown>;
+  id: string;
 };
 
 export function DropdownMenu<T>({
@@ -33,6 +34,7 @@ export function DropdownMenu<T>({
   floatingRef,
   floatingStyles,
   floatingProps,
+  id,
 }: Props<T>) {
   return (
     <div
@@ -52,7 +54,11 @@ export function DropdownMenu<T>({
         </div>
       )}
 
-      <ul className="max-h-60 overflow-auto">
+      <ul
+        id={id}
+        role="listbox"
+        className="max-h-60 overflow-auto flex flex-col gap-2"
+      >
         {options.length === 0 && (
           <li className="px-4 py-3 text-sm text-gray-500">No options found</li>
         )}
@@ -61,13 +67,15 @@ export function DropdownMenu<T>({
           <li
             key={String(option.value)}
             onClick={() => onSelect(option)}
+            role="option"
+            aria-selected={isSelected(option, selected, multiple)}
             className={getOptionStyles({
               selected: isSelected(option, selected, multiple),
               disabled: option.disabled,
               className: optionClassName,
             })}
           >
-            <span className="text-xs">{option.label}</span>
+            <span className="text-sm">{option.label}</span>
             {option.price !== undefined && (
               <span className="text-lg">₹{option.price}</span>
             )}

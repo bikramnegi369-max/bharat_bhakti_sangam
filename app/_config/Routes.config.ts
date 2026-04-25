@@ -18,4 +18,5 @@ export const apiRoutes = {
   booking: "/booking/create-ticket",
   feedback: "/feedback",
   subscribe: "/subscriber",
+  preSignedUrl: "/admin/presign-url",
 };

@@ -1,8 +1,22 @@
 export interface Event {
-  _id: string;
-  title: string;
+  eventName: string;
   description: string;
+  venueName: string;
   date: string;
+  time: string;
+  tabs: string[];
+  hashTags: string[];
+  bookingType: string;
+  sponsors: string[];
+  artists: string[];
+  homeBanner: string;
+  eventBanner: string;
+  ticketPrice: number;
+  maxSeats: number;
+  bookedSeats: number;
+  availableTickets: number;
+  category: string;
+  ogImage: string;
 }
 
 export interface LatestEvent {

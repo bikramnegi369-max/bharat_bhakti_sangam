@@ -1,6 +1,7 @@
 import { adminDefaultRedirectPath } from "./config";
 import { sanitizeAdminNextPath } from "./authorization";
 import type { AdminLoginFormValues, PublicAdminSession } from "./types";
+import { fetchWithTimeout } from "@/_utils/fetch";
 
 type SessionResponse = {
   session: PublicAdminSession | null;
@@ -61,7 +62,7 @@ export async function fetchAdminSession(): Promise<PublicAdminSession | null> {
 export async function loginAdmin(
   credentials: AdminLoginFormValues,
 ): Promise<PublicAdminSession> {
-  const response = await fetch("/api/admin/auth/login", {
+  const response = await fetchWithTimeout("/api/admin/auth/login", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -90,7 +91,7 @@ export async function loginAdmin(
 }
 
 export async function logoutAdmin(): Promise<void> {
-  const response = await fetch("/api/admin/auth/logout", {
+  const response = await fetchWithTimeout("/api/admin/auth/logout", {
     method: "POST",
     credentials: "include",
   });
@@ -117,7 +118,7 @@ export async function adminApiFetch<T>(
   path: string,
   init: RequestInit = {},
 ): Promise<T> {
-  const response = await fetch(
+  const response = await fetchWithTimeout(
     `/api/admin/backend${path.startsWith("/") ? path : `/${path}`}`,
     {
       ...init,

@@ -19,7 +19,7 @@ export function useDropdown(open: boolean, onOpenChange: (v: boolean) => void) {
     middleware: [
       offset(8),
       flip(),
-      shift({ padding: 8 }),
+      shift({ padding: 0 }),
       size({
         apply({ rects, elements }) {
           Object.assign(elements.floating.style, {

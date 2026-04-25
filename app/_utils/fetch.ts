@@ -11,7 +11,9 @@ export async function fetchWithTimeout(
   const controller = new AbortController();
 
   const timeoutId = setTimeout(() => {
-    controller.abort();
+    controller.abort(
+      new Error(`Network request timed out after ${timeoutMs}ms`),
+    );
   }, timeoutMs);
 
   try {

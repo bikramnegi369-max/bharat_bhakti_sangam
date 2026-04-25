@@ -1,4 +1,3 @@
-
 "use server";
 
 import { apiRoutes } from "@/_config/Routes.config";
@@ -21,8 +20,7 @@ import {
 } from "./guards";
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
-import { authorizedAdminRequest } from '@/_features/admin-auth/server/request';
-
+import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 
 export async function getEvents() {
   const response = await authorizedAdminRequest(apiRoutes.event);
@@ -196,7 +194,7 @@ export async function getAllEvents(
 
   if (search) {
     items = items.filter((event) => {
-      const haystack = `${event.title} ${event.description}`.toLowerCase();
+      const haystack = `${event.eventName} ${event.description}`.toLowerCase();
       return haystack.includes(search);
     });
   }
@@ -267,6 +265,29 @@ export async function deleteEvent(id: string): Promise<APIResponse> {
     return {
       success: false,
       error: "Failed to delete the event. Please try again.",
+    };
+  }
+}
+
+export async function addEvent({
+  event,
+}: {
+  event: Event;
+}): Promise<APIResponse> {
+  try {
+    const res = await authorizedAdminRequest(`${apiRoutes.event}`, {
+      method: "POST",
+      body: JSON.stringify(event),
+    });
+
+    if (!res.ok) throw new Error();
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error Adding event:", error);
+    return {
+      success: false,
+      error: "Failed to Add the event. Please try again.",
     };
   }
 }

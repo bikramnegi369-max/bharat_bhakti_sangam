@@ -17,6 +17,8 @@ type BaseProps<T> = {
   label?: string;
   labelClassName?: string;
   error?: string;
+  onBlur?: () => void;
+  required?: boolean;
 };
 
 type SingleDropdownProps<T> = BaseProps<T> & {
