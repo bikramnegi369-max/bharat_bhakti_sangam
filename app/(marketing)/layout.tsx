@@ -24,7 +24,7 @@ export default function MarketingLayout({
       <Navbar />
       <main className="min-h-screen">{children}</main>
       <Footer />
-      <FloatingStack />
+      {/* <FloatingStack /> */}
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </>
   );
