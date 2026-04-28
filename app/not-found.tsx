@@ -13,8 +13,8 @@ export default function NotFound() {
         Page not found
       </h1>
       <p className="mt-6 text-lg leading-7 text-gray-600 max-w-lg mx-auto">
-        Sorry, we couldn’t find the page you’re looking for. It might have been
-        moved, or the URL might be incorrect.
+        Sorry, we couldn&rsquo;t find the page you&rsquo;re looking for. It
+        might have been moved, or the URL might be incorrect.
       </p>
 
       {/* Actions */}
