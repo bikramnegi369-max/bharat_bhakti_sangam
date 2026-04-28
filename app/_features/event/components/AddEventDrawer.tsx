@@ -8,14 +8,12 @@ import { getBookingTypes } from "@/_features/bookings/services/booking.service";
 import { BookingCategory } from "@/_types/Booking.types";
 import { getSponsors } from "@/_features/sponsors/services/sponsors.service";
 import { getArtists } from "@/_features/artists/services/artists.service";
-import {
-  EventCategory,
-  getEventCategories,
-} from "@/_features/event-categories/services/eventCategroies.service";
+import { getEventCategories } from "@/_features/event-categories/services/eventCategroies.service";
 import { getVenues } from "@/_features/event-venue/services/eventVenue.service";
 import { Venue } from "@/_types/Venue.types";
 import { Sponsor } from "@/_types/Sponsors.types";
 import { Artist } from "@/_types/Artists.types";
+import { EventCategory } from "@/_types/EventCategories.types";
 
 export default function AddEventDrawer() {
   const [isLoading, setIsLoading] = useState(true);

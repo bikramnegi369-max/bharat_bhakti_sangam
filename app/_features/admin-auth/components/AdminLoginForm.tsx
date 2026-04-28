@@ -3,17 +3,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/_components/ui/Button";
 import { Field } from "@/_components/ui/Field/Field";
-import { adminLoginSchema, type AdminLoginSchema } from "@/_schemas/adminLogin.schema";
+import {
+  adminLoginSchema,
+  type AdminLoginSchema,
+} from "@/_schemas/adminLogin.schema";
 import { Loader2, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAdminAuth } from "../hooks/useAdminAuth";
 
-export function AdminLoginForm({
-  nextPath,
-}: {
-  nextPath?: string | null;
-}) {
+export function AdminLoginForm({ nextPath }: { nextPath?: string | null }) {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const { login, isLoggingIn } = useAdminAuth();
   const {
@@ -97,7 +96,7 @@ export function AdminLoginForm({
       >
         {isLoggingIn ? (
           <span className="flex items-center gap-2">
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="h-[clamp(0.75rem,calc(0.518rem+1.161vw),1.563rem)] w-[clamp(0.75rem,calc(0.518rem+1.161vw),1.563rem)] animate-spin" />
             Signing In
           </span>
         ) : (

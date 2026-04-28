@@ -13,10 +13,10 @@ import FormActionButtons from "@/_components/common/FormActionButtons";
 import { useUI } from "@/providers/UIProvider";
 import { FileUploadField } from "@/_components/ui/Field/FileUploadField";
 import { BookingCategory } from "@/_types/Booking.types";
-import { EventCategory } from "@/_features/event-categories/services/eventCategroies.service";
 import { Venue } from "@/_types/Venue.types";
 import { Sponsor } from "@/_types/Sponsors.types";
 import { Artist } from "@/_types/Artists.types";
+import { EventCategory } from "@/_types/EventCategories.types";
 
 interface AddEventFormProps {
   handleSubmit: (data: EventFormData) => void;
@@ -68,7 +68,7 @@ export default function AddEventForm({
   );
 
   const categoryOptions = useMemo(
-    () => categories.map((c) => ({ label: c.name, value: c._id })),
+    () => categories.map((c) => ({ label: c.categoryName, value: c._id })),
     [categories],
   );
 
