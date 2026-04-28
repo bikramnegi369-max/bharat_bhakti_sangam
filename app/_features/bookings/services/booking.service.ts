@@ -1,11 +1,11 @@
 "use server";
 
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
-import { apiRoutes } from "@/_config/Routes.config";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import { APIResponse } from "@/_types/Api.types";
 import { fetchWithTimeout } from "@/_utils/fetch";
 import { BookingCategory } from "@/_types/Booking.types";
+import { apiRoutes } from "@/_config/Routes.config";
 
 export async function submitBooking(
   payload: BookingFormData,
@@ -47,7 +47,7 @@ export async function getBookingTypes(): Promise<
   APIResponse<BookingCategory[]>
 > {
   try {
-    const res = await authorizedAdminRequest("/admin/getall-bookingtype");
+    const res = await authorizedAdminRequest(apiRoutes.getAllBookingTypes);
     if (!res.ok) throw new Error();
     const data = await res.json();
     return { success: true, data: data.data.data };

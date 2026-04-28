@@ -19,4 +19,9 @@ export const apiRoutes = {
   feedback: "/feedback",
   subscribe: "/subscriber",
   preSignedUrl: "/admin/presign-url",
+  getAllBookingTypes: "/admin/getall-bookingtype",
+  getAllArtists: "/artist/all",
+  getAllSponsors: "/sponsor/get-all",
+  getAllVenues: "/venue/all-venue",
+  getAllEventCategories: "/admin/getAll-category",
 };

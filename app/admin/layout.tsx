@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/_lib/seo";
-import StoreProvider from "@/_store/provider";
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 
 export const metadata: Metadata = createPageMetadata({
@@ -15,9 +14,5 @@ export default function AdminRootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <StoreProvider>
-      <ReactQueryProvider>{children}</ReactQueryProvider>
-    </StoreProvider>
-  );
+  return <ReactQueryProvider>{children}</ReactQueryProvider>;
 }
