@@ -49,7 +49,7 @@ export function ContactDetails() {
               href="mailto:contact@bharatbhaktisangam.com"
               className="hover:underline hover:text-primary transition-colors"
             >
-              contact@bharatbhaktisangam.com
+              bharatbhaktiventures@gmail.com
             </a>
           </p>
         </div>
