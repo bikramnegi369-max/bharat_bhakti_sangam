@@ -56,6 +56,10 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${poppins.className} h-full antialiased`}>
+      <head>
+        {/* facebook meta tag */}
+        <meta property="fb:app_id" content={process.env.FB_APP_ID} />
+      </head>
       <body className="min-h-full flex flex-col bg-secondary">
         <script
           type="application/ld+json"

@@ -23,7 +23,7 @@ export function ContactDetails() {
       </h2>
       <p className="text-[clamp(0.844rem,calc(0.728rem+0.58vw),1.25rem)] text-para">
         Have feedback or something to share about Bharat Bhakti Sangam ? Connect
-        with us here – we’d love to hear from you!
+        with us here – we&rsquo;d love to hear from you!
       </p>
 
       <div className="flex flex-col gap-3 lg:gap-6">
@@ -49,7 +49,7 @@ export function ContactDetails() {
               href="mailto:contact@bharatbhaktisangam.com"
               className="hover:underline hover:text-primary transition-colors"
             >
-              contact@bharatbhaktisangam.com
+              bharatbhaktiventures@gmail.com
             </a>
           </p>
         </div>

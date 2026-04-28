@@ -16,7 +16,9 @@ export function FooterInteractiveArea({ cta }: Props) {
 
   return (
     <div className="flex flex-col gap-10 justify-start lg:items-end lg:mt-5">
-      {pathname !== "/booking" && <FooterCTA label={cta.label} href={cta.href} />}
+      {pathname !== "/booking" && (
+        <FooterCTA label={cta.label} href={cta.href} className="w-full" />
+      )}
       <SubscribeForm className="w-full max-w-sm lg:text-right" />
     </div>
   );
