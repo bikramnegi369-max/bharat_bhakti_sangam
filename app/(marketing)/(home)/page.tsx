@@ -3,10 +3,9 @@ import dynamic from "next/dynamic";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
 import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
-import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
+import { getSeoKeywords } from "@/_config/Seo.config";
 import { siteConfig } from "@/_config/Site.config";
 import {
-  getEventDescription,
   getEventDisplayDate,
   getEventVenueAddress,
   getEventVenueName,
@@ -43,11 +42,11 @@ const GallerySection = dynamic(
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const event = await getLatestEvent();
-    const seoPage = getSeoPageConfig("home");
 
     return createPageMetadata({
-      title: `${event.eventName} Event | ${seoPage.title}`,
-      description: " " + getEventDescription(event),
+      title: "Bharat Bhakti Sangam | Bhajan Clubbing, Bhakti & Kirtan Events",
+      description:
+        "Experience Bhajan Clubbing with Bharat Bhakti. Join immersive bhakti and kirtan events, and celebrate devotion through music and community.",
       path: "/",
       image: getOgImageUrl(event),
       ogKey: `${event._id}-${event.updatedAt ?? ""}`,

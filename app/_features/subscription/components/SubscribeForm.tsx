@@ -69,13 +69,13 @@ export function SubscribeForm({
             placeholder={placeholder}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="grow bg-white/10 border border-white/20 rounded-md px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+            className="w-full grow bg-white/10 border border-white/20 rounded-md px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
             aria-label="Email address"
           />
           <Button
             type="submit"
             disabled={status === "loading"}
-            className="sm:w-auto w-full! xl:w-32! h-10 flex items-center gap-2 text-sm font-bold"
+            className="sm:w-auto w-full! h-10 flex items-center gap-2 text-sm font-bold"
           >
             {status === "loading" ? (
               <Loader2 className="w-4 h-4 animate-spin" />
