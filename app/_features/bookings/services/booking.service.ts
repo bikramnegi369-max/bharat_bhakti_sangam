@@ -5,7 +5,7 @@ import { BookingFormData } from "@/_schemas/booking.schema";
 import { APIResponse } from "@/_types/Api.types";
 import { fetchWithTimeout } from "@/_utils/fetch";
 import { BookingCategory } from "@/_types/Booking.types";
-import { apiRoutes } from "@/_config/Routes.config";
+import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 
 export async function submitBooking(
   payload: BookingFormData,

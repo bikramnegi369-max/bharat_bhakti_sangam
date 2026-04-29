@@ -1,6 +1,6 @@
 "use server";
 
-import { apiRoutes } from "@/_config/Routes.config";
+import { apiRoutes } from "@/_config/APIRoutes.config";
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 import { APIResponse } from "@/_types/Api.types";
 import { EventCategory } from "@/_types/EventCategories.types";
