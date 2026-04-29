@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/_lib/seo";
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Admin",
@@ -14,5 +15,10 @@ export default function AdminRootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ReactQueryProvider>{children}</ReactQueryProvider>;
+  return (
+    <ReactQueryProvider>
+      {children}
+      <ToastContainer theme="dark" />
+    </ReactQueryProvider>
+  );
 }
