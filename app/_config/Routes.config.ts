@@ -10,12 +10,4 @@ export const routes = {
   termsAndConditions: "/terms-and-conditions",
 };
 
-export const apiRoutes = {
-  event: "/event",
-  latestEvent: "/event/latest",
-  latestCapacity: "/event/latest-capacity",
-  contact: "/contact",
-  booking: "/booking/create-ticket",
-  feedback: "/feedback",
-  subscribe: "/subscriber",
-};
+

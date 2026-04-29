@@ -1,7 +1,5 @@
 "use server";
 
-import { apiRoutes } from "@/_config/Routes.config";
-import axios from "@/_lib/axios";
 import { dummyEvents } from "@/_lib/DummyData/EventData";
 import { Event, LatestEvent } from "../types";
 import { TableQueryParams } from "@/_types/Table.types";
@@ -21,14 +19,7 @@ import {
 } from "./guards";
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
-
-export async function getEvents() {
-  return await axios.get<Event[]>(apiRoutes.event);
-}
-
-export async function getEvent() {
-  return getEvents();
-}
+import { apiRoutes } from "@/_config/APIRoutes.config";
 
 export const getLatestEvent = async (): Promise<LatestEvent> => {
   if (!API_URL) {
@@ -223,28 +214,5 @@ export async function getAllEvents(
     };
   } catch (error) {
     return { success: false, error: "Failed to fetch events." };
-  }
-}
-
-export async function getEventById(id: string): Promise<APIResponse<Event>> {
-  try {
-    const res = await axios.get<Event>(`${apiRoutes.event}/${id}`);
-    return { success: true, data: res.data };
-  } catch (error) {
-    console.error("Error fetching event:", error);
-    return { success: false, error: "Could not retrieve the event details." };
-  }
-}
-
-export async function deleteEvent(id: string): Promise<APIResponse> {
-  try {
-    await axios.delete(`${apiRoutes.event}/${id}`);
-    return { success: true };
-  } catch (error) {
-    console.error("Error deleting event:", error);
-    return {
-      success: false,
-      error: "Failed to delete the event. Please try again.",
-    };
   }
 }
