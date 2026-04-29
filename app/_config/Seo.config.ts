@@ -174,7 +174,6 @@ export const _seoConfig = {
   feedback: {
     path: "/feedback",
     image: "/feedback.webp",
-    noIndex: true,
     title: "Event Feedback",
     description:
       "Share your feedback for the latest Bharat Bhakti Sangam event.",
@@ -197,7 +196,6 @@ export const _seoConfig = {
   },
   sponsors: {
     path: "/sponsors",
-    noIndex: true,
     image: "/event.webp",
     title: "Sponsors",
     description:
@@ -221,7 +219,6 @@ export const _seoConfig = {
   },
   privacyPolicy: {
     path: "/privacy-policy",
-    noIndex: true,
     image: "/policy_hero.webp",
     title: "Privacy Policy",
     description: "Privacy policy for Bharat Bhakti Sangam ",
@@ -251,7 +248,6 @@ export const _seoConfig = {
   },
   termsAndConditions: {
     path: "/terms-and-conditions",
-    noIndex: true,
     image: "/policy_hero.webp",
     title: "Terms and Conditions",
     description: "Terms and conditions for Bharat Bhakti Sangam",

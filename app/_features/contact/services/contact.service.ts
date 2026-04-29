@@ -1,6 +1,6 @@
 "use server";
 
-import { apiRoutes } from "@/_config/Routes.config";
+import { apiRoutes } from "@/_config/APIRoutes.config";
 import { ContactFormData } from "@/_schemas/contact.schema";
 import { APIResponse } from "@/_types/Api.types";
 import { fetchWithTimeout } from "@/_utils/fetch";

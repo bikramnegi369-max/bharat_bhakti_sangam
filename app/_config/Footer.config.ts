@@ -58,5 +58,5 @@ export const footerConfig: FooterConfig = {
     href: "/booking",
   },
 
-  copyright: `© ${new Date().getFullYear()} Bharat Bhakti Sangam. All rights reserved.`,
+  copyright: `© ${new Date().getFullYear()} Bharat Bhakti Collective Ventures Pvt Ltd. All rights reserved.`,
 };

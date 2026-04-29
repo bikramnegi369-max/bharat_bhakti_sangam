@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return createPageMetadata({
       title: "Bharat Bhakti Sangam | Bhajan Clubbing, Bhakti & Kirtan Events",
       description:
-        "Experience Bhajan Clubbing with Bharat Bhakti. Join immersive bhakti and kirtan events, and celebrate devotion through music and community.",
+        "Experience Bhajan Clubbing with Bharat Bhakti Sangam. Join immersive bhakti and kirtan events, and celebrate devotion through music and community.",
       path: "/",
       image: getOgImageUrl(event),
       ogKey: `${event._id}-${event.updatedAt ?? ""}`,

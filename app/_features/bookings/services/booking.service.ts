@@ -1,6 +1,6 @@
 "use server";
 
-import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
+import { apiRoutes } from "@/_config/APIRoutes.config";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import { APIResponse } from "@/_types/Api.types";
 import { fetchWithTimeout } from "@/_utils/fetch";

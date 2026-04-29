@@ -35,8 +35,14 @@ function toAbsoluteUrl(url?: string) {
 }
 
 function optimizeTitle(title: string) {
-  if (title.includes(siteConfig.name)) return title;
-  return `${title} | ${siteConfig.name}`;
+  const brandName = siteConfig.name.trim();
+  // Normalize whitespace to prevent double branding caused by extra spaces or hidden characters
+  const normalizedTitle = title.replace(/\s+/g, " ").toLowerCase();
+  const normalizedName = brandName.replace(/\s+/g, " ").toLowerCase();
+
+  if (normalizedTitle.includes(normalizedName)) return title;
+
+  return `${title} | ${brandName}`;
 }
 
 function optimizeDescription(description: string) {

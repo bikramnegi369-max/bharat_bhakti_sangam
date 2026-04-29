@@ -1,6 +1,5 @@
 "use server";
 
-import { apiRoutes } from "@/_config/Routes.config";
 import { dummyEvents } from "@/_lib/DummyData/EventData";
 import { Event, LatestEvent } from "../types";
 import { TableQueryParams } from "@/_types/Table.types";
@@ -20,18 +19,7 @@ import {
 } from "./guards";
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
-import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
-
-export async function getEvents() {
-  const response = await authorizedAdminRequest(apiRoutes.event);
-
-  if (!response.ok) throw new Error("Failed to fetch events");
-  return (await response.json()) as Event[];
-}
-
-export async function getEvent() {
-  return getEvents();
-}
+import { apiRoutes } from "@/_config/APIRoutes.config";
 
 /**
  * PUBLIC CALL: Fetches the latest event without authentication.
@@ -229,65 +217,5 @@ export async function getAllEvents(
     };
   } catch (error) {
     return { success: false, error: "Failed to fetch events." };
-  }
-}
-
-/**
- * ADMIN CALL: Uses BFF logic to get a specific event.
- */
-export async function getEventById(id: string): Promise<APIResponse<Event>> {
-  try {
-    const res = await authorizedAdminRequest(`${apiRoutes.event}/${id}`);
-
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    return { success: true, data };
-  } catch (error) {
-    console.error("Error fetching event:", error);
-    return { success: false, error: "Could not retrieve the event details." };
-  }
-}
-
-/**
- * ADMIN CALL: Uses BFF logic to delete an event.
- */
-export async function deleteEvent(id: string): Promise<APIResponse> {
-  try {
-    const res = await authorizedAdminRequest(`${apiRoutes.event}/${id}`, {
-      method: "DELETE",
-    });
-
-    if (!res.ok) throw new Error();
-
-    return { success: true };
-  } catch (error) {
-    console.error("Error deleting event:", error);
-    return {
-      success: false,
-      error: "Failed to delete the event. Please try again.",
-    };
-  }
-}
-
-export async function addEvent({
-  event,
-}: {
-  event: Event;
-}): Promise<APIResponse> {
-  try {
-    const res = await authorizedAdminRequest(`${apiRoutes.event}`, {
-      method: "POST",
-      body: JSON.stringify(event),
-    });
-
-    if (!res.ok) throw new Error();
-
-    return { success: true };
-  } catch (error) {
-    console.error("Error Adding event:", error);
-    return {
-      success: false,
-      error: "Failed to Add the event. Please try again.",
-    };
   }
 }

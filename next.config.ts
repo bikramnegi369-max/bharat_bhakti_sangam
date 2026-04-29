@@ -25,8 +25,17 @@ const securityHeaders = [
   },
 ];
 
+const devOrigins = ["localhost:3000", "*.devtunnels.ms"];
+
 const nextConfig: NextConfig = {
   /* config options here */
+  allowedDevOrigins: devOrigins,
+  experimental: {
+    serverActions: {
+      allowedOrigins: devOrigins,
+    },
+  },
+
   async headers() {
     return [
       {
