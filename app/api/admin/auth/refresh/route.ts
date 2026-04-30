@@ -22,7 +22,24 @@ export async function POST() {
     return response;
   }
 
-  const result = await refreshAgainstBackend(authState);
+  let result;
+  try {
+    result = await refreshAgainstBackend(authState);
+  } catch (error) {
+    const isTimeout =
+      error instanceof Error &&
+      (error.name === "AbortError" ||
+        error.message.includes("timed out"));
+
+    return NextResponse.json(
+      {
+        message: isTimeout
+          ? "Admin session refresh timed out. Please try again."
+          : "Unable to refresh the admin session right now.",
+      },
+      { status: isTimeout ? 504 : 503 },
+    );
+  }
 
   if (!result.ok) {
     const response = NextResponse.json(

@@ -1,6 +1,5 @@
 "use server";
 
-import { dummyEvents } from "@/_lib/DummyData/EventData";
 import { Event, LatestEvent } from "../types";
 import { TableQueryParams } from "@/_types/Table.types";
 import {
@@ -16,10 +15,13 @@ import {
   isApiEnvelope,
   isLatestEventRecord,
   isEventCapacityRecord,
+  isAllEventsData,
 } from "./guards";
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
 import { apiRoutes } from "@/_config/APIRoutes.config";
+import { EventFormData } from "@/_schemas/Event.schemas";
+import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 
 /**
  * PUBLIC CALL: Fetches the latest event without authentication.
@@ -169,53 +171,100 @@ export const getLatestEventCapacity = async (): Promise<EventCapacity> => {
 export async function getAllEvents(
   params: TableQueryParams,
 ): Promise<APIResponse<{ items: Event[]; total: number }>> {
-  const search =
-    typeof params.search === "string" ? params.search.trim().toLowerCase() : "";
-
-  const date = typeof params.date === "string" ? params.date : "";
-  const time = typeof params.time === "string" ? params.time : "";
-  const sortBy = typeof params.sortBy === "string" ? params.sortBy : "";
-  const order = params.order === "desc" ? "desc" : "asc";
-  const limit = params.limit ?? 5;
-
-  let items = [...dummyEvents];
-
-  if (search) {
-    items = items.filter((event) => {
-      const haystack = `${event.eventName} ${event.description}`.toLowerCase();
-      return haystack.includes(search);
-    });
+  if (!API_URL) {
+    return { success: false, error: "API URL is not configured." };
   }
 
-  if (date) {
-    items = items.filter((event) => event.date.slice(0, 10) === date);
-  }
+  const queryParams = new URLSearchParams();
 
-  if (time) {
-    items = items.filter((event) => event.date.slice(11, 16) === time);
+  if (params.search) {
+    queryParams.append("search", String(params.search).trim());
   }
-
-  if (sortBy === "title" || sortBy === "description" || sortBy === "date") {
-    items.sort((left, right) => {
-      const a = String(left[sortBy as keyof Event]);
-      const b = String(right[sortBy as keyof Event]);
-      return order === "desc" ? b.localeCompare(a) : a.localeCompare(b);
-    });
+  if (params.date) {
+    queryParams.append("date", String(params.date));
   }
-
-  const total = items.length;
-  const start = (params.page - 1) * limit;
-  const end = start + limit;
+  if (params.time) {
+    queryParams.append("time", String(params.time));
+  }
+  if (params.sortBy) {
+    queryParams.append("sortBy", String(params.sortBy));
+  }
+  if (params.order) {
+    queryParams.append("order", String(params.order));
+  }
+  if (params.limit) {
+    queryParams.append("limit", String(params.limit));
+  }
+  if (params.page) {
+    queryParams.append("page", String(params.page));
+  }
 
   try {
+    const response = await authorizedAdminRequest(apiRoutes.getAllEvent, {
+      method: "GET",
+      search: queryParams.toString(),
+    });
+
+    if (!response.ok) {
+      const errorData = await response
+        .json()
+        .catch(() => ({ message: "Unknown error" }));
+      return {
+        success: false,
+        error:
+          errorData.message || `Failed to fetch events: ${response.status}`,
+      };
+    }
+
+    const payload: unknown = await response.json();
+
+    if (!isApiEnvelope(payload, isAllEventsData)) {
+      return {
+        success: false,
+        error: "Invalid API response format for all events.",
+      };
+    }
+
+    if (!payload.status) {
+      return {
+        success: false,
+        error: payload.message || "Failed to fetch events from API.",
+      };
+    }
+
     return {
       success: true,
       data: {
-        items: items.slice(start, end),
-        total,
+        items: payload.data.events,
+        total: payload.data.pagination.total,
       },
     };
   } catch (error) {
+    console.error("Error fetching all events:", error);
     return { success: false, error: "Failed to fetch events." };
+  }
+}
+
+export async function addEvent(event: EventFormData): Promise<APIResponse> {
+  try {
+    const payload = JSON.stringify(event);
+
+    const res = await authorizedAdminRequest(apiRoutes.event, {
+      method: "POST",
+      body: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      return { success: false, error: "Failed to add event." };
+    }
+
+    return {
+      success: true,
+    };
+  } catch {
+    return { success: false, error: "Failed to add event." };
   }
 }

@@ -2,23 +2,23 @@
 
 import { AdminSidebar } from "@/_components/layout/Sidebar/AdminSidebar";
 import { MobileSidebar } from "@/_components/layout/Sidebar/MobileSidebar";
-import { SidebarLogo } from "@/_components/layout/Sidebar/SidebarLogo";
 import { AdminSessionPanel } from "@/_features/admin-auth/components/AdminSessionPanel";
 import UIProvider from "@/providers/UIProvider";
 import { Menu } from "lucide-react";
 import { useState } from "react";
+
 
 export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
     <UIProvider>
-      <div className="flex h-dvh bg-gray-50">
+      <div className="flex h-dvh w-full overflow-hidden bg-gray-50">
         <AdminSidebar />
         <MobileSidebar open={open} onClose={() => setOpen(false)} />
 
-        <div className="flex flex-1 flex-col max-w-full relative">
-          <header className="sticky border-b border-slate-200 bg-white">
+        <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
+          <header className="sticky top-0 z-10 shrink-0 border-b border-slate-200 bg-white">
             <div className="flex items-center justify-between gap-4 px-4 py-4 lg:px-8">
               <div className="flex items-center gap-3">
                 <div className="lg:hidden flex items-center gap-3">
@@ -46,12 +46,12 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
             </div>
           </header>
 
-          <main className="flex-1 bg-secondary p-4 lg:p-8 relative overflow-auto">
+          <main className="relative min-h-0 min-w-0 flex-1 overflow-auto bg-secondary p-4 lg:p-8">
             {children}
           </main>
           <div
             id="__main-overlay-root"
-            className="absolute inset-0 pointer-events-none "
+            className="pointer-events-none absolute inset-0"
           />
         </div>
       </div>

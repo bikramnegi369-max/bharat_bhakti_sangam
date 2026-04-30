@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { EventFormData } from "@/_schemas/Event.schemas";
 import AddEventForm from "./AddEventForm";
@@ -14,8 +15,15 @@ import { Venue } from "@/_types/Venue.types";
 import { Sponsor } from "@/_types/Sponsors.types";
 import { Artist } from "@/_types/Artists.types";
 import { EventCategory } from "@/_types/EventCategories.types";
+import { toast } from "react-toastify";
+import { addEvent } from "../services/event.service";
+import { useUI } from "@/providers/UIProvider";
+import { ALL_EVENTS } from "../services/constants";
+import { getTableQueryKeyPrefix } from "@/_utils/queryKey";
 
 export default function AddEventDrawer() {
+  const queryClient = useQueryClient();
+  const { closeDrawer } = useUI();
   const [isLoading, setIsLoading] = useState(true);
   const [options, setOptions] = useState<{
     bookingTypes: BookingCategory[];
@@ -60,14 +68,37 @@ export default function AddEventDrawer() {
     fetchAllOptions();
   }, []);
 
-  const handleFormSubmit = (data: EventFormData) => {
-    console.log(data);
+  const handleFormSubmit = async (data: EventFormData) => {
+    try {
+      await toast.promise(
+        (async () => {
+          const result = await addEvent(data);
+
+          if (!result.success) {
+            throw new Error(result.error || "Failed to create event.");
+          }
+
+          return result;
+        })(),
+        {
+          pending: "Creating new event...",
+          success: "Event created successfully!",
+          error: "Failed to create event.",
+        },
+      );
+
+      await queryClient.invalidateQueries({
+        queryKey: getTableQueryKeyPrefix([ALL_EVENTS]),
+      });
+
+      closeDrawer();
+    } catch (error) {
+      console.error("Error creating event:", error);
+    }
   };
 
-  console.log(options);
-
   return (
-    <div className="h-full w-full pointer-events-auto flex flex-col overflow-hidden">
+    <div className="relative h-full w-full pointer-events-auto flex flex-col overflow-hidden">
       <h2 className="h-12 bg-black text-primary text-xl flex items-center p-8">
         Add New Event
       </h2>

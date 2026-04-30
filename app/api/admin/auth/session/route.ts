@@ -10,7 +10,9 @@ import {
 export async function GET() {
   const authState = await getAdminAuthStateFromCookies();
 
-  if (authState.session && authState.accessToken) {
+  // Trust the signed session cookie for session reads so transient backend
+  // outages do not look like a forced logout in the admin UI.
+  if (authState.session) {
     return NextResponse.json({
       session: toPublicSession(authState.session),
     });
@@ -28,7 +30,24 @@ export async function GET() {
     return response;
   }
 
-  const result = await refreshAgainstBackend(authState);
+  let result;
+  try {
+    result = await refreshAgainstBackend(authState);
+  } catch (error) {
+    const isTimeout =
+      error instanceof Error &&
+      (error.name === "AbortError" ||
+        error.message.includes("timed out"));
+
+    return NextResponse.json(
+      {
+        message: isTimeout
+          ? "Admin session check timed out. Please try again."
+          : "Unable to verify the admin session right now.",
+      },
+      { status: isTimeout ? 504 : 503 },
+    );
+  }
 
   if (!result.ok) {
     const response = NextResponse.json(

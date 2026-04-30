@@ -93,6 +93,21 @@ function createResponseHeaders(sourceHeaders: Headers): Headers {
   return headers;
 }
 
+function createBackendCommunicationErrorResponse(error: unknown) {
+  const isTimeout =
+    error instanceof Error &&
+    (error.name === "AbortError" || error.message.includes("timed out"));
+
+  return NextResponse.json(
+    {
+      message: isTimeout
+        ? "Backend request timed out."
+        : "Failed to communicate with backend.",
+    },
+    { status: isTimeout ? 504 : 502 },
+  );
+}
+
 async function handleProxy(request: NextRequest, context: RouteContext) {
   if (!isSafeMethod(request.method) && !isSameOriginRequest(request)) {
     return NextResponse.json(
@@ -112,7 +127,24 @@ async function handleProxy(request: NextRequest, context: RouteContext) {
     (!activeAuth.accessToken || !activeAuth.session) &&
     activeAuth.refreshToken
   ) {
-    const refreshResult = await refreshAgainstBackend(activeAuth);
+    let refreshResult;
+    try {
+      refreshResult = await refreshAgainstBackend(activeAuth);
+    } catch (error) {
+      const isTimeout =
+        error instanceof Error &&
+        (error.name === "AbortError" ||
+          error.message.includes("timed out"));
+
+      return NextResponse.json(
+        {
+          message: isTimeout
+            ? "Admin backend authentication timed out."
+            : "Unable to verify admin authentication right now.",
+        },
+        { status: isTimeout ? 504 : 503 },
+      );
+    }
 
     if (refreshResult.ok) {
       refreshedAuth = refreshResult.auth;
@@ -151,14 +183,29 @@ async function handleProxy(request: NextRequest, context: RouteContext) {
       accessToken: activeAuth.accessToken,
     });
   } catch (error) {
-    return NextResponse.json(
-      { message: "Failed to communicate with backend." },
-      { status: 502 },
-    );
+    return createBackendCommunicationErrorResponse(error);
   }
 
   if (backendResponse.status === 401 && activeAuth.refreshToken) {
-    const refreshResult = await refreshAgainstBackend(activeAuth);
+    let refreshResult;
+    try {
+      refreshResult = await refreshAgainstBackend(activeAuth);
+    } catch (error) {
+      const isTimeout =
+        error instanceof Error &&
+        (error.name === "AbortError" ||
+          error.message.includes("timed out"));
+
+      return NextResponse.json(
+        {
+          message: isTimeout
+            ? "Admin backend authentication timed out."
+            : "Unable to refresh admin authentication right now.",
+        },
+        { status: isTimeout ? 504 : 503 },
+      );
+    }
+
     if (!refreshResult.ok) {
       const response = NextResponse.json(
         {
@@ -178,13 +225,17 @@ async function handleProxy(request: NextRequest, context: RouteContext) {
       session: refreshResult.auth.session,
     };
 
-    backendResponse = await requestAdminBackend(pathname, {
-      method: request.method,
-      search: request.nextUrl.search,
-      body: requestBody,
-      headers: forwardedHeaders,
-      accessToken: activeAuth.accessToken,
-    });
+    try {
+      backendResponse = await requestAdminBackend(pathname, {
+        method: request.method,
+        search: request.nextUrl.search,
+        body: requestBody,
+        headers: forwardedHeaders,
+        accessToken: activeAuth.accessToken,
+      });
+    } catch (error) {
+      return createBackendCommunicationErrorResponse(error);
+    }
   }
 
   const responseBody = await proxyBackendResponseBody(backendResponse);

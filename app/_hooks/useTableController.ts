@@ -6,6 +6,7 @@ import { useDebounce } from "@/_hooks/useDebounce";
 import { useTableState } from "@/_hooks/useTableState";
 import { TableConfig } from "@/_types/Table.types";
 import { getTableQueryKey } from "@/_utils/queryKey";
+import { RowData } from "@tanstack/react-table";
 
 const normalizeFilters = (filters: Record<string, string>) =>
   Object.fromEntries(
@@ -35,8 +36,8 @@ const areFilterValuesEqual = (
   return aKeys.every((key) => a[key] === b[key]);
 };
 
-export const useTableController = <T, TValue = unknown>(
-  config: TableConfig<T, TValue>,
+export const useTableController = <T extends RowData>(
+  config: TableConfig<T>,
 ) => {
   const filterKeys = useMemo(
     () => config.filters?.map((filter) => filter.key) ?? [],
@@ -75,11 +76,12 @@ export const useTableController = <T, TValue = unknown>(
   const queryKey = useMemo(
     () =>
       getTableQueryKey({
+        prefix: config.queryKeyPrefix,
         page: state.page,
         filters: appliedFilters,
         sorting: state.sorting,
       }),
-    [appliedFilters, state.page, state.sorting],
+    [appliedFilters, config.queryKeyPrefix, state.page, state.sorting],
   );
 
   const { data, isLoading, isFetching, error } = useQuery({

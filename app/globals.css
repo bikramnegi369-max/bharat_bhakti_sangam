@@ -82,6 +82,15 @@
   animation: table-progress 1.1s ease-in-out infinite;
 }
 
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes marquee {
   from {
     transform: translate3d(0, 0, 0);

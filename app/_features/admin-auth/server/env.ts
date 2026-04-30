@@ -19,19 +19,23 @@ export function getAdminSessionSecret(): string {
     return "development-only-admin-auth-session-secret";
   }
 
-  throw new Error("Missing ADMIN_AUTH_SESSION_SECRET for admin authentication.");
+  throw new Error(
+    "Missing ADMIN_AUTH_SESSION_SECRET for admin authentication.",
+  );
 }
 
-export function buildAdminBackendUrl(
-  pathname: string,
-  search = "",
-): URL {
+export function buildAdminBackendUrl(pathname: string, search = ""): URL {
   const url = new URL(getAdminApiBaseUrl());
   const basePath = url.pathname.replace(/\/$/, "");
-  const normalizedPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  const [rawPathname, embeddedSearch = ""] = pathname.split("?");
+  const normalizedPath = rawPathname.startsWith("/")
+    ? rawPathname
+    : `/${rawPathname}`;
+  const resolvedSearch = search || embeddedSearch;
 
   url.pathname = `${basePath}${normalizedPath}`;
-  url.search = search.startsWith("?") ? search.slice(1) : search;
-
+  url.search = resolvedSearch.startsWith("?")
+    ? resolvedSearch.slice(1)
+    : resolvedSearch;
   return url;
 }

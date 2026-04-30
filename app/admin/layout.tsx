@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/_lib/seo";
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Admin",

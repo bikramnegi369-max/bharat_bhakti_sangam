@@ -68,7 +68,7 @@ export async function setAdminAuthCookiesServerSide(
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax" as const,
     path: "/",
-    // Set maxAge based on your session requirements (e.g., 7 days)
+    // Set maxAge based on your session requirements ( 7 days)
     maxAge: 60 * 60 * 24 * 7,
   };
 

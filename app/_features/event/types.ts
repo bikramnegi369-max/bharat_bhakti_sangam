@@ -1,34 +1,11 @@
-export interface Event {
-  eventName: string;
-  description: string;
-  venueName: string;
-  date: string;
-  time: string;
-  tabs: string[];
-  hashTags: string[];
-  bookingType: string;
-  sponsors: string[];
-  artists: string[];
-  homeBanner: string;
-  eventBanner: string;
-  ticketPrice: number;
-  maxSeats: number;
-  bookedSeats: number;
-  availableTickets: number;
-  category: string;
-  ogImage: string;
-}
-
 export interface LatestEvent {
   _id: string;
   eventName: string;
   description: string;
-  venueName?:
-    | string
-    | {
-        venue?: string;
-        address?: string;
-      };
+  venueName?: {
+    venue?: string;
+    address?: string;
+  };
   date: string;
   time: string;
   tabs: string[];
@@ -69,4 +46,18 @@ export interface ApiEnvelope<T> {
   status: boolean;
   message: string;
   data: T;
+}
+
+export interface Event extends LatestEvent {
+  categories: string[];
+  artists: Array<{
+    _id?: string;
+    name?: string;
+    role?: string;
+    image?: string;
+    about?: string;
+  }>;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 }

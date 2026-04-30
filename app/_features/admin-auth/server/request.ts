@@ -10,7 +10,12 @@ import {
 
 export async function authorizedAdminRequest(
   path: string,
-  options: { method?: string; body?: any; search?: string } = {},
+  options: {
+    method?: string;
+    body?: BodyInit | null;
+    search?: string;
+    headers?: HeadersInit;
+  } = {},
 ) {
   let authState = await getAdminAuthStateFromCookies();
 
@@ -36,6 +41,7 @@ export async function authorizedAdminRequest(
     method: options.method ?? "GET",
     body: options.body,
     search: options.search,
+    headers: options.headers,
     accessToken: authState.accessToken,
   });
 
@@ -55,6 +61,7 @@ export async function authorizedAdminRequest(
         method: options.method ?? "GET",
         body: options.body,
         search: options.search,
+        headers: options.headers,
         accessToken: newAuth.accessToken,
       });
     } else {

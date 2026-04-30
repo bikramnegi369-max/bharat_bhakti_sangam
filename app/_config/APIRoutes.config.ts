@@ -14,4 +14,5 @@ export const apiRoutes = {
   getAllSponsors: "/sponsor/get-all",
   getAllVenues: "/venue/all-venue",
   getAllEventCategories: "/admin/getAll-category",
+  getAllEvent : "/event/all-event"
 };
