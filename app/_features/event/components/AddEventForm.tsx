@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Field } from "@/_components/ui/Field/Field";
 import { FormTagsField } from "@/_components/ui/Field/FormTagsField";
 import {
@@ -17,13 +17,17 @@ import { Venue } from "@/_types/Venue.types";
 import { Sponsor } from "@/_types/Sponsors.types";
 import { Artist } from "@/_types/Artists.types";
 import { EventCategory } from "@/_types/EventCategories.types";
+import {
+  createEmptyEventFormInput,
+  toEventFormInput,
+} from "../helpers/eventForm.helpers";
 
 interface AddEventFormProps {
-  handleSubmit: (data: EventFormData) => void;
+  handleSubmit: (data: EventFormData) => void | Promise<void>;
   handleCancel?: () => void;
   cancelLabel?: string;
   submitLabel?: string;
-  initialData?: EventFormData;
+  initialData?: EventFormInput;
   isEditOrDuplicateMode?: boolean;
   bookingTypes: BookingCategory[];
   sponsors: Sponsor[];
@@ -76,6 +80,7 @@ export default function AddEventForm({
     register,
     handleSubmit: handleSubmitForm,
     control,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<EventFormInput, unknown, EventFormData>({
     resolver: zodResolver(EventSchema),
@@ -83,32 +88,18 @@ export default function AddEventForm({
     reValidateMode: "onChange",
     defaultValues:
       isEditOrDuplicateMode && initialData
-        ? ({
-            ...initialData,
-            eventDate:
-              initialData.eventDate instanceof Date
-                ? initialData.eventDate.toLocaleDateString()
-                : initialData.eventDate,
-          } as EventFormInput)
-        : {
-            eventName: "",
-            eventDescription: "",
-            venueName: "",
-            eventDate: "",
-            startTime: "",
-            endTime: "",
-            instruments: [],
-            hashtags: [],
-            bookingTypes: [],
-            sponsors: [],
-            artists: [],
-            totalCapacity: 0,
-            eventCategories: [],
-            homeBanner: "",
-            eventBanner: "",
-            ogImage: "",
-          },
+        ? toEventFormInput(initialData)
+        : createEmptyEventFormInput(),
   });
+
+  useEffect(() => {
+    if (isEditOrDuplicateMode && initialData) {
+      reset(toEventFormInput(initialData));
+      return;
+    }
+
+    reset(createEmptyEventFormInput());
+  }, [initialData, isEditOrDuplicateMode, reset]);
 
   return (
     <form onSubmit={handleSubmitForm(handleSubmit)} className="space-y-8 p-8 ">

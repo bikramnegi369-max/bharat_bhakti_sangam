@@ -34,7 +34,7 @@ export const TableHeader = <T,>({ table, hasActions }: TableHeaderProps<T>) => {
           ))}
 
           {hasActions && (
-            <th className="sticky right-0 z-30 w-30 border-l border-black/10 bg-[#F3E4C7] px-4 py-3 shadow-2xl before:absolute before:left-0 before:top-0 before:h-full before:w-3 before:-translate-x-full before:bg-linear-to-l before:from-black/15 before:to-transparent before:content-['']">
+            <th className="sticky right-0 z-30 w-30 border-l border-black/10 bg-[#F3E4C7] px-4 py-3 text-center shadow-2xl before:absolute before:left-0 before:top-0 before:h-full before:w-3 before:-translate-x-full before:bg-linear-to-l before:from-black/15 before:to-transparent before:content-['']">
               Action
             </th>
           )}

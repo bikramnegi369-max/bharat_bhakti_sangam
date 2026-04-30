@@ -2,6 +2,7 @@ import "server-only";
 
 export const apiRoutes = {
   event: "/event",
+  eventById: (id: string) => `/event/${id}`,
   latestEvent: "/event/latest",
   latestCapacity: "/event/latest-capacity",
   contact: "/contact",
@@ -14,5 +15,5 @@ export const apiRoutes = {
   getAllSponsors: "/sponsor/get-all",
   getAllVenues: "/venue/all-venue",
   getAllEventCategories: "/admin/getAll-category",
-  getAllEvent : "/event/all-event"
+  getAllEvent: "/event/all-event",
 };

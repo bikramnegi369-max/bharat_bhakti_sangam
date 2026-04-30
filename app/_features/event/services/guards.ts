@@ -1,4 +1,4 @@
-import { ApiEnvelope, Event, LatestEvent } from "../types";
+import { ApiEnvelope, Event, EventDetail, LatestEvent } from "../types";
 import { EventCapacity } from "./constants";
 
 // Helper for venueName
@@ -17,6 +17,12 @@ function isBookingType(
   if (!value || typeof value !== "object") return false;
   const record = value as Record<string, unknown>;
   return typeof record.name === "string" && typeof record.price === "number";
+}
+
+function isBookingTypeList(
+  value: unknown,
+): value is { name: string; price: number }[] {
+  return Array.isArray(value) && value.every(isBookingType);
 }
 
 // Helper for Artist
@@ -50,6 +56,7 @@ export function isEventRecord(value: unknown): value is Event {
     Array.isArray(record.hashTags) &&
     record.hashTags.every((item: unknown) => typeof item === "string") &&
     (isBookingType(record.bookingType) ||
+      isBookingTypeList(record.bookingType) ||
       record.bookingType === undefined ||
       record.bookingType === null) &&
     (typeof record.homeBanner === "string" ||
@@ -66,6 +73,21 @@ export function isEventRecord(value: unknown): value is Event {
       record.ogImage === null) &&
     Array.isArray(record.artists) &&
     record.artists.every(isArtistRecord)
+  );
+}
+
+export function isEventDetailRecord(value: unknown): value is EventDetail {
+  if (!value || typeof value !== "object") return false;
+
+  const record = value as Record<string, unknown>;
+
+  return (
+    typeof record._id === "string" &&
+    (typeof record.eventName === "string" ||
+      typeof record.description === "string" ||
+      typeof record.eventDescription === "string" ||
+      typeof record.date === "string" ||
+      typeof record.eventDate === "string")
   );
 }
 

@@ -48,6 +48,47 @@ export interface ApiEnvelope<T> {
   data: T;
 }
 
+export interface EventDetail {
+  _id: string;
+  eventName?: string;
+  eventDescription?: string;
+  description?: string;
+  venueName?:
+    | string
+    | {
+        _id?: string;
+        venue?: string;
+        address?: string;
+      };
+  venueId?: string;
+  date?: string;
+  eventDate?: string;
+  time?: string;
+  startTime?: string;
+  endTime?: string;
+  tabs?: string[];
+  instruments?: string[];
+  hashTags?: string[];
+  hashtags?: string[];
+  bookingType?: unknown;
+  bookingTypes?: unknown;
+  sponsors?: unknown;
+  artists?: unknown;
+  categories?: unknown;
+  eventCategories?: unknown;
+  maxSeats?: number;
+  totalCapacity?: number;
+  homeBanner?: string;
+  eventBanner?: string;
+  ogImage?: string;
+  bookedSeats?: number;
+  availableTickets?: number;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  [key: string]: unknown;
+}
+
 export interface Event extends LatestEvent {
   categories: string[];
   artists: Array<{

@@ -7,7 +7,6 @@ import {
   ReactNode,
   useLayoutEffect,
   useEffect,
-  useId,
 } from "react";
 import { usePathname } from "next/navigation";
 import { useMountTransition } from "@/_hooks/useMountTransition";
@@ -96,13 +95,17 @@ export default function UIProvider({ children }: { children: ReactNode }) {
    * DRAWER STACK SYSTEM (with exit animations)
    * ----------------------------------------------------------- */
   const [drawerStack, setDrawerStack] = useState<DrawerItem[]>([]);
-  const uniqueiD = useId();
 
   const openDrawer = (content: ReactNode, options: DrawerOptions = {}) => {
+    const drawerId =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
     setDrawerStack((prev) => [
       ...prev,
       {
-        id: uniqueiD,
+        id: drawerId,
         content,
         options,
         isVisible: true, // animate IN

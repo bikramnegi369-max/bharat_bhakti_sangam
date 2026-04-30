@@ -1,6 +1,6 @@
 "use server";
 
-import { Event, LatestEvent } from "../types";
+import { Event, EventDetail, LatestEvent } from "../types";
 import { TableQueryParams } from "@/_types/Table.types";
 import {
   API_URL,
@@ -16,12 +16,51 @@ import {
   isLatestEventRecord,
   isEventCapacityRecord,
   isAllEventsData,
+  isEventDetailRecord,
 } from "./guards";
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
 import { apiRoutes } from "@/_config/APIRoutes.config";
 import { EventFormData } from "@/_schemas/Event.schemas";
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+async function getResponsePayload(response: Response) {
+  return response.json().catch(() => null);
+}
+
+function getPayloadMessage(payload: unknown) {
+  if (!isRecord(payload)) {
+    return undefined;
+  }
+
+  return typeof payload.message === "string" ? payload.message : undefined;
+}
+
+function extractEventDetailFromPayload(payload: unknown): unknown {
+  if (!isRecord(payload) || !("data" in payload)) {
+    return undefined;
+  }
+
+  const data = payload.data;
+
+  if (!isRecord(data)) {
+    return data;
+  }
+
+  if ("event" in data) {
+    return data.event;
+  }
+
+  if ("data" in data) {
+    return data.data;
+  }
+
+  return data;
+}
 
 /**
  * PUBLIC CALL: Fetches the latest event without authentication.
@@ -266,5 +305,94 @@ export async function addEvent(event: EventFormData): Promise<APIResponse> {
     };
   } catch {
     return { success: false, error: "Failed to add event." };
+  }
+}
+
+export async function getEventById(
+  id: string,
+): Promise<APIResponse<EventDetail>> {
+  if (!id.trim()) {
+    return { success: false, error: "Event id is required." };
+  }
+
+  try {
+    const res = await authorizedAdminRequest(apiRoutes.eventById(id), {
+      method: "GET",
+    });
+
+    const payload = await getResponsePayload(res);
+
+    if (!res.ok) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to fetch event.",
+      };
+    }
+
+    if (isRecord(payload) && "status" in payload && payload.status === false) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to fetch event.",
+      };
+    }
+
+    const eventData = extractEventDetailFromPayload(payload);
+
+    if (!isEventDetailRecord(eventData)) {
+      return {
+        success: false,
+        error: "Invalid event detail response format.",
+      };
+    }
+
+    return {
+      success: true,
+      data: eventData,
+    };
+  } catch (error) {
+    console.error("Error fetching event by id:", error);
+    return { success: false, error: "Failed to fetch event." };
+  }
+}
+
+export async function updateEvent(
+  id: string,
+  event: EventFormData,
+): Promise<APIResponse> {
+  if (!id.trim()) {
+    return { success: false, error: "Event id is required." };
+  }
+
+  try {
+    const res = await authorizedAdminRequest(apiRoutes.eventById(id), {
+      method: "PUT",
+      body: JSON.stringify(event),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const payload = await getResponsePayload(res);
+
+    if (!res.ok) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to update event.",
+      };
+    }
+
+    if (isRecord(payload) && "status" in payload && payload.status === false) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to update event.",
+      };
+    }
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error("Error updating event:", error);
+    return { success: false, error: "Failed to update event." };
   }
 }
