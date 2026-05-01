@@ -3,6 +3,8 @@ import "server-only";
 export const apiRoutes = {
   event: "/event",
   eventById: (id: string) => `/event/${id}`,
+  eventCategoryById: (id: string) => `/admin/category/${id}`,
+  updateCategoryStatus: (id: string) => `/admin/category/${id}`,
   latestEvent: "/event/latest",
   latestCapacity: "/event/latest-capacity",
   contact: "/contact",
@@ -14,6 +16,7 @@ export const apiRoutes = {
   getAllArtists: "/artist/all",
   getAllSponsors: "/sponsor/get-all",
   getAllVenues: "/venue/all-venue",
-  getAllEventCategories: "/admin/getAll-category",
+  getAllEventCategories: "/admin/category",
   getAllEvent: "/event/all-event",
+  addEventCategory: "/admin/add-category",
 };

@@ -1,4 +1,4 @@
-import { ApiEnvelope, Event, EventDetail, LatestEvent } from "../types";
+import { Event, EventDetail, LatestEvent } from "../types";
 import { EventCapacity } from "./constants";
 
 // Helper for venueName
@@ -28,13 +28,13 @@ function isBookingTypeList(
 // Helper for Artist
 function isArtistRecord(
   value: unknown,
-): value is { name: string; image: string; about: string } {
+): value is { name?: string; image?: string; about?: string } {
   if (!value || typeof value !== "object") return false;
   const record = value as Record<string, unknown>;
   return (
-    typeof record.name === "string" &&
-    typeof record.image === "string" &&
-    typeof record.about === "string"
+    (typeof record.name === "string" || record.name === undefined) &&
+    (typeof record.image === "string" || record.image === undefined) &&
+    (typeof record.about === "string" || record.about === undefined)
   );
 }
 
@@ -50,7 +50,15 @@ export function isEventRecord(value: unknown): value is Event {
       record.venueName === undefined ||
       record.venueName === null) &&
     typeof record.date === "string" &&
-    typeof record.time === "string" &&
+    (typeof record.time === "string" ||
+      record.time === undefined ||
+      record.time === null) &&
+    (typeof record.startTime === "string" ||
+      record.startTime === undefined ||
+      record.startTime === null) &&
+    (typeof record.endTime === "string" ||
+      record.endTime === undefined ||
+      record.endTime === null) &&
     Array.isArray(record.tabs) &&
     record.tabs.every((item: unknown) => typeof item === "string") &&
     Array.isArray(record.hashTags) &&
@@ -103,7 +111,15 @@ export function isLatestEventRecord(value: unknown): value is LatestEvent {
       typeof record.venueName === "undefined" ||
       (typeof record.venueName === "object" && record.venueName !== null)) &&
     typeof record.date === "string" &&
-    typeof record.time === "string" &&
+    (typeof record.time === "string" ||
+      record.time === undefined ||
+      record.time === null) &&
+    (typeof record.startTime === "string" ||
+      record.startTime === undefined ||
+      record.startTime === null) &&
+    (typeof record.endTime === "string" ||
+      record.endTime === undefined ||
+      record.endTime === null) &&
     Array.isArray(record.tabs) &&
     Array.isArray(record.hashTags) &&
     Array.isArray(record.artists) &&
@@ -158,18 +174,4 @@ export function isAllEventsData(value: unknown): value is {
   return true;
 }
 
-export function isApiEnvelope<T>(
-  value: unknown,
-  dataGuard: (input: unknown) => input is T,
-): value is ApiEnvelope<T> {
-  if (!value || typeof value !== "object") return false;
-
-  const record = value as Record<string, unknown>;
-
-  return (
-    typeof record.status === "boolean" &&
-    typeof record.message === "string" &&
-    "data" in record &&
-    dataGuard(record.data)
-  );
-}
+export { isApiEnvelope } from "@/_utils/guards";

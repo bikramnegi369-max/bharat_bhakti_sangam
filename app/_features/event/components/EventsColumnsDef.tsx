@@ -58,10 +58,15 @@ export const EventColumns = [
   }),
   c("time", {
     header: "Time",
-    accessorFn: (row) => row.time,
+    accessorFn: (row) => {
+      if (row.startTime && row.endTime) {
+        return `${row.startTime} - ${row.endTime}`;
+      }
+      return row.startTime || row.time;
+    },
     cell: (value) => {
       if (!value) return "N/A";
-      return <span className="text-sm">{value}</span>;
+      return <span className="text-sm">{value as string}</span>;
     },
   }),
   c("category", {

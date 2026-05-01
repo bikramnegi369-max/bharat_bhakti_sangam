@@ -69,7 +69,7 @@ export default function ActionMenu({
         type="button"
         ref={setReference}
         className={clsx(
-          "inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900",
+          "inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 cursor-pointer",
           triggerClassName,
         )}
         aria-label={ariaLabel}
@@ -84,7 +84,7 @@ export default function ActionMenu({
             ref={setFloating}
             style={floatingStyles}
             className={clsx(
-              "z-[140] min-w-40 rounded-xl border border-black/10 bg-white p-2 shadow-[0_18px_45px_rgba(15,23,42,0.16)]",
+              "z-140 min-w-40 rounded-xl border border-black/10 bg-white p-2 shadow-[0_18px_45px_rgba(15,23,42,0.16)]",
               menuClassName,
             )}
             {...getFloatingProps()}
@@ -108,7 +108,7 @@ export default function ActionMenu({
                     }
                   }}
                   className={clsx(
-                    "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors border",
+                    "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors border cursor-pointer",
                     item.variant === "danger"
                       ? "text-red-600 hover:bg-red-50"
                       : "text-slate-700 hover:bg-slate-100",

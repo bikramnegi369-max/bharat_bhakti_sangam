@@ -3,11 +3,14 @@ export interface LatestEvent {
   eventName: string;
   description: string;
   venueName?: {
+    _id?: string;
     venue?: string;
     address?: string;
   };
   date: string;
-  time: string;
+  time?: string;
+  startTime?: string;
+  endTime?: string;
   tabs: string[];
   hashTags: string[];
   bookingType?:

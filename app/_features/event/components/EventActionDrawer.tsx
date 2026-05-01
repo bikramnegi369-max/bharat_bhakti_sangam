@@ -147,7 +147,11 @@ export default function EventActionDrawer({
                   <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                     Time
                   </p>
-                  <p className="mt-2">{event.time || "N/A"}</p>
+                  <p className="mt-2">
+                    {event.startTime && event.endTime
+                      ? `${event.startTime} - ${event.endTime}`
+                      : event.startTime || event.time || "N/A"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -210,7 +214,7 @@ export default function EventActionDrawer({
           </section>
 
           <section className={sectionCardStyles}>
-            <p className="text-sm font-semibold text-slate-900">Tabs</p>
+            <p className="text-sm font-semibold text-slate-900">Instruments</p>
             <div className="mt-4">{renderTagList(event.tabs)}</div>
           </section>
 

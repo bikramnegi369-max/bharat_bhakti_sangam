@@ -4,7 +4,7 @@ import { BookingCategory } from "@/_types/Booking.types";
 import { EventCategory } from "@/_types/EventCategories.types";
 import { Sponsor } from "@/_types/Sponsors.types";
 import { Venue } from "@/_types/Venue.types";
-import { EventDetail } from "../types";
+import { Event, EventDetail } from "../types";
 
 export type EventFormOptions = {
   bookingTypes: BookingCategory[];
@@ -141,7 +141,7 @@ function normalizeTimeToken(value: string): string {
   return `${String(hours).padStart(2, "0")}:${minutes}`;
 }
 
-function getTimeRange(detail: EventDetail) {
+function getTimeRange(detail: Event) {
   const explicitStartTime = getString(detail.startTime);
   const explicitEndTime = getString(detail.endTime);
 
@@ -196,7 +196,8 @@ function resolveOptionId<T extends { _id?: string }>(
 
     const normalizedValue = directValue.toLowerCase();
     const matchedByLabel = options.find(
-      (option) => getOptionLabel(option).trim().toLowerCase() === normalizedValue,
+      (option) =>
+        getOptionLabel(option).trim().toLowerCase() === normalizedValue,
     );
 
     if (matchedByLabel?._id) {
@@ -230,7 +231,8 @@ function resolveOptionId<T extends { _id?: string }>(
 
     const normalizedValue = fieldValue.toLowerCase();
     const matchedByLabel = options.find(
-      (option) => getOptionLabel(option).trim().toLowerCase() === normalizedValue,
+      (option) =>
+        getOptionLabel(option).trim().toLowerCase() === normalizedValue,
     );
 
     if (matchedByLabel?._id) {
@@ -258,11 +260,13 @@ function resolveOptionIds<T extends { _id?: string }>(
     .filter((item): item is string => Boolean(item));
 }
 
-function resolveVenueId(detail: EventDetail, venues: Venue[]): string {
-  const venueById = resolveOptionId(detail.venueId, venues, (venue) => venue.venue, [
-    "venue",
-    "name",
-  ]);
+function resolveVenueId(detail: Event, venues: Venue[]): string {
+  const venueById = resolveOptionId(
+    detail.venueName,
+    venues,
+    (venue) => venue.venue,
+    ["venue", "name"],
+  );
 
   if (venueById) {
     return venueById;
@@ -277,25 +281,22 @@ function resolveVenueId(detail: EventDetail, venues: Venue[]): string {
 }
 
 export function mapEventDetailToFormInput(
-  detail: EventDetail,
+  detail: Event,
   options: EventFormOptions,
 ): EventFormInput {
   const { startTime, endTime } = getTimeRange(detail);
 
   return {
     eventName: getString(detail.eventName) || "",
-    eventDescription:
-      getString(detail.eventDescription) ||
-      getString(detail.description) ||
-      "",
+    eventDescription: getString(detail.description) || "",
     venueName: resolveVenueId(detail, options.venues),
-    eventDate: formatDateForInput(detail.eventDate || detail.date),
+    eventDate: formatDateForInput(detail.date),
     startTime,
     endTime,
-    instruments: getStringArray(detail.instruments || detail.tabs),
-    hashtags: getStringArray(detail.hashtags || detail.hashTags),
+    instruments: getStringArray(detail.tabs),
+    hashtags: getStringArray(detail.hashTags),
     bookingTypes: resolveOptionIds(
-      detail.bookingTypes || detail.bookingType,
+      detail.bookingType,
       options.bookingTypes,
       (bookingType) => bookingType.bookingType,
       ["bookingType", "name"],
@@ -312,9 +313,9 @@ export function mapEventDetailToFormInput(
       (artist) => artist.artistName,
       ["artistName", "name"],
     ),
-    totalCapacity: getNumber(detail.totalCapacity || detail.maxSeats) || 0,
+    totalCapacity: getNumber(detail.maxSeats) || 0,
     eventCategories: resolveOptionIds(
-      detail.eventCategories || detail.categories,
+      detail.categories,
       options.categories,
       (category) => category.categoryName,
       ["categoryName", "name"],

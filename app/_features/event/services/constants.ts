@@ -4,6 +4,7 @@ export const LATEST_EVENT_REVALIDATE_SECONDS = 300;
 export const LATEST_EVENT_TAG = "latest-event";
 export const EVENT_CAPACITY_TAG = "latest_event-capacity";
 export const ALL_EVENTS = "all-events";
+export const EVENT_BY_ID = "event-by-id";
 
 export const CAPACITY_TIMEOUT_MS = 3000;
 

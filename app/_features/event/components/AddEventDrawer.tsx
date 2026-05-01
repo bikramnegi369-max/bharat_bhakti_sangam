@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { EventFormData, EventFormInput } from "@/_schemas/Event.schemas";
 import AddEventForm from "./AddEventForm";
 import { getBookingTypes } from "@/_features/bookings/services/booking.service";
 import { getSponsors } from "@/_features/sponsors/services/sponsors.service";
 import { getArtists } from "@/_features/artists/services/artists.service";
-import { getEventCategories } from "@/_features/event-categories/services/eventCategroies.service";
+import { getEventCategories } from "@/_features/event-categories/services/eventCategories.service";
 import { getVenues } from "@/_features/event-venue/services/eventVenue.service";
 import { toast } from "react-toastify";
 import { addEvent, getEventById, updateEvent } from "../services/event.service";
 import { useUI } from "@/providers/UIProvider";
-import { ALL_EVENTS } from "../services/constants";
+import { ALL_EVENTS, EVENT_BY_ID } from "../services/constants";
 import { getTableQueryKeyPrefix } from "@/_utils/queryKey";
 import {
   EventFormOptions,
@@ -41,108 +41,70 @@ export default function AddEventDrawer({
   const queryClient = useQueryClient();
   const { closeDrawer } = useUI();
   const isEditMode = mode === "edit";
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [options, setOptions] = useState<EventFormOptions>({
-    bookingTypes: [],
-    sponsors: [],
-    artists: [],
-    categories: [],
-    venues: [],
-  });
-  const [initialData, setInitialData] = useState<EventFormInput | undefined>();
 
-  useEffect(() => {
-    let isCancelled = false;
-
-    async function fetchDrawerData() {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const [
-          bookingRes,
-          sponsorRes,
-          artistRes,
-          categoryRes,
-          venueRes,
-          eventRes,
-        ] = await Promise.all([
+  const {
+    data: optionsData,
+    isLoading: isOptionsLoading,
+    error: optionsError,
+  } = useQuery({
+    queryKey: ["event-form-options"],
+    queryFn: async () => {
+      const [bookingRes, sponsorRes, artistRes, categoryRes, venueRes] =
+        await Promise.all([
           getBookingTypes(),
           getSponsors(),
           getArtists(),
           getEventCategories(),
           getVenues(),
-          isEditMode && eventId ? getEventById(eventId) : Promise.resolve(null),
         ]);
 
-        const optionResponses = [
-          bookingRes,
-          sponsorRes,
-          artistRes,
-          categoryRes,
-          venueRes,
-        ];
-
-        if (optionResponses.some((response) => !response.success)) {
-          throw new Error(getOptionsErrorMessage(optionResponses));
-        }
-
-        const resolvedOptions: EventFormOptions = {
-          bookingTypes: bookingRes.data || [],
-          sponsors: sponsorRes.data || [],
-          artists: artistRes.data || [],
-          categories: categoryRes.data || [],
-          venues: venueRes.data || [],
-        };
-
-        if (isCancelled) {
-          return;
-        }
-
-        setOptions(resolvedOptions);
-
-        if (isEditMode) {
-          if (!eventId) {
-            throw new Error("Event id is required for edit mode.");
-          }
-
-          if (!eventRes?.success || !eventRes.data) {
-            throw new Error(eventRes?.error || "Failed to load event details.");
-          }
-
-          if (isCancelled) {
-            return;
-          }
-
-          setInitialData(mapEventDetailToFormInput(eventRes.data, resolvedOptions));
-          return;
-        }
-
-        setInitialData(undefined);
-      } catch (error) {
-        console.error("Failed to load event drawer data:", error);
-
-        if (!isCancelled) {
-          setError(
-            error instanceof Error
-              ? error.message
-              : "Failed to load event drawer data.",
-          );
-        }
-      } finally {
-        if (!isCancelled) {
-          setIsLoading(false);
-        }
+      const responses = [
+        bookingRes,
+        sponsorRes,
+        artistRes,
+        categoryRes,
+        venueRes,
+      ];
+      if (responses.some((res) => !res.success)) {
+        throw new Error(getOptionsErrorMessage(responses));
       }
+
+      return {
+        bookingTypes: bookingRes.data || [],
+        sponsors: sponsorRes.data || [],
+        artists: artistRes.data || [],
+        categories: categoryRes.data?.items || [],
+        venues: venueRes.data || [],
+      };
+    },
+  });
+
+  const {
+    data: eventData,
+    isLoading: isEventLoading,
+    error: eventError,
+  } = useQuery({
+    queryKey: [EVENT_BY_ID, eventId],
+    queryFn: async () => {
+      if (!eventId) throw new Error("Event ID is required");
+      const res = await getEventById(eventId);
+      if (!res.success || !res.data) {
+        throw new Error(res.error || "Failed to load event details");
+      }
+      return res.data;
+    },
+    enabled: isEditMode && !!eventId,
+  });
+
+  const initialData = useMemo(() => {
+    if (isEditMode && eventData && optionsData) {
+      return mapEventDetailToFormInput(eventData, optionsData);
     }
+    return undefined;
+  }, [isEditMode, eventData, optionsData]);
 
-    fetchDrawerData();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, [eventId, isEditMode]);
+  const isLoading = isOptionsLoading || (isEditMode && isEventLoading);
+  const error = (optionsError || eventError) as Error | null;
 
   const handleFormSubmit = async (data: EventFormData) => {
     try {
@@ -201,7 +163,7 @@ export default function AddEventDrawer({
         </div>
       ) : error ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-4 px-8 text-center">
-          <p className="text-base font-medium text-red-600">{error}</p>
+          <p className="text-base font-medium text-red-600">{error.message}</p>
           <button
             type="button"
             onClick={closeDrawer}
@@ -217,7 +179,7 @@ export default function AddEventDrawer({
             initialData={initialData}
             isEditOrDuplicateMode={isEditMode}
             submitLabel={isEditMode ? "Update Event" : "Submit"}
-            {...options}
+            {...(optionsData as EventFormOptions)}
           />
         </div>
       )}

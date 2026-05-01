@@ -16,29 +16,15 @@ import {
   isLatestEventRecord,
   isEventCapacityRecord,
   isAllEventsData,
-  isEventDetailRecord,
+  isEventRecord,
 } from "./guards";
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
 import { apiRoutes } from "@/_config/APIRoutes.config";
 import { EventFormData } from "@/_schemas/Event.schemas";
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
-}
-
-async function getResponsePayload(response: Response) {
-  return response.json().catch(() => null);
-}
-
-function getPayloadMessage(payload: unknown) {
-  if (!isRecord(payload)) {
-    return undefined;
-  }
-
-  return typeof payload.message === "string" ? payload.message : undefined;
-}
+import { isRecord } from "@/_utils/guards";
+import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
 
 function extractEventDetailFromPayload(payload: unknown): unknown {
   if (!isRecord(payload) || !("data" in payload)) {
@@ -308,9 +294,7 @@ export async function addEvent(event: EventFormData): Promise<APIResponse> {
   }
 }
 
-export async function getEventById(
-  id: string,
-): Promise<APIResponse<EventDetail>> {
+export async function getEventById(id: string): Promise<APIResponse<Event>> {
   if (!id.trim()) {
     return { success: false, error: "Event id is required." };
   }
@@ -338,7 +322,7 @@ export async function getEventById(
 
     const eventData = extractEventDetailFromPayload(payload);
 
-    if (!isEventDetailRecord(eventData)) {
+    if (!isEventRecord(eventData)) {
       return {
         success: false,
         error: "Invalid event detail response format.",
