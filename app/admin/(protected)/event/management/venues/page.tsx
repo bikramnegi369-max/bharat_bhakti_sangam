@@ -95,8 +95,6 @@ export default function AdminEventVenuesPage() {
     [openModal, handleUpdateVenue],
   );
 
-  console.log("Rendering AdminEventVenuesPage :");
-
   return (
     <section className="space-y-8">
       <EventVenuesTable

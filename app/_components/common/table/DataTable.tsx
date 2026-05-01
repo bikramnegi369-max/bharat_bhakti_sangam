@@ -1,6 +1,6 @@
 "use client";
 
-import { WheelEvent, useRef } from "react";
+import { WheelEvent, useRef, useMemo, useCallback } from "react";
 import { useDataTable } from "@/_hooks/useDataTable";
 import { TableFilters } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
@@ -43,16 +43,27 @@ const getErrorMessage = (error: unknown) => {
   return undefined;
 };
 
+const DEFAULT_TABLE_DATA = { items: [], total: 0 };
+
 export function DataTable<T extends RowData>({ config }: Props<T>) {
   const tableScrollRef = useRef<HTMLDivElement | null>(null);
   const controller = useTableController(config);
-  const tableData = controller.data?.data ?? { items: [], total: 0 };
-  const tableController = { ...controller, data: tableData };
+
+  const tableData = useMemo(
+    () => controller.data?.data ?? DEFAULT_TABLE_DATA,
+    [controller.data?.data],
+  );
+
+  const tableController = useMemo(
+    () => ({ ...controller, data: tableData }),
+    [controller, tableData],
+  );
+
   const hasRows = tableData.items.length > 0;
 
   const table = useDataTable(tableController, config.columns);
 
-  const handleTableWheel = (event: WheelEvent<HTMLDivElement>) => {
+  const handleTableWheel = useCallback((event: WheelEvent<HTMLDivElement>) => {
     const container = tableScrollRef.current;
 
     if (!container) {
@@ -86,7 +97,7 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
 
     event.preventDefault();
     container.scrollLeft = nextScrollLeft;
-  };
+  }, []);
 
   if (controller.isLoading) return <TableLoading />;
   if (controller.error) {
