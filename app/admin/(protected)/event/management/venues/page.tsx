@@ -3,7 +3,7 @@
 import { useCallback, useMemo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { Ban, Pencil } from "lucide-react";
+import { BadgeCheck, Ban, Pencil } from "lucide-react";
 import ActionMenu from "@/_components/common/ActionMenu";
 import AddVenueModal from "@/_features/event-venue/components/AddVenueModal";
 import { EventVenuesTable } from "@/_features/event-venue/components/EventVenuesTable";
@@ -86,7 +86,7 @@ export default function AdminEventVenuesPage() {
           {
             key: "Enable",
             label: "Enable",
-            icon: <Ban size={16} />,
+            icon: <BadgeCheck size={16} />,
             onClick: () => handleUpdateVenue(venue._id, false),
           },
         ]}

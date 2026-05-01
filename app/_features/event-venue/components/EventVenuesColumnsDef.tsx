@@ -19,7 +19,7 @@ export const EventVenuesColumns = [
     accessorFn: (row) => row.city,
   }),
   c("image", {
-    header: "Image",
+    header: "Venue Image",
     accessorFn: (row) => row.image,
     cell: (value) => (
       <div className="bg-gray-200 border-2 rounded-xl w-16 h-16 relative overflow-hidden">

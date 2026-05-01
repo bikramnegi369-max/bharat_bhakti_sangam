@@ -37,6 +37,8 @@ export async function getVenues(
     });
     const payload = await getResponsePayload(res);
 
+    console.log("getVenues response:", payload);
+
     if (!res.ok || !isApiEnvelope(payload, isVenuesListData)) {
       return {
         success: false,
@@ -54,8 +56,8 @@ export async function getVenues(
     return {
       success: true,
       data: {
-        items: payload.data.venues,
-        total: payload.data.total ?? payload.data.venues.length,
+        items: payload.data.data,
+        total: payload.data.data.length,
       },
     };
   } catch (error) {

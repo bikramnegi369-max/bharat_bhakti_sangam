@@ -11,8 +11,12 @@ export function isVenue(value: unknown): value is Venue {
     typeof value.venue === "string" &&
     typeof value.address === "string" &&
     typeof value.image === "string" &&
-    (typeof value.city === "string" || value.city === undefined) &&
-    (typeof value.isActive === "boolean" || value.isActive === undefined) &&
+    (typeof value.city === "string" ||
+      value.city === undefined ||
+      value.city === null) &&
+    (typeof value.isActive === "boolean" ||
+      value.isActive === undefined ||
+      value.isActive === null) &&
     typeof value.events === "number"
   );
 }
@@ -22,11 +26,15 @@ export function isVenue(value: unknown): value is Venue {
  */
 export function isVenuesListData(
   value: unknown,
-): value is { venues: Venue[]; total: number } {
+): value is {
+  data: Venue[];
+  pagination: { page: number; pages: number | null };
+} {
   if (!isRecord(value)) return false;
   return (
-    Array.isArray(value.venues) &&
-    value.venues.every(isVenue) &&
-    (typeof value.total === "number" || typeof value.total === "undefined")
+    Array.isArray(value.data) &&
+    value.data.every(isVenue) &&
+    isRecord(value.pagination) &&
+    typeof value.pagination.page === "number"
   );
 }

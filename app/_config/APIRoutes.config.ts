@@ -21,5 +21,5 @@ export const apiRoutes = {
   addEventCategory: "/admin/add-category",
   venueById: (id: string) => `/venue/${id}`,
   addVenue: "/venue",
-  updateVenueStatus: (id: string) => `/venue/${id}/status`,
+  updateVenueStatus: (id: string) => `/venue/${id}`,
 };
