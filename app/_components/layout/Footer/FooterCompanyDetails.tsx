@@ -28,7 +28,7 @@ function FooterCompanyDetails() {
           <Phone className="text-primary" />
           <span>Call Us</span>
         </div>
-        <span className="text-sm md:text-base">+91 87867687666</span>
+        <span className="text-sm md:text-base">+91 8796086743</span>
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 text-sm md:text-lg">
@@ -36,7 +36,7 @@ function FooterCompanyDetails() {
           <span>Email Us</span>
         </div>
         <span className="text-sm md:text-base text-wrap wrap-break-word">
-          BharatBhaktiSangam@gmail.com
+          bharatbhaktiventures@gmail.com
         </span>
       </div>
     </div>
