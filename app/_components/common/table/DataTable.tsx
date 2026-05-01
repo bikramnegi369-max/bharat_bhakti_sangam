@@ -46,8 +46,9 @@ const getErrorMessage = (error: unknown) => {
 export function DataTable<T extends RowData>({ config }: Props<T>) {
   const tableScrollRef = useRef<HTMLDivElement | null>(null);
   const controller = useTableController(config);
-  const tableData = controller.data?.data;
+  const tableData = controller.data?.data ?? { items: [], total: 0 };
   const tableController = { ...controller, data: tableData };
+  const hasRows = tableData.items.length > 0;
 
   const table = useDataTable(tableController, config.columns);
 
@@ -111,7 +112,11 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
         className="overflow-x-auto overflow-y-hidden scrollbar-hide"
       >
         <table className="min-w-full text-sm">
-          <TableHeader table={table} hasActions={!!config.renderActions} />
+          <TableHeader
+            table={table}
+            hasActions={!!config.renderActions}
+            disableSorting={!hasRows}
+          />
 
           <TableBody
             table={table}

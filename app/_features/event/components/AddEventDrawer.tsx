@@ -74,7 +74,7 @@ export default function AddEventDrawer({
         sponsors: sponsorRes.data || [],
         artists: artistRes.data || [],
         categories: categoryRes.data?.items || [],
-        venues: venueRes.data || [],
+        venues: venueRes.data?.items || [],
       };
     },
   });

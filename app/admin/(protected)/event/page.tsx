@@ -30,6 +30,7 @@ export default function AdminEventPage() {
       <EventsTable
         filterAction={
           <button
+            type="button"
             className="rounded-md bg-primary px-8 py-2.5 text-sm font-medium text-black cursor-pointer"
             onClick={handleAddEvent}
           >

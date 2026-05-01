@@ -77,11 +77,12 @@ export function getEventDescription(event: LatestEvent) {
 }
 
 export function getEventVenueName(event: LatestEvent) {
-  if (typeof event.venueName === "string") {
-    return event.venueName.trim() || "Venue To Be Announced";
-  }
-
-  if (event.venueName?.venue?.trim()) {
+  if (
+    typeof event.venueName === "object" &&
+    event.venueName !== null &&
+    typeof event.venueName.venue === "string" &&
+    event.venueName.venue.trim()
+  ) {
     return event.venueName.venue.trim();
   }
 

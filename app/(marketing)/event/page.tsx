@@ -26,9 +26,7 @@ import {
   createPageMetadataFromConfig,
   jsonLdScript,
 } from "@/_lib/seo";
-import {
-  getLatestEvent,
-} from "@/_features/event/services/event.service";
+import { getLatestEvent } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -90,7 +88,7 @@ export default async function EventPage() {
     },
     offers: bookingCategories.map((cat) => ({
       "@type": "Offer",
-      name: cat.name,
+      name: cat.bookingType,
       // price: cat.price,
       // priceCurrency: "INR",
       // availability: capacity.isSoldOut

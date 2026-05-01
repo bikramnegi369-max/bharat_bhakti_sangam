@@ -4,15 +4,37 @@ import { apiRoutes } from "@/_config/APIRoutes.config";
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 import { APIResponse } from "@/_types/Api.types";
 import { EventCategory } from "@/_types/EventCategories.types";
+import { TableQueryParams } from "@/_types/Table.types";
 import { isApiEnvelope, isRecord } from "@/_utils/guards";
 import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
 import { isEventCategory, isEventCategoriesListData } from "./guards";
 
-export async function getEventCategories(): Promise<
-  APIResponse<{ items: EventCategory[]; total: number }>
-> {
+export async function getEventCategories(
+  params?: Partial<TableQueryParams>,
+): Promise<APIResponse<{ items: EventCategory[]; total: number }>> {
   try {
-    const res = await authorizedAdminRequest(apiRoutes.getAllEventCategories);
+    const queryParams = new URLSearchParams();
+
+    if (params?.search) {
+      queryParams.append("search", String(params.search).trim());
+    }
+    if (params?.sortBy) {
+      queryParams.append("sortBy", String(params.sortBy));
+    }
+    if (params?.order) {
+      queryParams.append("order", String(params.order));
+    }
+    if (params?.limit) {
+      queryParams.append("limit", String(params.limit));
+    }
+    if (params?.page) {
+      queryParams.append("page", String(params.page));
+    }
+
+    const res = await authorizedAdminRequest(apiRoutes.getAllEventCategories, {
+      method: "GET",
+      search: queryParams.toString(),
+    });
     const payload = await getResponsePayload(res);
 
     if (!res.ok || !isApiEnvelope(payload, isEventCategoriesListData)) {

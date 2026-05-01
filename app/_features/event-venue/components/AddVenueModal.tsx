@@ -5,27 +5,24 @@ import { Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useUI } from "@/providers/UIProvider";
 import { getTableQueryKeyPrefix } from "@/_utils/queryKey";
+import { ALL_VENUES, VENUE_BY_ID } from "@/_lib/constants/eventVenue.constants";
 import {
-  ALL_CATEGORIES,
-  EVENT_CATEGORY_BY_ID,
-} from "@/_lib/constants/eventCategories.constants";
-import {
-  addCategory,
-  getCategoryById,
-  updateCategory,
-} from "../services/eventCategories.service";
-import AddEventCategoryForm from "./AddEventCategoryForm";
-import { EventCategory } from "@/_types/EventCategories.types";
+  addVenue,
+  getVenueById,
+  updateVenue,
+} from "../services/eventVenue.service";
+import AddVenueForm from "./AddVenueForm";
+import { Venue } from "@/_types/Venue.types";
 
-interface AddEventCategoryModalProps {
+interface AddVenueModalProps {
   mode?: "create" | "edit";
-  categoryId?: string;
+  venueId?: string;
 }
 
-export default function AddEventCategoryModal({
+export default function AddVenueModal({
   mode = "create",
-  categoryId,
-}: AddEventCategoryModalProps) {
+  venueId,
+}: AddVenueModalProps) {
   const queryClient = useQueryClient();
   const { closeModal } = useUI();
   const isEditMode = mode === "edit";
@@ -35,67 +32,66 @@ export default function AddEventCategoryModal({
     isLoading,
     error,
   } = useQuery({
-    queryKey: [EVENT_CATEGORY_BY_ID, categoryId],
+    queryKey: [VENUE_BY_ID, venueId],
     queryFn: async () => {
-      if (!categoryId) throw new Error("Category ID is required");
-      const response = await getCategoryById(categoryId);
+      if (!venueId) throw new Error("Venue ID is required");
+      const response = await getVenueById(venueId);
 
       if (!response.success || !response.data) {
-        throw new Error(response.error || "Failed to load category details.");
+        throw new Error(response.error || "Failed to load venue details.");
       }
       return response.data;
     },
-    enabled: isEditMode && !!categoryId,
+    enabled: isEditMode && !!venueId,
   });
 
-  const handleFormSubmit = async (data: Partial<EventCategory>) => {
+  const handleFormSubmit = async (data: Partial<Venue>) => {
     try {
       await toast.promise(
         (async () => {
           const result =
-            isEditMode && categoryId
-              ? await updateCategory(categoryId, data)
-              : await addCategory(data);
+            isEditMode && venueId
+              ? await updateVenue(venueId, data)
+              : await addVenue(data);
 
           if (!result.success) {
-            throw new Error(result.error || `Failed to ${mode} category.`);
+            throw new Error(result.error || `Failed to ${mode} venue.`);
           }
 
           return result;
         })(),
         {
-          pending: isEditMode
-            ? "Updating category..."
-            : "Creating new category...",
+          pending: isEditMode ? "Updating venue..." : "Creating new venue...",
           success: isEditMode
-            ? "Category updated successfully!"
-            : "Category created successfully!",
+            ? "Venue updated successfully!"
+            : "Venue created successfully!",
           error: isEditMode
-            ? "Failed to update category."
-            : "Failed to create category.",
+            ? "Failed to update venue."
+            : "Failed to create venue.",
         },
       );
 
       await queryClient.invalidateQueries({
-        queryKey: getTableQueryKeyPrefix([ALL_CATEGORIES]),
+        queryKey: getTableQueryKeyPrefix([ALL_VENUES]),
       });
 
       closeModal();
     } catch (error) {
-      console.error("Error submitting category form:", error);
+      console.error("Error submitting venue form:", error);
     }
   };
 
   return (
     <div className="relative h-full w-full pointer-events-auto flex flex-col overflow-hidden bg-white rounded-xl min-h-96">
       <h2 className="h-12 bg-black text-primary text-xl flex items-center p-8">
-        {isEditMode ? "Edit Category" : "Add New Category"}
+        {isEditMode ? "Edit Venue" : "Add New Venue"}
       </h2>
-      {isLoading ? (
+
+      {isEditMode && isLoading ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-4">
           <Loader2 className="animate-spin text-primary" size={40} />
           <p className="text-sm text-slate-500 font-medium animate-pulse">
-            {isEditMode ? "Loading category details..." : "Initializing..."}
+            {isEditMode ? "Loading venue details..." : "Initializing..."}
           </p>
         </div>
       ) : error ? (
@@ -113,7 +109,7 @@ export default function AddEventCategoryModal({
         </div>
       ) : (
         <div className="flex-1 overflow-y-auto">
-          <AddEventCategoryForm
+          <AddVenueForm
             handleSubmit={handleFormSubmit}
             initialData={initialData}
             isEditMode={isEditMode}

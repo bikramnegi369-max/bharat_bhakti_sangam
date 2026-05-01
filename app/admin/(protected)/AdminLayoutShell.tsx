@@ -7,7 +7,6 @@ import UIProvider from "@/providers/UIProvider";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
-
 export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 

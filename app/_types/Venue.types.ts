@@ -3,4 +3,7 @@ export interface Venue {
   venue: string;
   address: string;
   image: string;
+  city?: string;
+  isActive?: boolean;
+  events: number;
 }
