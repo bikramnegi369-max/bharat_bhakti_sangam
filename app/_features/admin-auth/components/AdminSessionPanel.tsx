@@ -40,7 +40,7 @@ export function AdminSessionPanel() {
           void logout();
         }}
         disabled={isLoggingOut}
-        className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
       >
         {isLoggingOut ? (
           <Loader2 className="h-4 w-4 animate-spin" />
