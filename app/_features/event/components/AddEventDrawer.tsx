@@ -3,9 +3,8 @@
 import { useMemo } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import { EventFormData, EventFormInput } from "@/_schemas/Event.schemas";
+import { EventFormData } from "@/_schemas/Event.schemas";
 import AddEventForm from "./AddEventForm";
-import { getBookingTypes } from "@/_features/bookings/services/booking.service";
 import { getSponsors } from "@/_features/sponsors/services/sponsors.service";
 import { getArtists } from "@/_features/artists/services/artists.service";
 import { getEventCategories } from "@/_features/event-categories/services/eventCategories.service";
@@ -19,6 +18,7 @@ import {
   EventFormOptions,
   mapEventDetailToFormInput,
 } from "../helpers/eventForm.helpers";
+import { getEventBookingTypes } from "@/_features/bookings/booking-types/services/eventBookingTypes.service";
 
 interface AddEventDrawerProps {
   mode?: "create" | "edit";
@@ -51,7 +51,7 @@ export default function AddEventDrawer({
     queryFn: async () => {
       const [bookingRes, sponsorRes, artistRes, categoryRes, venueRes] =
         await Promise.all([
-          getBookingTypes(),
+          getEventBookingTypes(),
           getSponsors(),
           getArtists(),
           getEventCategories(),
@@ -70,9 +70,9 @@ export default function AddEventDrawer({
       }
 
       return {
-        bookingTypes: bookingRes.data || [],
+        bookingTypes: bookingRes.data?.items || [],
         sponsors: sponsorRes.data || [],
-        artists: artistRes.data || [],
+        artists: artistRes.data?.items || [],
         categories: categoryRes.data?.items || [],
         venues: venueRes.data?.items || [],
       };

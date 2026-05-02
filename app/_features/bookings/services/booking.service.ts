@@ -42,16 +42,3 @@ export async function submitBooking(
     };
   }
 }
-
-export async function getBookingTypes(): Promise<
-  APIResponse<BookingCategory[]>
-> {
-  try {
-    const res = await authorizedAdminRequest(apiRoutes.getAllBookingTypes);
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    return { success: true, data: data.data.data };
-  } catch (error) {
-    return { success: false, error: "Failed to fetch booking types" };
-  }
-}

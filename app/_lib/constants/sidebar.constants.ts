@@ -30,8 +30,19 @@ export const NAV_ITEMS: SidebarItem[] = [
   { id: "volunteers", label: "Volunteers", href: "/admin/volunteers" },
   { id: "query", label: "Query", href: "/admin/query" },
   {
-    id: "booking-types",
-    label: "Bookings Types",
-    href: "/admin/bookings-types",
+    id: "booking-group",
+    label: "Booking",
+    children: [
+      {
+        id: "all-bookings",
+        label: "All Bookings",
+        href: "/admin/booking",
+      },
+      {
+        id: "booking-types",
+        label: "Booking Types",
+        href: "/admin/booking/booking-types",
+      },
+    ],
   },
 ];
