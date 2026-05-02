@@ -160,7 +160,7 @@ export async function updateArtistStatus(
   disable: boolean,
 ): Promise<APIResponse> {
   try {
-    const res = await authorizedAdminRequest(apiRoutes.updateArtistStatus(id), {
+    const res = await authorizedAdminRequest(apiRoutes.artistById(id), {
       method: "DELETE",
       body: JSON.stringify({ disable }),
       headers: { "Content-Type": "application/json" },

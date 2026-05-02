@@ -31,7 +31,7 @@ export async function getEventCategories(
       queryParams.append("page", String(params.page));
     }
 
-    const res = await authorizedAdminRequest(apiRoutes.getAllEventCategories, {
+    const res = await authorizedAdminRequest(apiRoutes.getAllCategories, {
       method: "GET",
       search: queryParams.toString(),
     });
@@ -68,7 +68,7 @@ export async function addCategory(
   data: Partial<EventCategory>,
 ): Promise<APIResponse> {
   try {
-    const res = await authorizedAdminRequest(apiRoutes.addEventCategory, {
+    const res = await authorizedAdminRequest(apiRoutes.addCategory, {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
@@ -101,7 +101,7 @@ export async function getCategoryById(
   id: string,
 ): Promise<APIResponse<EventCategory>> {
   try {
-    const res = await authorizedAdminRequest(apiRoutes.eventCategoryById(id));
+    const res = await authorizedAdminRequest(apiRoutes.categoryById(id));
     const payload = await getResponsePayload(res);
 
     if (!res.ok || !isApiEnvelope(payload, isEventCategory)) {
@@ -130,7 +130,7 @@ export async function updateCategory(
   data: Partial<EventCategory>,
 ): Promise<APIResponse> {
   try {
-    const res = await authorizedAdminRequest(apiRoutes.eventCategoryById(id), {
+    const res = await authorizedAdminRequest(apiRoutes.categoryById(id), {
       method: "PUT",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
@@ -164,14 +164,11 @@ export async function updateCategoryStatus(
   disable: boolean,
 ): Promise<APIResponse> {
   try {
-    const res = await authorizedAdminRequest(
-      apiRoutes.updateCategoryStatus(id),
-      {
-        method: "DELETE",
-        body: JSON.stringify({ disable }),
-        headers: { "Content-Type": "application/json" },
-      },
-    );
+    const res = await authorizedAdminRequest(apiRoutes.categoryById(id), {
+      method: "DELETE",
+      body: JSON.stringify({ disable }),
+      headers: { "Content-Type": "application/json" },
+    });
 
     const payload = await getResponsePayload(res);
 

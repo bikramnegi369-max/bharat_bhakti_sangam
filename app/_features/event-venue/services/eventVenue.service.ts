@@ -162,7 +162,7 @@ export async function updateVenueStatus(
   disable: boolean,
 ): Promise<APIResponse> {
   try {
-    const res = await authorizedAdminRequest(apiRoutes.updateVenueStatus(id), {
+    const res = await authorizedAdminRequest(apiRoutes.venueById(id), {
       method: "DELETE",
       body: JSON.stringify({ disable }),
       headers: { "Content-Type": "application/json" },

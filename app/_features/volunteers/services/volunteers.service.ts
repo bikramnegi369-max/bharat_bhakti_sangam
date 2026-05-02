@@ -164,14 +164,11 @@ export async function updateVolunteerStatus(
   disable: boolean,
 ): Promise<APIResponse> {
   try {
-    const res = await authorizedAdminRequest(
-      apiRoutes.updateVolunteerStatus(id),
-      {
-        method: "DELETE",
-        body: JSON.stringify({ disable }),
-        headers: { "Content-Type": "application/json" },
-      },
-    );
+    const res = await authorizedAdminRequest(apiRoutes.volunteerById(id), {
+      method: "DELETE",
+      body: JSON.stringify({ disable }),
+      headers: { "Content-Type": "application/json" },
+    });
 
     const payload = await getResponsePayload(res);
 
