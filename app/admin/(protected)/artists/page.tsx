@@ -102,10 +102,6 @@ export default function AdminArtistsPage() {
 
   return (
     <section className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold text-slate-900">Artists</h1>
-      </div>
-
       <EventArtistsTable
         filterAction={filterAction}
         renderActions={renderActions}
