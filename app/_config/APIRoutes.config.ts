@@ -21,6 +21,7 @@ export const apiRoutes = {
   volunteerById: (id: string) => `/volunteer/${id}`,
   addVolunteer: "/volunteer",
   updateVolunteerStatus: (id: string) => `/volunteer/${id}`,
+  getAllEventQueries: "/query/all",
   getAllSponsors: "/sponsor/get-all",
   getAllVenues: "/venue/all-venue",
   getAllEventCategories: "/admin/category",

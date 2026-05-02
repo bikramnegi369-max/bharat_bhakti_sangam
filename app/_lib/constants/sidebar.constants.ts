@@ -28,6 +28,7 @@ export const NAV_ITEMS: SidebarItem[] = [
   { id: "artists", label: "Artists", href: "/admin/artists" },
   { id: "sponsors", label: "Sponsors", href: "/admin/sponsors" },
   { id: "volunteers", label: "Volunteers", href: "/admin/volunteers" },
+  { id: "query", label: "Query", href: "/admin/query" },
   {
     id: "booking-types",
     label: "Bookings Types",
