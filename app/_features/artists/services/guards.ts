@@ -26,7 +26,6 @@ export function isArtistsListData(value: unknown): value is {
   data: Artist[];
   pagination: { page: number; pages: number | null };
 } {
-  console.log("Validating artists list data:", value);
   if (!isRecord(value)) return false;
   if (!Array.isArray(value.data)) return false;
   if (!isRecord(value.pagination)) return false;

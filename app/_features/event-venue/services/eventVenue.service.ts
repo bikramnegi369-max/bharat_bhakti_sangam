@@ -37,8 +37,6 @@ export async function getVenues(
     });
     const payload = await getResponsePayload(res);
 
-    console.log("getVenues response:", payload);
-
     if (!res.ok || !isApiEnvelope(payload, isVenuesListData)) {
       return {
         success: false,
