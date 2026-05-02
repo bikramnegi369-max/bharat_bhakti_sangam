@@ -54,8 +54,8 @@ export async function getEventBookingTypes(
     return {
       success: true,
       data: {
-        items: payload.data.bookingTypes,
-        total: payload.data.total ?? payload.data.bookingTypes.length,
+        items: payload.data.data,
+        total: payload.data.total ?? payload.data.data.length,
       },
     };
   } catch (error) {

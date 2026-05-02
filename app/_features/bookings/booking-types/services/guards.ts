@@ -18,11 +18,11 @@ export function isEventBookingType(value: unknown): value is EventBookingType {
  */
 export function isEventBookingTypesListData(
   value: unknown,
-): value is { bookingTypes: EventBookingType[]; total: number } {
+): value is { data: EventBookingType[]; total: number } {
   if (!isRecord(value)) return false;
   return (
-    Array.isArray(value.bookingTypes) &&
-    value.bookingTypes.every(isEventBookingType) &&
+    Array.isArray(value.data) &&
+    value.data.every(isEventBookingType) &&
     (typeof value.total === "number" || typeof value.total === "undefined")
   );
 }
