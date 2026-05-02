@@ -48,8 +48,6 @@ export default function AddArtistsForm({
     },
   });
 
-  console.log("Form Errors:", errors);
-
   useEffect(() => {
     if (initialData) {
       reset({
