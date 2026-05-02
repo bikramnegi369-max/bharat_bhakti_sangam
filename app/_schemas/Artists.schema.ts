@@ -1,0 +1,16 @@
+import z from "zod";
+
+export const ArtistSchema = z.object({
+  artistName: z.string().min(1, "Artist name is required"),
+  email: z.string().email("Enter a valid email"),
+  contactNo: z.string().min(1, "Contact number is required"),
+  instruments: z
+    .array(z.string().min(1))
+    .min(1, "At least one instrument is required"),
+  startTime: z.string().min(1, "Start time is required"),
+  endTime: z.string().min(1, "End time is required"),
+  profileImage: z.string().min(1, "Profile image is required"),
+  galleryImages: z.array(z.string().min(1, "Image is required")).optional(),
+});
+
+export type ArtistFormData = z.infer<typeof ArtistSchema>;

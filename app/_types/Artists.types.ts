@@ -4,5 +4,8 @@ export interface Artist {
   profileImage: string;
   email: string;
   contactNo: string;
-  performanceTime: string;
+  instruments: string[];
+  startTime: string;
+  endTime: string;
+  galleryImages?: string[];
 }

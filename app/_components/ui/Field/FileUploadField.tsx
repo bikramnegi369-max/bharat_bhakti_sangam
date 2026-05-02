@@ -136,9 +136,7 @@ export function FileUploadField<
         onClick={() => !isUploading && fileInputRef.current?.click()}
         className={clsx(
           "relative group cursor-pointer border-2 border-dashed rounded-xl transition-all duration-200 min-h-48 flex flex-col items-center justify-center p-4",
-          error
-            ? "border-red-300 "
-            : "border-slate-200 hover:border-primary hover:bg-slate-50",
+          error ? "border-red-300 " : "border-slate-200 hover:border-primary ",
           isUploading && "opacity-70 cursor-wait",
         )}
       >
@@ -171,7 +169,7 @@ export function FileUploadField<
             />
             <button
               onClick={handleRemove}
-              className="absolute -top-2 -right-2 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-colors"
+              className="absolute -top-2 -right-2 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-colors cursor-pointer"
             >
               <X size={16} />
             </button>
