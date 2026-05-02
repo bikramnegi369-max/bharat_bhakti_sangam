@@ -113,7 +113,7 @@ export default function AddArtistsForm({
 
         <Field
           as="textarea"
-          label="Description"
+          label="About Artist"
           error={errors.aboutArtist?.message as string}
           {...register("aboutArtist")}
           required
