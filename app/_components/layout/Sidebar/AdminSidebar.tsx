@@ -10,7 +10,7 @@ export function AdminSidebar() {
   return (
     <aside
       className={clsx(
-        "hidden shrink-0 self-stretch overflow-y-auto border-r border-gray-100 bg-header-bg py-6 lg:flex lg:flex-col lg:gap-6",
+        "hidden shrink-0 self-stretch border-r border-gray-100 bg-header-bg py-6 lg:flex lg:flex-col lg:gap-6",
         SIDEBAR_WIDTH,
       )}
     >
@@ -18,7 +18,7 @@ export function AdminSidebar() {
         <SidebarLogo />
       </div>
 
-      <nav className="w-full">
+      <nav className="w-full overflow-y-auto scrollbar-hide">
         <RecursiveNav items={NAV_ITEMS} />
       </nav>
     </aside>

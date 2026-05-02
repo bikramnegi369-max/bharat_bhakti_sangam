@@ -17,7 +17,7 @@ export const MobileSidebar = ({
   return (
     <div
       className={clsx(
-        "fixed inset-0 z-50 lg:hidden transition-opacity duration-300",
+        "fixed inset-0 z-50 lg:hidden transition-opacity duration-300 ",
         open
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none",
@@ -49,7 +49,7 @@ export const MobileSidebar = ({
           </button>
         </div>
 
-        <nav className="w-full overflow-y-auto">
+        <nav className="w-full overflow-y-auto scrollbar-hide">
           <RecursiveNav items={NAV_ITEMS} onItemClick={onClose} />
         </nav>
       </aside>
