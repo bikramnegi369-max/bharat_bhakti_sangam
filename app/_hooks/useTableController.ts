@@ -94,7 +94,7 @@ export const useTableController = <T extends RowData>(
         order: state.sorting?.[0]?.desc ? "desc" : "asc",
       }),
     placeholderData: (previousData) => previousData,
-    staleTime: 1000 * 30,
+    staleTime: config.staleTime ?? 1000 * 10, // Default to 10 seconds
   });
 
   useEffect(() => {

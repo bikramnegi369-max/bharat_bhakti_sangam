@@ -52,6 +52,7 @@ export type TableConfig<T extends RowData> = {
   queryKeyPrefix?: readonly unknown[];
   filters?: FilterConfig[];
   filterDebounceMs?: number;
+  staleTime?: number;
   filterAction?: React.ReactNode;
   renderActions?: (row: T) => React.ReactNode;
 };

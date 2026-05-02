@@ -7,7 +7,8 @@ import { FileUploadField } from "@/_components/ui/Field/FileUploadField";
 import FormActionButtons from "@/_components/common/FormActionButtons";
 import { useUI } from "@/providers/UIProvider";
 import { Venue } from "@/_types/Venue.types";
-import { VenueFormData } from "@/_schemas/Venue.schema";
+import { VenueFormData, VenueSchema } from "@/_schemas/Venue.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface AddVenueFormProps {
   initialData?: Venue;
@@ -28,7 +29,10 @@ export default function AddVenueForm({
     control,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<VenueFormData>({
+    resolver: zodResolver(VenueSchema),
+    mode: "onTouched",
+    reValidateMode: "onChange",
     defaultValues: {
       venue: "",
       address: "",
@@ -73,6 +77,7 @@ export default function AddVenueForm({
           label="City"
           error={errors.city?.message as string}
           {...register("city")}
+          required
         />
 
         <FileUploadField

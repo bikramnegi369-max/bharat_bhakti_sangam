@@ -23,7 +23,7 @@ export const apiRoutes = {
   getAllBookingTypes: "/admin/getall-bookingtype",
   addBookingType: "/admin/add-booking-type",
   bookingTypeById: (id: string) => `/admin/booking-type/${id}`,
-  getAllArtists: `${ARTIST_BASE}/all`,
+  getAllArtists: `${ARTIST_BASE}`,
   artistById: (id: string) => `${ARTIST_BASE}/${id}`,
   addArtist: ARTIST_BASE,
   getAllVolunteers: VOLUNTEER_BASE,

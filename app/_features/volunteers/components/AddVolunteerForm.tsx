@@ -7,7 +7,11 @@ import { FileUploadField } from "@/_components/ui/Field/FileUploadField";
 import FormActionButtons from "@/_components/common/FormActionButtons";
 import { useUI } from "@/providers/UIProvider";
 import { Volunteer } from "@/_types/Volunteer.types";
-import { VolunteerFormData } from "@/_schemas/Volunteer.schema";
+import {
+  VolunteerFormData,
+  VolunteerSchema,
+} from "@/_schemas/Volunteer.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface AddVolunteerFormProps {
   initialData?: Volunteer;
@@ -29,6 +33,9 @@ export default function AddVolunteerForm({
     reset,
     formState: { errors, isSubmitting },
   } = useForm<VolunteerFormData>({
+    resolver: zodResolver(VolunteerSchema),
+    mode: "onTouched",
+    reValidateMode: "onChange",
     defaultValues: {
       name: "",
       role: "",

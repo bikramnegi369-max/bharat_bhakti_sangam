@@ -7,7 +7,11 @@ import { FileUploadField } from "@/_components/ui/Field/FileUploadField";
 import FormActionButtons from "@/_components/common/FormActionButtons";
 import { useUI } from "@/providers/UIProvider";
 import { EventCategory } from "@/_types/EventCategories.types";
-import { EventCategoryFormData } from "@/_schemas/EventCategories.schema";
+import {
+  EventCategorySchema,
+  EventCategoryFormData,
+} from "@/_schemas/EventCategories.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface AddEventCategoryFormProps {
   initialData?: EventCategory;
@@ -28,7 +32,10 @@ export default function AddEventCategoryForm({
     control,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<EventCategoryFormData>({
+    resolver: zodResolver(EventCategorySchema),
+    mode: "onTouched",
+    reValidateMode: "onChange",
     defaultValues: {
       categoryName: "",
       picture: "",
@@ -50,9 +57,7 @@ export default function AddEventCategoryForm({
         <Field
           label="Category Name"
           error={errors.categoryName?.message as string}
-          {...register("categoryName", {
-            required: "Category name is required",
-          })}
+          {...register("categoryName")}
           required
         />
 

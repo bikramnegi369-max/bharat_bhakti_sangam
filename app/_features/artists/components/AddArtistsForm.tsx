@@ -33,6 +33,8 @@ export default function AddArtistsForm({
     formState: { errors, isSubmitting },
   } = useForm<ArtistFormData>({
     resolver: zodResolver(ArtistSchema),
+    mode: "onTouched",
+    reValidateMode: "onChange",
     defaultValues: {
       artistName: "",
       email: "",
@@ -45,6 +47,8 @@ export default function AddArtistsForm({
       galleryImages: [],
     },
   });
+
+  console.log("Form Errors:", errors);
 
   useEffect(() => {
     if (initialData) {
@@ -134,6 +138,7 @@ export default function AddArtistsForm({
         control={control}
         label="Artist Gallery"
         helperText="Add supporting artist images. Use Add More to upload additional files."
+        error={errors.galleryImages}
       />
 
       <FormActionButtons

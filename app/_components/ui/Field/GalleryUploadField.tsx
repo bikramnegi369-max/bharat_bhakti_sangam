@@ -7,6 +7,8 @@ import {
   Path,
   PathValue,
   ArrayPath,
+  FieldError,
+  Merge,
 } from "react-hook-form";
 import { Plus, Trash2 } from "lucide-react";
 import clsx from "clsx";
@@ -17,7 +19,7 @@ interface GalleryUploadFieldProps<T extends FieldValues> {
   control: Control<T>;
   label?: string;
   helperText?: string;
-  error?: string;
+  error?: string | FieldError | Merge<FieldError, (FieldError | undefined)[]>;
   required?: boolean;
   maxItems?: number;
 }
@@ -106,7 +108,12 @@ export function GalleryUploadField<T extends FieldValues>({
                 name={`${name}.${index}` as Path<T>}
                 control={control}
                 label={`Gallery image ${index + 1}`}
-                error={undefined}
+                error={
+                  Array.isArray(error)
+                    ? error[index]?.message
+                    : (error as Record<number, FieldError | undefined>)?.[index]
+                        ?.message
+                }
                 required={required && index === 0}
               />
             </div>
@@ -114,9 +121,18 @@ export function GalleryUploadField<T extends FieldValues>({
         ))}
       </div>
 
-      {error ? (
-        <p className="mt-3 text-xs font-medium text-red-500">{error}</p>
-      ) : null}
+      {error && (
+        <p className="mt-3 text-xs font-medium text-red-500">
+          {typeof error === "string"
+            ? error
+            : Array.isArray(error)
+              ? // Show the first error if the gallery image list itself is empty
+                fields.length === 0
+                ? (error as (FieldError | undefined)[])[0]?.message
+                : null
+              : (error as FieldError).message}
+        </p>
+      )}
     </div>
   );
 }
