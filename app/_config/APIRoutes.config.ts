@@ -34,6 +34,7 @@ export const apiRoutes = {
   getAllVenues: `${VENUE_BASE}/all-venue`,
   getAllCategories: EVENT_CATEGORY_BASE,
   getAllEvent: `${EVENT_BASE}/all-event`,
+  getAllFeedbacks: "/admin/get-all-feedbacks",
   addCategory: "/admin/add-category",
   venueById: (id: string) => `${VENUE_BASE}/${id}`,
   addVenue: VENUE_BASE,

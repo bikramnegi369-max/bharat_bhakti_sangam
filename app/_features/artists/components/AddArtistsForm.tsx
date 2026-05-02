@@ -41,6 +41,7 @@ export default function AddArtistsForm({
       startTime: "",
       endTime: "",
       profileImage: "",
+      aboutArtist: "",
       galleryImages: [],
     },
   });
@@ -56,6 +57,7 @@ export default function AddArtistsForm({
         endTime: initialData.endTime || "",
         profileImage: initialData.profileImage || "",
         galleryImages: initialData.galleryImages ?? [],
+        aboutArtist: initialData.aboutArtist || "",
       });
     }
   }, [initialData, reset]);
@@ -107,6 +109,15 @@ export default function AddArtistsForm({
           error={errors.endTime?.message as string}
           {...register("endTime")}
           required
+        />
+
+        <Field
+          as="textarea"
+          label="Description"
+          error={errors.aboutArtist?.message as string}
+          {...register("aboutArtist")}
+          required
+          inputClassName="min-h-48!"
         />
 
         <FileUploadField

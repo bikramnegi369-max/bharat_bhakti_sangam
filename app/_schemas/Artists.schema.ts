@@ -11,6 +11,7 @@ export const ArtistSchema = z.object({
   endTime: z.string().min(1, "End time is required"),
   profileImage: z.string().min(1, "Profile image is required"),
   galleryImages: z.array(z.string().min(1, "Image is required")).optional(),
+  aboutArtist: z.string().min(1, "About artist is required"),
 });
 
 export type ArtistFormData = z.infer<typeof ArtistSchema>;

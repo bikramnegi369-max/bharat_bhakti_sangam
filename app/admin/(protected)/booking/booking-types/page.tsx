@@ -98,11 +98,7 @@ export default function AdminBookingTypesPage() {
   );
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Booking Types</h1>
-        <p className="text-gray-600">Manage booking types</p>
-      </div>
+    <div className="space-y-8">
       <EventBookingTypesTable
         filterAction={filterAction}
         renderActions={renderActions}

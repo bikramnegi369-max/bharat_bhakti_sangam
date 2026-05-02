@@ -8,20 +8,14 @@ export const NAV_ITEMS: SidebarItem[] = [
     children: [
       { id: "all-events", label: "All Events", href: "/admin/event" },
       {
-        id: "event-mgmt",
-        label: "Management",
-        children: [
-          {
-            id: "event-cats",
-            label: "Categories",
-            href: "/admin/event/management/categories",
-          },
-          {
-            id: "event-venues",
-            label: "Venues",
-            href: "/admin/event/management/venues",
-          },
-        ],
+        id: "event-cats",
+        label: "Categories",
+        href: "/admin/event/management/categories",
+      },
+      {
+        id: "event-venues",
+        label: "Venues",
+        href: "/admin/event/management/venues",
       },
     ],
   },
@@ -29,6 +23,7 @@ export const NAV_ITEMS: SidebarItem[] = [
   { id: "sponsors", label: "Sponsors", href: "/admin/sponsors" },
   { id: "volunteers", label: "Volunteers", href: "/admin/volunteers" },
   { id: "query", label: "Query", href: "/admin/query" },
+  { id: "feedback", label: "Feedback", href: "/admin/feedback" },
   {
     id: "booking-group",
     label: "Booking",

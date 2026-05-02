@@ -8,4 +8,6 @@ export interface Artist {
   startTime: string;
   endTime: string;
   galleryImages?: string[];
+  aboutArtist: string;
+  isActive: boolean;
 }
