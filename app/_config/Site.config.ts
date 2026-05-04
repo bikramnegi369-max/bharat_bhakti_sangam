@@ -8,8 +8,9 @@ export const siteConfig = {
   locale: "en_IN",
   ogImage: "/ogDefault.png",
   keywords: [
-    "bhajan clubbing",
-    " bharat bhakti sangam",
+    "bharat bhakti sangam",
+    " भारत भक्ति संगम",
+    " bhajan clubbing",
     " krishna kirtan mumbai",
     " bhajan event mumbai",
     " devotional music event",

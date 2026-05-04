@@ -15,7 +15,6 @@ export const _seoConfig = {
     description:
       "India's most energetic devotional music experience where traditional bhajans, kirtans, and mantra chanting blend with modern beats and live performances. Book your Bhajan Clubbing tickets, join immersive spiritual EDM nights, and experience devotion like never before.",
     keywords: [
-      "bhajan clubbing",
       " bhajan",
       " kirtans",
       " mantra chanting",
@@ -49,7 +48,7 @@ export const _seoConfig = {
     description:
       "Our mission is to create a new-age devotional experience where people can chant, celebrate, connect, and feel spiritual energy together through immersive bhajan clubbing concerts, interactive kirtan sessions, and modern bhakti music festivals across India. We aim to build a community where spirituality feels joyful, inclusive, and alive for everyone, especially the younger generation.",
     keywords: [
-      "chant",
+      " chant",
       " celebrate",
       " connect & feel spiritual energy together",
       " bhakti",
@@ -86,7 +85,7 @@ export const _seoConfig = {
     description:
       "Get in touch with Bharat Bhakti Sangam for event details, collaboration opportunities, and spiritual gathering inquiries.",
     keywords: [
-      "contact bharat bhakti sangam",
+      " contact bharat bhakti sangam",
       " event inquiry",
       " spiritual event contact",
       " chant",
@@ -120,7 +119,6 @@ export const _seoConfig = {
     description:
       "Explore the latest devotional event from Bharat Bhakti Sangam.",
     keywords: [
-      "bhajan clubbing",
       " devotional music experience",
       " kirtan concert in india",
       " modern bhajan jalsa night",
@@ -147,7 +145,7 @@ export const _seoConfig = {
     title: "Event Booking",
     description: "Book tickets for the latest Bharat Bhakti Sangam event.",
     keywords: [
-      "bhajan event booking",
+      " bhajan event booking",
       " bhajan booking",
       " event booking",
       " bhajan clubbing booking",
@@ -201,7 +199,7 @@ export const _seoConfig = {
     description:
       "Sponsorship information for Bharat Bhakti Sangam will be available soon.",
     keywords: [
-      "bharat bhakti sangam sponsors",
+      " bharat bhakti sangam sponsors",
       " event sponsorship",
       " spiritual event contact",
       " chant",
@@ -223,7 +221,7 @@ export const _seoConfig = {
     title: "Privacy Policy",
     description: "Privacy policy for Bharat Bhakti Sangam ",
     keywords: [
-      "bharat bhakti sangam privacy policy",
+      " bharat bhakti sangam privacy policy",
       " event privacy policy",
       " spiritual event contact",
       " privacy policy",
@@ -252,7 +250,7 @@ export const _seoConfig = {
     title: "Terms and Conditions",
     description: "Terms and conditions for Bharat Bhakti Sangam",
     keywords: [
-      "bharat bhakti sangam terms and conditions",
+      " bharat bhakti sangam terms and conditions",
       " event terms and conditions",
       " spiritual event contact",
       " terms and conditions",
