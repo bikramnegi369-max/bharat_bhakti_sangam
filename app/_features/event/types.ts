@@ -29,16 +29,14 @@ export interface LatestEvent {
         price?: number;
       }[];
   sponsors?: string[];
-  artists: Array<
-    | string
-    | {
-        _id?: string;
-        name?: string;
-        role?: string;
-        image?: string;
-        about?: string;
-      }
-  >;
+  artists: Array<{
+    _id?: string;
+    name?: string;
+    role?: string;
+    ProfileImage?: string;
+    about?: string;
+    galleryImages?: string[];
+  }>;
   eventBanner?: string;
   homeBanner?: string;
   ogImage?: string;
