@@ -22,7 +22,6 @@ export async function generateMetadata(): Promise<Metadata> {
       path: "/feedback",
       image: getEventImage(event) ?? "/feedback.webp",
       keywords: getSeoKeywords("feedback", [event.eventName.toLowerCase()]),
-      noIndex: true,
     });
   } catch {
     return createPageMetadataFromConfig("feedback");
