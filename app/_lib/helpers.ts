@@ -136,15 +136,6 @@ export function getEventArtistNames(event: LatestEvent) {
 export function getEventArtistSummaries(event: LatestEvent) {
   return event.artists
     .map((artist) => {
-      if (typeof artist === "string") {
-        return {
-          name: artist,
-          role: "Artist",
-          description: "Artist appearance for this event.",
-          images: [] as string[],
-        };
-      }
-
       const name = artist.name?.trim();
       if (!name) {
         return null;
@@ -154,7 +145,9 @@ export function getEventArtistSummaries(event: LatestEvent) {
         name,
         role: artist.role?.trim() || "Artist",
         description: artist.about?.trim() || "Featured artist for this event.",
-        images: artist.image?.trim() ? [artist.image.trim()] : [],
+        images: artist.galleryImages?.length
+          ? artist.galleryImages.map((img) => img.trim()).filter(Boolean)
+          : [],
       };
     })
     .filter(
