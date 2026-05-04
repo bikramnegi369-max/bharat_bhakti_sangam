@@ -9,12 +9,12 @@ export const siteConfig = {
   ogImage: "/ogDefault.png",
   keywords: [
     "bhajan clubbing",
-    "bharat bhakti sangam",
-    "krishna kirtan mumbai",
-    "bhajan event mumbai",
-    "devotional music event",
-    "kirtan event",
-    "spiritual gathering mumbai",
+    " bharat bhakti sangam",
+    " krishna kirtan mumbai",
+    " bhajan event mumbai",
+    " devotional music event",
+    " kirtan event",
+    " spiritual gathering mumbai",
   ],
   organization: {
     name: "Bharat Bhakti Sangam",
