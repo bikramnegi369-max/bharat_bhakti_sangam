@@ -7,7 +7,7 @@ function FooterCompanyDetails() {
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 text-sm  md:text-lg">
           <Building2 className="text-primary" />
-          <span>Company Name</span>
+          <span>Bharat Bhakti Sangam</span>
         </div>
         <span className="text-sm md:text-base">
           Bharat Bhakti Collective Ventures Pvt Ltd
