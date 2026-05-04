@@ -37,9 +37,18 @@ export function useBookingForm(
       if (res.success) {
         setStatus("success");
       } else {
+        console.log("Booking failed with error:", res.error);
         setStatus("error");
         if (res.error?.toLowerCase().includes("tickets sold out")) {
           setSpecificErrorMessage("Tickets sold out");
+        } else if (
+          res.error
+            ?.toLowerCase()
+            .includes("this number has already been used for booking tickets")
+        ) {
+          setSpecificErrorMessage(
+            "This number has already been used for booking tickets.",
+          );
         }
       }
     } catch (error) {
