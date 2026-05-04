@@ -1,6 +1,7 @@
 export type Temple = {
   slug: string;
   name: string;
+  heroImage: string; // URL of the hero & card image for the temple
   description: string;
   descriptionImages: string[]; // Array of 2 image URLs related to the temple's description
   features: {

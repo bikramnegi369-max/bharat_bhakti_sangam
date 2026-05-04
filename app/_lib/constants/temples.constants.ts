@@ -4,6 +4,8 @@ export const temples: Temples = [
   {
     slug: "konark-sun-temple",
     name: "Konark Sun Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Konark_Sun_Temple_2010.jpg/2560px-Konark_Sun_Temple_2010.jpg",
     description:
       "The Konark Sun Temple is a magnificent 13th-century temple dedicated to Surya (Sun God), designed as a grand stone chariot with intricately carved wheels and horses. A UNESCO World Heritage Site, it reflects the brilliance of ancient Indian architecture and devotion. The temple stands as a timeless symbol of art, science, and spirituality.",
     descriptionImages: [
@@ -45,6 +47,8 @@ export const temples: Temples = [
   {
     slug: "brihadeeswara-temple",
     name: "Brihadeeswara Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Brihadeeswarar_Temple_Thanjavur_India.jpg/2560px-Brihadeeswarar_Temple_Thanjavur_India.jpg",
     description:
       "Brihadeeswara Temple, also known as the “Big Temple,” is a majestic shrine dedicated to Lord Shiva and a masterpiece of Chola architecture. Built entirely of granite, it is renowned for its towering vimana and grand scale. This UNESCO World Heritage Site reflects the glory, devotion, and engineering brilliance of ancient India.",
     descriptionImages: [
@@ -85,6 +89,8 @@ export const temples: Temples = [
   {
     slug: "somnath-temple",
     name: "Somnath Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Somnath_temple_Gujarat.jpg/2560px-Somnath_temple_Gujarat.jpg",
     description:
       "Somnath Temple is one of the twelve sacred Jyotirlingas of Lord Shiva and a powerful symbol of faith and resilience. Located on the shores of the Arabian Sea, it radiates divine energy and timeless devotion. The temple stands as a testimony to India’s spiritual strength, having been rebuilt multiple times through history.",
     descriptionImages: [
@@ -125,6 +131,8 @@ export const temples: Temples = [
   {
     slug: "gangotri-temple",
     name: "Gangotri Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Gangotri_Temple_Uttarakhand.jpg/2560px-Gangotri_Temple_Uttarakhand.jpg",
     description:
       "Gangotri Temple is a sacred shrine dedicated to Goddess Ganga, marking the origin of the holy River Ganges. Nestled in the serene Himalayas, it is one of the Char Dham pilgrimage sites. The temple radiates purity, devotion, and spiritual tranquility.",
     descriptionImages: [
