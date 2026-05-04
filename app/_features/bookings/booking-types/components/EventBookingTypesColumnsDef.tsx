@@ -11,6 +11,6 @@ export const EventBookingTypesColumns = [
   c("price", {
     header: "Price",
     accessorFn: (row) => row.price,
-    cell: (value) => `$${value}`,
+    cell: (value) => `₹ ${value}`,
   }),
 ];

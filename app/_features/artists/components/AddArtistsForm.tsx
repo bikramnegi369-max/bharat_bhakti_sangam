@@ -88,6 +88,7 @@ export default function AddArtistsForm({
           error={errors.contactNo?.message as string}
           {...register("contactNo")}
           required
+          maxLength={10}
         />
 
         <FormTagsField
@@ -119,7 +120,7 @@ export default function AddArtistsForm({
           error={errors.aboutArtist?.message as string}
           {...register("aboutArtist")}
           required
-          inputClassName="min-h-48!"
+          inputClassName="min-h-48! h-full!"
         />
 
         <FileUploadField

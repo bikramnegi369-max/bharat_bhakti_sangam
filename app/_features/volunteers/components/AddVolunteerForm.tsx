@@ -96,6 +96,7 @@ export default function AddVolunteerForm({
             required: "Contact number is required",
           })}
           required
+          maxLength={10}
         />
 
         <FileUploadField
