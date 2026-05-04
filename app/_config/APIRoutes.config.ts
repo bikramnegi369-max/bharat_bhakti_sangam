@@ -5,7 +5,7 @@ const EVENT_CATEGORY_BASE = "/admin/category";
 const ARTIST_BASE = "/artist";
 const VOLUNTEER_BASE = "/admin/volunteer";
 const VENUE_BASE = "/venue";
-const QUERY_BASE = "/query";
+const QUERY_BASE = "/contact";
 const SPONSOR_BASE = "/sponsor";
 
 export const apiRoutes = {
@@ -29,7 +29,7 @@ export const apiRoutes = {
   getAllVolunteers: VOLUNTEER_BASE,
   volunteerById: (id: string) => `${VOLUNTEER_BASE}/${id}`,
   addVolunteer: VOLUNTEER_BASE,
-  getAllEventQueries: `${QUERY_BASE}/all`,
+  getAllEventQueries: `${QUERY_BASE}`,
   getAllSponsors: `${SPONSOR_BASE}/get-all`,
   getAllVenues: `${VENUE_BASE}/all-venue`,
   getAllCategories: EVENT_CATEGORY_BASE,
