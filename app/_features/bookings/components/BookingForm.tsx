@@ -132,14 +132,14 @@ export default function BookingForm({
             {isSubmitting ? "Booking..." : "Book Now"}
           </span>
         </Button>
-        <div className="flex gap-2 p-2 border rounded-md border-primary m-auto">
+        {/* <div className="flex gap-2 p-2 border rounded-md border-primary m-auto">
           <Info size={14} className="text-primary" />
           <span className="text-[10px] lg:text-sm text-primary">
             Valid for {values?.tickets}{" "}
             {values?.tickets === 1 ? "entry" : "entries"} for the event on{" "}
             {eventDate}.
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
