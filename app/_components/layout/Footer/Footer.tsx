@@ -13,7 +13,7 @@ type FooterProps = {
 export default function Footer({ config = footerConfig }: FooterProps) {
   return (
     <footer className="bg-[#2B1400] text-white">
-      <div className=" mx-auto px-6 md:px-[clamp(2rem,calc(-2.923rem+7.692vw),4rem)] py-10">
+      <div className=" mx-auto px-6 md:px-[clamp(2rem,calc(-2.923rem+7.692vw),4rem)] lg:py-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 items-start">
           <div className="space-y-6">
             <FooterBrand
