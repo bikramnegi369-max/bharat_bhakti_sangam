@@ -1,8 +1,8 @@
 import OverlappingImages from "./OverlappingImages";
 import SectionHeading from "./SectionHeading";
 
-interface TempleFeaturessSectionProps {
-  title: string;          // e.g. "Features of Konark Sun Temple"
+interface TempleFeaturesSectionProps {
+  title: string; // e.g. "Features of Konark Sun Temple"
   featuresList: string[];
   featuresImages: string[]; // exactly 2 from Temple type
 }
@@ -12,11 +12,11 @@ interface TempleFeaturessSectionProps {
  * Mobile  → text stacked above images (full width).
  * Desktop → text on LEFT, images on RIGHT (text-left layout).
  */
-export default function TempleFeautresSection({
+export default function TempleFeaturesSection({
   title,
   featuresList,
   featuresImages,
-}: TempleFeaturessSectionProps) {
+}: TempleFeaturesSectionProps) {
   return (
     <section
       className="py-10 border-t border-stone-100"
@@ -25,10 +25,7 @@ export default function TempleFeautresSection({
       {/* ── Mobile layout ── */}
       <div className="flex flex-col gap-8 lg:hidden">
         <div className="space-y-4">
-          <SectionHeading
-            title={title}
-            accentStrategy="after-of"
-          />
+          <SectionHeading title={title} accentStrategy="after-of" />
           <FeatureBullets items={featuresList} />
         </div>
         <OverlappingImages images={featuresImages} anchor="left" />
@@ -37,13 +34,10 @@ export default function TempleFeautresSection({
       {/* ── Desktop layout: text left, images right ── */}
       <div className="hidden lg:flex items-start gap-16">
         <div className="flex-1 space-y-5">
-          <SectionHeading
-            title={title}
-            accentStrategy="after-of"
-          />
+          <SectionHeading title={title} accentStrategy="after-of" />
           <FeatureBullets items={featuresList} />
         </div>
-        <OverlappingImages images={featuresImages} anchor="right" />
+        <OverlappingImages images={featuresImages} anchor="left" />
       </div>
     </section>
   );

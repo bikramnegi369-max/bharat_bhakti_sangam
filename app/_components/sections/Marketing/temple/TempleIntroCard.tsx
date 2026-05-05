@@ -37,9 +37,9 @@ export default function TempleIntroCard({
 
       {/* Overlapping description images */}
       {descriptionImages.length > 0 && (
-        <div className="relative h-52 sm:h-64 w-full max-w-xs mx-auto">
+        <div className="lg:hidden relative h-52 sm:h-64 w-full max-w-[18rem] shrink-0 mx-auto">
           {/* Back image */}
-          <div className="absolute top-0 left-0 w-40 sm:w-48 h-36 sm:h-44 rounded-xl overflow-hidden shadow-lg">
+          <div className="absolute top-0 left-0 w-40 sm:w-48 h-36 sm:h-44 rounded-tl-4xl overflow-hidden shadow-lg">
             <Image
               src={descriptionImages[0]}
               alt={`${name} view 1`}
@@ -51,7 +51,7 @@ export default function TempleIntroCard({
           </div>
           {/* Front image — overlaps bottom-right */}
           {descriptionImages[1] && (
-            <div className="absolute bottom-0 right-0 w-36 sm:w-44 h-28 sm:h-36 rounded-xl overflow-hidden shadow-xl border-2 border-white">
+            <div className="absolute bottom-0 right-0 w-40 sm:w-48 h-36 sm:h-44 rounded-br-4xl overflow-hidden shadow-xl border-2 border-white">
               <Image
                 src={descriptionImages[1]}
                 alt={`${name} view 2`}

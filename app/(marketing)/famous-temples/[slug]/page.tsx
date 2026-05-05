@@ -1,6 +1,6 @@
 import Hero from "@/_components/sections/Marketing/Hero";
 import TempleBreadcrumb from "@/_components/sections/Marketing/temple/TempleBreadcrumb";
-import TempleFeautresSection from "@/_components/sections/Marketing/temple/TempleFeautresSection";
+import TempleFeaturesSection from "@/_components/sections/Marketing/temple/TempleFeaturesSection";
 import TempleHistorySection from "@/_components/sections/Marketing/temple/TempleHistorySection";
 import TempleIntroCard from "@/_components/sections/Marketing/temple/TempleIntroCard";
 import TempleLocationSection from "@/_components/sections/Marketing/temple/TempleLocationSection";
@@ -11,7 +11,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-
 // ── SSG: pre-render every temple page at build time ──────────────────────────
 export function generateStaticParams() {
   return temples.map((t) => ({ slug: t.slug }));
@@ -21,9 +20,10 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const temple = getTempleBySlug(params.slug);
+  const { slug } = await params;
+  const temple = getTempleBySlug(slug);
   if (!temple) return { title: "Temple Not Found" };
 
   // Trim description to 160 chars for meta tag best practice
@@ -59,12 +59,13 @@ export async function generateMetadata({
 }
 
 // ── Page component ────────────────────────────────────────────────────────────
-export default function TempleDetailPage({
+export default async function TempleDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const temple = getTempleBySlug(params.slug);
+  const { slug } = await params;
+  const temple = getTempleBySlug(slug);
 
   // Triggers Next.js not-found boundary → renders not-found.tsx
   if (!temple) notFound();
@@ -75,10 +76,7 @@ export default function TempleDetailPage({
           Full-bleed hero — reuses your existing Hero component.
           `priority` is handled inside Hero (fetchPriority="high") → max LCP.
       ──────────────────────────────────────────────────────────────────── */}
-      <Hero
-        title={temple.name}
-        backgroundImage={temple.heroImage}
-      />
+      <Hero title={temple.name} backgroundImage={temple.heroImage} />
 
       {/* ────────────────────────────────────────────────────────────────────
           Constrained content wrapper.
@@ -86,7 +84,6 @@ export default function TempleDetailPage({
           Sections handle their own top border / vertical rhythm.
       ──────────────────────────────────────────────────────────────────── */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-
         {/* Accessible breadcrumb */}
         <TempleBreadcrumb templeName={temple.name} />
 
@@ -103,7 +100,7 @@ export default function TempleDetailPage({
             History   → text left  / images right  (desktop)
             All three stack vertically on mobile.
         ─────────────────────────────────────────────────────────────── */}
-        <TempleFeautresSection
+        <TempleFeaturesSection
           title={temple.features.title}
           featuresList={temple.features.featuresList}
           featuresImages={temple.features.featuresImages}

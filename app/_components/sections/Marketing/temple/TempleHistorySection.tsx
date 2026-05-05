@@ -2,9 +2,9 @@ import OverlappingImages from "./OverlappingImages";
 import SectionHeading from "./SectionHeading";
 
 interface TempleHistorySectionProps {
-  title: string;            // e.g. "History of Shri Badrinath Temple"
-  description: string;      // may contain HTML entities like &rsquo;
-  historyImages: string[];  // temple.history.historyImages — 1 or 2 images
+  title: string; // e.g. "History of Shri Badrinath Temple"
+  description: string; // may contain HTML entities like &rsquo;
+  historyImages: string[]; // temple.history.historyImages — 1 or 2 images
 }
 
 /**
@@ -49,7 +49,7 @@ export default function TempleHistorySection({
           />
         </div>
         {historyImages.length > 0 && (
-          <OverlappingImages images={historyImages} anchor="right" />
+          <OverlappingImages images={historyImages} anchor="left" />
         )}
       </div>
     </section>
