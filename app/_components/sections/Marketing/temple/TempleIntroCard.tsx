@@ -51,7 +51,7 @@ export default function TempleIntroCard({
           </div>
           {/* Front image — overlaps bottom-right */}
           {descriptionImages[1] && (
-            <div className="absolute bottom-0 right-0 w-40 sm:w-48 h-36 sm:h-44 rounded-br-4xl overflow-hidden shadow-xl border-2 border-white">
+            <div className="absolute bottom-0 right-0 w-40 sm:w-48 h-36 sm:h-44 rounded-br-4xl overflow-hidden shadow-xl border-2 border-secondary">
               <Image
                 src={descriptionImages[1]}
                 alt={`${name} view 2`}

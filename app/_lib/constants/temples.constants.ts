@@ -185,4 +185,185 @@ export const temples: Temples = [
     timings: "Open: 6:15 AM – 2:00 PM & Reopens: 3:00 PM – 9:30 PM",
     entryFee: "Free entry for all devotees",
   },
+  {
+    slug: "mata-vaishno-devi-cave",
+    name: "Mata Vaishno Devi Cave",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/1280px-Vaishno_Devi_Bhawan.jpg",
+    description:
+      "Mata Vaishno Devi Temple is one of the most sacred pilgrimage sites dedicated to Goddess Vaishno Devi. Nestled in the Trikuta Mountains, it attracts millions of devotees seeking blessings, strength, and spiritual fulfillment. The divine journey to the holy cave is a powerful experience of faith and devotion.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vaishno_Devi_Katra_Road.jpg/2560px-Vaishno_Devi_Katra_Road.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/2560px-Vaishno_Devi_Bhawan.jpg",
+    ],
+    features: {
+      title: "Features of Mata Vaishno Devi Cave",
+      featuresList: [
+        "Sacred cave shrine (Bhawan) of Mata Vaishno Devi",
+        "Holy trek of around 12–13 km from Katra",
+        "Scenic views of the Trikuta Mountains",
+        "Strong spiritual energy and devotional atmosphere",
+      ],
+      featuresImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vaishno_Devi_Katra_Road.jpg/2560px-Vaishno_Devi_Katra_Road.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/2560px-Vaishno_Devi_Bhawan.jpg",
+      ],
+    },
+    location: {
+      title: "Mata Vaishno Devi Cave Location",
+      description:
+        "Located in Katra, Reasi district, Jammu and Kashmir, India. Around 50 km from Jammu city",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vaishno_Devi_Katra_Road.jpg/2560px-Vaishno_Devi_Katra_Road.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/2560px-Vaishno_Devi_Bhawan.jpg",
+      ],
+    },
+    history: {
+      title: "History of Mata Vaishno Devi Cave",
+      description:
+        "According to Hindu beliefs, Mata Vaishno Devi manifested to uphold Dharma and meditated in the Trikuta Mountains. She is believed to have defeated the demon Bhairavnath, after which he was granted liberation. The temple has since become one of the most important Shakti Peeths, drawing devotees from all over the world.",
+      historyImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/2560px-Vaishno_Devi_Bhawan.jpg",
+      ],
+    },
+    bestTimeToVisit: "March to October",
+    timings: "Open 24 hours (Daily)",
+    entryFee:
+      "Free entry for all devotees, Registration for yatra is mandatory",
+  },
+  {
+    slug: "kashi-vishwanath-temple",
+    name: "Kashi Vishwanath Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/1280px-Kashi_Vishwanath_Temple_Varanasi.jpg",
+    description:
+      "Kashi Vishwanath Temple is one of the most sacred Jyotirlingas of Lord Shiva, located in the spiritual city of Varanasi. Revered as the abode of Lord Shiva, it draws millions of devotees seeking liberation (moksha). The temple radiates divine energy, devotion, and timeless spiritual significance.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/2560px-Kashi_Vishwanath_Temple_Varanasi.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Kashi_Vishwanath_Corridor.jpg/2560px-Kashi_Vishwanath_Corridor.jpg",
+    ],
+    features: {
+      title: "Features of Kashi Vishwanath Temple",
+      featuresList: [
+        "One of the 12 Jyotirlingas of Lord Shiva",
+        "Located near the sacred Ganga River ghats",
+        "Newly developed Kashi Vishwanath Corridor",
+        "Deep spiritual connection with moksha (liberation)",
+      ],
+      featuresImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/2560px-Kashi_Vishwanath_Temple_Varanasi.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Kashi_Vishwanath_Corridor.jpg/2560px-Kashi_Vishwanath_Corridor.jpg",
+      ],
+    },
+    location: {
+      title: "Kashi Vishwanath Temple Location",
+      description:
+        "Situated in Varanasi, Uttar Pradesh, India, Close to Dashashwamedh Ghat on the Ganga River",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/2560px-Kashi_Vishwanath_Temple_Varanasi.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Kashi_Vishwanath_Corridor.jpg/2560px-Kashi_Vishwanath_Corridor.jpg",
+      ],
+    },
+    history: {
+      title: "History of Kashi Vishwanath Temple",
+      description:
+        "The temple has a long and sacred history, believed to be thousands of years old. It has been destroyed and rebuilt multiple times due to invasions. The current structure was rebuilt in 1780 by Queen Ahilyabai Holkar. Today, it stands as a symbol of unwavering faith, devotion, and the eternal presence of Lord Shiva in Kashi.",
+      historyImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/2560px-Kashi_Vishwanath_Temple_Varanasi.jpg",
+      ],
+    },
+    bestTimeToVisit: "October to March",
+    timings: "Open: 3:00 AM – 11:00 PM",
+    entryFee: "No Entry Fees",
+  },
+  {
+    slug: "shri-jagannath-temple",
+    name: "Shri Jagannath Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/1280px-Jagannath_Temple_Puri_01.jpg",
+    description:
+      "Shri Jagannath Temple is a sacred shrine dedicated to Lord Jagannath (a form of Lord Vishnu) along with Balabhadra and Subhadra. Located in Puri, it is one of the Char Dham pilgrimage sites and a center of immense devotion. The temple is world-famous for its grand Rath Yatra festival and deep spiritual significance.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/2560px-Jagannath_Temple_Puri_01.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Puri_Jagannath_Temple_Vimana.jpg/2560px-Puri_Jagannath_Temple_Vimana.jpg",
+    ],
+    features: {
+      title: "Features of Shri Jagannath Temple",
+      featuresList: [
+        "One of the sacred Char Dham Yatra sites",
+        "Famous Rath Yatra (Chariot Festival)",
+        "Unique wooden idols of Jagannath, Balabhadra, and Subhadra",
+        "Temple kitchen is one of the largest in the world",
+      ],
+      featuresImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/2560px-Jagannath_Temple_Puri_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Puri_Jagannath_Temple_Vimana.jpg/2560px-Puri_Jagannath_Temple_Vimana.jpg",
+      ],
+    },
+    location: {
+      title: "Shri Jagannath Temple Location",
+      description:
+        "Located in Puri, Odisha, India, Around 60 km from Bhubaneswar",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/2560px-Jagannath_Temple_Puri_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Puri_Jagannath_Temple_Vimana.jpg/2560px-Puri_Jagannath_Temple_Vimana.jpg",
+      ],
+    },
+    history: {
+      title: "History of Shri Jagannath Temple",
+      description:
+        "The Jagannath Temple was built in the 12th century by King Anantavarman Chodaganga Deva of the Eastern Ganga Dynasty. It has been a major center of Vaishnav tradition and devotion for centuries. The temple&rsquo;s unique rituals, traditions, and festivals continue to attract millions of devotees from across the world.",
+      historyImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/2560px-Jagannath_Temple_Puri_01.jpg",
+      ],
+    },
+    bestTimeToVisit: "October to February",
+    timings: "5:00 AM – 11:30 PM (Daily)",
+    entryFee: "Free entry for devotees",
+  },
+  {
+    slug: "shri-amarnath-cave",
+    name: "Shri Amarnath Cave",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/1280px-Amarnath_cave_01.jpg",
+    description:
+      "Shri Amarnath Cave is a sacred shrine dedicated to Lord Shiva, famous for the naturally formed ice Shivling. Located high in the Himalayas, it is one of the most revered pilgrimage sites in India. The journey to the cave is a profound spiritual experience filled with devotion, faith, and endurance.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/2560px-Amarnath_cave_01.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Amarnath_Yatra_-_Trek_to_Cave.jpg/2560px-Amarnath_Yatra_-_Trek_to_Cave.jpg",
+    ],
+    features: {
+      title: "Features of Shri Amarnath Cave",
+      featuresList: [
+        "Naturally formed ice Shivling (Himling)",
+        "Located at an altitude of around 3,888 meters",
+        "Challenging yet sacred trek pilgrimage",
+        "Deep spiritual and mythological significance",
+      ],
+      featuresImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/2560px-Amarnath_cave_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Amarnath_Yatra_-_Trek_to_Cave.jpg/2560px-Amarnath_Yatra_-_Trek_to_Cave.jpg",
+      ],
+    },
+    location: {
+      title: "Shri Amarnath Cave Location",
+      description:
+        "Situated in Anantnag district, Jammu and Kashmir, India, Accessible via two main routes: Pahalgam and Baltal",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/2560px-Amarnath_cave_01.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Amarnath_Yatra_-_Trek_to_Cave.jpg/2560px-Amarnath_Yatra_-_Trek_to_Cave.jpg",
+      ],
+    },
+    history: {
+      title: "History of Shri Amarnath Cave",
+      description:
+        "According to Hindu beliefs, Lord Shiva revealed the secret of immortality (Amar Katha) to Goddess Parvati in this very cave. To ensure secrecy, he left behind all companions on the way. Since then, the cave has become a sacred place of immense devotion, attracting lakhs of pilgrims every year who undertake this divine journey.",
+      historyImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/2560px-Amarnath_cave_01.jpg",
+      ],
+    },
+    bestTimeToVisit: "Amarnath Yatra (June to August)",
+    timings: "Early morning to afternoon",
+    entryFee: "Free Entry for Devotees",
+  },
 ];
