@@ -123,3 +123,16 @@
 button:active::after {
   animation: ripple-center 0.6s ease-out;
 }
+
+.embla {
+  position: relative;
+}
+
+.embla__container {
+  display: flex;
+  will-change: transform;
+}
+
+.embla__slide {
+  position: relative;
+}
