@@ -21,7 +21,7 @@ export function Carousel({
             key={slide.id}
             className="embla__slide flex-[0_0_100%] min-w-0 relative"
           >
-            {slide.render()}
+            {slide.node}
           </div>
         ))}
       </div>

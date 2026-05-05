@@ -1,5 +1,6 @@
 import TempleGrid from "@/_components/layout/temple/TempleGrid";
-import Hero from "@/_components/sections/Marketing/Hero";
+import { Carousel } from "@/_components/ui/Carousel/Carousel";
+import { famousTemplesCarousal } from "@/_lib/constants/carousal.constants";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static"; // pre-render at build, serve from CDN
@@ -30,6 +31,8 @@ export default function FamousTemplesPage() {
       >
         Skip to temple list
       </a>
+
+      <Carousel slides={famousTemplesCarousal} />
 
       {/* ── Hero header ── */}
       <header className="text-center py-12 px-4 max-w-2xl mx-auto">

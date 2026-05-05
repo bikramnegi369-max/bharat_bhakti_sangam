@@ -3,7 +3,7 @@ import { EmblaOptionsType } from "embla-carousel";
 
 export interface CarouselSlideData {
   id: string | number;
-  render: () => React.ReactNode;
+  node: React.ReactNode;
 }
 
 export interface CarouselProps {

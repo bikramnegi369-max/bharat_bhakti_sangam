@@ -1,7 +1,13 @@
 // CarouselSlide.tsx
 import Image from "next/image";
 
-export function CarouselSlide({ src, title }: { src: string; title?: string }) {
+export default function CarouselSlide({
+  src,
+  title,
+}: {
+  src: string;
+  title?: string;
+}) {
   return (
     <div className="relative h-[clamp(14.375rem,calc(6.339rem+40.179vw),42.5rem)] w-full overflow-hidden">
       <div className="parallax absolute inset-0 scale-110">
