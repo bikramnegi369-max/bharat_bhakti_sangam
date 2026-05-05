@@ -1,4 +1,4 @@
-import TempleGrid from "@/_components/layout/temple/TempleGrid";
+
 import { Carousel } from "@/_components/ui/Carousel/Carousel";
 import { famousTemplesCarousal } from "@/_lib/constants/carousal.constants";
 import type { Metadata } from "next";
