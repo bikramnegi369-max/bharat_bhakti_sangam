@@ -1,10 +1,11 @@
 // types.ts
 import { EmblaOptionsType } from "embla-carousel";
 
-export interface CarouselSlideData {
-  id: string | number;
-  render: () => React.ReactNode;
-}
+export type CarouselSlideData = {
+  id: number;
+  src: string;
+  alt?: string;
+};
 
 export interface CarouselProps {
   slides: CarouselSlideData[];
@@ -13,3 +14,12 @@ export interface CarouselProps {
   parallax?: boolean;
   className?: string;
 }
+
+export type UseCarouselReturn = {
+  emblaRef: (node: HTMLElement | null) => void;
+  selectedIndex: number;
+  scrollSnaps: number[];
+  scrollTo: (index: number) => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+};
