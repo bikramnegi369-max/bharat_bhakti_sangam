@@ -12,6 +12,7 @@ export type Temple = {
   location: {
     title: string;
     description: string;
+    locationImages: string[]; // Array of 2 image URLs related to the temple's location
   };
   history: {
     title: string;
