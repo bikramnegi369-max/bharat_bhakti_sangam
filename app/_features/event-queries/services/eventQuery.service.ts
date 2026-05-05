@@ -11,7 +11,15 @@ import { isEventQueriesListData } from "./guards";
 
 export async function getEventQueries(
   params?: Partial<TableQueryParams>,
-): Promise<APIResponse<{ items: EventQuery[]; total: number }>> {
+): Promise<
+  APIResponse<{
+    items: EventQuery[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages?: number;
+  }>
+> {
   try {
     const queryParams = new URLSearchParams();
 
@@ -55,7 +63,10 @@ export async function getEventQueries(
       success: true,
       data: {
         items: payload.data.data,
-        total: payload.data.data.length,
+        total: payload.data.pagination.total || 0,
+        page: payload.data.pagination.page,
+        limit: payload.data.pagination.limit || 10,
+        totalPages: payload.data.pagination.totalPages,
       },
     };
   } catch (error) {

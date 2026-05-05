@@ -1,4 +1,4 @@
-import { isRecord } from "@/_utils/guards";
+import { isPaginationRecord, isRecord } from "@/_utils/guards";
 import { EventBooking } from "@/_types/EventBooking.types";
 
 /**
@@ -19,13 +19,18 @@ export function isEventBooking(value: unknown): value is EventBooking {
 /**
  * Guard to validate the envelope for the bookings list.
  */
-export function isEventBookingsListData(
-  value: unknown,
-): value is { bookings: EventBooking[]; total: number } {
+export function isEventBookingsListData(value: unknown): value is {
+  bookings: EventBooking[];
+  pagination: {
+    total: number;
+    limit?: number;
+    page?: number;
+    totalPages?: number;
+  };
+} {
   if (!isRecord(value)) return false;
-  return (
-    Array.isArray(value.bookings) &&
-    value.bookings.every(isEventBooking) &&
-    (typeof value.total === "number" || typeof value.total === "undefined")
-  );
+  if (!isPaginationRecord(value.pagination)) {
+    return false;
+  }
+  return Array.isArray(value.bookings) && value.bookings.every(isEventBooking);
 }

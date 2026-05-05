@@ -9,9 +9,15 @@ import { isApiEnvelope, isRecord } from "@/_utils/guards";
 import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
 import { isArtist, isArtistsListData } from "./guards";
 
-export async function getArtists(
-  params?: Partial<TableQueryParams>,
-): Promise<APIResponse<{ items: Artist[]; total: number }>> {
+export async function getArtists(params?: Partial<TableQueryParams>): Promise<
+  APIResponse<{
+    items: Artist[];
+    total: number;
+    limit: number;
+    page: number;
+    totalPages: number;
+  }>
+> {
   try {
     const queryParams = new URLSearchParams();
 
@@ -55,7 +61,10 @@ export async function getArtists(
       success: true,
       data: {
         items: payload.data.data,
-        total: payload.data.data.length,
+        total: payload.data.pagination.total ?? payload.data.data.length,
+        limit: payload.data.pagination.limit,
+        page: payload.data.pagination.page,
+        totalPages: payload.data.pagination.totalPages,
       },
     };
   } catch (error) {
@@ -99,8 +108,6 @@ export async function getArtistById(id: string): Promise<APIResponse<Artist>> {
   try {
     const res = await authorizedAdminRequest(apiRoutes.artistById(id));
     const payload = await getResponsePayload(res);
-
-    
 
     if (!res.ok || !isApiEnvelope(payload, isArtist)) {
       return {

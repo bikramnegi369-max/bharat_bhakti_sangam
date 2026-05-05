@@ -7,6 +7,7 @@ const VOLUNTEER_BASE = "/admin/volunteer";
 const VENUE_BASE = "/venue";
 const QUERY_BASE = "/contact";
 const SPONSOR_BASE = "/sponsor";
+const FEEDBACK_BASE = "/feedback";
 
 export const apiRoutes = {
   event: EVENT_BASE,
@@ -23,7 +24,7 @@ export const apiRoutes = {
   getAllBookingTypes: "/admin/getall-bookingtype",
   addBookingType: "/admin/add-booking-type",
   bookingTypeById: (id: string) => `/admin/booking-type/${id}`,
-  getAllArtists: `${ARTIST_BASE}`,
+  getAllArtists: ARTIST_BASE,
   artistById: (id: string) => `${ARTIST_BASE}/${id}`,
   addArtist: ARTIST_BASE,
   getAllVolunteers: VOLUNTEER_BASE,
@@ -34,7 +35,7 @@ export const apiRoutes = {
   getAllVenues: `${VENUE_BASE}/all-venue`,
   getAllCategories: EVENT_CATEGORY_BASE,
   getAllEvent: `${EVENT_BASE}/all-event`,
-  getAllFeedbacks: "/admin/get-all-feedbacks",
+  getAllFeedbacks: FEEDBACK_BASE,
   addCategory: "/admin/add-category",
   venueById: (id: string) => `${VENUE_BASE}/${id}`,
   addVenue: VENUE_BASE,

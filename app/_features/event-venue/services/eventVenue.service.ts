@@ -9,9 +9,15 @@ import { isApiEnvelope, isRecord } from "@/_utils/guards";
 import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
 import { isVenue, isVenuesListData } from "./guards";
 
-export async function getVenues(
-  params?: Partial<TableQueryParams>,
-): Promise<APIResponse<{ items: Venue[]; total: number }>> {
+export async function getVenues(params?: Partial<TableQueryParams>): Promise<
+  APIResponse<{
+    items: Venue[];
+    total: number;
+    limit?: number;
+    page?: number;
+    totalPages?: number;
+  }>
+> {
   try {
     const queryParams = new URLSearchParams();
 
@@ -55,7 +61,10 @@ export async function getVenues(
       success: true,
       data: {
         items: payload.data.data,
-        total: payload.data.data.length,
+        total: payload.data.pagination.total ?? payload.data.data.length,
+        limit: payload.data.pagination.limit,
+        page: payload.data.pagination.page,
+        totalPages: payload.data.pagination.totalPages,
       },
     };
   } catch (error) {

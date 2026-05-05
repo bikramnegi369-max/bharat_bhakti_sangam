@@ -11,7 +11,15 @@ import { isEventBooking, isEventBookingsListData } from "./guards";
 
 export async function getEventBookings(
   params?: Partial<TableQueryParams>,
-): Promise<APIResponse<{ items: EventBooking[]; total: number }>> {
+): Promise<
+  APIResponse<{
+    items: EventBooking[];
+    total: number;
+    limit?: number;
+    page?: number;
+    totalPages?: number;
+  }>
+> {
   try {
     const queryParams = new URLSearchParams();
 
@@ -55,7 +63,10 @@ export async function getEventBookings(
       success: true,
       data: {
         items: payload.data.bookings,
-        total: payload.data.total ?? payload.data.bookings.length,
+        total: payload.data.pagination.total ?? payload.data.bookings.length,
+        limit: payload.data.pagination.limit,
+        page: payload.data.pagination.page,
+        totalPages: payload.data.pagination.totalPages,
       },
     };
   } catch (error) {
