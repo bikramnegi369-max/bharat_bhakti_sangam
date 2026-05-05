@@ -36,8 +36,7 @@ function FooterCompanyDetails() {
           <span>Email Us</span>
         </div>
         <span className="text-sm md:text-base text-wrap wrap-break-word flex flex-col gap-2">
-          <span>bharatbhaktiventures@gmail.com</span>
-          <span> contact@bharatbhaktisangam.com</span>
+          <span>contact@bharatbhaktisangam.com</span>
         </span>
       </div>
     </div>
