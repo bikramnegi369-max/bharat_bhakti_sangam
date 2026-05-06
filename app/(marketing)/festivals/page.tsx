@@ -22,10 +22,10 @@ export const metadata: Metadata = {
 
 export default function FamousFestivalsPage() {
   return (
-    <main>
+    <div>
       <Carousel slides={famousFestivalsCarousel} />
       {/* ── Hero header ── */}
-      <header className="text-center py-12 px-4 max-w-2xl mx-auto">
+      <header className="text-center p-12 lg:p-24 px-4 max-w-2xl mx-auto">
         <h1
           className={`${cinzel.className} text-4xl sm:text-5xl font-bold text-stone-800 mb-6 leading-tight`}
         >
@@ -49,7 +49,7 @@ export default function FamousFestivalsPage() {
         </p>
       </header>
       {/* ── Festival sections ── */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 lg:space-y-16 mb-20">
         {festivalsData.map((festival, index) => (
           <FestivalSection
             key={index}
@@ -60,6 +60,6 @@ export default function FamousFestivalsPage() {
           />
         ))}
       </div>
-    </main>
+    </div>
   );
 }
