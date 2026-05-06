@@ -1,4 +1,4 @@
-import OverlappingImages from "./OverlappingImages";
+import OverlappingImages from "../../../common/OverlappingImages";
 import SectionHeading from "./SectionHeading";
 
 interface TempleLocationSectionProps {
