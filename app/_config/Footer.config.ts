@@ -40,6 +40,7 @@ export const footerConfig: FooterConfig = {
       links: [
         { label: "Home", href: "/" },
         { label: "Events", href: "/event" },
+        { label: "Festivals", href: "/festivals" },
         { label: "About Us", href: "/about" },
         { label: "Contact Us", href: "/contact" },
         // { label: "Sponsors", href: "/sponsors" },

@@ -8,6 +8,5 @@ export const routes = {
   booking: "/booking",
   privacyPolicy: "/privacy-policy",
   termsAndConditions: "/terms-and-conditions",
+  festivals: "/festivals",
 };
-
-
