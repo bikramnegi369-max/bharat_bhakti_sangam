@@ -22,7 +22,7 @@ export default function OverlappingImages({
   return (
     /* Fixed dimensions → zero CLS */
     <div className="relative h-52 sm:h-64 w-full max-w-[18rem] shrink-0 mx-auto lg:mx-0">
-      {/* Back image — larger, sits behind */}
+      {/* Back image — sits behind */}
       <div
         className={[
           "absolute w-44 sm:w-52 h-36 sm:h-44 rounded-tl-4xl overflow-hidden shadow-lg",
@@ -39,7 +39,7 @@ export default function OverlappingImages({
         />
       </div>
 
-      {/* Front image — smaller, overlaps diagonally */}
+      {/* Front image — overlaps diagonally */}
       {images[1] && (
         <div
           className={[
