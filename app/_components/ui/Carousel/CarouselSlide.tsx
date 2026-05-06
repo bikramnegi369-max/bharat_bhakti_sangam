@@ -1,30 +1,25 @@
-// CarouselSlide.tsx
 import Image from "next/image";
 
-export default function CarouselSlide({
-  src,
-  title,
-}: {
+type Props = {
   src: string;
-  title?: string;
-}) {
-  return (
-    <div className="relative h-[clamp(14.375rem,calc(6.339rem+40.179vw),42.5rem)] w-full overflow-hidden">
-      <div className="parallax absolute inset-0 scale-110">
-        <Image
-          src={src}
-          alt={title ?? ""}
-          fill
-          priority
-          className="object-cover"
-        />
-      </div>
+  alt?: string;
+};
 
-      {title && (
-        <div className="absolute bottom-10 left-10 text-white text-3xl z-10">
-          {title}
+export default function CarouselSlide({ src, alt }: Props) {
+  return (
+    <div className="w-full relative overflow-hidden aspect-video sm:aspect-21/9">
+      <div className="parallax h-full w-full">
+        <div className="parallax__layer relative h-full w-full">
+          <Image
+            src={src}
+            alt={alt ?? ""}
+            fill
+            className="object-cover scale-110"
+            priority
+            unoptimized
+          />
         </div>
-      )}
+      </div>
     </div>
   );
 }
