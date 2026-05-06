@@ -121,7 +121,7 @@ export function createPageMetadata({
       title: finalTitle,
       description: finalDescription,
       images: [absoluteImage],
-      creator: siteConfig.twitter?.handle,
+      creator: siteConfig.twitter?.creator,
       site: siteConfig.twitter?.site,
     },
 

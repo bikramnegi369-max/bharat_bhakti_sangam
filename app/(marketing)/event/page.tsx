@@ -99,7 +99,7 @@ export default async function EventPage() {
     organizer: {
       "@type": "Organization",
       name: "Bharat Bhakti Sangam",
-      url: "https://bharatbhaktisangam.com",
+      url: "https://www.bharatbhaktisangam.com",
     },
     performers: artistNames.map((name) => ({
       "@type": "Person",
