@@ -1,6 +1,8 @@
 import TempleGrid from "@/_components/layout/temple/TempleGrid";
+import FAQSection from "@/_components/sections/Marketing/FAQSection";
 import Carousel from "@/_components/ui/Carousel/Carousel";
 import { famousTemplesCarousel } from "@/_lib/constants/carousal.constants";
+import { templesFAQs } from "@/_lib/constants/temples.constants";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static"; // pre-render at build, serve from CDN
@@ -58,6 +60,7 @@ export default function FamousTemplesPage() {
       <div id="temple-list">
         <TempleGrid />
       </div>
+      <FAQSection title="Frequently Asked Questions" items={templesFAQs} />
     </main>
   );
 }
