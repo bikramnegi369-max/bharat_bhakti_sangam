@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "Spiritual Vibes Meet Celebration",
   description:
     "Join Bharat Bhakti Sangam for bhajans, kirtan gatherings, and devotional events.",
-  url: "https://bharatbhaktisangam.com",
+  url: "https://www.bharatbhaktisangam.com",
   locale: "en_IN",
   ogImage: "/ogDefault.png",
   keywords: [
@@ -38,8 +38,8 @@ export const siteConfig = {
     type: "Organization",
   },
   twitter: {
-    site: "@BharatBhaktiSangam",
-    creator: "@BharatBhaktiSangam",
-    handle: "@BharatBhaktiSangam",
+    site: "@B_BhaktiSangam",
+    creator: "@B_BhaktiSangam",
+    handle: "@B_BhaktiSangam",
   },
 };
