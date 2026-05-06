@@ -56,6 +56,7 @@ export default function TempleCard({
         "bg-amber-50 rounded-2xl overflow-hidden shadow-md border border-amber-100",
         "transition-all duration-500 ease-out",
         "hover:shadow-xl hover:-translate-y-1",
+        "flex flex-col h-full",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
       ].join(" ")}
       aria-label={`Temple: ${temple.name}`}
@@ -75,7 +76,7 @@ export default function TempleCard({
       </div>
 
       {/* ── Body ── */}
-      <div className="p-5 flex flex-col gap-3">
+      <div className="p-5 flex flex-col gap-3 flex-1">
         {/* Temple name as a link */}
         <Link
           href={`/famous-temples/${temple.slug}`}
@@ -87,7 +88,7 @@ export default function TempleCard({
         <p className="text-sm text-stone-500 -mt-2">{temple.description}</p>
 
         {/* ── Meta list ── semantic <dl> for accessibility + SEO */}
-        <dl className="text-sm divide-y divide-amber-100 border-t border-amber-100 mt-1">
+        <dl className="text-sm divide-y divide-amber-300 border-t border-amber-300 mt-1">
           <MetaRow label="Best Time to Visit" value={temple.bestTimeToVisit} />
           <MetaRow label="Timings" value={temple.timings} />
           <MetaRow label="Entry Fees" value={temple.entryFee} />
@@ -97,7 +98,7 @@ export default function TempleCard({
         <Link
           href={`/famous-temples/${temple.slug}`}
           prefetch
-          className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-semibold py-3 px-6 transition-colors duration-200"
+          className="mt-auto flex items-center justify-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-semibold py-3 px-6 transition-colors duration-200"
           aria-label={`Read more about ${temple.name}`}
         >
           Read More →

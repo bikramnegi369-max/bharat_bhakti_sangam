@@ -366,4 +366,94 @@ export const temples: Temples = [
     timings: "Early morning to afternoon",
     entryFee: "Free Entry for Devotees",
   },
+  {
+    slug: "golden-temple",
+    name: "Golden Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Golden_Temple_nighttime.jpg/960px-Golden_Temple_nighttime.jpg",
+    description:
+      "The Golden Temple, also known as Harmandir Sahib, is the holiest shrine of Sikhism and a symbol of peace, equality, and devotion. Surrounded by the sacred Amrit Sarovar, its golden structure reflects divine beauty and serenity. It welcomes people of all faiths, embodying unity and selfless service.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Golden_Temple_-_Amritsar_-_Punjab_-_0001.jpg/2560px-Golden_Temple_-_Amritsar_-_Punjab_-_0001.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Golden_Temple%2C_Amritsar.jpg/2560px-Golden_Temple%2C_Amritsar.jpg",
+    ],
+    features: {
+      title: "Features of Golden Temple",
+      featuresList: [
+        "Holiest shrine of Sikhism",
+        "Surrounded by the sacred Amrit Sarovar (holy tank)",
+        "World’s largest free community kitchen (Langar)",
+        "Covered in gold plating with stunning architecture",
+      ],
+      featuresImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Golden_Temple%2C_Amritsar_02.jpg/2560px-Golden_Temple%2C_Amritsar_02.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Golden_Temple%2C_Amritsar_04.jpg/2560px-Golden_Temple%2C_Amritsar_04.jpg",
+      ],
+    },
+    location: {
+      title: "Golden Temple Location",
+      description:
+        "Located in Amritsar, Punjab, India, Around 13 km from Sri Guru Ram Dass Jee International Airport",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Hamandir_Sahib_%28Golden_Temple%29.jpg/2560px-Hamandir_Sahib_%28Golden_Temple%29.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Golden_Temple_-_Amritsar_India.jpg/2560px-Golden_Temple_-_Amritsar_India.jpg",
+      ],
+    },
+    history: {
+      title: "History of Golden Temple",
+      description:
+        "The Golden Temple was founded by Guru Ram Das in the 16th century and later completed by Guru Arjan Dev, who also installed the Guru Granth Sahib here. Over time, it was adorned with gold by Maharaja Ranjit Singh. It stands today as a symbol of faith, humility, and universal brotherhood.",
+      historyImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Golden_Temple_-_Amritsar_-_Punjab_-_0001.jpg/2560px-Golden_Temple_-_Amritsar_-_Punjab_-_0001.jpg",
+      ],
+    },
+    bestTimeToVisit: "October to March",
+    timings: "Open 24 hrs open",
+    entryFee: "Free Entry",
+  },
+  {
+    slug: "siddhivinayak-temple",
+    name: "Siddhivinayak Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Siddhivinayak_Temple_Prabhadevi.jpg/1280px-Siddhivinayak_Temple_Prabhadevi.jpg",
+    description:
+      "Siddhivinayak Temple is one of the most revered temples dedicated to Lord Ganesha, known as the remover of obstacles and giver of success. Located in Mumbai, it attracts millions of devotees, including celebrities and leaders. The temple radiates faith, hope, and divine blessings.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Siddhivinayak_temple_mumbai.jpg/2560px-Siddhivinayak_temple_mumbai.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Siddhivinayak_Temple_Prabhadevi.jpg/2560px-Siddhivinayak_Temple_Prabhadevi.jpg",
+    ],
+    features: {
+      title: "Features of Siddhivinayak Temple",
+      featuresList: [
+        "Famous idol of Lord Ganesha (Siddhivinayak)",
+        "One of the richest temples in Mumbai",
+        "Strong belief in wish fulfillment",
+        "High-profile devotees and global popularity",
+      ],
+      featuresImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Inside_Siddhivinayak_temple.jpg/1280px-Inside_Siddhivinayak_temple.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Siddhivinayak_temple_mumbai.jpg/2560px-Siddhivinayak_temple_mumbai.jpg",
+      ],
+    },
+    location: {
+      title: "Siddhivinayak Temple Location",
+      description:
+        "Located in Prabhadevi, Mumbai, Maharashtra, India, Well connected via local trains, buses, and taxis",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Siddhivinayak_Temple_Prabhadevi.jpg/2560px-Siddhivinayak_Temple_Prabhadevi.jpg",
+      ],
+    },
+    history: {
+      title: "History of Siddhivinayak Temple",
+      description:
+        "The Siddhivinayak Temple was established in 1801 by Laxman Vithu and Deubai Patil. Over the years, it has grown into one of the most significant Ganesha temples in India. Devotees believe that sincere prayers here fulfill wishes and bring success and prosperity.",
+      historyImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Siddhivinayak_temple_mumbai.jpg/2560px-Siddhivinayak_temple_mumbai.jpg",
+      ],
+    },
+    bestTimeToVisit: "November to February",
+    timings: "5:30 AM – 9:50 PM (Daily)",
+    entryFee:
+      "Free entry for devotees, Special darshan passes available (paid)",
+  },
 ];
