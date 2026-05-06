@@ -1,3 +1,4 @@
+import OverlappingImages from "@/_components/common/OverlappingImages";
 import { cinzel } from "@/_lib/fonts";
 import { FestivalSection } from "@/_types/festivals.types";
 
