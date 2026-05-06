@@ -15,9 +15,9 @@ export async function getEventBookingTypes(
   APIResponse<{
     items: EventBookingType[];
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   }>
 > {
   try {

@@ -5,9 +5,9 @@ import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 import { APIResponse } from "@/_types/Api.types";
 import { EventBooking } from "@/_types/EventBooking.types";
 import { TableQueryParams } from "@/_types/Table.types";
-import { isApiEnvelope, isRecord } from "@/_utils/guards";
+import { isApiEnvelope } from "@/_utils/guards";
 import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
-import { isEventBooking, isEventBookingsListData } from "./guards";
+import { isEventBookingsListData } from "./guards";
 
 export async function getEventBookings(
   params?: Partial<TableQueryParams>,
@@ -15,9 +15,9 @@ export async function getEventBookings(
   APIResponse<{
     items: EventBooking[];
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   }>
 > {
   try {
@@ -62,8 +62,8 @@ export async function getEventBookings(
     return {
       success: true,
       data: {
-        items: payload.data.bookings,
-        total: payload.data.pagination.total ?? payload.data.bookings.length,
+        items: payload.data.data,
+        total: payload.data.pagination.total ?? payload.data.data.length,
         limit: payload.data.pagination.limit,
         page: payload.data.pagination.page,
         totalPages: payload.data.pagination.totalPages,

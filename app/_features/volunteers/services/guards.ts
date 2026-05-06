@@ -21,7 +21,7 @@ export function isVolunteersListData(value: unknown): value is {
     page: number;
     total: number;
     limit: number;
-    totalPages?: number;
+    totalPages: number;
   };
 } {
   if (!isRecord(value)) return false;

@@ -7,12 +7,12 @@ const c = createColumn<Event>();
 export const EventColumns = [
   c("title", {
     header: "Event Name",
-    accessorFn: (row) => row.eventName,
+    accessorFn: (row) => row.eventName || "N/A",
   }),
 
   c("venue", {
     header: "venue",
-    accessorFn: (row) => row.venueName?.venue,
+    accessorFn: (row) => row.venueName?.venue || "N/A",
     cell: (value) => (
       <p className="text-sm text-gray-600 line-clamp-2 max-w-75">{value}</p>
     ),

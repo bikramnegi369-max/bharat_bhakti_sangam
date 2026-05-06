@@ -17,9 +17,9 @@ export async function getEventFeedbacks(
   APIResponse<{
     items: EventFeedback[];
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   }>
 > {
   try {

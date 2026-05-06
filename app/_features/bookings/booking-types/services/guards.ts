@@ -20,9 +20,9 @@ export function isEventBookingTypesListData(value: unknown): value is {
   data: EventBookingType[];
   pagination: {
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   };
 } {
   if (!isRecord(value)) return false;

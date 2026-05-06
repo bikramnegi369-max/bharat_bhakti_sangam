@@ -196,9 +196,9 @@ export async function getAllEvents(params: TableQueryParams): Promise<
   APIResponse<{
     items: Event[];
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   }>
 > {
   if (!API_URL) {

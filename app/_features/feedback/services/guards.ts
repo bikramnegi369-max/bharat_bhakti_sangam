@@ -20,7 +20,7 @@ export function isEventFeedbacksListData(value: unknown): value is {
     pages: number;
     total: number;
     limit: number;
-    totalPages?: number;
+    totalPages: number;
   };
 } {
   if (!isRecord(value)) return false;

@@ -13,9 +13,9 @@ export async function getVenues(params?: Partial<TableQueryParams>): Promise<
   APIResponse<{
     items: Venue[];
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   }>
 > {
   try {

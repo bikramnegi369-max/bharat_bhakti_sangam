@@ -15,9 +15,9 @@ export async function getVolunteers(
   APIResponse<{
     items: Volunteer[];
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   }>
 > {
   try {

@@ -15,9 +15,9 @@ export async function getEventCategories(
   APIResponse<{
     items: EventCategory[];
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   }>
 > {
   try {

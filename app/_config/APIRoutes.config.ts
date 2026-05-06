@@ -8,6 +8,8 @@ const VENUE_BASE = "/venue";
 const QUERY_BASE = "/contact";
 const SPONSOR_BASE = "/sponsor";
 const FEEDBACK_BASE = "/feedback";
+const BOOKING_BASE = "/booking";
+const BOOKING_TYPE_BASE = "/admin/booking-type";
 
 export const apiRoutes = {
   event: EVENT_BASE,
@@ -16,14 +18,14 @@ export const apiRoutes = {
   latestEvent: `${EVENT_BASE}/latest`,
   latestCapacity: `${EVENT_BASE}/latest-capacity`,
   contact: "/contact",
-  booking: "/booking/create-ticket",
+  booking: `${BOOKING_BASE}/create-ticket`,
   feedback: "/feedback",
   subscribe: "/subscriber",
   preSignedUrl: "/admin/presign-url",
-  getAllBookings: "/admin/get-all-bookings",
-  getAllBookingTypes: "/admin/getall-bookingtype",
-  addBookingType: "/admin/add-booking-type",
-  bookingTypeById: (id: string) => `/admin/booking-type/${id}`,
+  getAllBookings: `${BOOKING_BASE}`,
+  getAllBookingTypes: `${BOOKING_TYPE_BASE}`,
+  addBookingType: `${BOOKING_TYPE_BASE}`,
+  bookingTypeById: (id: string) => `${BOOKING_TYPE_BASE}/${id}`,
   getAllArtists: ARTIST_BASE,
   artistById: (id: string) => `${ARTIST_BASE}/${id}`,
   addArtist: ARTIST_BASE,

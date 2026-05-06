@@ -22,9 +22,9 @@ export function isEventCategoriesListData(value: unknown): value is {
   categories: EventCategory[];
   pagination: {
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   };
 } {
   if (!isRecord(value)) return false;

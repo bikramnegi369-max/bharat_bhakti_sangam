@@ -8,11 +8,12 @@ export function isEventBooking(value: unknown): value is EventBooking {
   if (!isRecord(value)) return false;
   return (
     typeof value._id === "string" &&
-    typeof value.Name === "string" &&
+    typeof value.name === "string" &&
     typeof value.eventName === "string" &&
     typeof value.email === "string" &&
-    typeof value.contact === "string" &&
-    typeof value.tickets === "string"
+    typeof value.contact === "number" &&
+    typeof value.tickets === "number" &&
+    typeof value.ticketId === "string"
   );
 }
 
@@ -20,17 +21,17 @@ export function isEventBooking(value: unknown): value is EventBooking {
  * Guard to validate the envelope for the bookings list.
  */
 export function isEventBookingsListData(value: unknown): value is {
-  bookings: EventBooking[];
+  data: EventBooking[];
   pagination: {
     total: number;
-    limit?: number;
-    page?: number;
-    totalPages?: number;
+    limit: number;
+    page: number;
+    totalPages: number;
   };
 } {
   if (!isRecord(value)) return false;
   if (!isPaginationRecord(value.pagination)) {
     return false;
   }
-  return Array.isArray(value.bookings) && value.bookings.every(isEventBooking);
+  return Array.isArray(value.data) && value.data.every(isEventBooking);
 }
