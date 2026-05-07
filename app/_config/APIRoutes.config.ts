@@ -10,6 +10,7 @@ const SPONSOR_BASE = "/sponsor";
 const FEEDBACK_BASE = "/feedback";
 const BOOKING_BASE = "/booking";
 const BOOKING_TYPE_BASE = "/admin/booking-type";
+const CALENDER_BASE = "/admin/calender";
 
 export const apiRoutes = {
   event: EVENT_BASE,
@@ -38,6 +39,9 @@ export const apiRoutes = {
   getAllCategories: EVENT_CATEGORY_BASE,
   getAllEvent: `${EVENT_BASE}/all-event`,
   getAllFeedbacks: FEEDBACK_BASE,
+  getAllCalenderEntries: CALENDER_BASE,
+  addCalenderEntry: CALENDER_BASE,
+  calenderEntryById: (id: string) => `${CALENDER_BASE}/${id}`,
   addCategory: "/admin/add-category",
   venueById: (id: string) => `${VENUE_BASE}/${id}`,
   addVenue: VENUE_BASE,
