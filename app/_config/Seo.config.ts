@@ -139,6 +139,23 @@ export const _seoConfig = {
       " devotional music experience",
     ],
   },
+  sanatanCalender: {
+    path: "/sanatan-calender",
+    image: "/ogDefault.png",
+    title: "Sanatan Calender",
+    description:
+      "Explore the Sanatan Calender with month-wise Hindu festivals, dates, and observances.",
+    keywords: [
+      " sanatan calender",
+      " hindu festival calendar",
+      " monthly hindu calender",
+      " sanatana calendar 2026",
+      " festival dates",
+      " hindu observances",
+      " devotional calendar",
+      " bharat bhakti sangam sanatan calender",
+    ],
+  },
   booking: {
     path: "/booking",
     image: "/event.webp",

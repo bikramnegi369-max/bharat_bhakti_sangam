@@ -1,6 +1,7 @@
 export const routes = {
   home: "/",
   event: "/event",
+  sanatanCalender: "/sanatan-calender",
   about: "/about",
   contact: "/contact",
   sponsors: "/sponsors",

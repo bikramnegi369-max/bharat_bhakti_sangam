@@ -29,6 +29,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.65,
       images: [`${siteConfig.url}${siteConfig.ogImage}`],
     },
+    {
+      path: "/sanatan-calender",
+      changeFrequency: "monthly",
+      priority: 0.8,
+      images: [`${siteConfig.url}${siteConfig.ogImage}`],
+    },
   ];
 
   try {

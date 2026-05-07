@@ -4,6 +4,7 @@ export const apiRoutes = {
   event: "/event",
   latestEvent: "/event/latest",
   latestCapacity: "/event/latest-capacity",
+  sanatanCalender: "/sanatan-calender",
   contact: "/contact",
   booking: "/booking/create-ticket",
   feedback: "/feedback",
