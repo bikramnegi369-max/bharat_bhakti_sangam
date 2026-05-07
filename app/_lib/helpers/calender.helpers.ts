@@ -65,6 +65,7 @@ function normalizeFestival(
     date: item.date.trim(),
     displayDate: hasValidDate ? fullDateFormatter.format(parsedDate) : item.date,
     dayLabel: hasValidDate ? weekdayFormatter.format(parsedDate) : "TBA",
+    image: item.image.trim(),
     sortValue: hasValidDate ? parsedDate.getTime() : Number.MAX_SAFE_INTEGER,
   };
 }
@@ -119,6 +120,7 @@ export function buildSanatanCalenderMonths(
         date: festival.date,
         displayDate: festival.displayDate,
         dayLabel: festival.dayLabel,
+        image: festival.image,
       })),
     };
   });

@@ -2,6 +2,7 @@ export type SanatanCalenderApiItem = {
   festival: string;
   month: string;
   date: string;
+  image: string;
 };
 
 export type SanatanCalenderFestival = {
@@ -10,6 +11,7 @@ export type SanatanCalenderFestival = {
   date: string;
   displayDate: string;
   dayLabel: string;
+  image: string;
 };
 
 export type SanatanCalenderMonthSection = {

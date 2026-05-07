@@ -1,6 +1,16 @@
 import type { SanatanCalenderApiItem } from "@/_features/sanatan-calender/types";
 
-export const dummySanatanCalenderData: SanatanCalenderApiItem[] = [
+const festivalImages = [
+  "/gallery/gallery_1.webp",
+  "/gallery/gallery_2.webp",
+  "/gallery/gallery_3.webp",
+  "/artists/hansraj_raghuwanshi/image1.png",
+  "/artists/hansraj_raghuwanshi/image2.png",
+  "/artists/sachet_parampara/image1.png",
+  "/artists/sachet_parampara/image2.png",
+];
+
+const baseSanatanCalenderData = [
   { festival: "Pongal", month: "January", date: "2026-01-11" },
   { festival: "Mahashivratri", month: "January", date: "2026-01-20" },
   { festival: "Makarsakrant", month: "January", date: "2026-01-25" },
@@ -27,4 +37,10 @@ export const dummySanatanCalenderData: SanatanCalenderApiItem[] = [
   { festival: "Diwali", month: "November", date: "2026-11-10" },
   { festival: "Gita Jayanti", month: "December", date: "2026-12-15" },
   { festival: "Datta Jayanti", month: "December", date: "2026-12-24" },
-];
+] satisfies Array<Omit<SanatanCalenderApiItem, "image">>;
+
+export const dummySanatanCalenderData: SanatanCalenderApiItem[] =
+  baseSanatanCalenderData.map((festival, index) => ({
+    ...festival,
+    image: festivalImages[index % festivalImages.length],
+  }));

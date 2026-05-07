@@ -16,7 +16,8 @@ export function isSanatanCalenderItem(
   return (
     isNonEmptyString(record.festival) &&
     isNonEmptyString(record.month) &&
-    isNonEmptyString(record.date)
+    isNonEmptyString(record.date) &&
+    isNonEmptyString(record.image)
   );
 }
 
