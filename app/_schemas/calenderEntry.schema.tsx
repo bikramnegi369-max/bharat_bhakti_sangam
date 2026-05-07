@@ -5,8 +5,6 @@ import {
   CALENDER_DAYS,
   CalendarDay,
   normalizeCalenderDateInput,
-  deriveMonthFromDate,
-  deriveDayFromDate,
 } from "@/_lib/helpers/calender.helper";
 
 export const CalenderEntrySchema = z.object({
@@ -37,18 +35,3 @@ export const CalenderEntrySchema = z.object({
 });
 
 export type CalenderEntryFormData = z.infer<typeof CalenderEntrySchema>;
-
-export function normalizeCalenderEntryPayload(
-  data: CalenderEntryFormData,
-): CalenderEntryFormData {
-  const derivedMonth = deriveMonthFromDate(data.date);
-  const derivedDay = deriveDayFromDate(data.date);
-
-  return {
-    festival: data.festival.trim(),
-    image: data.image.trim(),
-    date: new Date(data.date).toISOString(),
-    month: derivedMonth || data.month.trim(),
-    day: derivedDay || data.day.trim(),
-  };
-}

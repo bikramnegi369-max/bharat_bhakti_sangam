@@ -1,3 +1,5 @@
+import { CalenderEntryFormData } from "@/_schemas/calenderEntry.schema";
+
 export const CALENDER_MONTHS = [
   "January",
   "February",
@@ -111,4 +113,19 @@ export function formatCalenderEntryDate(value?: string | null): string {
     year: "numeric",
     timeZone: "UTC",
   }).format(new Date(Date.UTC(year, month - 1, day)));
+}
+
+export function normalizeCalenderEntryPayload(
+  data: CalenderEntryFormData,
+): CalenderEntryFormData {
+  const derivedMonth = deriveMonthFromDate(data.date);
+  const derivedDay = deriveDayFromDate(data.date);
+
+  return {
+    festival: data.festival.trim(),
+    image: data.image.trim(),
+    date: new Date(data.date).toISOString(),
+    month: derivedMonth || data.month.trim(),
+    day: derivedDay || data.day.trim(),
+  };
 }
