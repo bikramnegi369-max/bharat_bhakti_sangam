@@ -1,0 +1,21 @@
+import type { ReactNode } from "react";
+
+export type AccordionIndicatorVariant = "chevron" | "plus-minus";
+
+export type AccordionItem = {
+  title: string;
+  content: ReactNode;
+};
+
+export interface AccordionSectionProps {
+  items: AccordionItem[];
+  title?: string;
+  highlightWord?: string;
+  className?: string;
+  containerClassName?: string;
+  itemClassName?: string;
+  summaryClassName?: string;
+  contentClassName?: string;
+  defaultOpenIndex?: number | null;
+  indicatorVariant?: AccordionIndicatorVariant;
+}

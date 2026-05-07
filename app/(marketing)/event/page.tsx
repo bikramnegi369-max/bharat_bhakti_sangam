@@ -3,7 +3,7 @@ import AboutArtistSection from "@/_components/sections/Marketing/Event/AboutArti
 import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEventSection";
 import AboutArtistsDetailedSection from "@/_components/sections/Marketing/Event/AboutArtistsDetailedSection";
 import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSection";
-import FAQSection from "@/_components/sections/Marketing/FAQSection";
+import FAQSection from "@/_components/sections/Marketing/Event/FAQSection";
 // import { SponsorSection } from "@/_components/sections/Marketing/Event/SponsorSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
