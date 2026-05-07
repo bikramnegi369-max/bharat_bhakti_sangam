@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CTAButton } from "../../ui/CTAButton";
-import { getOptimizedImageUrl } from "@/_lib/helpers";
+import { cloudinaryImageLoader, isCloudinaryUrl } from "@/_lib/helpers";
 import { cinzel } from "@/_lib/fonts";
 
 type HeroProps = {
@@ -28,19 +28,22 @@ export default function Hero({
   secondaryCta,
   backgroundImage,
 }: HeroProps) {
+  const shouldUseCloudinaryLoader = isCloudinaryUrl(backgroundImage);
+
   return (
     <section className="relative h-[clamp(14.375rem,calc(6.339rem+40.179vw),42.5rem)] w-full flex items-center justify-center text-center text-white overflow-hidden my-auto">
       {backgroundImage && (
         <Image
-          src={getOptimizedImageUrl(backgroundImage, { width: 1200 })}
+          src={backgroundImage}
           alt=""
           fill
+          loader={shouldUseCloudinaryLoader ? cloudinaryImageLoader : undefined}
           priority
           fetchPriority="high"
           aria-hidden="true"
           sizes="100vw"
           className="object-cover object-center"
-          quality={60}
+          quality={50}
         />
       )}
 
