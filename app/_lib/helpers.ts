@@ -169,22 +169,46 @@ export function formatTicketPrice(price: number) {
   }).format(price);
 }
 
-type OptimizeOptions = {
-  width?: number;
-  quality?: number;
+export function isCloudinaryUrl(url?: string) {
+  return !!url && url.includes("res.cloudinary.com");
+}
+
+type CloudinaryImageOptions = {
+  width: number;
+  quality?: number | "auto";
 };
 
-export function getOptimizedImageUrl(
-  url?: string,
-  { width = 1200, quality = 70 }: OptimizeOptions = {},
+export function getCloudinaryImageUrl(
+  url: string,
+  { width, quality = "auto" }: CloudinaryImageOptions,
 ) {
-  if (!url) return "/fallback.jpg";
-
-  if (url.includes("res.cloudinary.com")) {
-    return url.replace("/upload/", `/upload/f_auto,q_${quality},w_${width}/`);
+  if (!isCloudinaryUrl(url)) {
+    return url;
   }
 
-  if (url.includes("?")) return url;
+  const qualityTransform =
+    quality === "auto" ? "q_auto" : `q_${Math.max(1, quality)}`;
 
-  return `${url}`;
+  return url.replace(
+    "/upload/",
+    `/upload/f_auto,${qualityTransform},w_${width}/`,
+  );
+}
+
+type CloudinarySrcSetOptions = {
+  widths: number[];
+  quality?: number | "auto";
+};
+
+export function getCloudinaryImageSrcSet(
+  url: string,
+  { widths, quality = "auto" }: CloudinarySrcSetOptions,
+) {
+  if (!isCloudinaryUrl(url)) {
+    return "";
+  }
+
+  return widths
+    .map((width) => `${getCloudinaryImageUrl(url, { width, quality })} ${width}w`)
+    .join(", ");
 }
