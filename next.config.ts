@@ -5,7 +5,7 @@ const securityHeaders = [
   {
     key: "Content-Security-Policy",
     value:
-      "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: res.cloudinary.com upload.wikimedia.org https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self' data:;",
+      "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://4frnn03l-8001.inc1.devtunnels.ms https://api.cloudinary.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: res.cloudinary.com upload.wikimedia.org https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self' data:;",
   },
   {
     key: "Strict-Transport-Security",
