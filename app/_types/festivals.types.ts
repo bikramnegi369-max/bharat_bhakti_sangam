@@ -3,4 +3,5 @@ export type FestivalSection = {
   description: string;
   images: string[];
   descriptionAnchor?: "left" | "right"; // default to "left"
+  alts?: string[];
 };

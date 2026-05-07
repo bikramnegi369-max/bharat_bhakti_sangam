@@ -57,6 +57,7 @@ export default function FamousFestivalsPage() {
             description={festival.description}
             images={festival.images}
             descriptionAnchor={festival.descriptionAnchor}
+            alts={festival.alts}
           />
         ))}
       </div>

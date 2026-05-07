@@ -30,80 +30,85 @@ export const festivalsData: FestivalSection[] = [
     description:
       "Diwali, the Festival of Lights, symbolizes the victory of light over darkness and good over evil. Celebrated with diyas, prayers, sweets, and joyous gatherings, it fills homes and hearts with happiness. This sacred festival honors prosperity, wisdom, and the divine blessings of Goddess Lakshmi and Lord Ganesha.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Diwali_Lights.jpg/960px-Diwali_Lights.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Diwali_Celebration.jpg/960px-Diwali_Celebration.jpg",
+      "/festivals/diwali/diwali-2.webp",
+      "/festivals/diwali/diwali-1.webp",
     ],
     descriptionAnchor: "left",
+    alts: ["Diwali diyas", "Diwali celebration"],
   },
   {
     title: "Holi",
     description:
       "Holi, the Festival of Colors, celebrates the arrival of spring and the triumph of good over evil. Marked by vibrant colors, music, dance, and joyful gatherings, it spreads love, happiness, and unity. Holi beautifully reflects the spirit of togetherness, devotion, and new beginnings.",
-    images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Holi_Celebration.jpg/960px-Holi_Celebration.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Holi_Festival.jpg/960px-Holi_Festival.jpg",
-    ],
+    images: ["/festivals/holi/holi-1.webp", "/festivals/holi/holi-2.webp"],
     descriptionAnchor: "right",
+    alts: ["Holi celebration", "Holi colors"],
   },
   {
     title: "Dussehra",
     description:
       "Dussehra celebrates the triumph of Lord Rama over Ravana, symbolizing the eternal victory of righteousness over evil. Marked by vibrant festivities, Ramlila performances, and the burning of Ravana effigies, it inspires courage, truth, and devotion. Dussehra reminds us to conquer negativity and embrace the path of Dharma.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Dussehra_Celebration.jpg/960px-Dussehra_Celebration.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Dussehra_Ramlila.jpg/960px-Dussehra_Ramlila.jpg",
+      "/festivals/dusshera/dussehra-1.webp",
+      "/festivals/dusshera/dussehra-2.webp",
     ],
     descriptionAnchor: "left",
+    alts: ["Ravana during Dussehra", "Dussehra celebration"],
   },
   {
     title: "Navratri",
     description:
       "Navratri is a sacred nine-night festival devoted to Goddess Durga and her divine forms. Celebrated with fasting, prayers, Garba, and Dandiya, it symbolizes the triumph of divine power over evil. Navratri fills hearts with devotion, strength, and the blessings of the Divine Mother.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Navratri_Celebration.jpg/960px-Navratri_Celebration.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Navratri_Garba.jpg/960px-Navratri_Garba.jpg",
+      "/festivals/navratri/navratri-2.webp",
+      "/festivals/navratri/navratri-1.webp",
     ],
     descriptionAnchor: "right",
+    alts: ["Navratri celebration", "Maa durga idol during Navratri"],
   },
   {
     title: "Ganesh Chaturthi",
     description:
       "Ganesh Chaturthi celebrates the birth of Lord Ganesha, the remover of obstacles and the god of wisdom and prosperity. Devotees welcome Bappa into their homes with devotion, offering prayers, modaks, and performing aartis with great enthusiasm. This vibrant festival symbolizes new beginnings, success, and the power of faith, ending with the heartfelt visarjan that reflects the cycle of life and devotion.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Ganesh_Chaturthi.jpg/960px-Ganesh_Chaturthi.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Ganesh_Chaturthi_Devotees.jpg/960px-Ganesh_Chaturthi_Devotees.jpg",
+      "/festivals/ganesh-chaturthi/ganesh-chaturthi-1.webp",
+      "/festivals/ganesh-chaturthi/ganesh-chaturthi-2.webp",
     ],
     descriptionAnchor: "left",
+    alts: ["Ganesh Chaturthi celebration", "Lord Ganesha"],
   },
   {
     title: "Janmashtami",
     description:
       "Janmashtami marks the divine birth of Lord Krishna, the embodiment of love, wisdom, and dharma. Celebrated with fasting, midnight prayers, bhajans, and joyful dahi handi events, it fills hearts with devotion and happiness. This sacred festival reminds us of Krishna’s teachings of righteousness, compassion, and the path of divine love.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Janmashtami_Celebration.jpg/960px-Janmashtami_Celebration.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Janmashtami_Krishna.jpg/960px-Janmashtami_Krishna.jpg",
+      "/festivals/janmashtami/janmashtami-1.webp",
+      "/festivals/janmashtami/janmashtami-2.webp",
     ],
     descriptionAnchor: "right",
+    alts: ["Janmashtami celebration", "Lord Krishna"],
   },
   {
     title: "Raksha Bandhan",
     description:
       "Raksha Bandhan celebrates the sacred bond of love and protection between brothers and sisters. On this auspicious day, sisters tie a rakhi on their brothers’ wrists, praying for their well-being, while brothers vow to protect them. Filled with love, gifts, and blessings, this festival beautifully reflects trust, care, and lifelong companionship.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Raksha_Bandhan.jpg/960px-Raksha_Bandhan.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Raksha_Bandhan_Siblings.jpg/960px-Raksha_Bandhan_Siblings.jpg",
+      "/festivals/raksha-bandhan/raksha-bandhan-1.webp",
+      "/festivals/raksha-bandhan/raksha-bandhan-2.webp",
     ],
     descriptionAnchor: "left",
+    alts: ["Raksha Bandhan celebration", "Sisters tying rakhi"],
   },
   {
     title: "Radha Ashtami",
     description:
       "Radha Ashtami marks the divine appearance of Goddess Radha, the embodiment of pure love and devotion. Celebrated with prayers, kirtans, and devotion to Radha-Krishna, it fills hearts with divine bliss and spiritual joy. This sacred day symbolizes selfless love, Bhakti, and the eternal bond between Radha and Lord Krishna.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Radha_Ashtami.jpg/960px-Radha_Ashtami.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Radha_Krishna.jpg/960px-Radha_Krishna.jpg",
+      "/festivals/radha-ashtami/radha-ashtmi-1.webp",
+      "/festivals/radha-ashtami/radha-ashtmi-2.webp",
     ],
     descriptionAnchor: "right",
+    alts: ["Radha Ashtami celebration", "Radha and Krishna"],
   },
   {
     title: "Dhanteras",
@@ -150,9 +155,10 @@ export const festivalsData: FestivalSection[] = [
     description:
       "Chhath Puja is a deeply revered festival dedicated to Surya Dev and Chhathi Maiya. Celebrated with rigorous fasting, holy river rituals, and offering arghya to the rising and setting sun, it reflects purity, discipline, and gratitude. This sacred observance symbolizes devotion, well-being, and harmony with nature.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Chhath_Puja.jpg/960px-Chhath_Puja.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Chhath_Puja_Ritual.jpg/960px-Chhath_Puja_Ritual.jpg",
+      "/festivals/chhath-puja/chhath-puja-1.webp",
+      "/festivals/chhath-puja/chhath-puja-2.webp",
     ],
     descriptionAnchor: "left",
+    alts: ["Chhath Puja ritual", "Chhath Puja celebration"],
   },
 ];
