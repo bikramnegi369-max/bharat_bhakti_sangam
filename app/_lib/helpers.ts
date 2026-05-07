@@ -175,30 +175,40 @@ export function isCloudinaryUrl(url?: string) {
 
 type CloudinaryImageOptions = {
   width: number;
-  quality?: number;
+  quality?: number | "auto";
 };
 
 export function getCloudinaryImageUrl(
   url: string,
-  { width, quality = 50 }: CloudinaryImageOptions,
+  { width, quality = "auto" }: CloudinaryImageOptions,
 ) {
   if (!isCloudinaryUrl(url)) {
     return url;
   }
 
-  return url.replace("/upload/", `/upload/f_auto,q_${quality},w_${width}/`);
+  const qualityTransform =
+    quality === "auto" ? "q_auto" : `q_${Math.max(1, quality)}`;
+
+  return url.replace(
+    "/upload/",
+    `/upload/f_auto,${qualityTransform},w_${width}/`,
+  );
 }
 
-type CloudinaryImageLoaderProps = {
-  src: string;
-  width: number;
-  quality?: number;
+type CloudinarySrcSetOptions = {
+  widths: number[];
+  quality?: number | "auto";
 };
 
-export function cloudinaryImageLoader({
-  src,
-  width,
-  quality,
-}: CloudinaryImageLoaderProps) {
-  return getCloudinaryImageUrl(src, { width, quality });
+export function getCloudinaryImageSrcSet(
+  url: string,
+  { widths, quality = "auto" }: CloudinarySrcSetOptions,
+) {
+  if (!isCloudinaryUrl(url)) {
+    return "";
+  }
+
+  return widths
+    .map((width) => `${getCloudinaryImageUrl(url, { width, quality })} ${width}w`)
+    .join(", ");
 }
