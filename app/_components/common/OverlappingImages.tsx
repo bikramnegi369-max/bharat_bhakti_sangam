@@ -21,7 +21,7 @@ export default function OverlappingImages({
 
   return (
     /* Fixed dimensions → zero CLS */
-    <div className="relative h-52 sm:h-64 w-full max-w-[18rem] shrink-0 mx-auto lg:mx-0">
+    <div className="relative h-52 sm:h-72 w-full max-w-[20rem] shrink-0 mx-auto lg:mx-0">
       {/* Back image — sits behind */}
       <div
         className={[
@@ -31,7 +31,7 @@ export default function OverlappingImages({
       >
         <Image
           src={images[0]}
-          alt={alts[0] ?? "Temple image"}
+          alt={alts[0] ?? "image"}
           fill
           sizes="(max-width: 640px) 176px, 208px"
           quality={80}
@@ -50,7 +50,7 @@ export default function OverlappingImages({
         >
           <Image
             src={images[1]}
-            alt={alts[1] ?? "Temple image"}
+            alt={alts[1] ?? "image"}
             fill
             sizes="(max-width: 640px) 144px, 176px"
             quality={80}
