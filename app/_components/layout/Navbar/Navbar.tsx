@@ -15,8 +15,7 @@ export default function Navbar() {
             alt="Bharat Bhakti Sangam Logo"
             width={168}
             height={168}
-            priority
-            fetchPriority="high"
+            loading="eager"
             className="cursor-pointer h-[clamp(4.375rem,calc(4.196rem+0.893vw),5rem)] w-[clamp(4.375rem,calc(4.196rem+0.893vw),5rem)] object-contain"
           />
         </Link>

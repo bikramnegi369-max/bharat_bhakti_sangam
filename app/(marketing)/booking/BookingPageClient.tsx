@@ -1,7 +1,7 @@
 "use client";
 
 import Hero from "@/_components/sections/Marketing/Hero";
-import { OrderSummary } from "@/_features/bookings/components/OrderSummary";
+// import { OrderSummary } from "@/_features/bookings/components/OrderSummary";
 import { useBookingForm } from "@/_hooks/useBookingForm";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useMemo } from "react";

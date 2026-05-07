@@ -55,7 +55,7 @@ const nextConfig: NextConfig = {
         hostname: "upload.wikimedia.org",
       },
     ],
-    qualities: [25, 50, 60, 65, 75],
+    qualities: [25, 50, 60, 65, 75, 80, 85, 90, 95, 100],
   },
   compress: true,
 };

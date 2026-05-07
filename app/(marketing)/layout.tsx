@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 };
 
 const Footer = dynamic(() => import("@/_components/layout/Footer/Footer"));
-const FloatingStack = dynamic(
-  () => import("@/_components/common/Floating/FloatingStack"),
-);
+// const FloatingStack = dynamic(
+//   () => import("@/_components/common/Floating/FloatingStack"),
+// );
 
 export default function MarketingLayout({
   children,
