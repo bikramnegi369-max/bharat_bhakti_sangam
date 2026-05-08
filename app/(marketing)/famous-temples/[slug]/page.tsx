@@ -32,9 +32,21 @@ export async function generateMetadata({
   return {
     title: `${temple.name} | Famous Temples of India`,
     description: metaDescription,
+    keywords: [
+      temple.name,
+      "Famous Temples of India",
+      "Hindu Temples",
+      "Spiritual Sites",
+      "Indian Heritage",
+    ],
+    alternates: {
+      canonical: `/famous-temples/${slug}`,
+    },
     openGraph: {
       title: temple.name,
       description: metaDescription,
+      url: `/famous-temples/${slug}`,
+      type: "article",
       images: [
         {
           url: temple.heroImage,
@@ -43,6 +55,12 @@ export async function generateMetadata({
           alt: temple.name,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${temple.name} | Famous Temples of India`,
+      description: metaDescription,
+      images: [temple.heroImage],
     },
     // JSON-LD for Google rich results (TouristAttraction schema)
     other: {

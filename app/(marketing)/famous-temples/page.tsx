@@ -4,20 +4,12 @@ import Carousel from "@/_components/ui/Carousel/Carousel";
 import { famousTemplesCarousel } from "@/_lib/constants/carousal.constants";
 import { templesFAQs } from "@/_lib/constants/temples.constants";
 import { cinzel } from "@/_lib/fonts";
+import { createPageMetadataFromConfig } from "@/_lib/seo";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static"; // pre-render at build, serve from CDN
 
-export const metadata: Metadata = {
-  title: "Famous Temples of India | Sacred Heritage Sites",
-  description:
-    "Explore India's most revered temples — Kedarnath, Badrinath, Tirupati Balaji, Meenakshi, and more. Timings, entry fees, and best time to visit.",
-  openGraph: {
-    title: "Famous Temples of India",
-    description: "Discover sacred temples across India.",
-    images: [{ url: "/og/famous-temples.jpg", width: 1200, height: 630 }],
-  },
-};
+export const metadata: Metadata = createPageMetadataFromConfig("famousTemples");
 
 export default function FamousTemplesPage() {
   return (
@@ -25,10 +17,6 @@ export default function FamousTemplesPage() {
       {/* ── Skip link: accessibility for keyboard/screen-reader users ── */}
 
       <a
-        aria-label="Skip to temple list"
-        aria-hidden="true"
-        tabIndex={-1}
-        role="button"
         href="#temple-list"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-amber-500 text-white px-4 py-2 rounded-lg z-50"
       >

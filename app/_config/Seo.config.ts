@@ -268,6 +268,37 @@ export const _seoConfig = {
       " bharat bhakti sangam terms and conditions",
     ],
   },
+  famousTemples: {
+    path: "/famous-temples",
+    image: "/og/famous-temples.jpg",
+    title: "Famous Temples of India | Sacred Heritage Sites",
+    description:
+      "Explore India's most revered temples — Kedarnath, Badrinath, Tirupati Balaji, Meenakshi, and more. Timings, entry fees, and best time to visit.",
+    keywords: [
+      "Famous Temples of India",
+      "Hindu Temples",
+      "Kedarnath",
+      "Badrinath",
+      "Spiritual Sites",
+      "Indian Heritage",
+      "Tirupati Balaji",
+      "Meenakshi Temple",
+      "Vaishno Devi",
+      "Shirdi Sai Baba",
+      "Amarnath Yatra",
+      "Golden Temple",
+      "Sri Jagannath Puri",
+      "Ramanathaswamy Temple",
+      "Badrinath Yatra",
+      "Kedarnath Yatra",
+      "Vaishno Devi Yatra",
+      "Shirdi Sai Baba Yatra",
+      "Amarnath Yatra",
+      "Golden Temple Yatra",
+      "Sri Jagannath Puri Yatra",
+      "Ramanathaswamy Temple Yatra",
+    ],
+  },
 } satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;
