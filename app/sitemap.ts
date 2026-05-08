@@ -20,14 +20,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       path: "/about",
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
       images: [`${siteConfig.url}/about_hero.jpg`],
     },
     {
       path: "/contact",
       changeFrequency: "monthly",
-      priority: 0.65,
+      priority: 0.8,
       images: [`${siteConfig.url}${siteConfig.ogImage}`],
+    },
+    {
+      path: "/feedback",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      path: "/privacy-policy",
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      path: "/terms-and-conditions",
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
   ];
 
@@ -38,24 +53,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       : new Date(event.date);
     const eventImage = getAbsoluteEventImageUrl(event);
 
-    publicRoutes.splice(
-      1,
-      0,
-      {
-        path: "/event",
-        changeFrequency: "weekly",
-        priority: 0.95,
-        images: [eventImage],
-        lastModified: eventLastModified,
-      },
-      {
-        path: "/booking",
-        changeFrequency: "weekly",
-        priority: 0.9,
-        images: [eventImage],
-        lastModified: eventLastModified,
-      },
-    );
+    // Insert /event at index 1 to match requested order
+    publicRoutes.splice(1, 0, {
+      path: "/event",
+      changeFrequency: "weekly",
+      priority: 0.8,
+      images: [eventImage],
+      lastModified: eventLastModified,
+    });
+
+    // Insert /booking at index 5 (after feedback) to match requested order
+    publicRoutes.splice(5, 0, {
+      path: "/booking",
+      changeFrequency: "weekly",
+      priority: 0.8,
+      images: [eventImage],
+      lastModified: eventLastModified,
+    });
   } catch (error) {
     console.error("[sitemap] Failed to load latest event", error);
   }
