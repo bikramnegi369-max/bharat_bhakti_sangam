@@ -63,14 +63,11 @@ export async function deleteImageByPublicId(
   publicId: string,
 ): Promise<APIResponse> {
   try {
-    const res = await authorizedAdminRequest(
-      `${apiRoutes.preSignedUrl}/delete`,
-      {
-        method: "POST",
-        body: JSON.stringify({ public_id: publicId }),
-        headers: { "Content-Type": "application/json" },
-      },
-    );
+    const res = await authorizedAdminRequest(`${apiRoutes.preSignedUrl}`, {
+      method: "DELETE",
+      body: JSON.stringify({ public_id: publicId }),
+      headers: { "Content-Type": "application/json" },
+    });
 
     const payload = await getResponsePayload(res);
 
