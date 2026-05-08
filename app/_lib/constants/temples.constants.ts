@@ -457,6 +457,143 @@ export const temples: Temples = [
     entryFee:
       "Free entry for devotees, Special darshan passes available (paid)",
   },
+    {
+      slug: "sanchi-stupa",
+      name: "Sanchi Stupa",
+      heroImage:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/1280px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
+      description:
+        "Sanchi Stupa is one of the oldest and most significant Buddhist monuments in India, symbolizing peace, wisdom, and spiritual enlightenment. Famous for its grand dome and beautifully carved gateways, it reflects the rich heritage of Buddhist art and architecture. This UNESCO World Heritage Site attracts pilgrims, historians, and travelers from around the world.",
+      descriptionImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/2560px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/North_Gateway%2C_Sanchi.jpg/2560px-North_Gateway%2C_Sanchi.jpg",
+      ],
+      features: {
+        title: "Features of Sanchi Stupa",
+        featuresList: [
+          "One of the oldest Buddhist stupas in India",
+          "Magnificent stone gateways (Toranas) with intricate carvings",
+          "UNESCO World Heritage Site",
+          "Symbol of peace, meditation, and Buddhist teachings",
+        ],
+        featuresImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/North_Gateway%2C_Sanchi.jpg/2560px-North_Gateway%2C_Sanchi.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Sanchi_Stupa_No_3_Gateway.jpg/2560px-Sanchi_Stupa_No_3_Gateway.jpg",
+        ],
+      },
+      location: {
+        title: "Sanchi Stupa Location",
+        description:
+          "Located in Sanchi, Raisen district, Madhya Pradesh, India, Around 46 km from Bhopal",
+        locationImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/2560px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sanchi_Stupa_Madhya_Pradesh_11.jpg/2560px-Sanchi_Stupa_Madhya_Pradesh_11.jpg",
+        ],
+      },
+      history: {
+        title: "History of Sanchi Stupa",
+        description:
+          "The Great Stupa at Sanchi was originally commissioned by Emperor Ashoka in the 3rd century BCE after embracing Buddhism. Over time, it was expanded and decorated by later rulers and devotees. The site became a major center of Buddhist learning and spirituality, preserving centuries of India&rsquo;s cultural and religious heritage.",
+        historyImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sanchi_Stupa_Madhya_Pradesh_11.jpg/2560px-Sanchi_Stupa_Madhya_Pradesh_11.jpg",
+        ],
+      },
+      bestTimeToVisit: "October to March",
+      timings: "Open: 8:30 AM – 5:30 PM (Daily)",
+      entryFee:
+        "Indians: Approx. ₹40, Foreign Tourists: Approx. ₹600, Free entry for children below 15 years",
+    },
+    {
+      slug: "ramanathaswamy-temple",
+      name: "Ramanathaswamy Temple",
+      heroImage:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/1280px-Rameswaram_Temple_Corridor.jpg",
+      description:
+        "Ramanathaswamy Temple is one of the holiest temples dedicated to Lord Shiva and a sacred part of the Char Dham Yatra. Located in Rameswaram, it is renowned for its magnificent corridors, towering gopurams, and deep spiritual significance. The temple beautifully reflects devotion, architecture, and the legacy of Lord Rama.",
+      descriptionImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
+      ],
+      features: {
+        title: "Features of Ramanathaswamy Temple",
+        featuresList: [
+          "One of the sacred 12 Jyotirlingas of Lord Shiva",
+          "Part of the revered Char Dham pilgrimage",
+          "Famous for the world&rsquo;s longest temple corridor",
+          "Sacred wells (Theerthams) used for ritual purification",
+        ],
+        featuresImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Corridor_Rameswaram.jpg/2560px-Corridor_Rameswaram.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
+        ],
+      },
+      location: {
+        title: "Ramanathaswamy Temple Location",
+        description:
+          "Situated in Rameswaram, Tamil Nadu, India, Connected to mainland India via the famous Pamban Bridge, Easily accessible via road and rail",
+        locationImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
+        ],
+      },
+      history: {
+        title: "History of Ramanathaswamy Temple",
+        description:
+          "According to Hindu tradition, Lord Rama worshipped Lord Shiva here after defeating Ravana in Lanka. It is believed that Rama established the Shivling to seek blessings and purification. The temple was expanded over centuries by various South Indian dynasties, making it one of India&rsquo;s most important spiritual landmarks.",
+        historyImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
+        ],
+      },
+      bestTimeToVisit: "October to April",
+      timings: "Open: 5:00 AM – 1:00 PM, Reopens: 3:00 PM – 9:00 PM",
+      entryFee:
+        "Free entry for devotees, Special darshan and ritual charges may apply",
+    },
+    {
+      slug: "yamunotri-temple",
+      name: "Yamunotri Temple",
+      heroImage:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/1280px-Yamunotri_Temple_Uttarakhand.jpg",
+      description:
+        "Yamunotri Temple is a sacred shrine dedicated to Goddess Yamuna and marks the origin of the holy Yamuna River. Nestled in the Garhwal Himalayas, it is one of the revered Char Dham pilgrimage sites. Surrounded by snow-covered peaks and natural hot springs, the temple offers a deeply spiritual and serene experience.",
+      descriptionImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
+      ],
+      features: {
+        title: "Features of Yamunotri Temple",
+        featuresList: [
+          "Source shrine of the sacred Yamuna River",
+          "Part of the holy Char Dham Yatra",
+          "Famous Surya Kund hot springs near the temple",
+          "Scenic Himalayan trekking pilgrimage",
+        ],
+        featuresImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
+        ],
+      },
+      location: {
+        title: "Yamunotri Temple Location",
+        description:
+          "Located in Uttarkashi district, Uttarakhand, India, Around 220 km from Dehradun, Accessible via road till Janki Chatti, followed by a trek",
+        locationImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
+        ],
+      },
+      history: {
+        title: "History of Yamunotri Temple",
+        description:
+          "The Yamunotri Temple was originally built by Maharaja Pratap Shah of Tehri Garhwal and later renovated multiple times due to harsh weather conditions. According to Hindu beliefs, Goddess Yamuna is the daughter of Surya Dev and sister of Yama, the God of Death. Worshipping here is believed to protect devotees from untimely death and bring purity and blessings.",
+        historyImages: [
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
+        ],
+      },
+      bestTimeToVisit: "May to June and September to October",
+      timings: "Open: 6:00 AM – 8:00 PM (Daily)",
+      entryFee: "Free entry for all devotees",
+    },
 ];
 
 export const templesFAQs: FAQItem[] = [
