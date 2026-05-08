@@ -10,12 +10,12 @@ export function isCalenderEntry(value: unknown): value is CalenderEntry {
     typeof value._id === "string" &&
     typeof value.festival === "string" &&
     typeof value.image === "string" &&
-    typeof value.month === "string" &&
-    typeof value.date === "string" &&
-    (typeof value.createdAt === "undefined" ||
-      typeof value.createdAt === "string") &&
-    (typeof value.updatedAt === "undefined" ||
-      typeof value.updatedAt === "string")
+    // typeof value.month === "string" &&
+    typeof value.date === "string"
+    // (typeof value.createdAt === "undefined" ||
+    //   typeof value.createdAt === "string") &&
+    // (typeof value.updatedAt === "undefined" ||
+    //   typeof value.updatedAt === "string")
   );
 }
 

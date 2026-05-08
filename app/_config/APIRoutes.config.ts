@@ -10,7 +10,7 @@ const SPONSOR_BASE = "/sponsor";
 const FEEDBACK_BASE = "/feedback";
 const BOOKING_BASE = "/booking";
 const BOOKING_TYPE_BASE = "/admin/booking-type";
-const CALENDER_BASE = "/admin/calender";
+const CALENDER_BASE = "/calender";
 
 export const apiRoutes = {
   event: EVENT_BASE,
