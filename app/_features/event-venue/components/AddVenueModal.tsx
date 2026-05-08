@@ -83,7 +83,7 @@ export default function AddVenueModal({
 
   return (
     <div className="relative h-full w-full pointer-events-auto flex flex-col overflow-hidden bg-white rounded-xl min-h-96">
-      <h2 className="h-12 bg-black text-primary text-xl flex items-center p-8">
+      <h2 className="h-12 bg-black text-primary text-2xl font-semibold flex items-center p-8">
         {isEditMode ? "Edit Venue" : "Add New Venue"}
       </h2>
 
