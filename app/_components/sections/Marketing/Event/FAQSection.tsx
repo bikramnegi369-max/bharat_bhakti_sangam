@@ -16,7 +16,7 @@ export default function FAQSection({
     {
       title: "Description",
       content:
-        "Experience divine bhajans blended with modern live concert energy.",
+        "Experience an unforgettable evening of Bhakti with live devotional bands, soulful dual singers, energetic anchoring, and divine aarti celebrations. This free-ticket spiritual gathering by Bharat Bhakti Sangam blends devotion, music, and community into one uplifting experience filled with bhajans, kirtan, and positive energy.",
     },
     {
       title: "Location",
@@ -25,17 +25,17 @@ export default function FAQSection({
     {
       title: "Important Note",
       content:
-        "Entry is subject to venue rules. Please arrive 30 minutes early.",
+        "Please carry your valid event ticket (digital or printed) along with a government-issued ID for smooth entry verification. Guests are requested to arrive at least 30 minutes early and maintain the devotional atmosphere throughout the event.",
     },
     {
       title: " Event Timeline",
       content:
-        "Please arrive before the event begins for a smooth entry experience.",
+        "The event will begin from 5:00 PM onwards with devotional music, followed by live bhajan performances, dual singer sessions, anchoring, and divine maha aarti. Devotees are requested to arrive at least 30 minutes before the event timing for smooth entry and seating arrangements. The spiritual celebration will continue throughout the evening with bhakti, kirtan, and community experiences.",
     },
     {
       title: "Photography & Video",
       content:
-        "Photography and reels are allowed respectfully during the event.",
+        "Photography and videography are allowed during the event. Guests are welcome to capture devotional moments and share their experiences respectfully while maintaining the spiritual atmosphere of the celebration.",
     },
   ],
 }: FAQSectionProps) {
