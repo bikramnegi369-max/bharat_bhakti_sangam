@@ -27,8 +27,8 @@ export default function BookingSection({
   venueAddress,
   ticketTypes,
 }: BookingSectionProps) {
-  const minPrice =
-    ticketTypes.length > 0 ? Math.min(...ticketTypes.map((t) => t.price)) : 0;
+  // const minPrice =
+  //   ticketTypes.length > 0 ? Math.min(...ticketTypes.map((t) => t.price)) : 0;
 
   return (
     <section className="py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
@@ -89,25 +89,25 @@ export default function BookingSection({
           <div className="my-3 lg:my-6 border-t border border-heading/20" />
 
           {/* SECTION 2 */}
-          <div className="text-center flex flex-col justify-between">
+          {/* <div className="text-center flex flex-col justify-between">
             <p
               className={`text-heading text-[clamp(1.125rem,calc(0.946rem+0.893vw),1.75rem)] font-bold tracking-widest ${cinzel.className}`}
             >
               {ticketTypes.length > 1
                 ? "Passes Starting From"
                 : `${ticketTypes[0]?.name.toUpperCase() || "VVIP"} PASS`}
-            </p>
+            </p> */}
 
-            {/* <p
+          {/* <p
               className={`text-[clamp(1.063rem,calc(0.741rem+1.607vw),2.188rem)] font-bold text-primary mt-2 ${cinzel.className}`}
             >
               ₹{minPrice}
             </p> */}
 
-            <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para/60 mt-1 font-bold">
+          {/* <p className="text-[clamp(0.625rem,calc(0.536rem+0.446vw),0.938rem)] text-para/60 mt-1 font-bold">
               *Includes Premium High Tea & Snacks
             </p>
-          </div>
+          </div> */}
 
           {/* CTA */}
           <div className="flex justify-center mt-4 px-4">
@@ -120,7 +120,7 @@ export default function BookingSection({
         </div>
 
         {/* What to Expect */}
-        <div className="mt-5 lg:mt-10 bg-primary_light border-3 border-primary rounded-lg p-6 lg:p-8 w-full max-w-[22.813rem] lg:max-w-none flex flex-col justify-between">
+        <div className="mt-5 lg:mt-10  rounded-lg p-6 lg:p-8 w-full max-w-[22.813rem] lg:max-w-none flex flex-col justify-between">
           <h3
             className={`text-[clamp(1rem,calc(0.821rem+0.893vw),1.625rem)] text-heading font-bold mb-4 ${cinzel.className}`}
           >
