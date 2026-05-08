@@ -1,5 +1,6 @@
 import { cinzel } from "@/_lib/fonts";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function WelcomeSection() {
   return (
@@ -20,16 +21,18 @@ export default function WelcomeSection() {
 
           <p className="mt-6 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center">
             India&apos;s most energetic devotional music experience where
-            traditional
-            bhajans, kirtans, and mantra chanting blend with modern beats and
-            live performances.
+            traditional bhajans, kirtans, and mantra chanting blend with modern
+            beats and live performances.
           </p>
 
           <p className="mt-4 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center">
             Book your{" "}
-            <span className="font-semibold text-black">
-              Bhajan Clubbing tickets
-            </span>{" "}
+            <Link
+              href={"/booking"}
+              className="font-semibold text-black underline hover:text-primary transition"
+            >
+              Bhajan Clubbing Tickets
+            </Link>{" "}
             , join immersive spiritual EDM nights, and experience devotion like
             never before.
           </p>
