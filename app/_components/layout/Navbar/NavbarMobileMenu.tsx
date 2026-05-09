@@ -9,6 +9,8 @@ import clsx from "clsx";
 import { NAV_LINKS } from "@/_config/Navigation.config";
 import { routes } from "@/_config/Routes.config";
 import { CTAButton } from "../../ui/CTAButton";
+import { temples } from "@/_lib/constants/temples.constants";
+import MobileDropdown from "./MobileDropdown";
 
 export default function NavbarMobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,6 +75,22 @@ export default function NavbarMobileMenu() {
           {NAV_LINKS.map((link) => {
             const isActive =
               pathname === link.href || pathname.startsWith(link.href + "/");
+
+            if (link.href === "/famous-temples") {
+              return (
+                <MobileDropdown
+                  key={link.href}
+                  label={link.label}
+                  href={link.href}
+                  isActive={isActive}
+                  onCloseMenu={() => setIsOpen(false)}
+                  items={temples.map((t) => ({
+                    label: t.name,
+                    href: `/famous-temples/${t.slug}`,
+                  }))}
+                />
+              );
+            }
 
             return (
               <Link
