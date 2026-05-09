@@ -133,7 +133,7 @@ export default function NavDropdown({
               {/* Top shimmer line */}
               <div className="absolute top-0 left-4 right-4 h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
-              <div className="py-2">
+              <div className="py-2" key={isOpen ? "open" : "closed"}>
                 {items.map((item, i) => (
                   <Link
                     key={item.href}
