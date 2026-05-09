@@ -13,7 +13,7 @@ export const metadata: Metadata = createPageMetadataFromConfig("famousTemples");
 
 export default function FamousTemplesPage() {
   return (
-    <main>
+    <div>
       {/* ── Skip link: accessibility for keyboard/screen-reader users ── */}
 
       <a
@@ -26,7 +26,7 @@ export default function FamousTemplesPage() {
       <Carousel slides={famousTemplesCarousel} />
 
       {/* ── Hero header ── */}
-      <header className="text-center py-12 px-4 max-w-2xl mx-auto">
+      <div className="text-center py-12 px-4 max-w-2xl mx-auto">
         <h1
           className={`${cinzel.className} text-4xl sm:text-5xl font-bold text-stone-800 mb-6 leading-tight`}
         >
@@ -45,13 +45,13 @@ export default function FamousTemplesPage() {
           enduring symbols of Sanatana Dharma, faith, and India&rsquo;s vibrant
           spiritual legacy.
         </p>
-      </header>
+      </div>
 
       {/* ── Temple grid ── */}
       <div id="temple-list">
         <TempleGrid />
       </div>
       <FAQSection title="Frequently Asked Questions" items={templesFAQs} />
-    </main>
+    </div>
   );
 }
