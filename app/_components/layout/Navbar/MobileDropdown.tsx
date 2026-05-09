@@ -23,14 +23,16 @@ export default function MobileDropdown({
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="space-y-1">
-      <div className="flex w-full items-center justify-between py-1">
+    <div className="w-full">
+      <div className="flex items-center justify-between group">
         <Link
           href={href}
           onClick={onCloseMenu}
           className={clsx(
-            "flex-1 py-1 transition-colors text-[18px]",
-            isActive ? "text-primary font-semibold" : "text-para",
+            "flex-1 transition-colors",
+            isActive
+              ? "text-primary font-semibold"
+              : "text-para group-hover:text-heading",
           )}
         >
           {label}
@@ -39,7 +41,7 @@ export default function MobileDropdown({
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="p-2 text-para/50 hover:text-primary transition-colors"
+          className="pl-4 py-1 text-para/50 hover:text-primary transition-colors"
           aria-label={isExpanded ? `Collapse ${label}` : `Expand ${label}`}
         >
           <ChevronDown
@@ -55,7 +57,7 @@ export default function MobileDropdown({
       <div
         className={clsx(
           "overflow-hidden transition-all duration-300 ease-in-out pl-4 space-y-2 border-l border-primary/20",
-          isExpanded ? "max-h-[500px] opacity-100 py-2" : "max-h-0 opacity-0",
+          isExpanded ? "max-h-125 opacity-100 py-2" : "max-h-0 opacity-0",
         )}
       >
         {items.map((item) => (
