@@ -6,6 +6,7 @@ import TempleIntroCard from "@/_components/sections/Marketing/temple/TempleIntro
 import TempleLocationSection from "@/_components/sections/Marketing/temple/TempleLocationSection";
 import TempleVisitorInfo from "@/_components/sections/Marketing/temple/TempleVisitorInfo";
 import { temples } from "@/_lib/constants/temples.constants";
+import { createPageMetadata } from "@/_lib/seo";
 import { getTempleBySlug } from "@/_lib/helpers/temples.helpers";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -26,12 +27,13 @@ export async function generateMetadata({
   const temple = getTempleBySlug(slug);
   if (!temple) return { title: "Temple Not Found" };
 
-  // Trim description to 160 chars for meta tag best practice
   const metaDescription = temple.description.slice(0, 160);
 
-  return {
-    title: `${temple.name} | Famous Temples of India`,
+  const metadata = createPageMetadata({
+    title: temple.name,
     description: metaDescription,
+    path: `/famous-temples/${slug}`,
+    image: temple.heroImage,
     keywords: [
       temple.name,
       "Famous Temples of India",
@@ -39,31 +41,12 @@ export async function generateMetadata({
       "Spiritual Sites",
       "Indian Heritage",
     ],
-    alternates: {
-      canonical: `/famous-temples/${slug}`,
-    },
-    openGraph: {
-      title: temple.name,
-      description: metaDescription,
-      url: `/famous-temples/${slug}`,
-      type: "article",
-      images: [
-        {
-          url: temple.heroImage,
-          width: 1200,
-          height: 630,
-          alt: temple.name,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${temple.name} | Famous Temples of India`,
-      description: metaDescription,
-      images: [temple.heroImage],
-    },
-    // JSON-LD for Google rich results (TouristAttraction schema)
+  });
+
+  return {
+    ...metadata,
     other: {
+      ...metadata.other,
       "application/ld+json": JSON.stringify({
         "@context": "https://schema.org",
         "@type": "TouristAttraction",
