@@ -90,34 +90,16 @@ export default async function TempleDetailPage({
 
   return (
     <>
-      {/* ────────────────────────────────────────────────────────────────────
-          Full-bleed hero — reuses your existing Hero component.
-          `priority` is handled inside Hero (fetchPriority="high") → max LCP.
-      ──────────────────────────────────────────────────────────────────── */}
       <Hero title={temple.name} backgroundImage={temple.heroImage} />
-
-      {/* ────────────────────────────────────────────────────────────────────
-          Constrained content wrapper.
-          px-4/px-6 on mobile, centred max-width on desktop.
-          Sections handle their own top border / vertical rhythm.
-      ──────────────────────────────────────────────────────────────────── */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Accessible breadcrumb */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <TempleBreadcrumb templeName={temple.name} />
 
-        {/* Amber intro card + description images */}
         <TempleIntroCard
           name={temple.name}
           description={temple.description}
           descriptionImages={temple.descriptionImages}
         />
 
-        {/* ── Three content sections ──────────────────────────────────────
-            Features  → text left  / images right  (desktop)
-            Location  → images left / text right   (desktop)
-            History   → text left  / images right  (desktop)
-            All three stack vertically on mobile.
-        ─────────────────────────────────────────────────────────────── */}
         <TempleFeaturesSection
           title={temple.features.title}
           featuresList={temple.features.featuresList}
@@ -136,14 +118,12 @@ export default async function TempleDetailPage({
           historyImages={temple.history.historyImages}
         />
 
-        {/* Visitor info: best time, timings, entry fee */}
         <TempleVisitorInfo
           bestTimeToVisit={temple.bestTimeToVisit}
           timings={temple.timings}
           entryFee={temple.entryFee}
         />
 
-        {/* Back navigation */}
         <div className="pb-14 pt-2">
           <Link
             href="/famous-temples"
@@ -152,7 +132,7 @@ export default async function TempleDetailPage({
             ← Back to All Temples
           </Link>
         </div>
-      </main>
+      </div>
     </>
   );
 }
