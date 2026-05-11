@@ -3,22 +3,47 @@ import { CarouselSlideData } from "@/_types/Carousel.types";
 export const famousTemplesCarousel: CarouselSlideData[] = [
   {
     id: 1,
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Konark_Sun_Temple_Puri_district%2C_Odisha%2C_India_1.jpg/960px-Konark_Sun_Temple_Puri_district%2C_Odisha%2C_India_1.jpg",
-    alt: "Konark Sun Temple",
+    src: "/temples-carousal/1.webp",
+    alt: "Bake Bihari Temple",
   },
   {
     id: 2,
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Tirumala_Sanctum_Sanctorum_09062015.JPG/960px-Tirumala_Sanctum_Sanctorum_09062015.JPG",
-    alt: "Tirumala Temple",
+    src: "/temples-carousal/2.webp",
+    alt: "kashivishwanath Temple",
   },
   {
     id: 3,
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Kailasanathar_temple%2C_Kanchipuram_%2814%29.jpg/960px-Kailasanathar_temple%2C_Kanchipuram_%2814%29.jpg",
-    alt: "Kailasanathar Temple",
+    src: "/temples-carousal/3.webp",
+    alt: "kedarnath Temple",
   },
   {
     id: 4,
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Golden_Temple_nighttime.jpg/960px-Golden_Temple_nighttime.jpg",
-    alt: "Golden Temple",
+    src: "/temples-carousal/4.webp",
+    alt: "Badrinath Temple",
+  },
+  {
+    id: 5,
+    src: "/temples-carousal/5.webp",
+    alt: "Ayodhya Ram Temple",
+  },
+  {
+    id: 6,
+    src: "/temples-carousal/6.webp",
+    alt: "Tirupati balaji Temple",
+  },
+  {
+    id: 7,
+    src: "/temples-carousal/7.webp",
+    alt: "Kainchi Dham Temple",
+  },
+  {
+    id: 8,
+    src: "/temples-carousal/8.webp",
+    alt: "Somnath Temple",
+  },
+  {
+    id: 9,
+    src: "/temples-carousal/9.webp",
+    alt: "Vaishno Devi Temple",
   },
 ];
