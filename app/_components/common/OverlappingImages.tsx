@@ -52,7 +52,7 @@ export default function OverlappingImages({
             src={images[1]}
             alt={alts[1] ?? "image"}
             fill
-            sizes="(max-width: 640px) 144px, 176px"
+            sizes="(max-width: 640px) 176px, 208px"
             quality={80}
             className="object-cover"
           />
