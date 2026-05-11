@@ -15,7 +15,7 @@ export default function CarouselSlide({ src, alt, priority = false }: Props) {
             src={src}
             alt={alt ?? ""}
             fill
-            className="object-cover scale-110"
+            className="object-cover object-center scale-110"
             priority={priority}
             sizes="100vw"
             quality={75}
