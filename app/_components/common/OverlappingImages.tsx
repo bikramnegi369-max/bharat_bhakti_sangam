@@ -25,7 +25,7 @@ export default function OverlappingImages({
       {/* Back image — sits behind */}
       <div
         className={[
-          "absolute w-44 sm:w-52 h-36 sm:h-44 rounded-tl-4xl overflow-hidden shadow-lg",
+          "absolute w-44 sm:w-52 h-36 sm:h-44 rounded-tl-4xl overflow-hidden",
           isLeft ? "top-0 left-0" : "top-0 right-0",
         ].join(" ")}
       >
@@ -44,7 +44,7 @@ export default function OverlappingImages({
         <div
           className={[
             "absolute w-44 sm:w-52 h-36 sm:h-44 rounded-br-4xl overflow-hidden",
-            "shadow-xl border-2 border-secondary",
+            " border-2 border-secondary",
             isLeft ? "bottom-0 right-0" : "bottom-0 left-0",
           ].join(" ")}
         >
