@@ -83,7 +83,7 @@ export default function NavbarMobileMenu() {
 
         <nav
           aria-label="Mobile navigation"
-          className="flex-1 p-4 space-y-3 overflow-y-auto custom-scrollbar"
+          className="flex-1 p-4 space-y-3 overflow-y-auto"
         >
           {NAV_LINKS.map((link) => {
             const isActive =
