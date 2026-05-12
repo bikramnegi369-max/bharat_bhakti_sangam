@@ -101,8 +101,8 @@ export const temples: Temples = [
     description:
       "Somnath Temple is one of the twelve sacred Jyotirlingas of Lord Shiva and a powerful symbol of faith and resilience. Located on the shores of the Arabian Sea, it radiates divine energy and timeless devotion. The temple stands as a testimony to India&rsquo;s spiritual strength, having been rebuilt multiple times through history.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Somnath_temple_Gujarat.jpg/2560px-Somnath_temple_Gujarat.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Somnath_Temple_front_view.jpg/2560px-Somnath_Temple_front_view.jpg",
+      "/temples-images/somnath/description/somnath-desc-1.webp",
+      "/temples-images/somnath/description/somnath-desc-2.webp",
     ],
     features: {
       title: "Features of Somnath Temple",
