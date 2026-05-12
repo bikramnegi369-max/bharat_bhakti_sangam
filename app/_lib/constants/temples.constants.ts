@@ -5,13 +5,12 @@ export const temples: Temples = [
   {
     slug: "konark-sun-temple",
     name: "Konark Sun Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/5/57/Konark_Sun_Temple_Puri_district%2C_Odisha%2C_India_1.jpg",
+    heroImage: "/temples-images/konark-sun/konark-sun-hero.webp",
     description:
       "The Konark Sun Temple is a magnificent 13th-century temple dedicated to Surya (Sun God), designed as a grand stone chariot with intricately carved wheels and horses. A UNESCO World Heritage Site, it reflects the brilliance of ancient Indian architecture and devotion. The temple stands as a timeless symbol of art, science, and spirituality.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Konark_Sun_Temple_2010.jpg/2560px-Konark_Sun_Temple_2010.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Konark_Temple_entrance.jpg/2560px-Konark_Temple_entrance.jpg",
+      "/temples-images/konark-sun/description/konark-desc-1.webp",
+      "/temples-images/konark-sun/description/konark-desc-2.webp",
     ],
     features: {
       title: "Features of Konark Sun Temple",
@@ -22,8 +21,8 @@ export const temples: Temples = [
         "A masterpiece of Kalinga architecture and engineering",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Konark_Sun_Temple_2010.jpg/2560px-Konark_Sun_Temple_2010.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Konark_Temple_entrance.jpg/2560px-Konark_Temple_entrance.jpg",
+        "/temples-images/konark-sun/features/konark-feature-1.webp",
+        "/temples-images/konark-sun/features/konark-feature-2.webp",
       ],
     },
     location: {
@@ -31,8 +30,8 @@ export const temples: Temples = [
       description:
         "Situated in Konark town, Puri district, Odisha, India. Around 35 km from Puri and 65 km from Bhubaneswar",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Konark_Sun_Temple_2010.jpg/2560px-Konark_Sun_Temple_2010.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Konark_Temple_entrance.jpg/2560px-Konark_Temple_entrance.jpg",
+        "/temples-images/konark-sun/location/konark-location-1.webp",
+        "/temples-images/konark-sun/location/konark-location-2.webp",
       ],
     },
     history: {
@@ -40,8 +39,8 @@ export const temples: Temples = [
       description:
         "The Konark Sun Temple was built in the 13th century by King Narasimhadeva I of the Eastern Ganga Dynasty. It was constructed to honor the Sun God and showcase the kingdom&rsquo;s power and devotion. Over time, parts of the temple collapsed due to natural and historical factors, but its grandeur still stands strong, attracting devotees, historians, and travelers from across the world.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Konark_Sun_Temple_2010.jpg/2560px-Konark_Sun_Temple_2010.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Konark_Temple_entrance.jpg/2560px-Konark_Temple_entrance.jpg",
+        "/temples-images/konark-sun/history/konark-history-1.webp",
+        "/temples-images/konark-sun/history/konark-history-2.webp",
       ],
     },
     bestTimeToVisit: "October to March",
@@ -98,8 +97,7 @@ export const temples: Temples = [
   {
     slug: "somnath-temple",
     name: "Somnath Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Somnath_temple_Gujarat.jpg/2560px-Somnath_temple_Gujarat.jpg",
+    heroImage: "/temples-images/somnath/somnath_hero.webp",
     description:
       "Somnath Temple is one of the twelve sacred Jyotirlingas of Lord Shiva and a powerful symbol of faith and resilience. Located on the shores of the Arabian Sea, it radiates divine energy and timeless devotion. The temple stands as a testimony to India&rsquo;s spiritual strength, having been rebuilt multiple times through history.",
     descriptionImages: [
@@ -116,8 +114,8 @@ export const temples: Temples = [
         "Spiritual and historical significance",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Somnath_Temple_Shore.jpg/2560px-Somnath_Temple_Shore.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Somnath_Temple_front_view.jpg/2560px-Somnath_Temple_front_view.jpg",
+        "/temples-images/somnath/features/somnath-feature-1.webp",
+        "/temples-images/somnath/features/somnath-feature-2.webp",
       ],
     },
     location: {
@@ -125,8 +123,8 @@ export const temples: Temples = [
       description:
         "Situated in Prabhas Patan, near Veraval, Gujarat, India. Around 80 km from Junagadh, Well connected via road and rail (Veraval Railway Station nearby)",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Somnath_Temple_Shore.jpg/2560px-Somnath_Temple_Shore.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Somnath_Temple_front_view.jpg/2560px-Somnath_Temple_front_view.jpg",
+        "/temples-images/somnath/location/somnath-location-1.webp",
+        "/temples-images/somnath/location/somnath-location-2.webp",
       ],
     },
     history: {
@@ -134,7 +132,8 @@ export const temples: Temples = [
       description:
         "Somnath Temple is believed to have been originally built by the Moon God (Soma) and later reconstructed by various kings. It faced several invasions and destructions over centuries but was rebuilt each time, symbolizing unwavering faith and devotion. The present structure was reconstructed in 1951 under the guidance of Sardar Vallabhbhai Patel, restoring its divine glory.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/The_present_Somnath_Temple.jpg/2560px-The_present_Somnath_Temple.jpg",
+        "/temples-images/somnath/history/somnath-history-1.webp",
+        "/temples-images/somnath/history/somnath-history-2.webp",
       ],
     },
     bestTimeToVisit: "October to March",
@@ -189,13 +188,12 @@ export const temples: Temples = [
   {
     slug: "mata-vaishno-devi-cave",
     name: "Mata Vaishno Devi Cave",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/1280px-Vaishno_Devi_Bhawan.jpg",
+    heroImage: "/temples-images/vaishnodevi/vaishnodevi-hero.webp",
     description:
       "Mata Vaishno Devi Temple is one of the most sacred pilgrimage sites dedicated to Goddess Vaishno Devi. Nestled in the Trikuta Mountains, it attracts millions of devotees seeking blessings, strength, and spiritual fulfillment. The divine journey to the holy cave is a powerful experience of faith and devotion.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vaishno_Devi_Katra_Road.jpg/2560px-Vaishno_Devi_Katra_Road.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/2560px-Vaishno_Devi_Bhawan.jpg",
+      "/temples-images/vaishnodevi/description/vaishnodevi-desc-1.webp",
+      "/temples-images/vaishnodevi/description/vaishnodevi-desc-2.webp",
     ],
     features: {
       title: "Features of Mata Vaishno Devi Cave",
@@ -206,8 +204,8 @@ export const temples: Temples = [
         "Strong spiritual energy and devotional atmosphere",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vaishno_Devi_Katra_Road.jpg/2560px-Vaishno_Devi_Katra_Road.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/2560px-Vaishno_Devi_Bhawan.jpg",
+        "/temples-images/vaishnodevi/features/vaishnodevi-feature-1.webp",
+        "/temples-images/vaishnodevi/features/vaishnodevi-feature-2.webp",
       ],
     },
     location: {
@@ -215,8 +213,8 @@ export const temples: Temples = [
       description:
         "Located in Katra, Reasi district, Jammu and Kashmir, India. Around 50 km from Jammu city",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Vaishno_Devi_Katra_Road.jpg/2560px-Vaishno_Devi_Katra_Road.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/2560px-Vaishno_Devi_Bhawan.jpg",
+        "/temples-images/vaishnodevi/location/vaishnodevi-location-1.webp",
+        "/temples-images/vaishnodevi/location/vaishnodevi-location-2.webp",
       ],
     },
     history: {
@@ -224,7 +222,8 @@ export const temples: Temples = [
       description:
         "According to Hindu beliefs, Mata Vaishno Devi manifested to uphold Dharma and meditated in the Trikuta Mountains. She is believed to have defeated the demon Bhairavnath, after which he was granted liberation. The temple has since become one of the most important Shakti Peeths, drawing devotees from all over the world.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Vaishno_Devi_Bhawan.jpg/2560px-Vaishno_Devi_Bhawan.jpg",
+        "/temples-images/vaishnodevi/history/vaishnodevi-history-1.webp",
+        "/temples-images/vaishnodevi/history/vaishnodevi-history-2.webp",
       ],
     },
     bestTimeToVisit: "March to October",
@@ -235,13 +234,12 @@ export const temples: Temples = [
   {
     slug: "kashi-vishwanath-temple",
     name: "Kashi Vishwanath Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/1280px-Kashi_Vishwanath_Temple_Varanasi.jpg",
+    heroImage: "/temples-images/vishwanath/vishwanath-hero.webp",
     description:
       "Kashi Vishwanath Temple is one of the most sacred Jyotirlingas of Lord Shiva, located in the spiritual city of Varanasi. Revered as the abode of Lord Shiva, it draws millions of devotees seeking liberation (moksha). The temple radiates divine energy, devotion, and timeless spiritual significance.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/2560px-Kashi_Vishwanath_Temple_Varanasi.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Kashi_Vishwanath_Corridor.jpg/2560px-Kashi_Vishwanath_Corridor.jpg",
+      "/temples-images/vishwanath/description/vishwanath-desc-1.webp",
+      "/temples-images/vishwanath/description/vishwanath-desc-2.webp",
     ],
     features: {
       title: "Features of Kashi Vishwanath Temple",
@@ -252,8 +250,8 @@ export const temples: Temples = [
         "Deep spiritual connection with moksha (liberation)",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/2560px-Kashi_Vishwanath_Temple_Varanasi.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Kashi_Vishwanath_Corridor.jpg/2560px-Kashi_Vishwanath_Corridor.jpg",
+        "/temples-images/vishwanath/features/vishwanath-feature-1.webp",
+        "/temples-images/vishwanath/features/vishwanath-feature-2.webp",
       ],
     },
     location: {
@@ -261,8 +259,8 @@ export const temples: Temples = [
       description:
         "Situated in Varanasi, Uttar Pradesh, India, Close to Dashashwamedh Ghat on the Ganga River",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/2560px-Kashi_Vishwanath_Temple_Varanasi.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Kashi_Vishwanath_Corridor.jpg/2560px-Kashi_Vishwanath_Corridor.jpg",
+        "/temples-images/vishwanath/location/vishwanath-location-1.webp",
+        "/temples-images/vishwanath/location/vishwanath-location-2.webp",
       ],
     },
     history: {
@@ -270,7 +268,8 @@ export const temples: Temples = [
       description:
         "The temple has a long and sacred history, believed to be thousands of years old. It has been destroyed and rebuilt multiple times due to invasions. The current structure was rebuilt in 1780 by Queen Ahilyabai Holkar. Today, it stands as a symbol of unwavering faith, devotion, and the eternal presence of Lord Shiva in Kashi.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Kashi_Vishwanath_Temple_Varanasi.jpg/2560px-Kashi_Vishwanath_Temple_Varanasi.jpg",
+        "/temples-images/vishwanath/history/vishwanath-history-1.webp",
+        "/temples-images/vishwanath/history/vishwanath-history-2.webp",
       ],
     },
     bestTimeToVisit: "October to March",
@@ -457,143 +456,143 @@ export const temples: Temples = [
     entryFee:
       "Free entry for devotees, Special darshan passes available (paid)",
   },
-    {
-      slug: "sanchi-stupa",
-      name: "Sanchi Stupa",
-      heroImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/1280px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
-      description:
-        "Sanchi Stupa is one of the oldest and most significant Buddhist monuments in India, symbolizing peace, wisdom, and spiritual enlightenment. Famous for its grand dome and beautifully carved gateways, it reflects the rich heritage of Buddhist art and architecture. This UNESCO World Heritage Site attracts pilgrims, historians, and travelers from around the world.",
-      descriptionImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/2560px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/North_Gateway%2C_Sanchi.jpg/2560px-North_Gateway%2C_Sanchi.jpg",
+  {
+    slug: "sanchi-stupa",
+    name: "Sanchi Stupa",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/1280px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
+    description:
+      "Sanchi Stupa is one of the oldest and most significant Buddhist monuments in India, symbolizing peace, wisdom, and spiritual enlightenment. Famous for its grand dome and beautifully carved gateways, it reflects the rich heritage of Buddhist art and architecture. This UNESCO World Heritage Site attracts pilgrims, historians, and travelers from around the world.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/2560px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/North_Gateway%2C_Sanchi.jpg/2560px-North_Gateway%2C_Sanchi.jpg",
+    ],
+    features: {
+      title: "Features of Sanchi Stupa",
+      featuresList: [
+        "One of the oldest Buddhist stupas in India",
+        "Magnificent stone gateways (Toranas) with intricate carvings",
+        "UNESCO World Heritage Site",
+        "Symbol of peace, meditation, and Buddhist teachings",
       ],
-      features: {
-        title: "Features of Sanchi Stupa",
-        featuresList: [
-          "One of the oldest Buddhist stupas in India",
-          "Magnificent stone gateways (Toranas) with intricate carvings",
-          "UNESCO World Heritage Site",
-          "Symbol of peace, meditation, and Buddhist teachings",
-        ],
-        featuresImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/North_Gateway%2C_Sanchi.jpg/2560px-North_Gateway%2C_Sanchi.jpg",
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Sanchi_Stupa_No_3_Gateway.jpg/2560px-Sanchi_Stupa_No_3_Gateway.jpg",
-        ],
-      },
-      location: {
-        title: "Sanchi Stupa Location",
-        description:
-          "Located in Sanchi, Raisen district, Madhya Pradesh, India, Around 46 km from Bhopal",
-        locationImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/2560px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sanchi_Stupa_Madhya_Pradesh_11.jpg/2560px-Sanchi_Stupa_Madhya_Pradesh_11.jpg",
-        ],
-      },
-      history: {
-        title: "History of Sanchi Stupa",
-        description:
-          "The Great Stupa at Sanchi was originally commissioned by Emperor Ashoka in the 3rd century BCE after embracing Buddhism. Over time, it was expanded and decorated by later rulers and devotees. The site became a major center of Buddhist learning and spirituality, preserving centuries of India&rsquo;s cultural and religious heritage.",
-        historyImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sanchi_Stupa_Madhya_Pradesh_11.jpg/2560px-Sanchi_Stupa_Madhya_Pradesh_11.jpg",
-        ],
-      },
-      bestTimeToVisit: "October to March",
-      timings: "Open: 8:30 AM – 5:30 PM (Daily)",
-      entryFee:
-        "Indians: Approx. ₹40, Foreign Tourists: Approx. ₹600, Free entry for children below 15 years",
+      featuresImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/North_Gateway%2C_Sanchi.jpg/2560px-North_Gateway%2C_Sanchi.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Sanchi_Stupa_No_3_Gateway.jpg/2560px-Sanchi_Stupa_No_3_Gateway.jpg",
+      ],
     },
-    {
-      slug: "ramanathaswamy-temple",
-      name: "Ramanathaswamy Temple",
-      heroImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/1280px-Rameswaram_Temple_Corridor.jpg",
+    location: {
+      title: "Sanchi Stupa Location",
       description:
-        "Ramanathaswamy Temple is one of the holiest temples dedicated to Lord Shiva and a sacred part of the Char Dham Yatra. Located in Rameswaram, it is renowned for its magnificent corridors, towering gopurams, and deep spiritual significance. The temple beautifully reflects devotion, architecture, and the legacy of Lord Rama.",
-      descriptionImages: [
+        "Located in Sanchi, Raisen district, Madhya Pradesh, India, Around 46 km from Bhopal",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/2560px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sanchi_Stupa_Madhya_Pradesh_11.jpg/2560px-Sanchi_Stupa_Madhya_Pradesh_11.jpg",
+      ],
+    },
+    history: {
+      title: "History of Sanchi Stupa",
+      description:
+        "The Great Stupa at Sanchi was originally commissioned by Emperor Ashoka in the 3rd century BCE after embracing Buddhism. Over time, it was expanded and decorated by later rulers and devotees. The site became a major center of Buddhist learning and spirituality, preserving centuries of India&rsquo;s cultural and religious heritage.",
+      historyImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sanchi_Stupa_Madhya_Pradesh_11.jpg/2560px-Sanchi_Stupa_Madhya_Pradesh_11.jpg",
+      ],
+    },
+    bestTimeToVisit: "October to March",
+    timings: "Open: 8:30 AM – 5:30 PM (Daily)",
+    entryFee:
+      "Indians: Approx. ₹40, Foreign Tourists: Approx. ₹600, Free entry for children below 15 years",
+  },
+  {
+    slug: "ramanathaswamy-temple",
+    name: "Ramanathaswamy Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/1280px-Rameswaram_Temple_Corridor.jpg",
+    description:
+      "Ramanathaswamy Temple is one of the holiest temples dedicated to Lord Shiva and a sacred part of the Char Dham Yatra. Located in Rameswaram, it is renowned for its magnificent corridors, towering gopurams, and deep spiritual significance. The temple beautifully reflects devotion, architecture, and the legacy of Lord Rama.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
+    ],
+    features: {
+      title: "Features of Ramanathaswamy Temple",
+      featuresList: [
+        "One of the sacred 12 Jyotirlingas of Lord Shiva",
+        "Part of the revered Char Dham pilgrimage",
+        "Famous for the world&rsquo;s longest temple corridor",
+        "Sacred wells (Theerthams) used for ritual purification",
+      ],
+      featuresImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Corridor_Rameswaram.jpg/2560px-Corridor_Rameswaram.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
+      ],
+    },
+    location: {
+      title: "Ramanathaswamy Temple Location",
+      description:
+        "Situated in Rameswaram, Tamil Nadu, India, Connected to mainland India via the famous Pamban Bridge, Easily accessible via road and rail",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
+      ],
+    },
+    history: {
+      title: "History of Ramanathaswamy Temple",
+      description:
+        "According to Hindu tradition, Lord Rama worshipped Lord Shiva here after defeating Ravana in Lanka. It is believed that Rama established the Shivling to seek blessings and purification. The temple was expanded over centuries by various South Indian dynasties, making it one of India&rsquo;s most important spiritual landmarks.",
+      historyImages: [
         "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
       ],
-      features: {
-        title: "Features of Ramanathaswamy Temple",
-        featuresList: [
-          "One of the sacred 12 Jyotirlingas of Lord Shiva",
-          "Part of the revered Char Dham pilgrimage",
-          "Famous for the world&rsquo;s longest temple corridor",
-          "Sacred wells (Theerthams) used for ritual purification",
-        ],
-        featuresImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Corridor_Rameswaram.jpg/2560px-Corridor_Rameswaram.jpg",
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
-        ],
-      },
-      location: {
-        title: "Ramanathaswamy Temple Location",
-        description:
-          "Situated in Rameswaram, Tamil Nadu, India, Connected to mainland India via the famous Pamban Bridge, Easily accessible via road and rail",
-        locationImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
-        ],
-      },
-      history: {
-        title: "History of Ramanathaswamy Temple",
-        description:
-          "According to Hindu tradition, Lord Rama worshipped Lord Shiva here after defeating Ravana in Lanka. It is believed that Rama established the Shivling to seek blessings and purification. The temple was expanded over centuries by various South Indian dynasties, making it one of India&rsquo;s most important spiritual landmarks.",
-        historyImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
-        ],
-      },
-      bestTimeToVisit: "October to April",
-      timings: "Open: 5:00 AM – 1:00 PM, Reopens: 3:00 PM – 9:00 PM",
-      entryFee:
-        "Free entry for devotees, Special darshan and ritual charges may apply",
     },
-    {
-      slug: "yamunotri-temple",
-      name: "Yamunotri Temple",
-      heroImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/1280px-Yamunotri_Temple_Uttarakhand.jpg",
-      description:
-        "Yamunotri Temple is a sacred shrine dedicated to Goddess Yamuna and marks the origin of the holy Yamuna River. Nestled in the Garhwal Himalayas, it is one of the revered Char Dham pilgrimage sites. Surrounded by snow-covered peaks and natural hot springs, the temple offers a deeply spiritual and serene experience.",
-      descriptionImages: [
+    bestTimeToVisit: "October to April",
+    timings: "Open: 5:00 AM – 1:00 PM, Reopens: 3:00 PM – 9:00 PM",
+    entryFee:
+      "Free entry for devotees, Special darshan and ritual charges may apply",
+  },
+  {
+    slug: "yamunotri-temple",
+    name: "Yamunotri Temple",
+    heroImage:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/1280px-Yamunotri_Temple_Uttarakhand.jpg",
+    description:
+      "Yamunotri Temple is a sacred shrine dedicated to Goddess Yamuna and marks the origin of the holy Yamuna River. Nestled in the Garhwal Himalayas, it is one of the revered Char Dham pilgrimage sites. Surrounded by snow-covered peaks and natural hot springs, the temple offers a deeply spiritual and serene experience.",
+    descriptionImages: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
+    ],
+    features: {
+      title: "Features of Yamunotri Temple",
+      featuresList: [
+        "Source shrine of the sacred Yamuna River",
+        "Part of the holy Char Dham Yatra",
+        "Famous Surya Kund hot springs near the temple",
+        "Scenic Himalayan trekking pilgrimage",
+      ],
+      featuresImages: [
         "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
       ],
-      features: {
-        title: "Features of Yamunotri Temple",
-        featuresList: [
-          "Source shrine of the sacred Yamuna River",
-          "Part of the holy Char Dham Yatra",
-          "Famous Surya Kund hot springs near the temple",
-          "Scenic Himalayan trekking pilgrimage",
-        ],
-        featuresImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
-        ],
-      },
-      location: {
-        title: "Yamunotri Temple Location",
-        description:
-          "Located in Uttarkashi district, Uttarakhand, India, Around 220 km from Dehradun, Accessible via road till Janki Chatti, followed by a trek",
-        locationImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
-        ],
-      },
-      history: {
-        title: "History of Yamunotri Temple",
-        description:
-          "The Yamunotri Temple was originally built by Maharaja Pratap Shah of Tehri Garhwal and later renovated multiple times due to harsh weather conditions. According to Hindu beliefs, Goddess Yamuna is the daughter of Surya Dev and sister of Yama, the God of Death. Worshipping here is believed to protect devotees from untimely death and bring purity and blessings.",
-        historyImages: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
-        ],
-      },
-      bestTimeToVisit: "May to June and September to October",
-      timings: "Open: 6:00 AM – 8:00 PM (Daily)",
-      entryFee: "Free entry for all devotees",
     },
+    location: {
+      title: "Yamunotri Temple Location",
+      description:
+        "Located in Uttarkashi district, Uttarakhand, India, Around 220 km from Dehradun, Accessible via road till Janki Chatti, followed by a trek",
+      locationImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
+      ],
+    },
+    history: {
+      title: "History of Yamunotri Temple",
+      description:
+        "The Yamunotri Temple was originally built by Maharaja Pratap Shah of Tehri Garhwal and later renovated multiple times due to harsh weather conditions. According to Hindu beliefs, Goddess Yamuna is the daughter of Surya Dev and sister of Yama, the God of Death. Worshipping here is believed to protect devotees from untimely death and bring purity and blessings.",
+      historyImages: [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
+      ],
+    },
+    bestTimeToVisit: "May to June and September to October",
+    timings: "Open: 6:00 AM – 8:00 PM (Daily)",
+    entryFee: "Free entry for all devotees",
+  },
 ];
 
 export const templesFAQs: FAQItem[] = [

@@ -8,7 +8,7 @@ export const famousTemplesCarousel: CarouselSlideData[] = [
   },
   {
     id: 2,
-    src: "/temples-carousal/2.webp",
+    src: "/temples-images/vishwanath/vishwanath-hero.webp",
     alt: "kashivishwanath Temple",
   },
   {
@@ -38,12 +38,12 @@ export const famousTemplesCarousel: CarouselSlideData[] = [
   },
   {
     id: 8,
-    src: "/temples-carousal/8.webp",
+    src: "/temples-images/somnath/somnath_hero.webp",
     alt: "Somnath Temple",
   },
   {
     id: 9,
-    src: "/temples-carousal/9.webp",
+    src: "/temples-images/vaishnodevi/vaishnodevi-hero.webp",
     alt: "Vaishno Devi Temple",
   },
 ];
