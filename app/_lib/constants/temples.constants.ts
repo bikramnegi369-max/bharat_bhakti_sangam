@@ -593,6 +593,279 @@ export const temples: Temples = [
     timings: "Open: 6:00 AM – 8:00 PM (Daily)",
     entryFee: "Free entry for all devotees",
   },
+  {
+    slug: "banke-bihari-temple",
+    name: "Banke Bihari Temple",
+    heroImage: "/temples-images/banke-bihari/banke-bihari-hero.webp",
+    description:
+      "Banke Bihari Temple is one of the most beloved temples dedicated to Lord Krishna in his charming Banke Bihari form. Located in the holy town of Vrindavan, the temple is filled with divine devotion, bhajans, and spiritual bliss. Devotees from across the world visit to experience the enchanting presence of Shri Krishna.",
+    descriptionImages: [
+      "/temples-images/banke-bihari/description/banke-desc-1.webp",
+      "/temples-images/banke-bihari/description/banke-desc-2.webp",
+    ],
+    features: {
+      title: "Features of Banke Bihari Temple",
+      featuresList: [
+        "Famous idol of Lord Krishna as Banke Bihari Ji",
+        "Unique darshan style where curtains open and close repeatedly",
+        "Deep connection with Vrindavan Bhakti tradition",
+        "Vibrant celebrations during Holi and Janmashtami",
+      ],
+      featuresImages: [
+        "/temples-images/banke-bihari/features/banke-feature-1.webp",
+        "/temples-images/banke-bihari/features/banke-feature-2.webp",
+      ],
+    },
+    location: {
+      title: "Banke Bihari Temple Location",
+      description:
+        "Located in Vrindavan, Mathura district, Uttar Pradesh, India. Around 12 km from Mathura Junction, easily accessible by road and rail",
+      locationImages: [
+        "/temples-images/banke-bihari/location/banke-location-1.webp",
+        "/temples-images/banke-bihari/location/banke-location-2.webp",
+      ],
+    },
+    history: {
+      title: "History of Banke Bihari Temple",
+      description:
+        "The Banke Bihari Temple was established by the great saint Swami Haridas, the guru of Tansen and an ardent devotee of Lord Krishna. It is believed that Lord Krishna manifested before Swami Haridas in the form of Banke Bihari Ji. Since then, the temple has become one of the most sacred centers of Krishna devotion in India.",
+      historyImages: [
+        "/temples-images/banke-bihari/history/banke-history-1.webp",
+        "/temples-images/banke-bihari/history/banke-history-2.webp",
+      ],
+    },
+    bestTimeToVisit: "October to March (Janmashtami, Holi, and Jhulan Yatra)",
+    timings:
+      "Summer: 7:45 AM – 12:00 PM & 5:30 PM – 9:30 PM, Winter: 8:45 AM – 1:00 PM & 4:30 PM – 8:30 PM",
+    entryFee: "Free entry for all devotees",
+  },
+  {
+    slug: "kedarnath-temple",
+    name: "Kedarnath Temple",
+    heroImage: "/temples-images/kedarnath/kedarnath-hero.webp",
+    description:
+      "Kedarnath Temple is one of the holiest shrines dedicated to Lord Shiva and among the sacred 12 Jyotirlingas. Nestled in the majestic Himalayas, the temple offers a deeply spiritual and divine experience surrounded by breathtaking natural beauty. It is also one of the revered Char Dham pilgrimage sites of India.",
+    descriptionImages: [
+      "/temples-images/kedarnath/description/kedarnath-desc-1.webp",
+      "/temples-images/kedarnath/description/kedarnath-desc-2.webp",
+    ],
+    features: {
+      title: "Features of Kedarnath Temple",
+      featuresList: [
+        "One of the sacred 12 Jyotirlingas of Lord Shiva",
+        "Part of the holy Char Dham Yatra",
+        "Surrounded by the stunning Garhwal Himalayan ranges",
+        "Ancient stone temple with immense spiritual significance",
+      ],
+      featuresImages: [
+        "/temples-images/kedarnath/features/kedarnath-feature-1.webp",
+        "/temples-images/kedarnath/features/kedarnath-feature-2.webp",
+      ],
+    },
+    location: {
+      title: "Kedarnath Temple Location",
+      description:
+        "Located in Rudraprayag district, Uttarakhand, India, Around 16 km trek from Gaurikund, Accessible via road, trek, helicopter, and pony services",
+      locationImages: [
+        "/temples-images/kedarnath/location/kedarnath-location-1.webp",
+        "/temples-images/kedarnath/location/kedarnath-location-2.webp",
+      ],
+    },
+    history: {
+      title: "History of Kedarnath Temple",
+      description:
+        "According to Hindu beliefs, the Pandavas built the original Kedarnath Temple to seek forgiveness from Lord Shiva after the Mahabharata war. The present structure is believed to have been revived by Adi Shankaracharya in the 8th century. Despite harsh weather and natural calamities, the temple continues to stand as a powerful symbol of faith, devotion, and resilience.",
+      historyImages: [
+        "/temples-images/kedarnath/history/kedarnath-history-1.webp",
+        "/temples-images/kedarnath/history/kedarnath-history-2.webp",
+      ],
+    },
+    bestTimeToVisit: "May to June & September to October",
+    timings: "Open: 4:00 AM – 9:00 PM (Daily)",
+    entryFee: "Free entry for devotees",
+  },
+  {
+    slug: "badrinath-temple",
+    name: "Badrinath Temple",
+    heroImage: "/temples-images/badrinath/badrinath-hero.webp",
+    description:
+      "Shri Badrinath Temple is one of the most sacred temples dedicated to Lord Vishnu and an important part of the Char Dham Yatra. Situated amidst the majestic Himalayas along the Alaknanda River, the temple radiates peace, devotion, and divine energy. It is a revered destination for millions of pilgrims seeking spiritual blessings and salvation.",
+    descriptionImages: [
+      "/temples-images/badrinath/description/badrinath-desc-1.webp",
+      "/temples-images/badrinath/description/badrinath-desc-2.webp",
+    ],
+    features: {
+      title: "Features of Badrinath Temple",
+      featuresList: [
+        "Dedicated to Lord Vishnu (Badri Narayan)",
+        "One of the sacred Char Dham pilgrimage sites",
+        "Located beside the holy Alaknanda River",
+        "Surrounded by breathtaking Nar and Narayan mountain ranges",
+      ],
+      featuresImages: [
+        "/temples-images/badrinath/features/badrinath-feature-1.webp",
+        "/temples-images/badrinath/features/badrinath-feature-2.webp",
+      ],
+    },
+    location: {
+      title: "Badrinath Temple Location",
+      description:
+        "Situated in Chamoli district, Uttarakhand, India, Around 300 km from Rishikesh, Easily accessible by road during pilgrimage season",
+      locationImages: [
+        "/temples-images/badrinath/location/badrinath-location-1.webp",
+        "/temples-images/badrinath/location/badrinath-location-2.webp",
+      ],
+    },
+    history: {
+      title: "History of Badrinath Temple",
+      description:
+        "According to Hindu scriptures, Lord Vishnu meditated at Badrinath while Goddess Lakshmi took the form of a Badri tree to protect him from harsh weather. The temple is believed to have been established by Adi Shankaracharya in the 8th century, reviving it as a major center of pilgrimage and devotion. Since then, it has remained one of the holiest spiritual destinations in India.",
+      historyImages: [
+        "/temples-images/badrinath/history/badrinath-history-1.webp",
+        "/temples-images/badrinath/history/badrinath-history-2.webp",
+      ],
+    },
+    bestTimeToVisit: "May to June and September to October",
+    timings: "Open: 4:30 AM – 1:00 PM, Reopens: 4:00 PM – 9:00 PM",
+    entryFee:
+      "Free entry for devotees, Charges apply for special pujas and VIP darshan",
+  },
+  {
+    slug: "ayodhya-ram-temple",
+    name: "Ayodhya Ram Temple",
+    heroImage: "/temples-images/ayodhya/ayodhya-hero.webp",
+    description:
+      "Ayodhya Ram Temple is a magnificent temple dedicated to Lord Shri Ram, believed to be born in the sacred city of Ayodhya. The temple stands as a symbol of faith, devotion, and Sanatan Dharma, attracting millions of devotees from across the world. Its grand architecture and spiritual atmosphere create a deeply divine experience.",
+    descriptionImages: [
+      "/temples-images/ayodhya/description/ayodhya-desc-1.webp",
+      "/temples-images/ayodhya/description/ayodhya-desc-2.webp",
+    ],
+    features: {
+      title: "Features of Ayodhya Ram Temple",
+      featuresList: [
+        "Dedicated to Lord Shri Ram at his birthplace",
+        "Grand Nagara-style temple architecture",
+        "Intricate carvings and massive sandstone structure",
+        "One of the most significant spiritual landmarks in India",
+      ],
+      featuresImages: [
+        "/temples-images/ayodhya/features/ayodhya-feature-1.webp",
+        "/temples-images/ayodhya/features/ayodhya-feature-2.webp",
+      ],
+    },
+    location: {
+      title: "Ayodhya Ram Temple Location",
+      description:
+        "Located in Ayodhya, Uttar Pradesh, India, Around 135 km from Lucknow, Well connected via road, rail, and air (Maharishi Valmiki International Airport)",
+      locationImages: [
+        "/temples-images/ayodhya/location/ayodhya-location-1.webp",
+        "/temples-images/ayodhya/location/ayodhya-location-2.webp",
+      ],
+    },
+    history: {
+      title: "History of Ayodhya Ram Temple",
+      description:
+        "Ayodhya is revered as the birthplace of Lord Shri Ram, as mentioned in the Ramayana. The construction of the grand Ram Temple began after decades of legal and historical proceedings, and the temple was inaugurated in 2024. Today, it stands as a powerful symbol of devotion, cultural heritage, and the eternal values of Dharma and righteousness.",
+      historyImages: [
+        "/temples-images/ayodhya/history/ayodhya-history-1.webp",
+        "/temples-images/ayodhya/history/ayodhya-history-2.webp",
+      ],
+    },
+    bestTimeToVisit: "October to March",
+    timings: "Open: 6:30 AM – 9:30 PM (Daily)",
+    entryFee: "Free entry for devotees",
+  },
+  {
+    slug: "tirupati-balaji-temple",
+    name: "Tirupati Balaji Temple",
+    heroImage: "/temples-images/tirupati-balaji/tirupati-hero.webp",
+    description:
+      "Tirupati Balaji Temple, also known as the Tirumala Venkateswara Temple, is one of the most sacred and visited temples dedicated to Lord Vishnu. Situated on the holy Tirumala Hills, the temple is renowned for its divine atmosphere, rich traditions, and spiritual significance. Millions of devotees visit every year seeking blessings, prosperity, and fulfillment.",
+    descriptionImages: [
+      "/temples-images/tirupati-balaji/description/tirupati-desc-1.webp",
+      "/temples-images/tirupati-balaji/description/tirupati-desc-2.webp",
+    ],
+    features: {
+      title: "Features of Tirupati Balaji Temple",
+      featuresList: [
+        "Dedicated to Lord Venkateswara (Balaji)",
+        "One of the richest and most visited temples in the world",
+        "Famous Tirupati Laddu Prasad",
+        "Located on the sacred Seven Hills of Tirumala",
+      ],
+      featuresImages: [
+        "/temples-images/tirupati-balaji/features/tirupati-feature-1.webp",
+        "/temples-images/tirupati-balaji/features/tirupati-feature-2.webp",
+      ],
+    },
+    location: {
+      title: "Tirupati Balaji Temple Location",
+      description:
+        "Situated in Tirumala, near Tirupati, Andhra Pradesh, India, Around 135 km from Chennai",
+      locationImages: [
+        "/temples-images/tirupati-balaji/location/tirupati-location-1.webp",
+        "/temples-images/tirupati-balaji/location/tirupati-location-2.webp",
+      ],
+    },
+    history: {
+      title: "History of Tirupati Balaji Temple",
+      description:
+        "The temple has ancient origins mentioned in Hindu scriptures and gained prominence under dynasties like the Pallavas, Cholas, and Vijayanagara Empire. It is believed that Lord Vishnu appeared here as Venkateswara to guide and protect humanity during the Kali Yuga. Over centuries, the temple has become one of the most important centers of devotion and pilgrimage in India.",
+      historyImages: [
+        "/temples-images/tirupati-balaji/history/tirupati-history-1.webp",
+        "/temples-images/tirupati-balaji/history/tirupati-history-2.webp",
+      ],
+    },
+    bestTimeToVisit: "September to February",
+    timings: "Open: 2:30 AM – 1:30 AM (next day)",
+    entryFee:
+      "Free Sarva Darshan available for devotees, Special Entry Darshan: approx. ₹300",
+  },
+  {
+    slug: "kainchi-dham",
+    name: "Kainchi Dham",
+    heroImage: "/temples-images/kainchi-dham/kainchi-hero.webp",
+    description:
+      "Kainchi Dham is a renowned spiritual ashram established by the revered saint Neem Karoli Baba. Surrounded by the peaceful hills of Uttarakhand, the dham attracts devotees from across the world seeking peace, devotion, and spiritual awakening. The serene atmosphere and divine energy make it a deeply sacred destination.",
+    descriptionImages: [
+      "/temples-images/kainchi-dham/description/kainchi-desc-1.webp",
+      "/temples-images/kainchi-dham/description/kainchi-desc-2.webp",
+    ],
+    features: {
+      title: "Features of Kainchi Dham",
+      featuresList: [
+        "Ashram of the revered saint Neem Karoli Baba",
+        "Peaceful Himalayan surroundings and spiritual environment",
+        "Famous annual Bhandara Mahotsav",
+        "Visited by devotees and spiritual seekers from around the world",
+      ],
+      featuresImages: [
+        "/temples-images/kainchi-dham/features/kainchi-feature-1.webp",
+        "/temples-images/kainchi-dham/features/kainchi-feature-2.webp",
+      ],
+    },
+    location: {
+      title: "Kainchi Dham Location",
+      description:
+        "Located near Bhowali, Nainital district, Uttarakhand, India, Around 17 km from Nainital",
+      locationImages: [
+        "/temples-images/kainchi-dham/location/kainchi-location-1.webp",
+        "/temples-images/kainchi-dham/location/kainchi-location-2.webp",
+      ],
+    },
+    history: {
+      title: "History of Kainchi Dham",
+      description:
+        "Kainchi Dham was established by Neem Karoli Baba in 1964 as a spiritual center dedicated to devotion, service, and meditation. Over the years, it gained global recognition due to Baba&rsquo;s teachings and miracles. Devotees believe the dham radiates immense spiritual energy and blessings, making it one of the most cherished spiritual destinations in India.",
+      historyImages: [
+        "/temples-images/kainchi-dham/history/kainchi-history-1.webp",
+        "/temples-images/kainchi-dham/history/kainchi-history-2.webp",
+      ],
+    },
+    bestTimeToVisit: "March to June & September to November",
+    timings: "Open: 7:00 AM – 6:00 PM (Daily)",
+    entryFee: "Free entry for all devotees",
+  },
 ];
 
 export const templesFAQs: FAQItem[] = [

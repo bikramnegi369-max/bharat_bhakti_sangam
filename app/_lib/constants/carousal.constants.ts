@@ -3,7 +3,7 @@ import { CarouselSlideData } from "@/_types/Carousel.types";
 export const famousTemplesCarousel: CarouselSlideData[] = [
   {
     id: 1,
-    src: "/temples-carousal/1.webp",
+    src: "/temples-images/banke-bihari/banke-bihari-hero.webp",
     alt: "Bake Bihari Temple",
   },
   {
@@ -13,28 +13,28 @@ export const famousTemplesCarousel: CarouselSlideData[] = [
   },
   {
     id: 3,
-    src: "/temples-carousal/3.webp",
+    src: "/temples-images/kedarnath/kedarnath-hero.webp",
     alt: "kedarnath Temple",
   },
   {
     id: 4,
-    src: "/temples-carousal/4.webp",
+    src: "/temples-images/badrinath/badrinath-hero.webp",
     alt: "Badrinath Temple",
   },
   {
     id: 5,
-    src: "/temples-carousal/5.webp",
+    src: "/temples-images/ayodhya/ayodhya-hero.webp",
     alt: "Ayodhya Ram Temple",
   },
   {
     id: 6,
-    src: "/temples-carousal/6.webp",
-    alt: "Tirupati balaji Temple",
+    src: "/temples-images/tirupati-balaji/tirupati-hero.webp",
+    alt: "Tirupati Balaji Temple",
   },
   {
     id: 7,
-    src: "/temples-carousal/7.webp",
-    alt: "Kainchi Dham Temple",
+    src: "/temples-images/kainchi-dham/kainchi-hero.webp",
+    alt: "Kainchi Dham",
   },
   {
     id: 8,
