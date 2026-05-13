@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ChevronDown } from "lucide-react";
 import clsx from "clsx";
 
 interface MobileDropdownProps {
@@ -20,21 +21,10 @@ export default function MobileDropdown({
   items,
   onCloseMenu,
 }: MobileDropdownProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const pathname = usePathname();
+  const [isExpanded, setIsExpanded] = useState(() => (isActive ? true : false));
 
-  // Filter items based on search
-  const filteredItems = searchQuery
-    ? items.filter((item) =>
-        item.label.toLowerCase().includes(searchQuery.toLowerCase()),
-      )
-    : items;
-
-  // Reset search when collapsing
   const handleToggle = () => {
-    if (isExpanded) {
-      setSearchQuery(""); // Reset search when collapsing
-    }
     setIsExpanded(!isExpanded);
   };
 
@@ -72,59 +62,32 @@ export default function MobileDropdown({
 
       <div
         className={clsx(
-          "transition-all duration-300 ease-in-out pl-4",
+          "transition-all duration-500 ease-in-out pl-4",
           isExpanded
-            ? "max-h-full opacity-100 py-2"
+            ? "max-h-500 opacity-100 py-2"
             : "max-h-0 opacity-0 overflow-hidden",
         )}
       >
-        {/* Search bar - only shows if >15 temples */}
-        {items.length > 15 && (
-          <div className="mb-3 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-para/40" />
-            <input
-              type="text"
-              placeholder={`Search ${items.length} temples...`}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-primary/20 bg-white focus:border-primary outline-none text-heading placeholder:text-para/40"
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-        )}
-
-        {/* Scrollable list with max height */}
-        <div
-          className={clsx(
-            "space-y-2 border-l border-primary/20",
-            items.length > 10 && "max-h-[50vh] overflow-y-auto pr-2",
-          )}
-        >
-          {filteredItems.length === 0 ? (
-            <div className="py-4 text-center text-para/60 text-sm">
-              No temples found
-            </div>
-          ) : (
-            filteredItems.map((item) => (
+        <div className="space-y-2 border-l border-primary/20">
+          {items.map((item) => {
+            const isSubActive = pathname === item.href;
+            return (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={onCloseMenu}
-                className="block py-1.5 text-[16px] text-para/80 hover:text-primary active:text-primary transition-colors"
+                className={clsx(
+                  "block py-1.5 text-[16px] transition-colors",
+                  isSubActive
+                    ? "text-primary font-bold"
+                    : "text-para/80 hover:text-primary active:text-primary",
+                )}
               >
                 {item.label}
               </Link>
-            ))
-          )}
+            );
+          })}
         </div>
-
-        {/* Quick stats footer */}
-        {items.length > 15 && filteredItems.length === items.length && (
-          <div className="mt-2 pt-2 text-xs text-para/40 border-t border-primary/10">
-            {items.length} temples
-            {items.length > 10 && " • Scroll for more"}
-          </div>
-        )}
       </div>
     </div>
   );
