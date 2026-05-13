@@ -4,8 +4,6 @@ import { EventQuery } from "@/_types/EventQuery.types";
 export function isEventQuery(value: unknown): value is EventQuery {
   if (!isRecord(value)) return false;
 
-  console.log("Checking if value is EventQuery:", value); // Debug log
-
   return (
     typeof value._id === "string" &&
     typeof value.name === "string" &&
