@@ -66,7 +66,7 @@ export default function AddArtistsForm({
 
   return (
     <form onSubmit={handleSubmitForm(handleSubmit)} className="space-y-8 p-8">
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Field
           label="Artist Name"
           error={errors.artistName?.message as string}

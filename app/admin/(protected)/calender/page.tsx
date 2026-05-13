@@ -5,9 +5,9 @@ import { Eye, Pencil } from "lucide-react";
 import ActionMenu from "@/_components/common/ActionMenu";
 import useIsMobile from "@/_hooks/useIsMobile";
 import { CalenderEntryTable } from "@/_features/calender/components/CalenderEntryTable";
-import CreateCalenderEnrtyDrawer from "@/_features/calender/components/CreateCalenderEntryDrawer";
 import { CalenderEntry } from "@/_types/CalenderEntry.types";
 import { useUI } from "@/providers/UIProvider";
+import CreateCalenderEntryDrawer from "@/_features/calender/components/CreateCalenderEntryDrawer";
 
 export default function AdminCalenderPage() {
   const { openDrawer } = useUI();
@@ -16,7 +16,7 @@ export default function AdminCalenderPage() {
   const handleOpenDrawer = useCallback(
     (mode: "create" | "edit" | "view", calenderEntryId?: string) => {
       openDrawer(
-        <CreateCalenderEnrtyDrawer
+        <CreateCalenderEntryDrawer
           mode={mode}
           calenderEntryId={calenderEntryId}
         />,

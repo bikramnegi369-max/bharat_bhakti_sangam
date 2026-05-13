@@ -21,17 +21,17 @@ import {
 import { normalizeCalenderEntryPayload } from "@/_lib/helpers/calender.helper";
 import { CalenderEntryDetailView } from "./CalenderEntryDetailView";
 
-type CreateCalenderEnrtyDrawerMode = "create" | "edit" | "view";
+type CreateCalenderEntryDrawerMode = "create" | "edit" | "view";
 
-interface CreateCalenderEnrtyDrawerProps {
-  mode?: CreateCalenderEnrtyDrawerMode;
+interface CreateCalenderEntryDrawerProps {
+  mode?: CreateCalenderEntryDrawerMode;
   calenderEntryId?: string;
 }
 
-export default function CreateCalenderEnrtyDrawer({
+export default function CreateCalenderEntryDrawer({
   mode = "create",
   calenderEntryId,
-}: CreateCalenderEnrtyDrawerProps) {
+}: CreateCalenderEntryDrawerProps) {
   const queryClient = useQueryClient();
   const { closeDrawer } = useUI();
   const isCreateMode = mode === "create";
