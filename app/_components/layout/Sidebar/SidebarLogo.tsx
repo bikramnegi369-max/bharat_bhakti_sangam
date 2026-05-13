@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
-import logo from "../../../../public/logo.png";
 
 export function SidebarLogo({
   className,
@@ -17,7 +16,7 @@ export function SidebarLogo({
       aria-label="Go to admin dashboard"
     >
       <Image
-        src={logo}
+        src={"/logo.png"}
         alt="Bharat Bhakti Sangam Logo"
         width={140}
         height={52}
