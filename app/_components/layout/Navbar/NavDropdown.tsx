@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import {
   useFloating,
@@ -15,7 +15,7 @@ import {
   FloatingPortal,
   safePolygon,
 } from "@floating-ui/react";
-import { ChevronDown, ArrowUpRight } from "lucide-react";
+import { ChevronDown, ArrowUpRight, Search } from "lucide-react";
 import clsx from "clsx";
 
 interface NavDropdownProps {
@@ -34,6 +34,8 @@ export default function NavDropdown({
   const [isOpen, setIsOpen] = useState(false);
   const [referenceEl, setReferenceEl] = useState<HTMLElement | null>(null);
   const [floatingEl, setFloatingEl] = useState<HTMLDivElement | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const { floatingStyles, context } = useFloating({
     open: isOpen,
@@ -57,6 +59,21 @@ export default function NavDropdown({
     dismiss,
     role,
   ]);
+
+  // Filter items based on search
+  const filteredItems = searchQuery
+    ? items.filter((item) =>
+        item.label.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+    : items;
+
+  // ✨ Fixed: Reset search when dropdown closes via onOpenChange
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      setSearchQuery(""); // Reset search when closing
+    }
+    setIsOpen(open);
+  };
 
   return (
     <>
@@ -89,7 +106,6 @@ export default function NavDropdown({
                 : "text-white/60 group-hover:text-white",
             )}
           />
-          {/* Underline */}
           <span
             className={clsx(
               "absolute left-0 bottom-0 h-0.5 bg-primary rounded-full transition-all duration-300 ease-out",
@@ -115,7 +131,7 @@ export default function NavDropdown({
             {/* Arrow pointer */}
             <div
               className={clsx(
-                "absolute -top-1.75 left-5 w-3 h-3 rotate-45 border-l border-t border-white/10 bg-header-bg transition-opacity duration-200",
+                "absolute -top-1.75 left-5 w-3 h-3 rotate-45 border-l border-t border-primary bg-header-bg transition-opacity duration-200",
                 isOpen ? "opacity-100" : "opacity-0",
               )}
             />
@@ -133,34 +149,76 @@ export default function NavDropdown({
               {/* Top shimmer line */}
               <div className="absolute top-0 left-4 right-4 h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
-              <div className="py-2" key={isOpen ? "open" : "closed"}>
-                {items.map((item, i) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    style={isOpen ? { animationDelay: `${i * 35}ms` } : {}}
-                    className={clsx(
-                      "nav-dropdown-item group/item",
-                      "flex items-center justify-between",
-                      "mx-2 px-3 py-2.5 rounded-lg",
-                      "text-[14.5px] font-medium text-white/70",
-                      "hover:text-white hover:bg-white/8",
-                      "transition-colors duration-150",
-                    )}
-                  >
-                    <span className="flex items-center gap-2.5">
-                      {/* Accent dot */}
-                      <span className="w-1 h-1 rounded-full bg-primary/60 opacity-0 group-hover/item:opacity-100 transition-opacity duration-150 shrink-0" />
-                      {item.label}
-                    </span>
-                    <ArrowUpRight
-                      size={13}
-                      className="opacity-0 group-hover/item:opacity-60 -translate-x-1 group-hover/item:translate-x-0 transition-all duration-150 shrink-0"
+              {/* Search bar (only shows if >15 items) */}
+              {items.length > 15 && (
+                <div className="px-3 pt-3 pb-2 sticky top-0 bg-header-bg/95 backdrop-blur-sm z-10 border-b border-white/10">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/40" />
+                    <input
+                      type="text"
+                      placeholder={`Search ${items.length} temples...`}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-8 pr-3 py-1.5 text-sm rounded-lg bg-white/5 border border-white/10 focus:border-primary/50 outline-none text-white/80 placeholder:text-white/30 transition-all"
+                      onClick={(e) => e.stopPropagation()}
                     />
-                  </Link>
-                ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Fixed max-height with scroll */}
+              <div
+                ref={scrollContainerRef}
+                className={clsx(
+                  "overflow-y-auto",
+                  items.length > 8 ? "max-h-[70vh]" : "",
+                  "custom-scrollbar",
+                )}
+                style={
+                  items.length > 8 ? { maxHeight: "min(70vh, 500px)" } : {}
+                }
+              >
+                <div className="py-2" key={isOpen ? "open" : "closed"}>
+                  {filteredItems.length === 0 ? (
+                    <div className="px-4 py-8 text-center text-white/40 text-sm">
+                      No temples found
+                    </div>
+                  ) : (
+                    filteredItems.map((item, i) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => handleOpenChange(false)}
+                        style={isOpen ? { animationDelay: `${i * 35}ms` } : {}}
+                        className={clsx(
+                          "nav-dropdown-item group/item",
+                          "flex items-center justify-between",
+                          "mx-2 px-3 py-2.5 rounded-lg",
+                          "text-[14.5px] font-medium text-white/70",
+                          "hover:text-white hover:bg-white/8",
+                          "transition-colors duration-150",
+                        )}
+                      >
+                        <span className="flex items-center gap-2.5">
+                          <span className="w-1 h-1 rounded-full bg-primary/60 opacity-0 group-hover/item:opacity-100 transition-opacity duration-150 shrink-0" />
+                          {item.label}
+                        </span>
+                        <ArrowUpRight
+                          size={13}
+                          className="opacity-0 group-hover/item:opacity-60 -translate-x-1 group-hover/item:translate-x-0 transition-all duration-150 shrink-0"
+                        />
+                      </Link>
+                    ))
+                  )}
+                </div>
               </div>
+
+              {/* Item count footer (only if >20 items) */}
+              {items.length > 20 && filteredItems.length === items.length && (
+                <div className="px-4 py-2 text-center text-white/30 text-xs border-t border-white/10 bg-white/5">
+                  {items.length} temples • Scroll for more
+                </div>
+              )}
 
               {/* Bottom shimmer line */}
               <div className="absolute bottom-0 left-4 right-4 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />

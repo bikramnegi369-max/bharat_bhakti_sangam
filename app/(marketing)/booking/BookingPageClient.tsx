@@ -5,6 +5,7 @@ import Hero from "@/_components/sections/Marketing/Hero";
 import { useBookingForm } from "@/_hooks/useBookingForm";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useMemo } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
 import { FormProvider } from "react-hook-form";
 
 const BookingForm = dynamic(
@@ -67,13 +68,21 @@ export function BookingPageClient({
   );
 
   useEffect(() => {
+    if (status === "success") {
+      sendGAEvent("event", "booking_completed", {
+        event_id: eventId,
+        event_name: eventTitle,
+        event_location: eventLocation,
+      });
+    }
+
     if ((status === "success" || status === "error") && statusRef.current) {
       statusRef.current.scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
     }
-  }, [status]);
+  }, [status, eventId, eventTitle, eventLocation]);
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden">

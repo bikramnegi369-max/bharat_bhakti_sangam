@@ -68,6 +68,7 @@ export default function AccordionSection({
   contentClassName,
   defaultOpenIndex = 0,
   indicatorVariant = "chevron",
+  groupName,
 }: AccordionSectionProps) {
   if (!items?.length) return null;
 
@@ -100,6 +101,7 @@ export default function AccordionSection({
             {items.map((item, index) => (
               <details
                 key={`${item.title}-${index}`}
+                name={groupName}
                 className={clsx(
                   "group overflow-hidden rounded-xl border-2 border-primary bg-secondary",
                   itemClassName,

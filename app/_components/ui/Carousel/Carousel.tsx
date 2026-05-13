@@ -3,6 +3,7 @@
 import { CarouselSlideData } from "@/_types/Carousel.types";
 import CarouselSlide from "./CarouselSlide";
 import { useCarousel } from "@/_hooks/useCarousel";
+import { useMemo } from "react";
 
 type Props = {
   slides: CarouselSlideData[];
@@ -17,6 +18,26 @@ export default function Carousel({ slides }: Props) {
     onMouseEnter,
     onMouseLeave,
   } = useCarousel({ loop: true });
+
+  const renderedSlides = useMemo(
+    () =>
+      slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className="flex-[0_0_100%] min-w-0"
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`${index + 1} of ${slides.length}`}
+        >
+          <CarouselSlide
+            src={slide.src}
+            alt={slide.alt}
+            priority={index === 0}
+          />
+        </div>
+      )),
+    [slides],
+  );
 
   return (
     <div
@@ -36,19 +57,7 @@ export default function Carousel({ slides }: Props) {
           if (e.key === "ArrowLeft") scrollTo(selectedIndex - 1);
         }}
       >
-        <div className="flex">
-          {slides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className="flex-[0_0_100%] min-w-0"
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${index + 1} of ${slides.length}`}
-            >
-              <CarouselSlide src={slide.src} alt={slide.alt} />
-            </div>
-          ))}
-        </div>
+        <div className="flex">{renderedSlides}</div>
       </div>
 
       {/* DOTS */}

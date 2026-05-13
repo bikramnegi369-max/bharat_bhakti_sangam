@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -14,6 +14,18 @@ export default function NavbarMobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const menuId = "mobile-navigation-menu";
+
+  // Lock background scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -51,7 +63,7 @@ export default function NavbarMobileMenu() {
       <aside
         id={menuId}
         className={clsx(
-          "fixed top-0 right-0 h-full w-64 bg-white z-50 transition-transform duration-300 lg:hidden",
+          "fixed inset-y-0 right-0 w-64 bg-white z-50 transition-transform duration-300 lg:hidden flex flex-col shadow-2xl",
           isOpen ? "translate-x-0" : "translate-x-full",
         )}
         aria-hidden={!isOpen}
@@ -69,7 +81,10 @@ export default function NavbarMobileMenu() {
           </button>
         </div>
 
-        <nav aria-label="Mobile navigation" className="p-4 space-y-3">
+        <nav
+          aria-label="Mobile navigation"
+          className="flex-1 p-4 space-y-3 overflow-y-auto"
+        >
           {NAV_LINKS.map((link) => {
             const isActive =
               pathname === link.href || pathname.startsWith(link.href + "/");

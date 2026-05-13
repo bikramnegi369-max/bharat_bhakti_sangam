@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import clsx from "clsx";
 
@@ -20,7 +21,12 @@ export default function MobileDropdown({
   items,
   onCloseMenu,
 }: MobileDropdownProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const pathname = usePathname();
+  const [isExpanded, setIsExpanded] = useState(() => (isActive ? true : false));
+
+  const handleToggle = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <div className="w-full">
@@ -40,7 +46,7 @@ export default function MobileDropdown({
 
         <button
           type="button"
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={handleToggle}
           className="pl-4 py-1 text-para/50 hover:text-primary transition-colors"
           aria-label={isExpanded ? `Collapse ${label}` : `Expand ${label}`}
         >
@@ -56,20 +62,32 @@ export default function MobileDropdown({
 
       <div
         className={clsx(
-          "overflow-hidden transition-all duration-300 ease-in-out pl-4 space-y-2 border-l border-primary/20",
-          isExpanded ? "max-h-125 opacity-100 py-2" : "max-h-0 opacity-0",
+          "transition-all duration-500 ease-in-out pl-4",
+          isExpanded
+            ? "max-h-500 opacity-100 py-2"
+            : "max-h-0 opacity-0 overflow-hidden",
         )}
       >
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onCloseMenu}
-            className="block py-1.5 text-[16px] text-para/80 hover:text-primary active:text-primary transition-colors"
-          >
-            {item.label}
-          </Link>
-        ))}
+        <div className="space-y-2 border-l border-primary/20">
+          {items.map((item) => {
+            const isSubActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onCloseMenu}
+                className={clsx(
+                  "block py-1.5 text-[16px] transition-colors",
+                  isSubActive
+                    ? "text-primary font-bold"
+                    : "text-para/80 hover:text-primary active:text-primary",
+                )}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
