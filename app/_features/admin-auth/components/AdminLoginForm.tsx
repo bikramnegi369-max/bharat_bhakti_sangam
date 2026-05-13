@@ -55,8 +55,7 @@ export function AdminLoginForm({ nextPath }: { nextPath?: string | null }) {
           <h1 className="text-3xl font-bold text-slate-950">Welcome back</h1>
           <p className="text-sm leading-6 text-slate-600">
             Sign in to continue to the protected Bharat Bhakti Sangam admin
-            workspace. Access and refresh tokens stay in secure `httpOnly`
-            cookies and never touch browser storage.
+            workspace.
           </p>
         </div>
       </div>
