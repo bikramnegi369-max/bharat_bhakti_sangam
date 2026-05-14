@@ -148,8 +148,8 @@ export const temples: Temples = [
     description:
       "Gangotri Temple is a sacred shrine dedicated to Goddess Ganga, marking the origin of the holy River Ganges. Nestled in the serene Himalayas, it is one of the Char Dham pilgrimage sites. The temple radiates purity, devotion, and spiritual tranquility.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Gangotri_Temple_Uttarakhand.jpg/2560px-Gangotri_Temple_Uttarakhand.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Gangotri_Temple.jpg/2560px-Gangotri_Temple.jpg",
+      "/temples-images/gangotri/description/gangotri-desc-1.webp",
+      "/temples-images/gangotri/description/gangotri-desc-2.webp",
     ],
     features: {
       title: "Features of Gangotri Temple",
@@ -160,8 +160,8 @@ export const temples: Temples = [
         "Peaceful and spiritually uplifting environment",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Bhagirathi_River_at_Gangotri.jpg/2560px-Bhagirathi_River_at_Gangotri.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Gangotri_Temple_Uttarakhand.jpg/2560px-Gangotri_Temple_Uttarakhand.jpg",
+        "/temples-images/gangotri/features/gangotri-feature-1.webp",
+        "/temples-images/gangotri/features/gangotri-feature-2.webp",
       ],
     },
     location: {
@@ -169,8 +169,8 @@ export const temples: Temples = [
       description:
         "Located in Gangotri, Uttarkashi district, Uttarakhand, India. Around 100 km from Uttarkashi, Accessible by road, followed by a short walk to the temple",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Gangotri_Temple_entrance.jpg/2560px-Gangotri_Temple_entrance.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Gangotri_Temple.jpg/2560px-Gangotri_Temple.jpg",
+        "/temples-images/gangotri/location/gangotri-location-1.webp",
+        "/temples-images/gangotri/location/gangotri-location-2.webp",
       ],
     },
     history: {
@@ -178,7 +178,8 @@ export const temples: Temples = [
       description:
         "The Gangotri Temple was built in the 18th century by the Gorkha commander Amar Singh Thapa. It is believed that Goddess Ganga descended to Earth here after King Bhagirath&rsquo;s intense penance to purify the souls of his ancestors. Since then, the temple has been a sacred center of devotion and pilgrimage for millions of devotees.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gangotri_Temple_Surroundings.jpg/2560px-Gangotri_Temple_Surroundings.jpg",
+        "/temples-images/gangotri/history/gangotri-history-1.webp",
+        "/temples-images/gangotri/history/gangotri-history-2.webp",
       ],
     },
     bestTimeToVisit: "May to June & September to October",
@@ -284,8 +285,8 @@ export const temples: Temples = [
     description:
       "Shri Jagannath Temple is a sacred shrine dedicated to Lord Jagannath (a form of Lord Vishnu) along with Balabhadra and Subhadra. Located in Puri, it is one of the Char Dham pilgrimage sites and a center of immense devotion. The temple is world-famous for its grand Rath Yatra festival and deep spiritual significance.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/2560px-Jagannath_Temple_Puri_01.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Puri_Jagannath_Temple_Vimana.jpg/2560px-Puri_Jagannath_Temple_Vimana.jpg",
+      "/temples-images/jagannath/description/jagannath-desc-1.webp",
+      "/temples-images/jagannath/description/jagannath-desc-2.webp",
     ],
     features: {
       title: "Features of Shri Jagannath Temple",
@@ -296,8 +297,8 @@ export const temples: Temples = [
         "Temple kitchen is one of the largest in the world",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/2560px-Jagannath_Temple_Puri_01.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Puri_Jagannath_Temple_Vimana.jpg/2560px-Puri_Jagannath_Temple_Vimana.jpg",
+        "/temples-images/jagannath/features/jagannath-feature-1.webp",
+        "/temples-images/jagannath/features/jagannath-feature-2.webp",
       ],
     },
     location: {
@@ -305,8 +306,8 @@ export const temples: Temples = [
       description:
         "Located in Puri, Odisha, India, Around 60 km from Bhubaneswar",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/2560px-Jagannath_Temple_Puri_01.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Puri_Jagannath_Temple_Vimana.jpg/2560px-Puri_Jagannath_Temple_Vimana.jpg",
+        "/temples-images/jagannath/location/jagannath-location-1.webp",
+        "/temples-images/jagannath/location/jagannath-location-2.webp",
       ],
     },
     history: {
@@ -314,7 +315,8 @@ export const temples: Temples = [
       description:
         "The Jagannath Temple was built in the 12th century by King Anantavarman Chodaganga Deva of the Eastern Ganga Dynasty. It has been a major center of Vaishnav tradition and devotion for centuries. The temple&rsquo;s unique rituals, traditions, and festivals continue to attract millions of devotees from across the world.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/2560px-Jagannath_Temple_Puri_01.jpg",
+        "/temples-images/jagannath/history/jagannath-history-1.webp",
+        "/temples-images/jagannath/history/jagannath-history-2.webp",
       ],
     },
     bestTimeToVisit: "October to February",
@@ -329,8 +331,8 @@ export const temples: Temples = [
     description:
       "Shri Amarnath Cave is a sacred shrine dedicated to Lord Shiva, famous for the naturally formed ice Shivling. Located high in the Himalayas, it is one of the most revered pilgrimage sites in India. The journey to the cave is a profound spiritual experience filled with devotion, faith, and endurance.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/2560px-Amarnath_cave_01.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Amarnath_Yatra_-_Trek_to_Cave.jpg/2560px-Amarnath_Yatra_-_Trek_to_Cave.jpg",
+      "/temples-images/amarnath/description/amarnath-desc-1.webp",
+      "/temples-images/amarnath/description/amarnath-desc-2.webp",
     ],
     features: {
       title: "Features of Shri Amarnath Cave",
@@ -341,8 +343,8 @@ export const temples: Temples = [
         "Deep spiritual and mythological significance",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/2560px-Amarnath_cave_01.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Amarnath_Yatra_-_Trek_to_Cave.jpg/2560px-Amarnath_Yatra_-_Trek_to_Cave.jpg",
+        "/temples-images/amarnath/features/amarnath-feature-1.webp",
+        "/temples-images/amarnath/features/amarnath-feature-2.webp",
       ],
     },
     location: {
@@ -350,8 +352,8 @@ export const temples: Temples = [
       description:
         "Situated in Anantnag district, Jammu and Kashmir, India, Accessible via two main routes: Pahalgam and Baltal",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/2560px-Amarnath_cave_01.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Amarnath_Yatra_-_Trek_to_Cave.jpg/2560px-Amarnath_Yatra_-_Trek_to_Cave.jpg",
+        "/temples-images/amarnath/location/amarnath-location-1.webp",
+        "/temples-images/amarnath/location/amarnath-location-2.webp",
       ],
     },
     history: {
@@ -359,7 +361,8 @@ export const temples: Temples = [
       description:
         "According to Hindu beliefs, Lord Shiva revealed the secret of immortality (Amar Katha) to Goddess Parvati in this very cave. To ensure secrecy, he left behind all companions on the way. Since then, the cave has become a sacred place of immense devotion, attracting lakhs of pilgrims every year who undertake this divine journey.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/2560px-Amarnath_cave_01.jpg",
+        "/temples-images/amarnath/history/amarnath-history-1.webp",
+        "/temples-images/amarnath/history/amarnath-history-2.webp",
       ],
     },
     bestTimeToVisit: "Amarnath Yatra (June to August)",
@@ -374,8 +377,8 @@ export const temples: Temples = [
     description:
       "The Golden Temple, also known as Harmandir Sahib, is the holiest shrine of Sikhism and a symbol of peace, equality, and devotion. Surrounded by the sacred Amrit Sarovar, its golden structure reflects divine beauty and serenity. It welcomes people of all faiths, embodying unity and selfless service.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Golden_Temple_-_Amritsar_-_Punjab_-_0001.jpg/2560px-Golden_Temple_-_Amritsar_-_Punjab_-_0001.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Golden_Temple%2C_Amritsar.jpg/2560px-Golden_Temple%2C_Amritsar.jpg",
+      "/temples-images/golden-temple/description/golden-temple-desc-1.webp",
+      "/temples-images/golden-temple/description/golden-temple-desc-2.webp",
     ],
     features: {
       title: "Features of Golden Temple",
@@ -386,8 +389,8 @@ export const temples: Temples = [
         "Covered in gold plating with stunning architecture",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Golden_Temple%2C_Amritsar_02.jpg/2560px-Golden_Temple%2C_Amritsar_02.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Golden_Temple%2C_Amritsar_04.jpg/2560px-Golden_Temple%2C_Amritsar_04.jpg",
+        "/temples-images/golden-temple/features/golden-temple-feature-1.webp",
+        "/temples-images/golden-temple/features/golden-temple-feature-2.webp",
       ],
     },
     location: {
@@ -395,8 +398,8 @@ export const temples: Temples = [
       description:
         "Located in Amritsar, Punjab, India, Around 13 km from Sri Guru Ram Dass Jee International Airport",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Hamandir_Sahib_%28Golden_Temple%29.jpg/2560px-Hamandir_Sahib_%28Golden_Temple%29.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Golden_Temple_-_Amritsar_India.jpg/2560px-Golden_Temple_-_Amritsar_India.jpg",
+        "/temples-images/golden-temple/location/golden-temple-location-1.webp",
+        "/temples-images/golden-temple/location/golden-temple-location-2.webp",
       ],
     },
     history: {
@@ -404,7 +407,8 @@ export const temples: Temples = [
       description:
         "The Golden Temple was founded by Guru Ram Das in the 16th century and later completed by Guru Arjan Dev, who also installed the Guru Granth Sahib here. Over time, it was adorned with gold by Maharaja Ranjit Singh. It stands today as a symbol of faith, humility, and universal brotherhood.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Golden_Temple_-_Amritsar_-_Punjab_-_0001.jpg/2560px-Golden_Temple_-_Amritsar_-_Punjab_-_0001.jpg",
+        "/temples-images/golden-temple/history/golden-temple-history-1.webp",
+        "/temples-images/golden-temple/history/golden-temple-history-2.webp",
       ],
     },
     bestTimeToVisit: "October to March",
