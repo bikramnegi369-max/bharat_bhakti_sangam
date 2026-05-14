@@ -1,7 +1,6 @@
 "use server";
 
-import { dummyEvents } from "@/_lib/DummyData/EventData";
-import { Event, LatestEvent } from "../types";
+import { Event, EventDetail, LatestEvent } from "../types";
 import { TableQueryParams } from "@/_types/Table.types";
 import {
   API_URL,
@@ -13,14 +12,44 @@ import {
 } from "./constants";
 import { EventApiError } from "../class/EventApiError";
 import {
-  isApiEnvelope,
   isLatestEventRecord,
   isEventCapacityRecord,
+  isAllEventsData,
+  isEventRecord,
 } from "./guards";
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
 import { apiRoutes } from "@/_config/APIRoutes.config";
+import { EventFormData } from "@/_schemas/Event.schemas";
+import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
+import { isApiEnvelope, isRecord } from "@/_utils/guards";
+import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
 
+function extractEventDetailFromPayload(payload: unknown): unknown {
+  if (!isRecord(payload) || !("data" in payload)) {
+    return undefined;
+  }
+
+  const data = payload.data;
+
+  if (!isRecord(data)) {
+    return data;
+  }
+
+  if ("event" in data) {
+    return data.event;
+  }
+
+  if ("data" in data) {
+    return data.data;
+  }
+
+  return data;
+}
+
+/**
+ * PUBLIC CALL: Fetches the latest event without authentication.
+ */
 export const getLatestEvent = async (): Promise<LatestEvent> => {
   if (!API_URL) {
     throw new EventApiError(
@@ -163,56 +192,199 @@ export const getLatestEventCapacity = async (): Promise<EventCapacity> => {
   return payload.data;
 };
 
-export async function getAllEvents(
-  params: TableQueryParams,
-): Promise<APIResponse<{ items: Event[]; total: number }>> {
-  const search =
-    typeof params.search === "string" ? params.search.trim().toLowerCase() : "";
-
-  const date = typeof params.date === "string" ? params.date : "";
-  const time = typeof params.time === "string" ? params.time : "";
-  const sortBy = typeof params.sortBy === "string" ? params.sortBy : "";
-  const order = params.order === "desc" ? "desc" : "asc";
-  const limit = params.limit ?? 5;
-
-  let items = [...dummyEvents];
-
-  if (search) {
-    items = items.filter((event) => {
-      const haystack = `${event.title} ${event.description}`.toLowerCase();
-      return haystack.includes(search);
-    });
+export async function getAllEvents(params: TableQueryParams): Promise<
+  APIResponse<{
+    items: Event[];
+    total: number;
+    limit: number;
+    page: number;
+    totalPages: number;
+  }>
+> {
+  if (!API_URL) {
+    return { success: false, error: "API URL is not configured." };
   }
 
-  if (date) {
-    items = items.filter((event) => event.date.slice(0, 10) === date);
-  }
+  const queryParams = new URLSearchParams();
 
-  if (time) {
-    items = items.filter((event) => event.date.slice(11, 16) === time);
+  if (params.search) {
+    queryParams.append("search", String(params.search).trim());
   }
-
-  if (sortBy === "title" || sortBy === "description" || sortBy === "date") {
-    items.sort((left, right) => {
-      const a = String(left[sortBy as keyof Event]);
-      const b = String(right[sortBy as keyof Event]);
-      return order === "desc" ? b.localeCompare(a) : a.localeCompare(b);
-    });
+  if (params.date) {
+    queryParams.append("date", String(params.date));
   }
-
-  const total = items.length;
-  const start = (params.page - 1) * limit;
-  const end = start + limit;
+  if (params.time) {
+    queryParams.append("time", String(params.time));
+  }
+  if (params.sortBy) {
+    queryParams.append("sortBy", String(params.sortBy));
+  }
+  if (params.order) {
+    queryParams.append("order", String(params.order));
+  }
+  if (params.limit) {
+    queryParams.append("limit", String(params.limit));
+  }
+  if (params.page) {
+    queryParams.append("page", String(params.page));
+  }
 
   try {
+    const response = await authorizedAdminRequest(apiRoutes.getAllEvent, {
+      method: "GET",
+      search: queryParams.toString(),
+    });
+
+    if (!response.ok) {
+      const errorData = await response
+        .json()
+        .catch(() => ({ message: "Unknown error" }));
+      return {
+        success: false,
+        error:
+          errorData.message || `Failed to fetch events: ${response.status}`,
+      };
+    }
+
+    const payload: unknown = await response.json();
+
+    if (!isApiEnvelope(payload, isAllEventsData)) {
+      return {
+        success: false,
+        error: "Invalid API response format for all events.",
+      };
+    }
+
+    if (!payload.status) {
+      return {
+        success: false,
+        error: payload.message || "Failed to fetch events from API.",
+      };
+    }
+
     return {
       success: true,
       data: {
-        items: items.slice(start, end),
-        total,
+        items: payload.data.events,
+        total: payload.data.pagination.total,
+        limit: payload.data.pagination.limit,
+        page: payload.data.pagination.page,
+        totalPages: payload.data.pagination.totalPages,
       },
     };
   } catch (error) {
+    console.error("Error fetching all events:", error);
     return { success: false, error: "Failed to fetch events." };
+  }
+}
+
+export async function addEvent(event: EventFormData): Promise<APIResponse> {
+  try {
+    const payload = JSON.stringify(event);
+
+    const res = await authorizedAdminRequest(apiRoutes.event, {
+      method: "POST",
+      body: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      return { success: false, error: "Failed to add event." };
+    }
+
+    return {
+      success: true,
+    };
+  } catch {
+    return { success: false, error: "Failed to add event." };
+  }
+}
+
+export async function getEventById(id: string): Promise<APIResponse<Event>> {
+  if (!id.trim()) {
+    return { success: false, error: "Event id is required." };
+  }
+
+  try {
+    const res = await authorizedAdminRequest(apiRoutes.eventById(id), {
+      method: "GET",
+    });
+
+    const payload = await getResponsePayload(res);
+
+    if (!res.ok) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to fetch event.",
+      };
+    }
+
+    if (isRecord(payload) && "status" in payload && payload.status === false) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to fetch event.",
+      };
+    }
+
+    const eventData = extractEventDetailFromPayload(payload);
+
+    if (!isEventRecord(eventData)) {
+      return {
+        success: false,
+        error: "Invalid event detail response format.",
+      };
+    }
+
+    return {
+      success: true,
+      data: eventData,
+    };
+  } catch (error) {
+    console.error("Error fetching event by id:", error);
+    return { success: false, error: "Failed to fetch event." };
+  }
+}
+
+export async function updateEvent(
+  id: string,
+  event: EventFormData,
+): Promise<APIResponse> {
+  if (!id.trim()) {
+    return { success: false, error: "Event id is required." };
+  }
+
+  try {
+    const res = await authorizedAdminRequest(apiRoutes.eventById(id), {
+      method: "PUT",
+      body: JSON.stringify(event),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const payload = await getResponsePayload(res);
+
+    if (!res.ok) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to update event.",
+      };
+    }
+
+    if (isRecord(payload) && "status" in payload && payload.status === false) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to update event.",
+      };
+    }
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error("Error updating event:", error);
+    return { success: false, error: "Failed to update event." };
   }
 }

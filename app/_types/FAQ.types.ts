@@ -10,6 +10,7 @@ export interface FAQSectionProps {
   title?: string;
   highlightWord?: string;
   className?: string;
+  groupName?: string; // For accessibility: all accordions with the same groupName are treated as a single accordion (only one item open at a time)
   /** Index of the item to be open by default. Use null for all closed. */
   defaultOpenIndex?: number | null;
 }

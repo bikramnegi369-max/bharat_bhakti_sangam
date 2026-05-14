@@ -8,11 +8,13 @@ type Props<T> = {
   placeholder: string;
   multiple: boolean;
   disabled: boolean;
+  error?: string;
   className?: string;
   triggerRef: (node: HTMLElement | null) => void;
   onRemoveTag: (option: DropdownOption<T>) => void;
   triggerProps: Record<string, unknown>;
   open: boolean;
+  listboxId: string;
 };
 
 export function DropdownTrigger<T>({
@@ -20,11 +22,13 @@ export function DropdownTrigger<T>({
   placeholder,
   multiple,
   disabled,
+  error,
   className,
   triggerRef,
   onRemoveTag,
   triggerProps,
   open,
+  listboxId,
 }: Props<T>) {
   const displayValue = () => {
     if (multiple) {
@@ -63,19 +67,35 @@ export function DropdownTrigger<T>({
     return placeholder;
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      (triggerProps.onClick as React.EventHandler<React.SyntheticEvent>)?.(e);
+    }
+  };
+
   return (
-    <button
-      type="button"
+    <div
       ref={triggerRef}
-      disabled={disabled}
-      className={getTriggerStyles({ className })}
+      tabIndex={disabled ? -1 : 0}
+      role="combobox"
+      aria-expanded={open}
+      aria-haspopup="listbox"
+      aria-disabled={disabled}
+      aria-controls={open ? listboxId : undefined}
+      onKeyDown={handleKeyDown}
+      className={clsx(
+        getTriggerStyles({ className }),
+        error && "border-red-500! focus-within:ring-red-500",
+        disabled && "pointer-events-none opacity-50",
+      )}
       {...triggerProps}
     >
-      <div className="flex-1 truncate">{displayValue()}</div>
+      <div className="flex-1 truncate text-para/80">{displayValue()}</div>
       <ChevronDown
         size={18}
         className={clsx("transition-transform", open && "rotate-180")}
       />
-    </button>
+    </div>
   );
 }

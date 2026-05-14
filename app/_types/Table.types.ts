@@ -1,4 +1,9 @@
-import { ColumnDef, SortingState } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  RowData,
+  SortingState,
+  TableOptions,
+} from "@tanstack/react-table";
 import { ReactNode } from "react";
 import { APIResponse } from "./Api.types";
 
@@ -17,23 +22,38 @@ export type CreateColumnOptions<T> = {
 
 export type CreateColumnReturn<T, TValue = unknown> = ColumnDef<T, TValue>;
 
+type BaseFilterConfig = {
+  key: string;
+  label?: string;
+};
+
 export type FilterConfig =
-  | { type: "search"; key: string; placeholder?: string }
-  | { type: "date"; key: string }
-  | { type: "time"; key: string };
+  | (BaseFilterConfig & {
+      type: "search";
+      placeholder?: string;
+    })
+  | (BaseFilterConfig & {
+      type: "date";
+    })
+  | (BaseFilterConfig & {
+      type: "time";
+    });
 
 export type PaginationProps = {
   page: number;
   total: number;
   limit?: number;
+  totalPages?: number;
   onPageChange: (page: number) => void;
 };
 
-export type TableConfig<T, TValue = unknown> = {
-  columns: ColumnDef<T, TValue>[];
+export type TableConfig<T extends RowData> = {
+  columns: TableOptions<T>["columns"];
   service: TableService<T>;
+  queryKeyPrefix?: readonly unknown[];
   filters?: FilterConfig[];
   filterDebounceMs?: number;
+  staleTime?: number;
   filterAction?: React.ReactNode;
   renderActions?: (row: T) => React.ReactNode;
 };
@@ -50,6 +70,9 @@ export type TableService<T> = {
     APIResponse<{
       items: T[];
       total: number;
+      limit: number;
+      page: number;
+      totalPages?: number;
     }>
   >;
   getOne?: (id: string) => Promise<APIResponse>;
@@ -60,6 +83,9 @@ export interface TableController<T> {
   data?: {
     items: T[];
     total: number;
+    limit: number;
+    page: number;
+    totalPages?: number;
   };
   sorting: SortingState;
   setSorting: (s: SortingState) => void;

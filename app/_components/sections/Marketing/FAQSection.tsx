@@ -6,6 +6,7 @@ export default function FAQSection({
   title,
   highlightWord,
   className,
+  groupName,
   defaultOpenIndex = 0,
 }: FAQSectionProps) {
   return (
@@ -14,6 +15,7 @@ export default function FAQSection({
       title={title}
       highlightWord={highlightWord}
       className={className}
+      groupName={groupName}
       defaultOpenIndex={defaultOpenIndex}
       indicatorVariant="chevron"
     />

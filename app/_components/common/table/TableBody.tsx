@@ -39,7 +39,7 @@ export const TableBody = <T,>({
           ))}
 
           {renderActions && (
-            <td className="sticky right-0 z-20 border border-gray-200 bg-white px-4 py-3 shadow-2xl before:absolute before:left-0 before:top-0 before:h-full before:w-3 before:-translate-x-full before:bg-linear-to-l before:from-black/15 before:to-transparent before:content-['']">
+            <td className="sticky right-0 z-20 border border-gray-200 bg-white px-4 py-3 text-center shadow-2xl before:absolute before:left-0 before:top-0 before:h-full before:w-3 before:-translate-x-full before:bg-linear-to-l before:from-black/15 before:to-transparent before:content-['']">
               {renderActions(row.original)}
             </td>
           )}

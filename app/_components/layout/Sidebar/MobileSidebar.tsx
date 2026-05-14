@@ -2,11 +2,10 @@
 
 import clsx from "clsx";
 import { X } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { SidebarItemComponent } from "./SidebarItemComponent";
 import { SidebarLogo } from "./SidebarLogo";
 import { SIDEBAR_WIDTH } from "@/_config/Sidebar.config";
 import { NAV_ITEMS } from "@/_lib/constants/sidebar.constants";
+import { RecursiveNav } from "@/_components/layout/Sidebar/RecursiveNav";
 
 export const MobileSidebar = ({
   open,
@@ -15,12 +14,10 @@ export const MobileSidebar = ({
   open: boolean;
   onClose: () => void;
 }) => {
-  const pathname = usePathname();
-
   return (
     <div
       className={clsx(
-        "fixed inset-0 z-50 lg:hidden transition-opacity duration-300",
+        "fixed inset-0 z-50 lg:hidden transition-opacity duration-300 ",
         open
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none",
@@ -35,9 +32,9 @@ export const MobileSidebar = ({
       {/* drawer */}
       <aside
         className={clsx(
-          "absolute right-0 top-0 h-full bg-header-bg flex flex-col py-6 gap-6 transform transition-transform duration-300 z-50",
+          "absolute left-0 top-0 h-full bg-header-bg flex flex-col py-6 gap-6 transform transition-transform duration-300 z-50",
           SIDEBAR_WIDTH,
-          open ? "translate-x-0" : "translate-x-full",
+          open ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="flex items-center justify-between px-5">
@@ -52,14 +49,8 @@ export const MobileSidebar = ({
           </button>
         </div>
 
-        <nav className="flex flex-col gap-4 w-full items-center">
-          {NAV_ITEMS.map((item) => (
-            <SidebarItemComponent
-              key={item.href}
-              item={item}
-              active={pathname === item.href}
-            />
-          ))}
+        <nav className="w-full overflow-y-auto scrollbar-hide">
+          <RecursiveNav items={NAV_ITEMS} onItemClick={onClose} />
         </nav>
       </aside>
     </div>

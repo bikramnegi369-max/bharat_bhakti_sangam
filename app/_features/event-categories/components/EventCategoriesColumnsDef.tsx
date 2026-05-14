@@ -1,0 +1,45 @@
+import { EventCategory } from "@/_types/EventCategories.types";
+import { createColumn } from "@/_utils/createColumn";
+import clsx from "clsx";
+import Image from "next/image";
+
+const c = createColumn<EventCategory>();
+
+export const EventCategoriesColumns = [
+  c("eventCategory", {
+    header: "Event Category",
+    accessorFn: (row) => row.categoryName || "N/A",
+  }),
+  c("picture", {
+    header: "Picture",
+    accessorFn: (row) => row.picture,
+    cell: (value) => {
+      if (!value) return "N/A";
+      return (
+        <div className="bg-gray-200 border-2  rounded-xl w-16 h-16 relative overflow-hidden">
+          <Image src={value} alt="category picture" fill unoptimized />
+        </div>
+      );
+    },
+  }),
+  c("events", {
+    header: "No of Events",
+    accessorFn: (row) => row.totalEvents || "N/A",
+  }),
+  c("isActive", {
+    header: "Status",
+    accessorFn: (row) => row.isActive,
+    cell: (value) => {
+      return (
+        <span
+          className={clsx(
+            "px-2 py-1 rounded-md text-xs font-medium",
+            value ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800",
+          )}
+        >
+          {value ? "Active" : "Inactive"}
+        </span>
+      );
+    },
+  }),
+];

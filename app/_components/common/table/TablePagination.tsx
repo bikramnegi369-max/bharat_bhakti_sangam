@@ -4,18 +4,22 @@ export function TablePagination({
   page,
   total,
   limit = 5,
+  totalPages,
   onPageChange,
 }: PaginationProps) {
-  const totalPages = Math.ceil(total / limit);
+  const totalPage = totalPages ?? Math.max(1, Math.ceil(total / limit));
+  const currentPage = page ?? Math.min(Math.max(page, 1), totalPage);
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = Array.from({ length: totalPage }, (_, i) => i + 1);
 
   return (
     <div className="flex items-center justify-center gap-2 py-4 text-sm shadow-ms">
       <button
-        onClick={() => onPageChange(page - 1)}
-        disabled={page === 1}
-        className="px-3 py-1 border rounded disabled:opacity-50"
+        onClick={() => {
+          onPageChange(currentPage - 1);
+        }}
+        disabled={currentPage === 1 || totalPage === 0}
+        className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer hover:bg-gray-300"
       >
         Prev
       </button>
@@ -23,9 +27,11 @@ export function TablePagination({
       {pages.map((p) => (
         <button
           key={p}
-          onClick={() => onPageChange(p)}
-          className={`px-3 py-1 border rounded ${
-            p === page ? "bg-black text-white" : "bg-white"
+          onClick={() => {
+            onPageChange(p);
+          }}
+          className={`px-3 py-1 border rounded cursor-pointer hover:bg-gray-300 hover:text-black transition-colors ${
+            p === currentPage ? "bg-black text-white" : "bg-white"
           }`}
         >
           {p}
@@ -33,9 +39,11 @@ export function TablePagination({
       ))}
 
       <button
-        onClick={() => onPageChange(page + 1)}
-        disabled={page === totalPages}
-        className="px-3 py-1 border rounded disabled:opacity-50"
+        onClick={() => {
+          onPageChange(currentPage + 1);
+        }}
+        disabled={currentPage === totalPage || totalPage === 0}
+        className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer hover:bg-gray-300"
       >
         Next
       </button>

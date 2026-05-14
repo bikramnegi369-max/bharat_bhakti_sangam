@@ -88,7 +88,7 @@ export default async function EventPage() {
     },
     offers: bookingCategories.map((cat) => ({
       "@type": "Offer",
-      name: cat.name,
+      name: cat.bookingType,
       // price: cat.price,
       // priceCurrency: "INR",
       // availability: capacity.isSoldOut

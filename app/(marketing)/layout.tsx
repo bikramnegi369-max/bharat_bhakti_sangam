@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Navbar from "@/_components/layout/Navbar/Navbar";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   verification: {
@@ -21,11 +21,12 @@ export default function MarketingLayout({
 }) {
   return (
     <>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
       <Navbar />
       <main className="min-h-screen">{children}</main>
       <Footer />
       {/* <FloatingStack /> */}
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </>
   );
 }

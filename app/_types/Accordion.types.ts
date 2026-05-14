@@ -18,4 +18,5 @@ export interface AccordionSectionProps {
   contentClassName?: string;
   defaultOpenIndex?: number | null;
   indicatorVariant?: AccordionIndicatorVariant;
+  groupName?: string; // For accessibility: all accordions with the same groupName are treated as a single accordion (only one item open at a time)
 }
