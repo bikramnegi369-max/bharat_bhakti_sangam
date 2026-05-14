@@ -133,7 +133,7 @@ export default async function HomePage() {
       <GallerySection images={IMAGES} />
       <FAQSection
         items={homeFAQS}
-        title="Frequently Asked Questions (FAQs)"
+        title="Frequently Asked Questions"
         groupName="home-faqs"
       />
     </>
