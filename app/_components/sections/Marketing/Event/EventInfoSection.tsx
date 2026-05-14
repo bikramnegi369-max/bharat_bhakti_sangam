@@ -37,7 +37,7 @@ export default function EventInfoSection({
   type = "Private | Outdoor | Classical | Dance | Singing",
   booking = [
     {
-      name: "General Sitting",
+      bookingType: "General Sitting",
       price: 800,
     },
   ],

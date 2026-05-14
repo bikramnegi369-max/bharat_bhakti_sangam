@@ -60,6 +60,8 @@ export const FEEDBACK_MESSAGES = {
   error: "Something went wrong. Please try again.",
 };
 
+export const ALL_FEEDBACKS = "all-feedbacks";
+
 // STATUS SCREEN
 export const FEEDBACK_STATUS_CONFIG = {
   success: {
@@ -70,7 +72,8 @@ export const FEEDBACK_STATUS_CONFIG = {
   },
   error: {
     heading: "Something Went Wrong",
-    message: "We couldn't submit your feedback. Please check your connection and try again.",
+    message:
+      "We couldn't submit your feedback. Please check your connection and try again.",
     action: "Try Again",
   },
 } as const;

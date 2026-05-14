@@ -1,14 +1,15 @@
 import {
-  ColumnDef,
+  RowData,
   Table,
+  TableOptions,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { TableController } from "@/_types/Table.types";
 
-export const useDataTable = <T, TValue>(
+export const useDataTable = <T extends RowData>(
   controller: TableController<T>,
-  columns: ColumnDef<T, TValue>[],
+  columns: TableOptions<T>["columns"],
 ): Table<T> => {
   // TanStack Table manages functions internally; passing the config directly
   // avoids wrapping an incompatible API in memoization.

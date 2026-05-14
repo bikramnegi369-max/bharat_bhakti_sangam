@@ -32,7 +32,7 @@ export const getLabelStyles = ({
   className?: string;
 }) =>
   clsx(
-    "absolute left-3 -top-2 bg-white px-2 text-[clamp(0.813rem,calc(0.741rem+0.357vw),1.063rem)] tracking-[0.25em] uppercase z-10 font-semibold",
+    "absolute left-3 -top-3 bg-white px-2 text-[clamp(0.813rem,calc(0.741rem+0.357vw),1.063rem)] tracking-[0.25em] uppercase z-10 font-semibold",
     error ? "text-red-500" : "text-gray-500",
     className,
   );

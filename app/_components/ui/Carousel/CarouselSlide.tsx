@@ -3,9 +3,10 @@ import Image from "next/image";
 type Props = {
   src: string;
   alt?: string;
+  priority?: boolean;
 };
 
-export default function CarouselSlide({ src, alt }: Props) {
+export default function CarouselSlide({ src, alt, priority = false }: Props) {
   return (
     <div className="w-full relative overflow-hidden aspect-video sm:aspect-21/9">
       <div className="parallax h-full w-full">
@@ -14,9 +15,11 @@ export default function CarouselSlide({ src, alt }: Props) {
             src={src}
             alt={alt ?? ""}
             fill
-            className="object-cover scale-110"
-            priority
-            unoptimized
+            className="object-cover object-center scale-110"
+            priority={priority}
+            sizes="100vw"
+            quality={75}
+            loading={priority ? "eager" : "lazy"}
           />
         </div>
       </div>

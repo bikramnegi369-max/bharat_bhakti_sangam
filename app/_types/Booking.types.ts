@@ -6,6 +6,7 @@ export type BookingConfig = {
 };
 
 export interface BookingCategory {
-  name: string;
+  _id?: string;
+  bookingType: string;
   price: number;
 }

@@ -26,7 +26,7 @@ export default function DesktopNavLinks() {
                 "transition-colors text-[20px]",
                 isActive
                   ? "text-primary font-semibold"
-                  : "text-para hover:text-heading",
+                  : "text-white/80 hover:text-white",
               )}
             >
               {link.label}

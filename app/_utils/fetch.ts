@@ -1,4 +1,4 @@
-export const DEFAULT_TIMEOUT_MS = 5000;
+export const DEFAULT_TIMEOUT_MS = 10000;
 
 /**
  * Reusable production fetch timeout helper
@@ -11,7 +11,9 @@ export async function fetchWithTimeout(
   const controller = new AbortController();
 
   const timeoutId = setTimeout(() => {
-    controller.abort();
+    controller.abort(
+      new Error(`Network request timed out after ${timeoutMs}ms`),
+    );
   }, timeoutMs);
 
   try {

@@ -1,5 +1,6 @@
 "use client";
 
+import { WheelEvent, useRef, useMemo, useCallback } from "react";
 import { useDataTable } from "@/_hooks/useDataTable";
 import { TableFilters } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
@@ -8,9 +9,10 @@ import { TableError, TableFetching, TableLoading } from "./TableStates";
 import { TableHeader } from "./TableHeader";
 import { TableBody } from "./TableBody";
 import { TableConfig } from "@/_types/Table.types";
+import { RowData } from "@tanstack/react-table";
 
-interface Props<T, TValue> {
-  config: TableConfig<T, TValue>;
+interface Props<T extends RowData> {
+  config: TableConfig<T>;
 }
 
 const getErrorMessage = (error: unknown) => {
@@ -41,12 +43,67 @@ const getErrorMessage = (error: unknown) => {
   return undefined;
 };
 
-export function DataTable<T, TValue = unknown>({ config }: Props<T, TValue>) {
+const DEFAULT_TABLE_DATA = {
+  items: [],
+  total: 0,
+  limit: 10,
+  page: 1,
+  totalPages: 1,
+};
+
+export function DataTable<T extends RowData>({ config }: Props<T>) {
+  const tableScrollRef = useRef<HTMLDivElement | null>(null);
   const controller = useTableController(config);
-  const tableData = controller.data?.data;
-  const tableController = { ...controller, data: tableData };
+
+  const tableData = useMemo(
+    () => controller.data?.data ?? DEFAULT_TABLE_DATA,
+    [controller.data?.data],
+  );
+
+  const tableController = useMemo(
+    () => ({ ...controller, data: tableData }),
+    [controller, tableData],
+  );
+
+  const hasRows = tableData.items.length > 0;
 
   const table = useDataTable(tableController, config.columns);
+
+  const handleTableWheel = useCallback((event: WheelEvent<HTMLDivElement>) => {
+    const container = tableScrollRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const hasHorizontalOverflow = container.scrollWidth > container.clientWidth;
+
+    if (!hasHorizontalOverflow) {
+      return;
+    }
+
+    const delta =
+      Math.abs(event.deltaY) >= Math.abs(event.deltaX)
+        ? event.deltaY
+        : event.deltaX;
+
+    if (delta === 0) {
+      return;
+    }
+
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+    const nextScrollLeft = Math.max(
+      0,
+      Math.min(container.scrollLeft + delta, maxScrollLeft),
+    );
+
+    if (nextScrollLeft === container.scrollLeft) {
+      return;
+    }
+
+    event.preventDefault();
+    container.scrollLeft = nextScrollLeft;
+  }, []);
 
   if (controller.isLoading) return <TableLoading />;
   if (controller.error) {
@@ -66,9 +123,17 @@ export function DataTable<T, TValue = unknown>({ config }: Props<T, TValue>) {
       )}
 
       {/* Table */}
-      <div className="overflow-auto">
+      <div
+        ref={tableScrollRef}
+        onWheel={handleTableWheel}
+        className="overflow-x-auto overflow-y-hidden scrollbar-hide"
+      >
         <table className="min-w-full text-sm">
-          <TableHeader table={table} hasActions={!!config.renderActions} />
+          <TableHeader
+            table={table}
+            hasActions={!!config.renderActions}
+            disableSorting={!hasRows}
+          />
 
           <TableBody
             table={table}
@@ -82,6 +147,8 @@ export function DataTable<T, TValue = unknown>({ config }: Props<T, TValue>) {
       <TablePagination
         page={controller.page}
         total={tableData?.total || 0}
+        limit={tableData?.limit || 10}
+        totalPages={tableData?.totalPages}
         onPageChange={controller.setPage}
       />
 

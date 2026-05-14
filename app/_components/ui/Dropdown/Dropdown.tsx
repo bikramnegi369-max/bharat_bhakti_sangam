@@ -3,7 +3,7 @@
 import { useControllableState } from "@/_hooks/useControllableState";
 import { getLabelStyles } from "@/_components/ui/Field/Field.styles";
 import { DropdownOption, DropdownProps } from "@/_types/Dropdown";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useId } from "react";
 import { wrapperStyles } from "./Dropdown.styles";
 import { DropdownMenu } from "./DropdownMenu";
 import { DropdownTrigger } from "./DropdownTrigger";
@@ -18,6 +18,7 @@ export function Dropdown<T>({
   value,
   defaultValue,
   onChange,
+  onBlur,
   className,
   dropdownClassName,
   optionClassName,
@@ -25,9 +26,11 @@ export function Dropdown<T>({
   label,
   labelClassName,
   error,
+  required = false,
 }: DropdownProps<T>) {
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
+  const listboxId = useId();
 
   const [selected, setSelected] = useControllableState({
     value,
@@ -74,10 +77,19 @@ export function Dropdown<T>({
   };
 
   return (
-    <div className={wrapperStyles}>
+    <div
+      className={wrapperStyles}
+      onBlur={(e) => {
+        // Only fire when focus leaves the entire dropdown, not between children
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          onBlur?.();
+        }
+      }}
+    >
       {label && (
         <label className={getLabelStyles({ error, className: labelClassName })}>
           {label}
+          {required && <span className="text-red-500">*</span>}
         </label>
       )}
 
@@ -86,12 +98,20 @@ export function Dropdown<T>({
         placeholder={placeholder}
         multiple={multiple}
         disabled={disabled}
+        error={error}
         className={className}
         triggerRef={refs.setReference}
         onRemoveTag={handleRemoveTag}
         triggerProps={getReferenceProps() as Record<string, unknown>}
+        listboxId={listboxId}
         open={open}
       />
+
+      {error && (
+        <p className="mt-1 text-xs text-red-500 animate-in fade-in slide-in-from-top-1">
+          {error}
+        </p>
+      )}
 
       {open && (
         <DropdownMenu
@@ -107,6 +127,7 @@ export function Dropdown<T>({
           optionClassName={optionClassName}
           floatingRef={refs.setFloating}
           floatingStyles={floatingStyles}
+          id={listboxId}
           floatingProps={getFloatingProps() as Record<string, unknown>}
         />
       )}

@@ -77,11 +77,12 @@ export function getEventDescription(event: LatestEvent) {
 }
 
 export function getEventVenueName(event: LatestEvent) {
-  if (typeof event.venueName === "string") {
-    return event.venueName.trim() || "Venue To Be Announced";
-  }
-
-  if (event.venueName?.venue?.trim()) {
+  if (
+    typeof event.venueName === "object" &&
+    event.venueName !== null &&
+    typeof event.venueName.venue === "string" &&
+    event.venueName.venue.trim()
+  ) {
     return event.venueName.venue.trim();
   }
 
@@ -92,9 +93,9 @@ function isValidBookingCategory(item: unknown): item is BookingCategory {
   return (
     typeof item === "object" &&
     item !== null &&
-    "name" in item &&
+    "bookingType" in item &&
     "price" in item &&
-    typeof (item as BookingCategory).name === "string" &&
+    typeof (item as BookingCategory).bookingType === "string" &&
     typeof (item as BookingCategory).price === "number"
   );
 }
@@ -118,7 +119,7 @@ export function getEventBookingCategories(
 
   // Sanitize + normalize
   return categories.filter(isValidBookingCategory).map((cat) => ({
-    name: cat.name.trim(),
+    bookingType: cat.bookingType.trim(),
     price: cat.price,
   }));
 }
@@ -212,3 +213,16 @@ export function getCloudinaryImageSrcSet(
     .map((width) => `${getCloudinaryImageUrl(url, { width, quality })} ${width}w`)
     .join(", ");
 }
+
+/**
+ * Extracts the public_id from a standard Cloudinary URL.
+ * Handles URLs with or without version strings.
+ */
+export const extractPublicIdFromUrl = (url: string): string | null => {
+  const parts = url.split("/upload/");
+  if (parts.length < 2) return null;
+
+  // Remove version (v1234567/) if present and remove file extension
+  const pathAfterUpload = parts[1].replace(/^v\d+\//, "");
+  return pathAfterUpload.split(".").slice(0, -1).join(".");
+};

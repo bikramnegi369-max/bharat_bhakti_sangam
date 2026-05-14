@@ -23,8 +23,8 @@ export default function AboutEventSection({
   ],
 }: AboutEventSectionProps) {
   return (
-    <section className="h-full">
-      <div className="h-full border-3 border-primary rounded-md p-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] bg-primary_light flex flex-col">
+    <section>
+      <div className=" border-3 border-primary rounded-md p-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] bg-primary_light flex flex-col">
         {/* Heading */}
         <h2
           className={clsx(
@@ -41,7 +41,7 @@ export default function AboutEventSection({
         </p>
 
         {/* Instruments */}
-        {instruments.length > 0 && (
+        {/* {instruments.length > 0 && (
           <div className="mt-8">
             <p className="font-semibold text-para text-[clamp(0.813rem,calc(0.688rem+0.625vw),1.25rem)] mb-3 uppercase">
               Instruments
@@ -58,9 +58,9 @@ export default function AboutEventSection({
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
-        {hashtags.length > 0 && (
+        {/* {hashtags.length > 0 && (
           <>
             <div className="my-8 h-px w-full bg-para/30" />
 
@@ -77,7 +77,7 @@ export default function AboutEventSection({
               </div>
             </div>
           </>
-        )}
+        )} */}
       </div>
     </section>
   );

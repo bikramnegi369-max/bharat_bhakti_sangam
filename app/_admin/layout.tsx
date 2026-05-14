@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/_lib/seo";
-import { AdminLayoutShell } from "./AdminLayoutShell";
+import { AdminLayoutShell } from "@/admin/(protected)/AdminLayoutShell";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Admin",

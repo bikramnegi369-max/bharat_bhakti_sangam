@@ -19,6 +19,8 @@ import {
 } from "@/_lib/seo";
 import { getLatestEvent } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
+import FAQSection from "@/_components/sections/Marketing/FAQSection";
+import { homeFAQS } from "@/_lib/constants/home.constants";
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
@@ -129,6 +131,11 @@ export default async function HomePage() {
           }))}
       />
       <GallerySection images={IMAGES} />
+      <FAQSection
+        items={homeFAQS}
+        title="Frequently Asked Questions"
+        groupName="home-faqs"
+      />
     </>
   );
 }
