@@ -7,12 +7,14 @@ import { EventArtistsTable } from "@/_features/artists/components/EventArtistsTa
 import AddArtistsDrawer from "@/_features/artists/components/AddArtistsDrawer";
 import { useUI } from "@/providers/UIProvider";
 import { Artist } from "@/_types/Artists.types";
+import useIsMobile from "@/_hooks/useIsMobile";
 export default function AdminArtistsPage() {
   const { openDrawer } = useUI();
+  const isMobileView = useIsMobile();
 
   const handleAddArtist = useCallback(() => {
-    openDrawer(<AddArtistsDrawer />, { size: "full" });
-  }, [openDrawer]);
+    openDrawer(<AddArtistsDrawer />, { size: isMobileView ? "xl" : "full" });
+  }, [openDrawer, isMobileView]);
 
   const filterAction = useMemo(
     () => (
@@ -38,13 +40,13 @@ export default function AdminArtistsPage() {
             onClick: () =>
               openDrawer(
                 <AddArtistsDrawer mode="edit" artistId={artist._id} />,
-                { size: "full" },
+                { size: isMobileView ? "xl" : "full" },
               ),
           },
         ]}
       />
     ),
-    [openDrawer],
+    [openDrawer, isMobileView],
   );
 
   return (

@@ -11,7 +11,15 @@ import { isEventCategory, isEventCategoriesListData } from "./guards";
 
 export async function getEventCategories(
   params?: Partial<TableQueryParams>,
-): Promise<APIResponse<{ items: EventCategory[]; total: number }>> {
+): Promise<
+  APIResponse<{
+    items: EventCategory[];
+    total: number;
+    limit: number;
+    page: number;
+    totalPages: number;
+  }>
+> {
   try {
     const queryParams = new URLSearchParams();
 
@@ -55,7 +63,10 @@ export async function getEventCategories(
       success: true,
       data: {
         items: payload.data.categories,
-        total: payload.data.total ?? payload.data.categories.length,
+        total: payload.data.pagination.total ?? payload.data.categories.length,
+        limit: payload.data.pagination.limit,
+        page: payload.data.pagination.page,
+        totalPages: payload.data.pagination.totalPages,
       },
     };
   } catch (error) {

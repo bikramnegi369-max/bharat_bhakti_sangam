@@ -1,4 +1,4 @@
-import { isRecord } from "@/_utils/guards";
+import { isPaginationRecord, isRecord } from "@/_utils/guards";
 import { EventFeedback } from "@/_types/feedback.types";
 
 export function isEventFeedback(value: unknown): value is EventFeedback {
@@ -13,20 +13,21 @@ export function isEventFeedback(value: unknown): value is EventFeedback {
   );
 }
 
-export function isEventFeedbacksListData(
-  value: unknown,
-): value is {
+export function isEventFeedbacksListData(value: unknown): value is {
   data: EventFeedback[];
-  pagination: { page: number; pages: number | null };
+  pagination: {
+    page: number;
+    pages: number;
+    total: number;
+    limit: number;
+    totalPages: number;
+  };
 } {
   if (!isRecord(value)) return false;
   if (!Array.isArray(value.data)) return false;
   if (!isRecord(value.pagination)) return false;
-
-  return (
-    value.data.every(isEventFeedback) &&
-    typeof value.pagination.page === "number" &&
-    (typeof value.pagination.pages === "number" ||
-      value.pagination.pages === null)
-  );
+  if (!isPaginationRecord(value.pagination)) {
+    return false;
+  }
+  return value.data.every(isEventFeedback);
 }

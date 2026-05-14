@@ -55,25 +55,21 @@ export default function EventBookingTypesForm({
         <Field
           label="Booking Type"
           error={errors.bookingType?.message}
+          {...register("bookingType")}
+          placeholder="Enter booking type"
           required
-        >
-          <input
-            {...register("bookingType")}
-            type="text"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="Enter booking type"
-          />
-        </Field>
-        <Field label="Price" error={errors.price?.message} required>
-          <input
-            {...register("price", { valueAsNumber: true })}
-            type="number"
-            step="0.01"
-            min="0"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="Enter price"
-          />
-        </Field>
+        />
+
+        <Field
+          label="Price"
+          error={errors.price?.message}
+          {...register("price", { valueAsNumber: true })}
+          type="number"
+          step="0.01"
+          min="0"
+          placeholder="Enter price"
+          required
+        />
       </div>
       <FormActionButtons
         isSubmitting={isSubmitting}

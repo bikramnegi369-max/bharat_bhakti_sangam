@@ -1,3 +1,4 @@
+import { isPaginationRecord } from "@/_utils/guards";
 import { Event, EventDetail, LatestEvent } from "../types";
 import { EventCapacity } from "./constants";
 
@@ -140,19 +141,6 @@ export function isEventCapacityRecord(value: unknown): value is EventCapacity {
   );
 }
 
-export function isPaginationRecord(
-  value: unknown,
-): value is { total: number; page: number; limit: number; totalPages: number } {
-  if (!value || typeof value !== "object") return false;
-  const record = value as Record<string, unknown>;
-  return (
-    typeof record.total === "number" &&
-    typeof record.page === "number" &&
-    typeof record.limit === "number" &&
-    typeof record.totalPages === "number"
-  );
-}
-
 export function isAllEventsData(value: unknown): value is {
   events: Event[];
   pagination: {
@@ -173,5 +161,3 @@ export function isAllEventsData(value: unknown): value is {
   }
   return true;
 }
-
-export { isApiEnvelope } from "@/_utils/guards";

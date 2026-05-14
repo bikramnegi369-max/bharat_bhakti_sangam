@@ -4,12 +4,13 @@ export function TablePagination({
   page,
   total,
   limit = 5,
+  totalPages,
   onPageChange,
 }: PaginationProps) {
-  const totalPages = Math.max(1, Math.ceil(total / limit));
-  const currentPage = Math.min(Math.max(page, 1), totalPages);
+  const totalPage = totalPages ?? Math.max(1, Math.ceil(total / limit));
+  const currentPage = page ?? Math.min(Math.max(page, 1), totalPage);
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = Array.from({ length: totalPage }, (_, i) => i + 1);
 
   return (
     <div className="flex items-center justify-center gap-2 py-4 text-sm shadow-ms">
@@ -17,7 +18,7 @@ export function TablePagination({
         onClick={() => {
           onPageChange(currentPage - 1);
         }}
-        disabled={currentPage === 1}
+        disabled={currentPage === 1 || totalPage === 0}
         className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer hover:bg-gray-300"
       >
         Prev
@@ -41,7 +42,7 @@ export function TablePagination({
         onClick={() => {
           onPageChange(currentPage + 1);
         }}
-        disabled={currentPage === totalPages}
+        disabled={currentPage === totalPage || totalPage === 0}
         className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer hover:bg-gray-300"
       >
         Next

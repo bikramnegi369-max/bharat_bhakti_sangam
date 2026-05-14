@@ -1,4 +1,4 @@
-import { isRecord } from "@/_utils/guards";
+import { isPaginationRecord, isRecord } from "@/_utils/guards";
 import { EventCategory } from "@/_types/EventCategories.types";
 
 /**
@@ -18,13 +18,20 @@ export function isEventCategory(value: unknown): value is EventCategory {
 /**
  * Guard to validate the envelope for the categories list.
  */
-export function isEventCategoriesListData(
-  value: unknown,
-): value is { categories: EventCategory[]; total: number } {
+export function isEventCategoriesListData(value: unknown): value is {
+  categories: EventCategory[];
+  pagination: {
+    total: number;
+    limit: number;
+    page: number;
+    totalPages: number;
+  };
+} {
   if (!isRecord(value)) return false;
+  if (!isPaginationRecord(value.pagination)) {
+    return false;
+  }
   return (
-    Array.isArray(value.categories) &&
-    value.categories.every(isEventCategory) &&
-    (typeof value.total === "number" || typeof value.total === "undefined")
+    Array.isArray(value.categories) && value.categories.every(isEventCategory)
   );
 }

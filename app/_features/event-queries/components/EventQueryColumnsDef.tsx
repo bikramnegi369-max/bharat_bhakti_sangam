@@ -6,7 +6,7 @@ const c = createColumn<EventQuery>();
 export const EventQueryColumns = [
   c("name", {
     header: "Name",
-    accessorFn: (row) => row.name,
+    accessorFn: (row) => row.name || "N/A",
   }),
   c("email", {
     header: "Email",
@@ -14,11 +14,11 @@ export const EventQueryColumns = [
   }),
   c("contact", {
     header: "Contact",
-    accessorFn: (row) => row.contact,
+    accessorFn: (row) => row.contact || "N/A",
   }),
   c("query", {
     header: "Query",
-    accessorFn: (row) => row.query,
+    accessorFn: (row) => row.query || "N/A",
     enableSorting: false,
     minSize: 240,
   }),

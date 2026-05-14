@@ -12,14 +12,16 @@ import { ALL_VOLUNTEERS } from "@/_lib/constants/volunteers.constants";
 import { useUI } from "@/providers/UIProvider";
 import { getTableQueryKeyPrefix } from "@/_utils/queryKey";
 import { Volunteer } from "@/_types/Volunteer.types";
+import useIsMobile from "@/_hooks/useIsMobile";
 
 export default function AdminVolunteersPage() {
   const queryClient = useQueryClient();
   const { openDrawer } = useUI();
+  const isMobileView = useIsMobile();
 
   const handleAddVolunteer = useCallback(() => {
-    openDrawer(<AddVolunteerDrawer />, { size: "full" });
-  }, [openDrawer]);
+    openDrawer(<AddVolunteerDrawer />, { size: isMobileView ? "xl" : "full" });
+  }, [openDrawer, isMobileView]);
 
   const handleUpdateVolunteerStatus = useCallback(
     async (volunteerId: string, disable: boolean) => {
@@ -81,7 +83,7 @@ export default function AdminVolunteersPage() {
             onClick: () =>
               openDrawer(
                 <AddVolunteerDrawer mode="edit" volunteerId={volunteer._id} />,
-                { size: "full" },
+                { size: isMobileView ? "xl" : "full" },
               ),
           },
           {
@@ -99,12 +101,11 @@ export default function AdminVolunteersPage() {
         ]}
       />
     ),
-    [openDrawer, handleUpdateVolunteerStatus],
+    [openDrawer, handleUpdateVolunteerStatus, isMobileView],
   );
 
   return (
     <section className="space-y-8">
-
       <EventVolunteersTable
         filterAction={filterAction}
         renderActions={renderActions}

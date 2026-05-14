@@ -1,8 +1,9 @@
 export interface EventBooking {
   _id: string;
-  Name: string;
+  name: string;
   eventName: string;
   email: string;
-  contact: string;
-  tickets: string;
+  contact: number;
+  tickets: number;
+  ticketId: string;
 }

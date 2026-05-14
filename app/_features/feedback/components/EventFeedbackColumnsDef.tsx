@@ -6,19 +6,19 @@ const c = createColumn<EventFeedback>();
 export const EventFeedbackColumns = [
   c("name", {
     header: "Name",
-    accessorFn: (row) => row.name,
+    accessorFn: (row) => row.name || "N/A",
   }),
   c("email", {
     header: "Email",
-    accessorFn: (row) => row.email,
+    accessorFn: (row) => row.email || "N/A",
   }),
   c("rating", {
     header: "Rating",
-    accessorFn: (row) => row.rating,
+    accessorFn: (row) => row.rating || "N/A",
   }),
   c("feedback", {
     header: "Feedback",
-    accessorFn: (row) => row.feedback,
+    accessorFn: (row) => row.feedback || "N/A",
     enableSorting: false,
     minSize: 240,
   }),

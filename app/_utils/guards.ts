@@ -23,3 +23,16 @@ export function isApiEnvelope<T>(
     dataGuard(value.data)
   );
 }
+
+export function isPaginationRecord(
+  value: unknown,
+): value is { total: number; page: number; limit: number; totalPages: number } {
+  if (!value || typeof value !== "object") return false;
+  const record = value as Record<string, unknown>;
+  return (
+    typeof record.total === "number" &&
+    typeof record.page === "number" &&
+    typeof record.limit === "number" &&
+    typeof record.totalPages === "number"
+  );
+}

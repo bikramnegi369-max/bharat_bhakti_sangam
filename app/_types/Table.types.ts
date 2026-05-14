@@ -43,6 +43,7 @@ export type PaginationProps = {
   page: number;
   total: number;
   limit?: number;
+  totalPages?: number;
   onPageChange: (page: number) => void;
 };
 
@@ -69,6 +70,9 @@ export type TableService<T> = {
     APIResponse<{
       items: T[];
       total: number;
+      limit: number;
+      page: number;
+      totalPages?: number;
     }>
   >;
   getOne?: (id: string) => Promise<APIResponse>;
@@ -79,6 +83,9 @@ export interface TableController<T> {
   data?: {
     items: T[];
     total: number;
+    limit: number;
+    page: number;
+    totalPages?: number;
   };
   sorting: SortingState;
   setSorting: (s: SortingState) => void;

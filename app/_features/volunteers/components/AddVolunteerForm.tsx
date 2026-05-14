@@ -59,7 +59,7 @@ export default function AddVolunteerForm({
 
   return (
     <form onSubmit={handleSubmitForm(handleSubmit)} className="space-y-8 p-8">
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <Field
           label="Name"
           error={errors.name?.message as string}

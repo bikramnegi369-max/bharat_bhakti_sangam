@@ -43,7 +43,13 @@ const getErrorMessage = (error: unknown) => {
   return undefined;
 };
 
-const DEFAULT_TABLE_DATA = { items: [], total: 0 };
+const DEFAULT_TABLE_DATA = {
+  items: [],
+  total: 0,
+  limit: 10,
+  page: 1,
+  totalPages: 1,
+};
 
 export function DataTable<T extends RowData>({ config }: Props<T>) {
   const tableScrollRef = useRef<HTMLDivElement | null>(null);
@@ -141,6 +147,8 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
       <TablePagination
         page={controller.page}
         total={tableData?.total || 0}
+        limit={tableData?.limit || 10}
+        totalPages={tableData?.totalPages}
         onPageChange={controller.setPage}
       />
 

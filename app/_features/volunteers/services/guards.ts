@@ -1,4 +1,4 @@
-import { isRecord } from "@/_utils/guards";
+import { isPaginationRecord, isRecord } from "@/_utils/guards";
 import { Volunteer } from "@/_types/Volunteer.types";
 
 export function isVolunteer(value: unknown): value is Volunteer {
@@ -15,20 +15,20 @@ export function isVolunteer(value: unknown): value is Volunteer {
   );
 }
 
-export function isVolunteersListData(
-  value: unknown,
-): value is {
+export function isVolunteersListData(value: unknown): value is {
   data: Volunteer[];
-  pagination: { page: number; pages: number | null };
+  pagination: {
+    page: number;
+    total: number;
+    limit: number;
+    totalPages: number;
+  };
 } {
   if (!isRecord(value)) return false;
   if (!Array.isArray(value.data)) return false;
   if (!isRecord(value.pagination)) return false;
-
-  return (
-    value.data.every(isVolunteer) &&
-    typeof value.pagination.page === "number" &&
-    (typeof value.pagination.pages === "number" ||
-      value.pagination.pages === null)
-  );
+  if (!isPaginationRecord(value.pagination)) {
+    return false;
+  }
+  return value.data.every(isVolunteer);
 }

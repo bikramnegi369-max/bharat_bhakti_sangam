@@ -1,4 +1,4 @@
-import { isRecord } from "@/_utils/guards";
+import { isPaginationRecord, isRecord } from "@/_utils/guards";
 import { Artist } from "@/_types/Artists.types";
 
 export function isArtist(value: unknown): value is Artist {
@@ -7,6 +7,7 @@ export function isArtist(value: unknown): value is Artist {
   return (
     typeof value._id === "string" &&
     typeof value.artistName === "string" &&
+    typeof value.role === "string" &&
     typeof value.profileImage === "string" &&
     typeof value.email === "string" &&
     typeof value.contactNo === "string" &&
@@ -24,15 +25,18 @@ export function isArtist(value: unknown): value is Artist {
 
 export function isArtistsListData(value: unknown): value is {
   data: Artist[];
-  pagination: { page: number; pages: number | null };
+  pagination: {
+    page: number;
+    total: number;
+    limit: number;
+    totalPages: number;
+  };
 } {
   if (!isRecord(value)) return false;
   if (!Array.isArray(value.data)) return false;
   if (!isRecord(value.pagination)) return false;
-  return (
-    value.data.every(isArtist) &&
-    typeof value.pagination.page === "number" &&
-    (typeof value.pagination.pages === "number" ||
-      value.pagination.pages === null)
-  );
+  if (!isPaginationRecord(value.pagination)) {
+    return false;
+  }
+  return value.data.every(isArtist);
 }

@@ -12,7 +12,6 @@ import {
 } from "./constants";
 import { EventApiError } from "../class/EventApiError";
 import {
-  isApiEnvelope,
   isLatestEventRecord,
   isEventCapacityRecord,
   isAllEventsData,
@@ -23,7 +22,7 @@ import { APIResponse } from "@/_types/Api.types";
 import { apiRoutes } from "@/_config/APIRoutes.config";
 import { EventFormData } from "@/_schemas/Event.schemas";
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
-import { isRecord } from "@/_utils/guards";
+import { isApiEnvelope, isRecord } from "@/_utils/guards";
 import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
 
 function extractEventDetailFromPayload(payload: unknown): unknown {
@@ -193,9 +192,15 @@ export const getLatestEventCapacity = async (): Promise<EventCapacity> => {
   return payload.data;
 };
 
-export async function getAllEvents(
-  params: TableQueryParams,
-): Promise<APIResponse<{ items: Event[]; total: number }>> {
+export async function getAllEvents(params: TableQueryParams): Promise<
+  APIResponse<{
+    items: Event[];
+    total: number;
+    limit: number;
+    page: number;
+    totalPages: number;
+  }>
+> {
   if (!API_URL) {
     return { success: false, error: "API URL is not configured." };
   }
@@ -262,6 +267,9 @@ export async function getAllEvents(
       data: {
         items: payload.data.events,
         total: payload.data.pagination.total,
+        limit: payload.data.pagination.limit,
+        page: payload.data.pagination.page,
+        totalPages: payload.data.pagination.totalPages,
       },
     };
   } catch (error) {
