@@ -9,6 +9,10 @@ export const EventArtistsColumns = [
     header: "Artist Name",
     accessorFn: (row) => row.artistName || "N/A",
   }),
+  c("role", {
+    header: "Role",
+    accessorFn: (row) => row.role || "N/A",
+  }),
   c("profileImage", {
     header: "Profile",
     accessorFn: (row) => row.profileImage,

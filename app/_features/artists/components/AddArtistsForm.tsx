@@ -37,6 +37,7 @@ export default function AddArtistsForm({
     reValidateMode: "onChange",
     defaultValues: {
       artistName: "",
+      role: "",
       email: "",
       contactNo: "",
       instruments: [],
@@ -52,6 +53,7 @@ export default function AddArtistsForm({
     if (initialData) {
       reset({
         artistName: initialData.artistName || "",
+        role: initialData.role || "",
         email: initialData.email || "",
         contactNo: initialData.contactNo || "",
         instruments: initialData.instruments ?? [],
@@ -79,6 +81,13 @@ export default function AddArtistsForm({
           type="email"
           error={errors.email?.message as string}
           {...register("email")}
+          required
+        />
+
+        <Field
+          label="Role"
+          error={errors.role?.message as string}
+          {...register("role")}
           required
         />
 
@@ -113,7 +122,8 @@ export default function AddArtistsForm({
           {...register("endTime")}
           required
         />
-
+      </div>
+      <div className="grid grid-cols-2 gap-6">
         <Field
           as="textarea"
           label="About Artist"

@@ -7,6 +7,7 @@ export function isArtist(value: unknown): value is Artist {
   return (
     typeof value._id === "string" &&
     typeof value.artistName === "string" &&
+    typeof value.role === "string" &&
     typeof value.profileImage === "string" &&
     typeof value.email === "string" &&
     typeof value.contactNo === "string" &&

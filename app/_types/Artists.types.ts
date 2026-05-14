@@ -1,6 +1,7 @@
 export interface Artist {
   _id: string;
   artistName: string;
+  role: string;
   profileImage: string;
   email: string;
   contactNo: string;

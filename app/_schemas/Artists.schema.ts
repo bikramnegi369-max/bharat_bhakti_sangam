@@ -2,6 +2,7 @@ import z from "zod";
 
 export const ArtistSchema = z.object({
   artistName: z.string().min(1, "Artist name is required"),
+  role: z.string().min(1, "Role is required"),
   email: z.email("Enter a valid email"),
   contactNo: z.string().min(1, "Contact number is required"),
   instruments: z
