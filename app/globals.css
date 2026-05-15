@@ -134,11 +134,11 @@ button:active::after {
   will-change: transform;
 }
 
-.parallax__layer img {
+/* .parallax__layer img {
   width: 120%;
   height: 100%;
   object-fit: cover;
-}
+} */
 
 @keyframes dropdownIn {
   from {
