@@ -423,8 +423,8 @@ export const temples: Temples = [
     description:
       "Siddhivinayak Temple is one of the most revered temples dedicated to Lord Ganesha, known as the remover of obstacles and giver of success. Located in Mumbai, it attracts millions of devotees, including celebrities and leaders. The temple radiates faith, hope, and divine blessings.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Siddhivinayak_temple_mumbai.jpg/2560px-Siddhivinayak_temple_mumbai.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Siddhivinayak_Temple_Prabhadevi.jpg/2560px-Siddhivinayak_Temple_Prabhadevi.jpg",
+      "/temples-images/siddhivinayak/description/siddhivinayak-desc-1.webp",
+      "/temples-images/siddhivinayak/description/siddhivinayak-desc-2.webp",
     ],
     features: {
       title: "Features of Siddhivinayak Temple",
@@ -435,8 +435,8 @@ export const temples: Temples = [
         "High-profile devotees and global popularity",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Inside_Siddhivinayak_temple.jpg/1280px-Inside_Siddhivinayak_temple.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Siddhivinayak_temple_mumbai.jpg/2560px-Siddhivinayak_temple_mumbai.jpg",
+        "/temples-images/siddhivinayak/features/siddhivinayak-feature-1.webp",
+        "/temples-images/siddhivinayak/features/siddhivinayak-feature-2.webp",
       ],
     },
     location: {
@@ -444,7 +444,8 @@ export const temples: Temples = [
       description:
         "Located in Prabhadevi, Mumbai, Maharashtra, India, Well connected via local trains, buses, and taxis",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Siddhivinayak_Temple_Prabhadevi.jpg/2560px-Siddhivinayak_Temple_Prabhadevi.jpg",
+        "/temples-images/siddhivinayak/location/siddhivinayak-location-1.webp",
+        "/temples-images/siddhivinayak/location/siddhivinayak-location-2.webp",
       ],
     },
     history: {
@@ -452,7 +453,8 @@ export const temples: Temples = [
       description:
         "The Siddhivinayak Temple was established in 1801 by Laxman Vithu and Deubai Patil. Over the years, it has grown into one of the most significant Ganesha temples in India. Devotees believe that sincere prayers here fulfill wishes and bring success and prosperity.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Siddhivinayak_temple_mumbai.jpg/2560px-Siddhivinayak_temple_mumbai.jpg",
+        "/temples-images/siddhivinayak/history/siddhivinayak-history-1.webp",
+        "/temples-images/siddhivinayak/history/siddhivinayak-history-2.webp",
       ],
     },
     bestTimeToVisit: "November to February",
