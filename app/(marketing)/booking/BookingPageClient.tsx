@@ -54,6 +54,7 @@ export function BookingPageClient({
     specificErrorMessage,
     reset,
   } = useBookingForm(ticketTypes[0]?.name, eventId);
+  const formRef = useRef<HTMLFormElement | null>(null);
   const statusRef = useRef<HTMLDivElement | null>(null);
 
   const bookingDetails = useMemo(
@@ -66,6 +67,51 @@ export function BookingPageClient({
     }),
     [eventTitle, eventDate, eventLocation, eventAddress, ticketTypes],
   );
+
+  useEffect(() => {
+    if (status !== "idle" || !formRef.current) {
+      return;
+    }
+
+    let attempts = 0;
+    let timeoutId: number | null = null;
+    let frameId: number | null = null;
+
+    const focusBookingForm = () => {
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      const fullNameInput = formRef.current?.querySelector<HTMLInputElement>(
+        'input[name="fullName"]',
+      );
+
+      if (fullNameInput) {
+        fullNameInput.focus({ preventScroll: true });
+        return;
+      }
+
+      if (attempts >= 10) {
+        return;
+      }
+
+      attempts += 1;
+      timeoutId = window.setTimeout(focusBookingForm, 120);
+    };
+
+    frameId = window.requestAnimationFrame(focusBookingForm);
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
+    };
+  }, [status]);
 
   useEffect(() => {
     if (status === "success") {
@@ -110,6 +156,7 @@ export function BookingPageClient({
           ) : (
             <FormProvider {...methods}>
               <form
+                ref={formRef}
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className="w-full max-w-7xl flex justify-center items-center"
               >
