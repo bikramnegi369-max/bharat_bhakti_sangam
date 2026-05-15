@@ -30,7 +30,7 @@ export default function HeroBackgroundImage({
         preload
         aria-hidden="true"
         sizes={HERO_IMAGE_SIZES}
-        className="object-cover object-center"
+        className="object-cover object-bottom-right"
       />
     );
   }
@@ -59,7 +59,7 @@ export default function HeroBackgroundImage({
       loading="eager"
       decoding="async"
       aria-hidden="true"
-      className="absolute inset-0 h-full w-full object-cover object-center"
+      className="absolute inset-0 h-full w-full object-cover object-bottom-right"
     />
   );
 }
