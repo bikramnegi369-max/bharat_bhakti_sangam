@@ -34,13 +34,16 @@ export default function AboutArtistSection({
           {artists.map((artist, index) => (
             <div
               key={`${artist.name}-${artist.role}-${index}`}
-              className="flex items-center justify-between text-[clamp(0.813rem,calc(0.723rem+0.446vw),1.125rem)]"
+              className="grid grid-cols-3  text-[clamp(0.813rem,calc(0.723rem+0.446vw),1.125rem)]"
             >
-              <p className="font-medium text-heading">{artist.name}</p>
-              <span className="mx-4 text-para" aria-hidden="true">
+              <p className="font-medium text-heading ">{artist.name}</p>
+              <span
+                className="mx-4 text-para place-self-center"
+                aria-hidden="true"
+              >
                 -
               </span>
-              <p className="text-para">{artist.role}</p>
+              <p className="text-para place-self-end">{artist.role}</p>
             </div>
           ))}
         </div>
