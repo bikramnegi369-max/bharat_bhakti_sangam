@@ -39,7 +39,7 @@ export const footerConfig: FooterConfig = {
       id: "main",
       links: [
         { label: "Home", href: "/" },
-        { label: "Events", href: "/event" },
+        { label: "Event", href: "/event" },
         { label: "Famous Temples", href: "/famous-temples" },
         { label: "About Us", href: "/about" },
         { label: "Contact Us", href: "/contact" },
