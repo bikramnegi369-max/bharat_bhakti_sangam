@@ -7,14 +7,13 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useMemo } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { FormProvider } from "react-hook-form";
+import BookingFormSkeleton from "@/_features/bookings/components/BookingFormSkeleton";
 
 const BookingForm = dynamic(
   () => import("@/_features/bookings/components/BookingForm"),
   {
     ssr: false,
-    loading: () => (
-      <div className="h-96 w-full animate-pulse bg-gray-100 rounded-3xl" />
-    ),
+    loading: () => <BookingFormSkeleton />,
   },
 );
 
