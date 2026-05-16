@@ -12,6 +12,7 @@ const BOOKING_BASE = "/booking";
 const BOOKING_TYPE_BASE = "/admin/booking-type";
 const CALENDER_BASE = "/calender";
 const DASHBOARD_BASE = "/dashboard";
+const ADMIN_EMAIL_BASE = "/admin/email";
 
 export const apiRoutes = {
   event: EVENT_BASE,
@@ -47,4 +48,5 @@ export const apiRoutes = {
   venueById: (id: string) => `${VENUE_BASE}/${id}`,
   addVenue: VENUE_BASE,
   dashboardEventStats: `${DASHBOARD_BASE}/events`,
+  sendAdminEmail: `${ADMIN_EMAIL_BASE}`,
 };

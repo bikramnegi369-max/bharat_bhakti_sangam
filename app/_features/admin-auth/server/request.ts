@@ -8,6 +8,15 @@ import {
   clearAdminAuthCookiesServerSide,
 } from "./cookies";
 
+function createAuthFailureResponse(status: number, message: string): Response {
+  return Response.json(
+    {
+      message,
+    },
+    { status },
+  );
+}
+
 export async function authorizedAdminRequest(
   path: string,
   options: {
@@ -22,6 +31,7 @@ export async function authorizedAdminRequest(
   // Proactive Refresh: If token is missing but refresh token exists, refresh now
   if (!authState.accessToken && authState.refreshToken) {
     const refreshResult = await refreshAgainstBackend(authState);
+
     if (refreshResult.ok) {
       const newAuth = refreshResult.auth;
       const signedSession = await createSignedAdminSession(newAuth.session);
@@ -33,7 +43,17 @@ export async function authorizedAdminRequest(
         refreshToken: newAuth.refreshToken ?? authState.refreshToken,
         session: newAuth.session,
       };
+    } else {
+      await clearAdminAuthCookiesServerSide();
+      return createAuthFailureResponse(
+        refreshResult.status,
+        refreshResult.message,
+      );
     }
+  }
+
+  if (!authState.accessToken) {
+    return createAuthFailureResponse(401, "Unauthorized. Please sign in again.");
   }
 
   // 1. Attempt the request
@@ -66,6 +86,10 @@ export async function authorizedAdminRequest(
       });
     } else {
       await clearAdminAuthCookiesServerSide();
+      return createAuthFailureResponse(
+        refreshResult.status,
+        refreshResult.message,
+      );
     }
   }
 

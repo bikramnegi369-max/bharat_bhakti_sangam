@@ -59,6 +59,8 @@ export async function proxy(request: NextRequest) {
     );
   }
 
+  // If a session exists and the path is not the login page,
+  // allow the request to proceed. Token validity will be handled by authorizedAdminRequest.
   return NextResponse.next();
 }
 
