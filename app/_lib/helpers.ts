@@ -33,6 +33,51 @@ export function formatEventDate(date: string) {
   }).format(parsedDate);
 }
 
+export function formatLocalizedDateTimeParts(value?: string | null) {
+  if (!value) {
+    return undefined;
+  }
+
+  const parsedValue = new Date(value);
+
+  if (Number.isNaN(parsedValue.getTime())) {
+    return undefined;
+  }
+
+  const dateParts = new Intl.DateTimeFormat("en-IN", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "Asia/Kolkata",
+  }).formatToParts(parsedValue);
+
+  const weekday = dateParts.find((part) => part.type === "weekday")?.value;
+  const day = dateParts.find((part) => part.type === "day")?.value;
+  const month = dateParts.find((part) => part.type === "month")?.value;
+  const year = dateParts.find((part) => part.type === "year")?.value;
+
+  if (!weekday || !day || !month || !year) {
+    return undefined;
+  }
+
+  const time = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "Asia/Kolkata",
+  })
+    .format(parsedValue)
+    .replace(/\s+/g, " ")
+    .trim()
+    .toUpperCase();
+
+  return {
+    date: `${weekday}, ${day} ${month.toLowerCase()}, ${year}`,
+    time,
+  };
+}
+
 export function getEventDisplayDate(event: LatestEvent) {
   const formattedDate = formatEventDate(event.date);
   return formattedDate;

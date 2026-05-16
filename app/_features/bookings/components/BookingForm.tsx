@@ -5,20 +5,14 @@ import { BOOKING_CONFIG } from "@/_lib/constants/booking.constants";
 import { cinzel } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
-import { Info, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 type Props = {
-  eventDate?: string;
   isSubmitting: boolean;
-  ticketTypes: { name: string; price: number }[];
 };
 
-export default function BookingForm({
-  eventDate,
-  isSubmitting,
-  ticketTypes,
-}: Props) {
+export default function BookingForm({ isSubmitting }: Props) {
   const {
     register,
     setValue,
@@ -27,15 +21,6 @@ export default function BookingForm({
   } = useFormContext<BookingFormData>();
 
   const values = useWatch({ control });
-
-  const selectedTicket = ticketTypes.find((t) => t.name === values.ticketType);
-  const total = (values.tickets || 0) * (selectedTicket?.price || 0);
-
-  const ticketOptions = ticketTypes.map((type) => ({
-    label: type.name.charAt(0).toUpperCase() + type.name.slice(1),
-    value: type.name,
-    price: type.price,
-  }));
 
   return (
     <div
@@ -78,20 +63,6 @@ export default function BookingForm({
         maxLength={10}
         labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
       />
-      {/* <div className="flex flex-col justify-center gap-8">
-        <Controller
-          name="ticketType"
-          control={control}
-          render={({ field }) => (
-            <Dropdown
-              label="Ticket Type"
-              options={ticketOptions}
-              value={ticketOptions.find((o) => o.value === field.value) ?? null}
-              onChange={(opt) => field.onChange(opt?.value)}
-            />
-          )}
-        />
-      </div> */}
       <div className="flex flex-col justify-center gap-3">
         <span className="text-[clamp(0.813rem,calc(0.741rem+0.357vw),1.063rem)] font-semibold tracking-[0.25em] uppercase text-gray-500 ">
           Number of Tickets
@@ -103,22 +74,7 @@ export default function BookingForm({
         />
       </div>
 
-      {/* <hr className=" border-para opacity-20" /> */}
-
       <div className=" flex flex-col gap-4">
-        {/* <div className="flex justify-between items-center">
-          <span className="text-[clamp(0.938rem,calc(0.848rem+0.446vw),1.25rem)] font-semibold text-para tracking-wider">
-            Grand Total :
-          </span>
-          <span
-            className={clsx(
-              "text-[clamp(1.625rem,calc(1.464rem+0.804vw),2.188rem)] text-heading font-bold",
-              cinzel.className,
-            )}
-          >
-            ₹{total}
-          </span>
-        </div> */}
         <Button
           type="submit"
           variant="primary"
@@ -132,14 +88,6 @@ export default function BookingForm({
             {isSubmitting ? "Booking..." : "Book Now"}
           </span>
         </Button>
-        {/* <div className="flex gap-2 p-2 border rounded-md border-primary m-auto">
-          <Info size={14} className="text-primary" />
-          <span className="text-[10px] lg:text-sm text-primary">
-            Valid for {values?.tickets}{" "}
-            {values?.tickets === 1 ? "entry" : "entries"} for the event on{" "}
-            {eventDate}.
-          </span>
-        </div> */}
       </div>
     </div>
   );
