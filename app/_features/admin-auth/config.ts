@@ -6,7 +6,11 @@ export const adminAuthCookieNames = {
   session: "admin_session",
 } as const;
 
-export const adminPublicPaths = new Set(["/admin/login"]);
+export const adminPublicPaths = new Set([
+  "/admin/login",
+  "/admin/forgot-password",
+  "/admin/reset-password",
+]);
 export const adminDefaultRedirectPath = "/admin";
 
 export const adminAuthConfig = {

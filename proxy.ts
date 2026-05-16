@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import {
   buildAdminLoginPath,
   isProtectedAdminPath,
+  normalizePath,
 } from "@/_features/admin-auth/authorization";
 import {
   adminAuthCookieNames,
@@ -37,23 +38,30 @@ async function readAdminSession(
 export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
-  if (!isProtectedAdminPath(pathname) && !adminPublicPaths.has(pathname)) {
+  const normalizedPath = normalizePath(pathname);
+  const isPublic = adminPublicPaths.has(normalizedPath);
+  const isProtected = isProtectedAdminPath(pathname);
+
+  // 1. If it's not an admin path (neither public nor protected), allow the request
+  if (!isPublic && !isProtected) {
     return NextResponse.next();
   }
 
   const session = await readAdminSession(request);
 
-  if (pathname === "/admin/login") {
-    if (session) {
+  // 2. Handle public admin paths (login, forgot-password, reset-password)
+  if (isPublic) {
+    // If already logged in and hitting login page, redirect to admin home
+    if (normalizedPath === "/admin/login" && session) {
       return NextResponse.redirect(
         new URL(adminDefaultRedirectPath, request.url),
       );
     }
-
     return NextResponse.next();
   }
 
-  if (!session) {
+  // 3. Handle protected admin paths
+  if (isProtected && !session) {
     return NextResponse.redirect(
       new URL(buildAdminLoginPath(`${pathname}${search}`), request.url),
     );
