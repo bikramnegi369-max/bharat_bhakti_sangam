@@ -2,6 +2,8 @@ import { createPageMetadata } from "@/_lib/seo";
 import { SendEmailWorkspace } from "@/_features/admin-email/components/SendEmailWorkspace";
 import { getSuggestedEmailRecipients } from "@/_features/admin-email/services/admin-email.service";
 
+export const dynamic = "force-dynamic"; // Forces the page to be dynamic
+
 export const metadata = createPageMetadata({
   title: "Send Email",
   description:
