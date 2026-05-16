@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDataTable } from "@/_hooks/useDataTable";
 import { TableFilters } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
@@ -52,7 +52,8 @@ const DEFAULT_TABLE_DATA = {
 };
 
 export function DataTable<T extends RowData>({ config }: Props<T>) {
-  const tableScrollRef = useRef<HTMLDivElement | null>(null);
+  const [tableScrollContainer, setTableScrollContainer] =
+    useState<HTMLDivElement | null>(null);
   const controller = useTableController(config);
 
   const tableData = useMemo(
@@ -69,8 +70,12 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
 
   const table = useDataTable(tableController, config.columns);
 
+  const handleTableScrollRef = useCallback((node: HTMLDivElement | null) => {
+    setTableScrollContainer(node);
+  }, []);
+
   useEffect(() => {
-    const container = tableScrollRef.current;
+    const container = tableScrollContainer;
 
     if (!container) {
       return undefined;
@@ -105,12 +110,17 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
       container.scrollLeft = nextScrollLeft;
     };
 
-    container.addEventListener("wheel", handleTableWheel, { passive: false });
+    container.addEventListener("wheel", handleTableWheel, {
+      passive: false,
+      capture: true,
+    });
 
     return () => {
-      container.removeEventListener("wheel", handleTableWheel);
+      container.removeEventListener("wheel", handleTableWheel, {
+        capture: true,
+      });
     };
-  }, []);
+  }, [tableScrollContainer]);
 
   if (controller.isLoading) return <TableLoading />;
   if (controller.error) {
@@ -131,7 +141,7 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
 
       {/* Table */}
       <div
-        ref={tableScrollRef}
+        ref={handleTableScrollRef}
         className="overflow-x-auto overflow-y-hidden overscroll-contain scrollbar-hide"
       >
         <table className="min-w-full text-sm">
