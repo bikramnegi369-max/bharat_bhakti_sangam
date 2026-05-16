@@ -22,6 +22,7 @@ export function AdminResetPasswordForm() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
+  // Derived state: Prevents cascading renders during build/mount
   const error = !token
     ? "A valid security token is required to reset your password. Please check your email for the correct link or request a new one."
     : submitError;
