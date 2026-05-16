@@ -35,6 +35,13 @@ async function readAdminSession(
   return session;
 }
 
+function hasBackendCredentials(request: NextRequest): boolean {
+  return Boolean(
+    request.cookies.get(adminAuthCookieNames.accessToken)?.value ||
+      request.cookies.get(adminAuthCookieNames.refreshToken)?.value,
+  );
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
@@ -48,11 +55,12 @@ export async function proxy(request: NextRequest) {
   }
 
   const session = await readAdminSession(request);
+  const hasCredentials = hasBackendCredentials(request);
 
   // 2. Handle public admin paths (login, forgot-password, reset-password)
   if (isPublic) {
     // If already logged in and hitting login page, redirect to admin home
-    if (normalizedPath === "/admin/login" && session) {
+    if (normalizedPath === "/admin/login" && session && hasCredentials) {
       return NextResponse.redirect(
         new URL(adminDefaultRedirectPath, request.url),
       );
@@ -61,7 +69,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // 3. Handle protected admin paths
-  if (isProtected && !session) {
+  if (isProtected && (!session || !hasCredentials)) {
     return NextResponse.redirect(
       new URL(buildAdminLoginPath(`${pathname}${search}`), request.url),
     );

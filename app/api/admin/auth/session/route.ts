@@ -9,10 +9,13 @@ import {
 
 export async function GET() {
   const authState = await getAdminAuthStateFromCookies();
+  const hasBackendCredentials = Boolean(
+    authState.accessToken || authState.refreshToken,
+  );
 
   // Trust the signed session cookie for session reads so transient backend
   // outages do not look like a forced logout in the admin UI.
-  if (authState.session) {
+  if (authState.session && hasBackendCredentials) {
     return NextResponse.json({
       session: toPublicSession(authState.session),
     });
