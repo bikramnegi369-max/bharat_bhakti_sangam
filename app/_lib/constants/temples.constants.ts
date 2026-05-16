@@ -562,8 +562,8 @@ export const temples: Temples = [
     description:
       "Yamunotri Temple is a sacred shrine dedicated to Goddess Yamuna and marks the origin of the holy Yamuna River. Nestled in the Garhwal Himalayas, it is one of the revered Char Dham pilgrimage sites. Surrounded by snow-covered peaks and natural hot springs, the temple offers a deeply spiritual and serene experience.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
+      "/temples-images/yamunotri/description/yamunotri-desc-1.webp",
+      "/temples-images/yamunotri/description/yamunotri-desc-2.webp",
     ],
     features: {
       title: "Features of Yamunotri Temple",
@@ -574,8 +574,8 @@ export const temples: Temples = [
         "Scenic Himalayan trekking pilgrimage",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
+        "/temples-images/yamunotri/features/yamunotri-feature-1.webp",
+        "/temples-images/yamunotri/features/yamunotri-feature-2.webp",
       ],
     },
     location: {
@@ -583,8 +583,8 @@ export const temples: Temples = [
       description:
         "Located in Uttarkashi district, Uttarakhand, India, Around 220 km from Dehradun, Accessible via road till Janki Chatti, followed by a trek",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Yamunotri_River_Valley.jpg/2560px-Yamunotri_River_Valley.jpg",
+        "/temples-images/yamunotri/location/yamunotri-location-1.webp",
+        "/temples-images/yamunotri/location/yamunotri-location-2.webp",
       ],
     },
     history: {
@@ -592,7 +592,8 @@ export const temples: Temples = [
       description:
         "The Yamunotri Temple was originally built by Maharaja Pratap Shah of Tehri Garhwal and later renovated multiple times due to harsh weather conditions. According to Hindu beliefs, Goddess Yamuna is the daughter of Surya Dev and sister of Yama, the God of Death. Worshipping here is believed to protect devotees from untimely death and bring purity and blessings.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/2560px-Yamunotri_Temple_Uttarakhand.jpg",
+        "/temples-images/yamunotri/history/yamunotri-history-1.webp",
+        "/temples-images/yamunotri/history/yamunotri-history-2.webp",
       ],
     },
     bestTimeToVisit: "May to June and September to October",
@@ -606,8 +607,8 @@ export const temples: Temples = [
     description:
       "Banke Bihari Temple is one of the most beloved temples dedicated to Lord Krishna in his charming Banke Bihari form. Located in the holy town of Vrindavan, the temple is filled with divine devotion, bhajans, and spiritual bliss. Devotees from across the world visit to experience the enchanting presence of Shri Krishna.",
     descriptionImages: [
-      "/temples-images/banke-bihari/description/banke-desc-1.webp",
-      "/temples-images/banke-bihari/description/banke-desc-2.webp",
+      "/temples-images/banke-bihari/description/banke-bihari-desc-1.webp",
+      "/temples-images/banke-bihari/description/banke-bihari-desc-2.webp",
     ],
     features: {
       title: "Features of Banke Bihari Temple",
@@ -618,8 +619,8 @@ export const temples: Temples = [
         "Vibrant celebrations during Holi and Janmashtami",
       ],
       featuresImages: [
-        "/temples-images/banke-bihari/features/banke-feature-1.webp",
-        "/temples-images/banke-bihari/features/banke-feature-2.webp",
+        "/temples-images/banke-bihari/features/banke-bihari-feature-1.webp",
+        "/temples-images/banke-bihari/features/banke-bihari-feature-2.webp",
       ],
     },
     location: {
@@ -627,8 +628,8 @@ export const temples: Temples = [
       description:
         "Located in Vrindavan, Mathura district, Uttar Pradesh, India. Around 12 km from Mathura Junction, easily accessible by road and rail",
       locationImages: [
-        "/temples-images/banke-bihari/location/banke-location-1.webp",
-        "/temples-images/banke-bihari/location/banke-location-2.webp",
+        "/temples-images/banke-bihari/location/banke-bihari-location-1.webp",
+        "/temples-images/banke-bihari/location/banke-bihari-location-2.webp",
       ],
     },
     history: {
@@ -636,8 +637,8 @@ export const temples: Temples = [
       description:
         "The Banke Bihari Temple was established by the great saint Swami Haridas, the guru of Tansen and an ardent devotee of Lord Krishna. It is believed that Lord Krishna manifested before Swami Haridas in the form of Banke Bihari Ji. Since then, the temple has become one of the most sacred centers of Krishna devotion in India.",
       historyImages: [
-        "/temples-images/banke-bihari/history/banke-history-1.webp",
-        "/temples-images/banke-bihari/history/banke-history-2.webp",
+        "/temples-images/banke-bihari/history/banke-bihari-history-1.webp",
+        "/temples-images/banke-bihari/history/banke-bihari-history-2.webp",
       ],
     },
     bestTimeToVisit: "October to March (Janmashtami, Holi, and Jhulan Yatra)",
