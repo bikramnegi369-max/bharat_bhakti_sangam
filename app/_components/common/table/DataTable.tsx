@@ -1,6 +1,6 @@
 "use client";
 
-import { WheelEvent, useRef, useMemo, useCallback } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useDataTable } from "@/_hooks/useDataTable";
 import { TableFilters } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
@@ -69,40 +69,47 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
 
   const table = useDataTable(tableController, config.columns);
 
-  const handleTableWheel = useCallback((event: WheelEvent<HTMLDivElement>) => {
+  useEffect(() => {
     const container = tableScrollRef.current;
 
     if (!container) {
-      return;
+      return undefined;
     }
 
-    const hasHorizontalOverflow = container.scrollWidth > container.clientWidth;
+    const handleTableWheel = (event: WheelEvent) => {
+      const hasHorizontalOverflow =
+        container.scrollWidth > container.clientWidth;
 
-    if (!hasHorizontalOverflow) {
-      return;
-    }
+      if (!hasHorizontalOverflow) {
+        return;
+      }
 
-    const delta =
-      Math.abs(event.deltaY) >= Math.abs(event.deltaX)
-        ? event.deltaY
-        : event.deltaX;
+      const delta =
+        Math.abs(event.deltaY) >= Math.abs(event.deltaX)
+          ? event.deltaY
+          : event.deltaX;
 
-    if (delta === 0) {
-      return;
-    }
+      if (delta === 0) {
+        return;
+      }
 
-    const maxScrollLeft = container.scrollWidth - container.clientWidth;
-    const nextScrollLeft = Math.max(
-      0,
-      Math.min(container.scrollLeft + delta, maxScrollLeft),
-    );
+      event.preventDefault();
+      event.stopPropagation();
 
-    if (nextScrollLeft === container.scrollLeft) {
-      return;
-    }
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      const nextScrollLeft = Math.max(
+        0,
+        Math.min(container.scrollLeft + delta, maxScrollLeft),
+      );
 
-    event.preventDefault();
-    container.scrollLeft = nextScrollLeft;
+      container.scrollLeft = nextScrollLeft;
+    };
+
+    container.addEventListener("wheel", handleTableWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("wheel", handleTableWheel);
+    };
   }, []);
 
   if (controller.isLoading) return <TableLoading />;
@@ -125,8 +132,7 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
       {/* Table */}
       <div
         ref={tableScrollRef}
-        onWheel={handleTableWheel}
-        className="overflow-x-auto overflow-y-hidden scrollbar-hide"
+        className="overflow-x-auto overflow-y-hidden overscroll-contain scrollbar-hide"
       >
         <table className="min-w-full text-sm">
           <TableHeader
