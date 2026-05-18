@@ -9,14 +9,10 @@ import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
 import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
 import {
-  getAbsoluteEventImageUrl,
-  getEventArtistNames,
   getEventArtistSummaries,
-  getEventBookingCategories,
   getEventDescription,
   getEventDisplayDate,
   getEventImage,
-  getEventUrl,
   getEventVenueAddress,
   getEventVenueName,
   getOgImageUrl,
@@ -67,44 +63,55 @@ export default async function EventPage() {
   const description = getEventDescription(event);
   const eventDate = getEventDisplayDate(event);
   const image = getEventImage(event);
-  const absoluteImage = getAbsoluteEventImageUrl(event);
-  const bookingCategories = getEventBookingCategories(event);
-  const artistNames = getEventArtistNames(event);
   const artistSummaries = getEventArtistSummaries(event);
   const eventJsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: event.eventName,
-    description,
-    image: [absoluteImage],
+    name: "Bharat Bhakti Sangam Spiritual Satsang & Bhajan Event",
+
+    startDate: "2026-06-10T06:00:00+05:30",
+    endDate: "2026-06-10T09:00:00+05:30",
+
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
-    startDate: event.date,
-    url: getEventUrl(),
+
+    url: "https://www.bharatbhaktisangam.com/",
+
+    image: [
+      "https://res.cloudinary.com/dqwc7j44b/image/upload/w_1200,h_630,c_fill,q_auto:eco,f_auto/v1777875923/uploads/nk40ikbhcriejuqbzgfb.png?v=69f83bdf49a8758aba27ba80-",
+    ],
+
+    description:
+      "Join Bharat Bhakti Sangam for a divine spiritual satsang, bhajan, kirtan and भक्तिमय कार्यक्रम open for all devotees. Experience devotional music, spiritual discourse and collective bhakti.",
+
     location: {
       "@type": "Place",
-      name: getEventVenueName(event),
-      address: getEventVenueAddress(event),
+      name: "Bharat Bhakti Sangam",
+      address: {
+        "@type":
+          "Club Park | E Block Club Park, Vatika India Next Sec-82, Gurugram - 122012",
+        streetAddress: "Club Park | E Block",
+        addressLocality: "Gurugram",
+        addressRegion: "Haryana",
+        postalCode: "122012",
+        addressCountry: "IN",
+      },
     },
-    offers: bookingCategories.map((cat) => ({
-      "@type": "Offer",
-      name: cat.bookingType,
-      // price: cat.price,
-      // priceCurrency: "INR",
-      // availability: capacity.isSoldOut
-      //   ? "https://schema.org/SoldOut"
-      //   : "https://schema.org/InStock",
-      url: getEventUrl(),
-    })),
+
     organizer: {
       "@type": "Organization",
       name: "Bharat Bhakti Sangam",
       url: "https://www.bharatbhaktisangam.com",
     },
-    performers: artistNames.map((name) => ({
-      "@type": "Person",
-      name,
-    })),
+
+    offers: {
+      "@type": "Offer",
+      url: "https://www.bharatbhaktisangam.com/",
+      price: "0",
+      priceCurrency: "INR",
+      availability: "https://schema.org/InStock",
+      validFrom: "2026-05-18T00:00:00+05:30",
+    },
   };
 
   return (
