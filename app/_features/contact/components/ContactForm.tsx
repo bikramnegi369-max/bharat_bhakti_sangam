@@ -9,6 +9,8 @@ import { ContactFormFields } from "./ContactFormFields";
 import { ContactFormActions } from "./ContactFormActions";
 import { ContactFormStatus } from "./ContactFormStatus";
 import { useEffect, useRef } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
+import { trackMetaPixel } from "@/_lib/meta-pixel";
 
 export default function ContactForm() {
   const methods = useForm<ContactFormData>({
@@ -23,6 +25,17 @@ export default function ContactForm() {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (status === "success") {
+      sendGAEvent("event", "contact_form_submitted", {
+        form_name: "contact_form",
+        page_path: "/contact",
+      });
+      trackMetaPixel("Contact", {
+        content_name: "Contact Form",
+        content_category: "contact",
+      });
+    }
+
     if ((status === "success" || status === "error") && containerRef.current) {
       containerRef.current.scrollIntoView({
         behavior: "smooth",
