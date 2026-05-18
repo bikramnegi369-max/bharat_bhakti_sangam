@@ -5,9 +5,17 @@
 import { useCallback, useMemo } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-const RESERVED_QUERY_KEYS = new Set(["page", "sortBy", "order"]);
+const RESERVED_QUERY_KEYS = new Set(["page", "limit", "sortBy", "order"]);
 
-export const useTableState = (filterKeys: string[] = []) => {
+type UseTableStateOptions = {
+  filterKeys?: string[];
+  defaultLimit?: number;
+};
+
+export const useTableState = ({
+  filterKeys = [],
+  defaultLimit = 10,
+}: UseTableStateOptions = {}) => {
   const pathname = usePathname();
   const params = useSearchParams();
   const currentQuery = params.toString();
@@ -32,7 +40,10 @@ export const useTableState = (filterKeys: string[] = []) => {
   );
 
   const pageParam = Number(params.get("page") || 1);
+  const limitParam = Number(params.get("limit") || defaultLimit);
   const page = Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1;
+  const limit =
+    Number.isFinite(limitParam) && limitParam > 0 ? limitParam : defaultLimit;
   const sortBy = params.get("sortBy");
   const order = params.get("order");
   const filters = Object.fromEntries(
@@ -59,7 +70,11 @@ export const useTableState = (filterKeys: string[] = []) => {
         }
 
         const normalizedValue =
-          key === "page" && Number(value) <= 1 ? "" : value;
+          key === "page" && Number(value) <= 1
+            ? ""
+            : key === "limit" && Number(value) === defaultLimit
+              ? ""
+              : value;
 
         if (
           normalizedValue === undefined ||
@@ -80,7 +95,7 @@ export const useTableState = (filterKeys: string[] = []) => {
 
       replaceUrl(query);
     },
-    [allowedFilterKeys, currentQuery, replaceUrl],
+    [allowedFilterKeys, currentQuery, defaultLimit, replaceUrl],
   );
 
   const setState = useCallback(
@@ -94,6 +109,7 @@ export const useTableState = (filterKeys: string[] = []) => {
   return {
     state: {
       page,
+      limit,
       sorting,
       filters,
     },

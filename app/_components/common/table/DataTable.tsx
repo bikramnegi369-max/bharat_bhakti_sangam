@@ -16,6 +16,8 @@ interface Props<T extends RowData> {
   config: TableConfig<T>;
 }
 
+const DEFAULT_PAGE_SIZE_OPTIONS = [10, 25, 50];
+
 const getErrorMessage = (error: unknown) => {
   if (
     typeof error === "object" &&
@@ -44,22 +46,36 @@ const getErrorMessage = (error: unknown) => {
   return undefined;
 };
 
-const DEFAULT_TABLE_DATA = {
-  items: [],
-  total: 0,
-  limit: 10,
-  page: 1,
-  totalPages: 1,
-};
-
 export function DataTable<T extends RowData>({ config }: Props<T>) {
   const [tableScrollContainer, setTableScrollContainer] =
     useState<HTMLDivElement | null>(null);
   const controller = useTableController(config);
+  const defaultLimit = config.defaultLimit ?? 10;
+  const pageSizeOptions = useMemo(
+    () =>
+      Array.from(
+        new Set([
+          defaultLimit,
+          ...(config.pageSizeOptions?.length
+            ? config.pageSizeOptions
+            : DEFAULT_PAGE_SIZE_OPTIONS),
+        ]),
+      )
+        .filter((option) => Number.isInteger(option) && option > 0)
+        .sort((left, right) => left - right),
+    [config.pageSizeOptions, defaultLimit],
+  );
 
   const tableData = useMemo(
-    () => controller.data?.data ?? DEFAULT_TABLE_DATA,
-    [controller.data?.data],
+    () =>
+      controller.data?.data ?? {
+        items: [],
+        total: 0,
+        limit: controller.limit,
+        page: controller.page,
+        totalPages: 1,
+      },
+    [controller.data?.data, controller.limit, controller.page],
   );
 
   const tableController = useMemo(
@@ -235,11 +251,13 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
 
       {/* Pagination */}
       <TablePagination
-        page={controller.page}
+        page={tableData?.page || controller.page}
         total={tableData?.total || 0}
-        limit={tableData?.limit || 10}
+        limit={tableData?.limit || controller.limit || defaultLimit}
         totalPages={tableData?.totalPages}
+        pageSizeOptions={pageSizeOptions}
         onPageChange={controller.setPage}
+        onLimitChange={controller.setLimit}
       />
 
       {/* Fetching Indicator */}

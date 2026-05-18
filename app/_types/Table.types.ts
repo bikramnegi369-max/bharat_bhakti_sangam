@@ -49,18 +49,22 @@ export type PaginationProps = {
   total: number;
   limit?: number;
   totalPages?: number;
+  pageSizeOptions?: number[];
   onPageChange: (page: number) => void;
+  onLimitChange?: (limit: number) => void;
 };
 
 export type TableConfig<T extends RowData> = {
   columns: TableOptions<T>["columns"];
   service: TableService<T>;
+  defaultLimit?: number;
+  pageSizeOptions?: number[];
   queryKeyPrefix?: readonly unknown[];
   filters?: FilterConfig[];
   filterDebounceMs?: number;
   staleTime?: number;
-  filterAction?: React.ReactNode;
-  renderActions?: (row: T) => React.ReactNode;
+  filterAction?: ReactNode;
+  renderActions?: (row: T) => ReactNode;
 };
 
 export type TableQueryParams = {
@@ -96,6 +100,8 @@ export interface TableController<T> {
   setSorting: (s: SortingState) => void;
   page: number;
   setPage: (p: number) => void;
+  limit: number;
+  setLimit: (limit: number) => void;
   filters: Record<string, string>;
   setFilters: (next: Record<string, string>) => void;
   isLoading: boolean;
