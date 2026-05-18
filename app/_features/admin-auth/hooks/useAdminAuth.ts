@@ -8,6 +8,8 @@ import {
   fetchAdminSession,
   loginAdmin,
   logoutAdmin,
+  requestAdminPasswordReset,
+  resetAdminPassword,
   resolvePostLoginPath,
 } from "../client";
 import type { AdminLoginFormValues } from "../types";
@@ -62,6 +64,15 @@ export function useAdminAuth() {
     },
   });
 
+  const requestPasswordResetMutation = useMutation({
+    mutationFn: (email: string) => requestAdminPasswordReset(email),
+  });
+
+  const resetPasswordMutation = useMutation({
+    mutationFn: ({ token, password }: { token: string; password: string }) =>
+      resetAdminPassword(token, password),
+  });
+
   return {
     session: sessionQuery.data ?? null,
     isLoadingSession: sessionQuery.isLoading,
@@ -74,5 +85,11 @@ export function useAdminAuth() {
     logout: () => logoutMutation.mutateAsync(),
     isLoggingOut: logoutMutation.isPending,
     logoutError: logoutMutation.error,
+    requestPasswordReset: (email: string) =>
+      requestPasswordResetMutation.mutateAsync(email),
+    isRequestingReset: requestPasswordResetMutation.isPending,
+    resetPassword: (token: string, password: string) =>
+      resetPasswordMutation.mutateAsync({ token, password }),
+    isResettingPassword: resetPasswordMutation.isPending,
   };
 }

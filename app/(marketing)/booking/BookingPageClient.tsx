@@ -7,6 +7,7 @@ import { useBookingForm } from "@/_hooks/useBookingForm";
 import { useEffect, useRef } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { FormProvider } from "react-hook-form";
+import { trackMetaPixel } from "@/_lib/meta-pixel";
 
 type TicketType = {
   name: string;
@@ -69,6 +70,12 @@ export function BookingPageClient({
       sendGAEvent("event", "booking_completed", {
         event_id: eventId,
         event_name: eventTitle,
+        event_location: eventLocation,
+      });
+      trackMetaPixel("CompleteRegistration", {
+        content_name: eventTitle,
+        content_category: "event_booking",
+        event_id: eventId,
         event_location: eventLocation,
       });
     }

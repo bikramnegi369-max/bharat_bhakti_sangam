@@ -1,7 +1,7 @@
 import { AdminLayoutShell } from "@/admin/(protected)/AdminLayoutShell";
 import { buildAdminLoginPath } from "@/_features/admin-auth/authorization";
 import { adminDefaultRedirectPath } from "@/_features/admin-auth/config";
-import { getStoredAdminSession } from "@/_features/admin-auth/server/session";
+import { getAdminAuthStateFromCookies } from "@/_features/admin-auth/server/session";
 import { redirect } from "next/navigation";
 
 export default async function ProtectedAdminLayout({
@@ -9,9 +9,12 @@ export default async function ProtectedAdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getStoredAdminSession();
+  const authState = await getAdminAuthStateFromCookies();
 
-  if (!session) {
+  if (
+    !authState.session ||
+    (!authState.accessToken && !authState.refreshToken)
+  ) {
     redirect(buildAdminLoginPath(adminDefaultRedirectPath));
   }
 

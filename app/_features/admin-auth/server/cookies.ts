@@ -57,43 +57,73 @@ export function clearAdminAuthCookies(response: NextResponse): void {
   response.cookies.set(adminAuthCookieNames.session, "", expiredCookie);
 }
 
-export async function setAdminAuthCookiesServerSide(
-  auth: any,
-  signedSession: string,
-) {
+function isReadonlyCookiesError(error: unknown): boolean {
+  return (
+    error instanceof Error &&
+    (error.message.includes(
+      "Cookies can only be modified in a Server Action or Route Handler",
+    ) ||
+      error.message.includes("ReadonlyRequestCookies cannot be modified"))
+  );
+}
+
+async function tryMutateCookies(
+  mutate: (cookieStore: Awaited<ReturnType<typeof cookies>>) => void,
+): Promise<boolean> {
   const cookieStore = await cookies();
 
-  const options = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax" as const,
-    path: "/",
-    // Set maxAge based on your session requirements ( 7 days)
-    maxAge: 60 * 60 * 24 * 7,
-  };
+  try {
+    mutate(cookieStore);
+    return true;
+  } catch (error) {
+    if (isReadonlyCookiesError(error)) {
+      return false;
+    }
 
-  // Ensure these cookie names match exactly what you use in getAdminAuthStateFromCookies
-  if (auth.accessToken) {
-    cookieStore.set("admin_access_token", auth.accessToken, options);
+    throw error;
   }
+}
 
-  if (auth.refreshToken) {
-    cookieStore.set("admin_refresh_token", auth.refreshToken, options);
-  }
+export async function setAdminAuthCookiesServerSide(
+  auth: NormalizedAuthResult,
+  signedSession: string,
+) {
+  return tryMutateCookies((cookieStore) => {
+    cookieStore.set(
+      adminAuthCookieNames.accessToken,
+      auth.accessToken,
+      getCookieOptions(getMaxAgeInSeconds(auth.accessTokenExpiresAt)),
+    );
 
-  if (signedSession) {
-    cookieStore.set("admin_session", signedSession, options);
-  }
+    if (auth.refreshToken) {
+      cookieStore.set(
+        adminAuthCookieNames.refreshToken,
+        auth.refreshToken,
+        getCookieOptions(getMaxAgeInSeconds(auth.refreshTokenExpiresAt)),
+      );
+    } else {
+      cookieStore.set(
+        adminAuthCookieNames.refreshToken,
+        "",
+        getCookieOptions(0),
+      );
+    }
+
+    cookieStore.set(
+      adminAuthCookieNames.session,
+      signedSession,
+      getCookieOptions(getMaxAgeInSeconds(auth.session.expiresAt)),
+    );
+  });
 }
 
 /**
  * Clears admin authentication cookies from a server context.
  */
 export async function clearAdminAuthCookiesServerSide() {
-  const cookieStore = await cookies();
-  const options = { path: "/" };
-
-  cookieStore.delete("admin_access_token");
-  cookieStore.delete("admin_refresh_token");
-  cookieStore.delete("admin_session");
+  return tryMutateCookies((cookieStore) => {
+    cookieStore.delete(adminAuthCookieNames.accessToken);
+    cookieStore.delete(adminAuthCookieNames.refreshToken);
+    cookieStore.delete(adminAuthCookieNames.session);
+  });
 }

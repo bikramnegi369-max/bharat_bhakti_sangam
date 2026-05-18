@@ -104,6 +104,45 @@ export async function logoutAdmin(): Promise<void> {
   }
 }
 
+export async function requestAdminPasswordReset(email: string): Promise<void> {
+  const response = await fetchWithTimeout("/api/admin/auth/forgot-password", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+
+  if (!response.ok) {
+    throw new AdminAuthError(
+      response.status,
+      await readResponseMessage(response),
+    );
+  }
+}
+
+export async function resetAdminPassword(
+  token: string,
+  password: string,
+): Promise<void> {
+  const response = await fetchWithTimeout("/api/admin/auth/reset-password", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token, password }),
+  });
+
+  if (!response.ok) {
+    throw new AdminAuthError(
+      response.status,
+      await readResponseMessage(response),
+    );
+  }
+}
+
 export class AdminApiError extends Error {
   constructor(
     public readonly status: number,
