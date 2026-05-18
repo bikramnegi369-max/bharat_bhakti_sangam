@@ -77,9 +77,7 @@ export default async function EventPage() {
 
     url: "https://www.bharatbhaktisangam.com/",
 
-    image: [
-      "https://res.cloudinary.com/dqwc7j44b/image/upload/w_1200,h_630,c_fill,q_auto:eco,f_auto/v1777875923/uploads/nk40ikbhcriejuqbzgfb.png?v=69f83bdf49a8758aba27ba80-",
-    ],
+    image: [event.ogImage],
 
     description:
       "Join Bharat Bhakti Sangam for a divine spiritual satsang, bhajan, kirtan and भक्तिमय कार्यक्रम open for all devotees. Experience devotional music, spiritual discourse and collective bhakti.",
