@@ -51,13 +51,12 @@ export const temples: Temples = [
   {
     slug: "brihadeeswara-temple",
     name: "Brihadeeswara Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Brihadisvara_Temple_during_Maha_Shivaratri-WUS03219.jpg/1280px-Brihadisvara_Temple_during_Maha_Shivaratri-WUS03219.jpg",
+    heroImage: "/temples-images/brihadeeswara/brihadeeswara_hero.webp",
     description:
       "Brihadeeswara Temple, also known as the “Big Temple,” is a majestic shrine dedicated to Lord Shiva and a masterpiece of Chola architecture. Built entirely of granite, it is renowned for its towering vimana and grand scale. This UNESCO World Heritage Site reflects the glory, devotion, and engineering brilliance of ancient India.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Brihadeeswarar_Temple_Thanjavur_India.jpg/2560px-Brihadeeswarar_Temple_Thanjavur_India.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/The_vimana_of_the_Brihadisvara_Temple.jpg/2560px-The_vimana_of_the_Brihadisvara_Temple.jpg",
+      "/temples-images/brihadeeswara/description/brihadeeswara-desc-1.webp",
+      "/temples-images/brihadeeswara/description/brihadeeswara-desc-2.webp",
     ],
     features: {
       title: "Features of Brihadeeswara Temple",
@@ -69,8 +68,8 @@ export const temples: Temples = [
         "Built entirely using granite without modern tools",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Brihadeeswara_Temple_Thanjavur_shiva_lingam.jpg/1280px-Brihadeeswara_Temple_Thanjavur_shiva_lingam.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Thanjavur_Nandi.jpg/2560px-Thanjavur_Nandi.jpg",
+        "/temples-images/brihadeeswara/features/brihadeeswara-feature-1.webp",
+        "/temples-images/brihadeeswara/features/brihadeeswara-feature-2.webp",
       ],
     },
     location: {
@@ -78,8 +77,8 @@ export const temples: Temples = [
       description:
         "Located in Thanjavur, Tamil Nadu, India. Around 350 km from Chennai, well connected via road and rail networks",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Brihadeeswarar_Temple_Thanjavur_India.jpg/2560px-Brihadeeswarar_Temple_Thanjavur_India.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/The_vimana_of_the_Brihadisvara_Temple.jpg/2560px-The_vimana_of_the_Brihadisvara_Temple.jpg",
+        "/temples-images/brihadeeswara/location/brihadeeswara-location-1.webp",
+        "/temples-images/brihadeeswara/location/brihadeeswara-location-2.webp",
       ],
     },
     history: {
@@ -87,7 +86,8 @@ export const temples: Temples = [
       description:
         "Constructed in the 11th century by the great Chola king Rajaraja I, the Brihadeeswara Temple stands as a symbol of the empire&rsquo;s power and devotion to Lord Shiva. It was built to showcase architectural excellence and spiritual dedication. Even after a thousand years, the temple remains a living heritage site, admired for its precision, strength, and timeless beauty.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Thanjavur_Temple_Gopuram_at_Night.jpg/2560px-Thanjavur_Temple_Gopuram_at_Night.jpg",
+        "/temples-images/brihadeeswara/history/brihadeeswara-history-1.webp",
+        "/temples-images/brihadeeswara/history/brihadeeswara-history-2.webp",
       ],
     },
     bestTimeToVisit: "October to March",
@@ -143,8 +143,7 @@ export const temples: Temples = [
   {
     slug: "gangotri-temple",
     name: "Gangotri Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Gangotri_Temple_Uttarakhand.jpg/2560px-Gangotri_Temple_Uttarakhand.jpg",
+    heroImage: "/temples-images/gangotri/gangotri_hero.webp",
     description:
       "Gangotri Temple is a sacred shrine dedicated to Goddess Ganga, marking the origin of the holy River Ganges. Nestled in the serene Himalayas, it is one of the Char Dham pilgrimage sites. The temple radiates purity, devotion, and spiritual tranquility.",
     descriptionImages: [
@@ -280,8 +279,7 @@ export const temples: Temples = [
   {
     slug: "shri-jagannath-temple",
     name: "Shri Jagannath Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Jagannath_Temple_Puri_01.jpg/1280px-Jagannath_Temple_Puri_01.jpg",
+    heroImage: "/temples-images/jagannath/jagannath_hero.webp",
     description:
       "Shri Jagannath Temple is a sacred shrine dedicated to Lord Jagannath (a form of Lord Vishnu) along with Balabhadra and Subhadra. Located in Puri, it is one of the Char Dham pilgrimage sites and a center of immense devotion. The temple is world-famous for its grand Rath Yatra festival and deep spiritual significance.",
     descriptionImages: [
@@ -326,8 +324,7 @@ export const temples: Temples = [
   {
     slug: "shri-amarnath-cave",
     name: "Shri Amarnath Cave",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Amarnath_cave_01.jpg/1280px-Amarnath_cave_01.jpg",
+    heroImage: "/temples-images/amarnath/amarnath_hero.webp",
     description:
       "Shri Amarnath Cave is a sacred shrine dedicated to Lord Shiva, famous for the naturally formed ice Shivling. Located high in the Himalayas, it is one of the most revered pilgrimage sites in India. The journey to the cave is a profound spiritual experience filled with devotion, faith, and endurance.",
     descriptionImages: [
@@ -372,8 +369,7 @@ export const temples: Temples = [
   {
     slug: "golden-temple",
     name: "Golden Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Golden_Temple_nighttime.jpg/960px-Golden_Temple_nighttime.jpg",
+    heroImage: "/temples-images/golden-temple/golden-temple_hero.webp",
     description:
       "The Golden Temple, also known as Harmandir Sahib, is the holiest shrine of Sikhism and a symbol of peace, equality, and devotion. Surrounded by the sacred Amrit Sarovar, its golden structure reflects divine beauty and serenity. It welcomes people of all faiths, embodying unity and selfless service.",
     descriptionImages: [
@@ -418,8 +414,7 @@ export const temples: Temples = [
   {
     slug: "siddhivinayak-temple",
     name: "Siddhivinayak Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Siddhivinayak_Temple_Prabhadevi.jpg/1280px-Siddhivinayak_Temple_Prabhadevi.jpg",
+    heroImage: "/temples-images/siddhivinayak/siddhivinayak_hero.webp",
     description:
       "Siddhivinayak Temple is one of the most revered temples dedicated to Lord Ganesha, known as the remover of obstacles and giver of success. Located in Mumbai, it attracts millions of devotees, including celebrities and leaders. The temple radiates faith, hope, and divine blessings.",
     descriptionImages: [
@@ -557,8 +552,7 @@ export const temples: Temples = [
   {
     slug: "yamunotri-temple",
     name: "Yamunotri Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Yamunotri_Temple_Uttarakhand.jpg/1280px-Yamunotri_Temple_Uttarakhand.jpg",
+    heroImage: "/temples-images/yamunotri/yamunotri_hero.webp",
     description:
       "Yamunotri Temple is a sacred shrine dedicated to Goddess Yamuna and marks the origin of the holy Yamuna River. Nestled in the Garhwal Himalayas, it is one of the revered Char Dham pilgrimage sites. Surrounded by snow-covered peaks and natural hot springs, the temple offers a deeply spiritual and serene experience.",
     descriptionImages: [
