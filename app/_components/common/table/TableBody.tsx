@@ -1,4 +1,5 @@
 import { flexRender, Table } from "@tanstack/react-table";
+import { getColumnSizeStyle } from "./tableSizing";
 
 interface Props<T> {
   table: Table<T>;
@@ -32,11 +33,26 @@ export const TableBody = <T,>({
     <tbody>
       {rows.map((row) => (
         <tr key={row.id} className="hover:bg-gray-50">
-          {row.getVisibleCells().map((cell) => (
-            <td key={cell.id} className="px-4 py-3 border border-gray-200">
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </td>
-          ))}
+          {row.getVisibleCells().map((cell) => {
+            const columnSizeStyle = getColumnSizeStyle({
+              size: cell.column.columnDef.size,
+              minSize: cell.column.columnDef.minSize,
+              width: cell.column.columnDef.meta?.width,
+              minWidth: cell.column.columnDef.meta?.minWidth,
+              maxWidth: cell.column.columnDef.meta?.maxWidth,
+            });
+            const cellClassName = cell.column.columnDef.meta?.cellClassName;
+
+            return (
+              <td
+                key={cell.id}
+                style={columnSizeStyle}
+                className={`border border-gray-200 px-4 py-3 ${cellClassName ?? ""}`}
+              >
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </td>
+            );
+          })}
 
           {renderActions && (
             <td className="sticky right-0 z-20 border border-gray-200 bg-white px-4 py-3 text-center shadow-2xl before:absolute before:left-0 before:top-0 before:h-full before:w-3 before:-translate-x-full before:bg-linear-to-l before:from-black/15 before:to-transparent before:content-['']">

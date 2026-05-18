@@ -1,5 +1,6 @@
 import { flexRender, Table } from "@tanstack/react-table";
 import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
+import { getColumnSizeStyle } from "./tableSizing";
 
 interface TableHeaderProps<T> {
   table: Table<T>;
@@ -18,6 +19,14 @@ export const TableHeader = <T,>({
         <tr key={hg.id}>
           {hg.headers.map((h) => {
             const canSort = !disableSorting && h.column.getCanSort();
+            const columnSizeStyle = getColumnSizeStyle({
+              size: h.column.columnDef.size,
+              minSize: h.column.columnDef.minSize,
+              width: h.column.columnDef.meta?.width,
+              minWidth: h.column.columnDef.meta?.minWidth,
+              maxWidth: h.column.columnDef.meta?.maxWidth,
+            });
+            const headerClassName = h.column.columnDef.meta?.headerClassName;
 
             return (
               <th
@@ -25,22 +34,25 @@ export const TableHeader = <T,>({
                 onClick={
                   canSort ? h.column.getToggleSortingHandler() : undefined
                 }
-                className={`px-4 py-3 text-left ${
+                style={columnSizeStyle}
+                className={`align-top px-4 py-3 text-left ${
                   canSort ? "cursor-pointer" : "cursor-default"
-                } select-none`}
+                } select-none ${headerClassName ?? ""}`}
               >
-                <div className="flex items-center gap-4">
-                  <span>
+                <div className="flex min-w-0 items-start gap-2">
+                  <span className="min-w-0 whitespace-normal break-words leading-tight">
                     {flexRender(h.column.columnDef.header, h.getContext())}
                   </span>
-                  <span>
-                    {{
-                      asc: <ChevronUp size={20} />,
-                      desc: <ChevronDown size={20} />,
-                    }[h.column.getIsSorted() as string] ?? (
-                      <ChevronsUpDown size={20} />
-                    )}
-                  </span>
+                  {canSort && (
+                    <span className="shrink-0 pt-0.5">
+                      {{
+                        asc: <ChevronUp size={20} />,
+                        desc: <ChevronDown size={20} />,
+                      }[h.column.getIsSorted() as string] ?? (
+                        <ChevronsUpDown size={20} />
+                      )}
+                    </span>
+                  )}
                 </div>
               </th>
             );

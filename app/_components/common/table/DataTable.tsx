@@ -10,6 +10,7 @@ import { TableHeader } from "./TableHeader";
 import { TableBody } from "./TableBody";
 import { TableConfig } from "@/_types/Table.types";
 import { RowData } from "@tanstack/react-table";
+import { getColumnSizeStyle, hasColumnSizing } from "./tableSizing";
 
 interface Props<T extends RowData> {
   config: TableConfig<T>;
@@ -69,6 +70,15 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
   const hasRows = tableData.items.length > 0;
 
   const table = useDataTable(tableController, config.columns);
+  const hasFixedWidthColumns = table
+    .getVisibleLeafColumns()
+    .some((column) =>
+      hasColumnSizing({
+        size: column.columnDef.size,
+        minSize: column.columnDef.minSize,
+        meta: column.columnDef.meta,
+      }),
+    );
 
   const handleTableScrollRef = useCallback((node: HTMLDivElement | null) => {
     setTableScrollContainer(node);
@@ -76,49 +86,95 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
 
   useEffect(() => {
     const container = tableScrollContainer;
+    const scrollTolerance = 1;
 
     if (!container) {
       return undefined;
     }
 
+    const getVerticalScrollParent = (): HTMLElement | null => {
+      let currentElement = container.parentElement;
+
+      while (currentElement) {
+        const { overflowY, overflow } = window.getComputedStyle(currentElement);
+        const canScrollVertically =
+          /(auto|scroll|overlay)/.test(overflowY) ||
+          /(auto|scroll|overlay)/.test(overflow);
+
+        if (
+          canScrollVertically &&
+          currentElement.scrollHeight >
+            currentElement.clientHeight + scrollTolerance
+        ) {
+          return currentElement;
+        }
+
+        currentElement = currentElement.parentElement;
+      }
+
+      return document.scrollingElement instanceof HTMLElement
+        ? document.scrollingElement
+        : document.documentElement;
+    };
+
+    const scrollPageBy = (delta: number) => {
+      const verticalScrollParent = getVerticalScrollParent();
+
+      if (verticalScrollParent) {
+        verticalScrollParent.scrollTop += delta;
+        return;
+      }
+
+      window.scrollTo({
+        top: window.scrollY + delta,
+      });
+    };
+
     const handleTableWheel = (event: WheelEvent) => {
-      const hasHorizontalOverflow =
-        container.scrollWidth > container.clientWidth;
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      const hasHorizontalOverflow = maxScrollLeft > scrollTolerance;
 
       if (!hasHorizontalOverflow) {
         return;
       }
 
-      const delta =
-        Math.abs(event.deltaY) >= Math.abs(event.deltaX)
-          ? event.deltaY
-          : event.deltaX;
+      const horizontalDelta = event.deltaY !== 0 ? event.deltaY : event.deltaX;
 
-      if (delta === 0) {
+      if (horizontalDelta === 0) {
+        return;
+      }
+
+      const currentScrollLeft = container.scrollLeft;
+      const nextScrollLeft = Math.max(
+        0,
+        Math.min(currentScrollLeft + horizontalDelta, maxScrollLeft),
+      );
+      const consumedDelta = nextScrollLeft - currentScrollLeft;
+      const remainingDelta = horizontalDelta - consumedDelta;
+      const movedTable = Math.abs(consumedDelta) > scrollTolerance;
+      const shouldScrollPage = Math.abs(remainingDelta) > scrollTolerance;
+
+      if (!movedTable && !shouldScrollPage) {
         return;
       }
 
       event.preventDefault();
-      event.stopPropagation();
 
-      const maxScrollLeft = container.scrollWidth - container.clientWidth;
-      const nextScrollLeft = Math.max(
-        0,
-        Math.min(container.scrollLeft + delta, maxScrollLeft),
-      );
+      if (movedTable) {
+        container.scrollLeft = nextScrollLeft;
+      }
 
-      container.scrollLeft = nextScrollLeft;
+      if (shouldScrollPage) {
+        scrollPageBy(remainingDelta);
+      }
     };
 
     container.addEventListener("wheel", handleTableWheel, {
       passive: false,
-      capture: true,
     });
 
     return () => {
-      container.removeEventListener("wheel", handleTableWheel, {
-        capture: true,
-      });
+      container.removeEventListener("wheel", handleTableWheel);
     };
   }, [tableScrollContainer]);
 
@@ -142,9 +198,27 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
       {/* Table */}
       <div
         ref={handleTableScrollRef}
-        className="overflow-x-auto overflow-y-hidden overscroll-contain scrollbar-hide"
+        className="overflow-x-auto overflow-y-hidden scrollbar-hide"
       >
-        <table className="min-w-full text-sm">
+        <table
+          className="min-w-full text-sm"
+          style={hasFixedWidthColumns ? { tableLayout: "fixed" } : undefined}
+        >
+          <colgroup>
+            {table.getVisibleLeafColumns().map((column) => (
+              <col
+                key={column.id}
+                style={getColumnSizeStyle({
+                  size: column.columnDef.size,
+                  minSize: column.columnDef.minSize,
+                  width: column.columnDef.meta?.width,
+                  minWidth: column.columnDef.meta?.minWidth,
+                  maxWidth: column.columnDef.meta?.maxWidth,
+                })}
+              />
+            ))}
+          </colgroup>
+
           <TableHeader
             table={table}
             hasActions={!!config.renderActions}

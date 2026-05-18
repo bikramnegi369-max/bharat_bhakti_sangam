@@ -4,7 +4,7 @@ import {
   SortingState,
   TableOptions,
 } from "@tanstack/react-table";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { APIResponse } from "./Api.types";
 
 export type AccessorFn<T> = (row: T) => unknown;
@@ -18,6 +18,11 @@ export type CreateColumnOptions<T> = {
   enableSorting?: boolean;
   size?: number;
   minSize?: number;
+  width?: CSSProperties["width"];
+  minWidth?: CSSProperties["minWidth"];
+  maxWidth?: CSSProperties["maxWidth"];
+  headerClassName?: string;
+  cellClassName?: string;
 };
 
 export type CreateColumnReturn<T, TValue = unknown> = ColumnDef<T, TValue>;
