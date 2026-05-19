@@ -44,6 +44,7 @@ export function normalizeEventStats(
 ): EventStats {
   return {
     totalBookings: normalizeNumber(stats?.totalBookings),
+    totalRegistrations: normalizeNumber(stats?.totalRegistrations),
     attended: normalizeNumber(stats?.attended),
     attendanceRateDelta: normalizeNumber(stats?.attendanceRateDelta),
   };

@@ -4,6 +4,7 @@ type Nullable<T> = T | null | undefined;
 
 export interface EventStatsInput {
   totalBookings?: Nullable<number>;
+  totalRegistrations?: Nullable<number>;
   attended?: Nullable<number>;
   attendanceRateDelta?: Nullable<number>;
 }
@@ -19,6 +20,7 @@ export interface EventDataInput {
 
 export interface EventStats {
   totalBookings: number;
+  totalRegistrations: number;
   attended: number;
   attendanceRateDelta: number; // % change vs last event (positive = up)
 }

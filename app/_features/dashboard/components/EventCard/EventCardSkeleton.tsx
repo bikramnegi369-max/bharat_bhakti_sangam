@@ -19,7 +19,12 @@ export function EventCardSkeleton() {
         </div>
 
         {/* Stats row */}
-        <div className="flex gap-8 pt-2">
+        <div className="grid grid-cols-1 gap-5 pt-2 sm:grid-cols-3">
+          <div className="space-y-2 flex-1">
+            <div className="h-3 w-20 rounded bg-[#E8D9B5]" />
+            <div className="h-7 w-16 rounded bg-[#E8D9B5]" />
+            <div className="h-3 w-12 rounded bg-[#E8D9B5]" />
+          </div>
           <div className="space-y-2 flex-1">
             <div className="h-3 w-20 rounded bg-[#E8D9B5]" />
             <div className="h-7 w-16 rounded bg-[#E8D9B5]" />

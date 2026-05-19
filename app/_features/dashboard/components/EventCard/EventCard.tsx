@@ -17,6 +17,7 @@ import { AttendanceRing } from "./AttendanceRing";
 import { clsx } from "clsx";
 import {
   Calendar,
+  ClipboardList,
   MapPin,
   Ticket,
   TrendingDown,
@@ -34,7 +35,12 @@ interface EventCardProps {
 export function EventCard({ event, className }: EventCardProps) {
   const normalizedEvent = normalizeEventData(event);
   const { title, date, venue, status, stats } = normalizedEvent;
-  const { totalBookings, attended, attendanceRateDelta } = stats;
+  const {
+    totalBookings,
+    totalRegistrations,
+    attended,
+    attendanceRateDelta,
+  } = stats;
 
   const percent = attendancePercent(attended, totalBookings);
   const rateLabel = attendanceRateLabel(attended, totalBookings);
@@ -65,11 +71,11 @@ export function EventCard({ event, className }: EventCardProps) {
             {title}
           </h2>
           <p className="text-sm text-[#3D2E0E] flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-primary" />
+            <Calendar className="w-4 h-4 text-primary shrink-0" />
             <time dateTime={dateTimeValue}>{formatDate(date)}</time>
           </p>
           <p className="text-sm text-[#3D2E0E] flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-primary" />
+            <MapPin className="w-4 h-4 text-primary shrink-0" />
             {venue}
           </p>
         </header>
@@ -78,12 +84,18 @@ export function EventCard({ event, className }: EventCardProps) {
         <hr className="border-[#E8D9B5]" />
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
           <StatItem
             label="Total Booking"
             value={totalBookings}
             icon={<Ticket />}
             subLabel="Tickets"
+          />
+          <StatItem
+            label="Registration"
+            value={totalRegistrations}
+            icon={<ClipboardList />}
+            subLabel="People"
           />
           <StatItem
             label="Attended"

@@ -46,12 +46,14 @@ export function isEventStats(data: unknown): data is RawEventsApiResponse {
 
     const {
       totalBookings,
+      totalRegistrations,
       attended,
       attendanceRateDelta,
     } = stats as Record<string, unknown>;
 
     return (
       isNullableNumber(totalBookings) &&
+      isNullableNumber(totalRegistrations) &&
       isNullableNumber(attended) &&
       isNullableNumber(attendanceRateDelta)
     );
