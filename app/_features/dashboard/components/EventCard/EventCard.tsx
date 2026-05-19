@@ -1,19 +1,11 @@
-// ─────────────────────────────────────────────────────────────
-// components/EventCard/EventCard.tsx
-// Pure presentational component – receives fully-typed data,
-// renders nothing else. No fetch, no state.
-// ─────────────────────────────────────────────────────────────
-
 import { EventDataInput } from "@/_types/dashboard.type";
 import {
   attendancePercent,
   attendanceRateLabel,
   formatDate,
+  normalizeEventStatus,
   normalizeEventData,
 } from "@/_utils/dashboard.utils";
-import { StatusBadge } from "./StatusBadge";
-import { StatItem } from "./StatItem";
-import { AttendanceRing } from "./AttendanceRing";
 import { clsx } from "clsx";
 import {
   Calendar,
@@ -24,35 +16,45 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
+import { AttendanceRing } from "./AttendanceRing";
+import { StatItem } from "./StatItem";
 
-// ── Props ──────────────────────────────────────────────────────
 interface EventCardProps {
   event: EventDataInput;
   className?: string;
 }
 
-// ── Component ─────────────────────────────────────────────────
+const STATUS_STYLES = {
+  current: "border-[#1A6B3A]/20 bg-[#E9F7EF] text-[#1A6B3A]",
+  last: "border-primary/25 bg-[#FFF4DE] text-[#8A5A00]",
+  earlier: "border-slate-300 bg-slate-100 text-slate-600",
+  unknown: "border-[#E8D9B5] bg-[#FEF7EA] text-[#8C7A5E]",
+};
+
+const STATUS_LABELS = {
+  current: "Current",
+  last: "Last",
+  earlier: "Earlier",
+  unknown: "Pending",
+};
+
 export function EventCard({ event, className }: EventCardProps) {
   const normalizedEvent = normalizeEventData(event);
   const { title, date, venue, status, stats } = normalizedEvent;
-  const {
-    totalBookings,
-    totalRegistrations,
-    attended,
-    attendanceRateDelta,
-  } = stats;
+  const { totalBookings, totalRegistrations, attended, attendanceRateDelta } =
+    stats;
 
   const percent = attendancePercent(attended, totalBookings);
   const rateLabel = attendanceRateLabel(attended, totalBookings);
   const isPositiveDelta = attendanceRateDelta >= 0;
   const dateTimeValue = date || undefined;
+  const resolvedStatus = normalizeEventStatus(status);
 
   return (
     <article
       className={clsx(
-        "relative rounded-xl overflow-visible bg-white",
-        "border border-primary ",
-        "w-full max-w-sm transition-shadow hover:shadow-[0_8px_32px_rgba(200,134,10,0.18)]",
+        "relative flex h-full w-full flex-col overflow-visible rounded-xl bg-white",
+        "border border-primary transition-shadow hover:shadow-[0_8px_32px_rgba(200,134,10,0.18)]",
         status === "current"
           ? "shadow-2xl!"
           : "shadow-[0_4px_24px_rgba(200,134,10,0.10)]",
@@ -60,75 +62,89 @@ export function EventCard({ event, className }: EventCardProps) {
       )}
       aria-label={`Event card: ${title}`}
     >
-      {/* ── Status badge – floats above the card top edge ── */}
-      <StatusBadge status={status} />
+      <div className="flex flex-1 flex-col gap-4 p-5">
+        <header className="space-y-3">
+          <div className="flex items-start justify-between gap-3">
+            <h2 className="line-clamp-2 min-w-0 text-base font-bold leading-snug text-[#1A1208]">
+              {title}
+            </h2>
+            <span
+              className={clsx(
+                "shrink-0 rounded-full border px-2.5 py-1 text-xs font-semibold",
+                STATUS_STYLES[resolvedStatus],
+              )}
+            >
+              {STATUS_LABELS[resolvedStatus]}
+            </span>
+          </div>
 
-      {/* ── Card body ─────────────────────────────────── */}
-      <div className="pt-7 pb-5 px-5 space-y-4">
-        {/* Event meta */}
-        <header className="space-y-2">
-          <h2 className="text-base font-bold text-[#1A1208] leading-snug">
-            {title}
-          </h2>
-          <p className="text-sm text-[#3D2E0E] flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-primary shrink-0" />
-            <time dateTime={dateTimeValue}>{formatDate(date)}</time>
-          </p>
-          <p className="text-sm text-[#3D2E0E] flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-primary shrink-0" />
-            {venue}
-          </p>
+          <div className="space-y-1.5 rounded-lg bg-[#FEF7EA] px-3 py-2.5 text-sm text-[#3D2E0E]">
+            <p className="flex items-center gap-1.5">
+              <Calendar className="h-4 w-4 shrink-0 text-primary" />
+              <time dateTime={dateTimeValue}>{formatDate(date)}</time>
+            </p>
+
+            <p className="flex min-w-0 items-start gap-1.5">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              <span className="line-clamp-2">{venue}</span>
+            </p>
+          </div>
         </header>
 
-        {/* Divider */}
-        <hr className="border-[#E8D9B5]" />
-
-        {/* Stats row */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-          <StatItem
-            label="Total Booking"
-            value={totalBookings}
-            icon={<Ticket />}
-            subLabel="Tickets"
-          />
-          <StatItem
-            label="Registration"
-            value={totalRegistrations}
-            icon={<ClipboardList />}
-            subLabel="People"
-          />
-          <StatItem
-            label="Attended"
-            value={attended}
-            icon={<Users />}
-            subLabel="People"
-          />
+        <div className="overflow-hidden rounded-xl border border-[#E8D9B5] bg-[#FEF7EA]">
+          <div className="divide-y divide-[#E8D9B5]">
+            <StatItem
+              className="flex items-center justify-between gap-4 px-3 py-3"
+              label="Booking"
+              value={totalBookings}
+              icon={<Ticket />}
+              subLabel="Tickets"
+            />
+            <StatItem
+              className="flex items-center justify-between gap-4 px-3 py-3"
+              label="Registration"
+              value={totalRegistrations}
+              icon={<ClipboardList />}
+              subLabel="People"
+            />
+            <StatItem
+              className="flex items-center justify-between gap-4 px-3 py-3"
+              label="Attended"
+              value={attended}
+              icon={<Users />}
+              subLabel="People"
+            />
+          </div>
         </div>
 
-        {/* Attendance section */}
-        <div className="flex items-center gap-4 bg-[#FEF7EA] rounded-xl p-3 border border-[#E8D9B5]">
-          {/* Accessible label for screen readers */}
-          <div role="img" aria-label={`Attendance ring: ${percent}%`}>
+        <div className="mt-auto grid gap-4 rounded-xl border border-[#E8D9B5] bg-white p-3 shadow-[0_1px_8px_rgba(200,134,10,0.08)] min-[360px]:grid-cols-[auto_1fr] min-[360px]:items-center">
+          <div
+            className="shrink-0"
+            role="img"
+            aria-label={`Attendance ring: ${percent}%`}
+          >
             <AttendanceRing percent={percent} />
           </div>
 
-          <div className="space-y-0.5">
+          <div className="min-w-0 space-y-0.5">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-[#8C7A5E]">
               Attendance Rate
             </p>
-            <p className="text-base font-bold text-[#1A1208]">{rateLabel}</p>
+            <p className="wrap-break-word text-base font-bold text-[#1A1208]">
+              {rateLabel}
+            </p>
             <p
               className={clsx(
-                "text-xs font-semibold flex items-center gap-1",
+                "flex items-center gap-1 text-xs font-semibold",
                 isPositiveDelta ? "text-[#1A6B3A]" : "text-red-500",
               )}
             >
               {isPositiveDelta ? (
-                <TrendingUp className="w-3 h-3" />
+                <TrendingUp className="h-3 w-3 shrink-0" />
               ) : (
-                <TrendingDown className="w-3 h-3" />
+                <TrendingDown className="h-3 w-3 shrink-0" />
               )}
-              <span>
+              <span className="min-w-0">
                 {isPositiveDelta ? "+" : ""}
                 {attendanceRateDelta}% Vs Last Event
               </span>
