@@ -3,7 +3,6 @@
 import {
   BookingRegistrationTrendData,
   EventsApiResponse,
-  RawEventsApiResponse,
 } from "@/_types/dashboard.type";
 import {
   normalizeBookingRegistrationTrendData,
@@ -14,60 +13,85 @@ import { apiRoutes } from "@/_config/APIRoutes.config";
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 import { getPayloadMessage, getResponsePayload } from "@/_utils/api";
 import { isRecord } from "@/_utils/guards";
-import { isBookingRegistrationTrendInput } from "./guards";
+import {
+  isBookingRegistrationTrendInput,
+  isEventStats,
+} from "./guards";
 
-const MOCK_EVENTS: RawEventsApiResponse = [
-  {
-    id: "evt-001",
-    title: "Bharat Bhakti Sangam 2026",
-    date: "2026-06-14",
-    venue: "Club Park",
-    status: "current",
-    stats: {
-      totalBookings: 1090,
-      attended: 980,
-      attendanceRateDelta: 12,
-    },
-  },
-  {
-    id: "evt-002",
-    title: "Bharat Bhakti Sangam 2.0",
-    date: "",
-    venue: "",
-    status: "last",
-    stats: {
-      totalBookings: 0,
-      attended: 0,
-      attendanceRateDelta: 0,
-    },
-  },
-  {
-    id: "evt-003",
-    title: "Bharat Bhakti Sangam 3.0",
-    date: "",
-    venue: "",
-    status: "earlier",
-    stats: {
-      totalBookings: 0,
-      attended: 0,
-      attendanceRateDelta: 0,
-    },
-  },
-];
+function extractEventStatsPayload(payload: unknown): unknown {
+  if (!isRecord(payload)) {
+    return payload;
+  }
+
+  const data = "data" in payload ? payload.data : payload;
+
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+  if (!isRecord(data)) {
+    return data;
+  }
+
+  if ("events" in data) {
+    return data.events;
+  }
+
+  if ("analytics" in data) {
+    return data.analytics;
+  }
+
+  if ("data" in data) {
+    return data.data;
+  }
+
+  return data;
+}
 
 export async function fetchEventStats(): Promise<
   APIResponse<EventsApiResponse>
 > {
   try {
+    const response = await authorizedAdminRequest(apiRoutes.dashboardAnalytics, {
+      method: "GET",
+    });
+
+    const payload = await getResponsePayload(response);
+
+    if (!response.ok) {
+      return {
+        success: false,
+        error:
+          getPayloadMessage(payload) || "Failed to fetch dashboard analytics.",
+      };
+    }
+
+    if (isRecord(payload) && "status" in payload && payload.status === false) {
+      return {
+        success: false,
+        error:
+          getPayloadMessage(payload) || "Failed to fetch dashboard analytics.",
+      };
+    }
+
+    const eventsPayload = extractEventStatsPayload(payload);
+
+    if (!isEventStats(eventsPayload)) {
+      return {
+        success: false,
+        error: "Invalid dashboard analytics response format.",
+      };
+    }
+
     return {
       success: true,
-      data: normalizeEventsData(MOCK_EVENTS),
+      data: normalizeEventsData(eventsPayload),
     };
   } catch (error) {
     console.error("Error fetching event stats:", error);
     return {
       success: false,
-      error: "An error occurred while fetching event stats",
+      error: "An error occurred while fetching event stats.",
     };
   }
 }
