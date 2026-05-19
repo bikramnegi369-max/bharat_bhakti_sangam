@@ -6,11 +6,13 @@ import EventActionDrawer from "@/_features/event/components/EventActionDrawer";
 import { EventsTable } from "@/_features/event/components/EventsTable";
 import { Event } from "@/_features/event/types";
 import useIsMobile from "@/_hooks/useIsMobile";
-import { Pencil, Eye } from "lucide-react";
+import { Pencil, Eye, Plus } from "lucide-react";
 import { useUI } from "@/providers/UIProvider";
+import { useCallback } from "react";
+import AddManualAttendanceModal from "@/_features/event/components/AddManualAttendanceModal";
 
 export default function AdminEventPage() {
-  const { openDrawer } = useUI();
+  const { openDrawer, openModal } = useUI();
   const isMobileView = useIsMobile();
 
   const handleAddEvent = () => {
@@ -24,6 +26,15 @@ export default function AdminEventPage() {
       size: isMobileView ? "xl" : "full",
     });
   };
+
+  const handleAddManualAttendanceModal = useCallback(
+    (eventId: string) => {
+      openModal(<AddManualAttendanceModal eventId={eventId} />, {
+        size: "full",
+      });
+    },
+    [openModal],
+  );
 
   return (
     <section className="space-y-8">
@@ -57,6 +68,12 @@ export default function AdminEventPage() {
                       size: isMobileView ? "xl" : "full",
                     },
                   ),
+              },
+              {
+                key: "Add Manual Attendence",
+                label: "Add Manual Attendeance",
+                icon: <Plus size={16} />,
+                onClick: () => handleAddManualAttendanceModal(event._id),
               },
             ]}
           />

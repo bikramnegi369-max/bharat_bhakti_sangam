@@ -17,6 +17,7 @@ const ADMIN_EMAIL_BASE = "/admin/email";
 export const apiRoutes = {
   event: EVENT_BASE,
   eventById: (id: string) => `${EVENT_BASE}/${id}`,
+  addManualAttendance: (id: string) => `${EVENT_BASE}/${id}/manual-attendance`,
   categoryById: (id: string) => `${EVENT_CATEGORY_BASE}/${id}`,
   latestEvent: `${EVENT_BASE}/latest`,
   latestCapacity: `${EVENT_BASE}/latest-capacity`,
