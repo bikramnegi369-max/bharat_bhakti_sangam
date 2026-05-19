@@ -1,54 +1,53 @@
+function SkeletonBlock({ className }: { className: string }) {
+  return <div className={`rounded bg-[#E8D9B5] ${className}`} />;
+}
+
 export function EventCardSkeleton() {
   return (
     <div
-      className="relative h-full w-full animate-pulse overflow-hidden rounded-2xl border border-[#E8D9B5] bg-[#FBF5E8] shadow-lg"
+      className="relative flex min-h-[26rem] w-full flex-col overflow-hidden rounded-xl border border-[#E8D9B5] bg-[#FBF5E8] p-5 shadow-[0_4px_24px_rgba(200,134,10,0.10)]"
       aria-busy="true"
-      aria-label="Loading event data…"
+      aria-label="Loading event card"
     >
-      {/* Badge placeholder */}
-      <div className="flex justify-center pt-4 pb-2">
-        <div className="h-6 w-32 rounded-full bg-[#E8D9B5]" />
+      <div className="pointer-events-none absolute inset-0 -translate-x-full animate-[table-shimmer_1.8s_linear_infinite] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+
+      <div className="relative flex items-start justify-between gap-4">
+        <div className="min-w-0 flex-1 space-y-2">
+          <SkeletonBlock className="h-5 w-3/4 max-w-64" />
+          <SkeletonBlock className="h-4 w-1/2 max-w-44" />
+        </div>
+        <SkeletonBlock className="h-7 w-20 shrink-0 rounded-full" />
       </div>
 
-      <div className="flex h-full flex-col gap-4 p-5">
-        {/* Title */}
-        <div className="space-y-3">
-          <div className="flex items-start justify-between gap-3">
-            <div className="h-5 w-3/4 rounded bg-[#E8D9B5]" />
-            <div className="h-6 w-16 shrink-0 rounded-full bg-[#E8D9B5]" />
-          </div>
-          <div className="space-y-2 rounded-lg bg-white/35 px-3 py-2.5">
-            <div className="h-4 w-1/2 rounded bg-[#E8D9B5]" />
-            <div className="h-4 w-2/3 rounded bg-[#E8D9B5]" />
-          </div>
-        </div>
+      <div className="relative mt-5 space-y-2 rounded-lg bg-white/40 p-3">
+        <SkeletonBlock className="h-4 w-36" />
+        <SkeletonBlock className="h-4 w-52 max-w-full" />
+      </div>
 
-        {/* Stats row */}
-        <div className="overflow-hidden rounded-xl border border-[#E8D9B5] bg-white/35">
-          <div className="divide-y divide-[#E8D9B5]">
-            <div className="flex items-center justify-between gap-4 px-3 py-3">
-              <div className="h-9 w-9 rounded-md bg-[#E8D9B5]" />
-              <div className="h-6 w-16 rounded bg-[#E8D9B5]" />
+      <div className="relative mt-5 space-y-3">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div
+            key={index}
+            className="flex items-center justify-between gap-4 rounded-lg bg-white/40 px-3 py-3"
+          >
+            <div className="flex items-center gap-3">
+              <SkeletonBlock className="h-9 w-9 rounded-md" />
+              <div className="space-y-2">
+                <SkeletonBlock className="h-3 w-24" />
+                <SkeletonBlock className="h-3 w-14" />
+              </div>
             </div>
-            <div className="flex items-center justify-between gap-4 px-3 py-3">
-              <div className="h-9 w-9 rounded-md bg-[#E8D9B5]" />
-              <div className="h-6 w-16 rounded bg-[#E8D9B5]" />
-            </div>
-            <div className="flex items-center justify-between gap-4 px-3 py-3">
-              <div className="h-9 w-9 rounded-md bg-[#E8D9B5]" />
-              <div className="h-6 w-16 rounded bg-[#E8D9B5]" />
-            </div>
+            <SkeletonBlock className="h-6 w-16" />
           </div>
-        </div>
+        ))}
+      </div>
 
-        {/* Attendance section */}
-        <div className="mt-auto grid gap-4 rounded-xl bg-white/50 p-3 min-[360px]:grid-cols-[auto_1fr] min-[360px]:items-center">
-          <div className="w-16 h-16 rounded-full bg-[#E8D9B5]" />
-          <div className="space-y-2 flex-1">
-            <div className="h-3 w-24 rounded bg-[#E8D9B5]" />
-            <div className="h-5 w-32 rounded bg-[#E8D9B5]" />
-            <div className="h-3 w-20 rounded bg-[#E8D9B5]" />
-          </div>
+      <div className="relative mt-auto flex items-center gap-4 rounded-xl bg-white/45 p-3">
+        <SkeletonBlock className="h-16 w-16 rounded-full" />
+        <div className="min-w-0 flex-1 space-y-2">
+          <SkeletonBlock className="h-3 w-28" />
+          <SkeletonBlock className="h-5 w-36 max-w-full" />
+          <SkeletonBlock className="h-3 w-24" />
         </div>
       </div>
     </div>
