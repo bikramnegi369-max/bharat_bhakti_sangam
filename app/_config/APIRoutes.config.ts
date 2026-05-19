@@ -49,5 +49,6 @@ export const apiRoutes = {
   venueById: (id: string) => `${VENUE_BASE}/${id}`,
   addVenue: VENUE_BASE,
   dashboardEventStats: `${DASHBOARD_BASE}/events`,
+  dashboardBookingRegistrationTrend: `${DASHBOARD_BASE}/booking-registration-trend`,
   sendAdminEmail: `${ADMIN_EMAIL_BASE}`,
 };

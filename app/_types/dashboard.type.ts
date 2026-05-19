@@ -34,3 +34,24 @@ export interface EventData {
 
 export type EventsApiResponse = EventData[];
 export type RawEventsApiResponse = EventDataInput[];
+
+export interface BookingRegistrationTrendInput {
+  eventId?: Nullable<string>;
+  eventName?: Nullable<string>;
+  title?: Nullable<string>;
+  date?: Nullable<string>;
+  totalBookings?: Nullable<number>;
+  totalBooking?: Nullable<number>;
+  bookings?: Nullable<number>;
+  totalRegistrations?: Nullable<number>;
+  totalRegistration?: Nullable<number>;
+  registrations?: Nullable<number>;
+}
+
+export interface BookingRegistrationTrendData {
+  eventId: string;
+  eventName: string;
+  date: string;
+  totalBookings: number;
+  totalRegistrations: number;
+}

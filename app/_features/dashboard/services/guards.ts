@@ -1,4 +1,7 @@
-import { RawEventsApiResponse } from "@/_types/dashboard.type";
+import {
+  BookingRegistrationTrendInput,
+  RawEventsApiResponse,
+} from "@/_types/dashboard.type";
 
 function isNullableString(value: unknown): value is string | null | undefined {
   return value === null || value === undefined || typeof value === "string";
@@ -53,4 +56,38 @@ export function isEventStats(data: unknown): data is RawEventsApiResponse {
       isNullableNumber(attendanceRateDelta)
     );
   });
+}
+
+export function isBookingRegistrationTrendInput(
+  data: unknown,
+): data is BookingRegistrationTrendInput {
+  if (typeof data !== "object" || data === null) {
+    return false;
+  }
+
+  const {
+    eventId,
+    eventName,
+    title,
+    date,
+    totalBookings,
+    totalBooking,
+    bookings,
+    totalRegistrations,
+    totalRegistration,
+    registrations,
+  } = data as Record<string, unknown>;
+
+  return (
+    isNullableString(eventId) &&
+    isNullableString(eventName) &&
+    isNullableString(title) &&
+    isNullableString(date) &&
+    isNullableNumber(totalBookings) &&
+    isNullableNumber(totalBooking) &&
+    isNullableNumber(bookings) &&
+    isNullableNumber(totalRegistrations) &&
+    isNullableNumber(totalRegistration) &&
+    isNullableNumber(registrations)
+  );
 }

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { EventCardSkeleton } from "@/_features/dashboard/components/EventCard";
 import EventCardGrid from "@/_features/dashboard/components/EventCardGrid/EventCardGrid";
+import BookingRegistrationTrendChart from "@/_features/dashboard/components/BookingRegistrationTrendChart/BookingRegistrationTrendChart";
 
 function GridSkeleton() {
   return (
@@ -14,10 +15,12 @@ function GridSkeleton() {
 
 export default function DashboardHome() {
   return (
-    <div>
+    <div className="space-y-8">
       <Suspense fallback={<GridSkeleton />}>
         <EventCardGrid />
       </Suspense>
+
+      <BookingRegistrationTrendChart />
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import {
+  BookingRegistrationTrendData,
+  BookingRegistrationTrendInput,
   EventData,
   EventDataInput,
   EventStats,
@@ -114,4 +116,21 @@ export function attendancePercent(
     100,
     Math.max(0, Math.round((safeAttended / safeTotal) * 100)),
   );
+}
+
+export function normalizeBookingRegistrationTrendData(
+  item: BookingRegistrationTrendInput,
+  selectedDate: string,
+): BookingRegistrationTrendData {
+  return {
+    eventId: normalizeText(item.eventId, ""),
+    eventName: normalizeText(item.eventName || item.title, "Selected Event"),
+    date: hasText(item.date) ? item.date.trim() : selectedDate,
+    totalBookings: normalizeNumber(
+      item.totalBookings ?? item.totalBooking ?? item.bookings,
+    ),
+    totalRegistrations: normalizeNumber(
+      item.totalRegistrations ?? item.totalRegistration ?? item.registrations,
+    ),
+  };
 }
