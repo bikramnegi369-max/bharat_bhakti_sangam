@@ -1,6 +1,7 @@
 import {
   BookingRegistrationTrendInput,
   RawEventsApiResponse,
+  TotalBookingTrendInput,
 } from "@/_types/dashboard.type";
 
 function isNullableString(value: unknown): value is string | null | undefined {
@@ -13,6 +14,12 @@ function isNullableNumber(value: unknown): value is number | null | undefined {
     value === undefined ||
     (typeof value === "number" && Number.isFinite(value))
   );
+}
+
+function isNullableStringOrNumber(
+  value: unknown,
+): value is string | number | null | undefined {
+  return isNullableString(value) || isNullableNumber(value);
 }
 
 export function isEventStats(data: unknown): data is RawEventsApiResponse {
@@ -48,6 +55,9 @@ export function isEventStats(data: unknown): data is RawEventsApiResponse {
       totalBookings,
       totalRegistrations,
       attended,
+      barcodeEntry,
+      barcodeEntries,
+      barcode_entry,
       attendanceRateDelta,
     } = stats as Record<string, unknown>;
 
@@ -55,6 +65,9 @@ export function isEventStats(data: unknown): data is RawEventsApiResponse {
       isNullableNumber(totalBookings) &&
       isNullableNumber(totalRegistrations) &&
       isNullableNumber(attended) &&
+      isNullableNumber(barcodeEntry) &&
+      isNullableNumber(barcodeEntries) &&
+      isNullableNumber(barcode_entry) &&
       isNullableNumber(attendanceRateDelta)
     );
   });
@@ -92,4 +105,22 @@ export function isBookingRegistrationTrendInput(
     isNullableNumber(totalRegistration) &&
     isNullableNumber(registrations)
   );
+}
+
+export function isTotalBookingTrendInput(
+  data: unknown,
+): data is TotalBookingTrendInput[] {
+  if (!Array.isArray(data)) {
+    return false;
+  }
+
+  return data.every((item) => {
+    if (typeof item !== "object" || item === null) {
+      return false;
+    }
+
+    const { date, totalTickets } = item as Record<string, unknown>;
+
+    return isNullableString(date) && isNullableStringOrNumber(totalTickets);
+  });
 }

@@ -11,7 +11,7 @@ const FEEDBACK_BASE = "/feedback";
 const BOOKING_BASE = "/booking";
 const BOOKING_TYPE_BASE = "/admin/booking-type";
 const CALENDER_BASE = "/calender";
-const DASHBOARD_BASE = "/dashboard";
+const DASHBOARD_BASE = "/admin/dashboard";
 const ADMIN_EMAIL_BASE = "/admin/email";
 
 export const apiRoutes = {
@@ -49,7 +49,8 @@ export const apiRoutes = {
   venueById: (id: string) => `${VENUE_BASE}/${id}`,
   addVenue: VENUE_BASE,
   dashboardEventStats: `${DASHBOARD_BASE}/events`,
-  dashboardAnalytics: "/admin/dashboard/analytics",
+  dashboardAnalytics: `${DASHBOARD_BASE}/analytics`,
   dashboardBookingRegistrationTrend: `${DASHBOARD_BASE}/booking-registration-trend`,
+  dashboardTotalBookingTrend: `${DASHBOARD_BASE}/booking-trend`,
   sendAdminEmail: `${ADMIN_EMAIL_BASE}`,
 };

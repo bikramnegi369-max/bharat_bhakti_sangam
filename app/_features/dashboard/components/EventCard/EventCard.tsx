@@ -8,6 +8,7 @@ import {
 } from "@/_utils/dashboard.utils";
 import { clsx } from "clsx";
 import {
+  Barcode,
   Calendar,
   ClipboardList,
   MapPin,
@@ -41,8 +42,13 @@ const STATUS_LABELS = {
 export function EventCard({ event, className }: EventCardProps) {
   const normalizedEvent = normalizeEventData(event);
   const { title, date, venue, status, stats } = normalizedEvent;
-  const { totalBookings, totalRegistrations, attended, attendanceRateDelta } =
-    stats;
+  const {
+    totalBookings,
+    totalRegistrations,
+    attended,
+    barcodeEntry,
+    attendanceRateDelta,
+  } = stats;
 
   const percent = attendancePercent(attended, totalBookings);
   const rateLabel = attendanceRateLabel(attended, totalBookings);
@@ -109,7 +115,14 @@ export function EventCard({ event, className }: EventCardProps) {
             />
             <StatItem
               className="flex items-center justify-between gap-4 px-3 py-3"
-              label="Attended"
+              label="Barcode Entry"
+              value={barcodeEntry}
+              icon={<Barcode />}
+              subLabel="Scans"
+            />
+            <StatItem
+              className="flex items-center justify-between gap-4 px-3 py-3"
+              label="Total Attended"
               value={attended}
               icon={<Users />}
               subLabel="People"

@@ -7,6 +7,8 @@ import {
   EventStatsInput,
   EventStatus,
   EventsApiResponse,
+  TotalBookingTrendData,
+  TotalBookingTrendInput,
 } from "@/_types/dashboard.type";
 
 const EVENT_STATUS_VALUES = new Set<EventStatus>([
@@ -31,6 +33,39 @@ function normalizeNumber(value: number | null | undefined): number {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }
 
+function normalizeNumericValue(
+  value: string | number | null | undefined,
+): number {
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  if (!hasText(value)) {
+    return 0;
+  }
+
+  const parsedValue = Number(value.trim().replace(/,/g, ""));
+
+  return Number.isFinite(parsedValue) ? parsedValue : 0;
+}
+
+function normalizeTrendDate(date: string | null | undefined): string {
+  if (!hasText(date)) {
+    return "";
+  }
+
+  const value = date.trim();
+  const dateParts = value.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+
+  if (!dateParts) {
+    return value;
+  }
+
+  const [, day, month, year] = dateParts;
+
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+}
+
 export function normalizeEventStatus(
   status: string | null | undefined,
 ): EventStatus {
@@ -46,6 +81,9 @@ export function normalizeEventStats(
     totalBookings: normalizeNumber(stats?.totalBookings),
     totalRegistrations: normalizeNumber(stats?.totalRegistrations),
     attended: normalizeNumber(stats?.attended),
+    barcodeEntry: normalizeNumber(
+      stats?.barcodeEntry ?? stats?.barcodeEntries ?? stats?.barcode_entry,
+    ),
     attendanceRateDelta: normalizeNumber(stats?.attendanceRateDelta),
   };
 }
@@ -134,4 +172,15 @@ export function normalizeBookingRegistrationTrendData(
       item.totalRegistrations ?? item.totalRegistration ?? item.registrations,
     ),
   };
+}
+
+export function normalizeTotalBookingTrendData(
+  items: TotalBookingTrendInput[],
+): TotalBookingTrendData[] {
+  return items
+    .map((item) => ({
+      date: normalizeTrendDate(item.date),
+      totalTickets: normalizeNumericValue(item.totalTickets),
+    }))
+    .filter((item) => hasText(item.date));
 }

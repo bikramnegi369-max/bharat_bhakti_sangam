@@ -3,10 +3,12 @@
 import {
   BookingRegistrationTrendData,
   EventsApiResponse,
+  TotalBookingTrendData,
 } from "@/_types/dashboard.type";
 import {
   normalizeBookingRegistrationTrendData,
   normalizeEventsData,
+  normalizeTotalBookingTrendData,
 } from "@/_utils/dashboard.utils";
 import { APIResponse } from "@/_types/Api.types";
 import { apiRoutes } from "@/_config/APIRoutes.config";
@@ -16,6 +18,7 @@ import { isRecord } from "@/_utils/guards";
 import {
   isBookingRegistrationTrendInput,
   isEventStats,
+  isTotalBookingTrendInput,
 } from "./guards";
 
 function extractEventStatsPayload(payload: unknown): unknown {
@@ -52,9 +55,12 @@ export async function fetchEventStats(): Promise<
   APIResponse<EventsApiResponse>
 > {
   try {
-    const response = await authorizedAdminRequest(apiRoutes.dashboardAnalytics, {
-      method: "GET",
-    });
+    const response = await authorizedAdminRequest(
+      apiRoutes.dashboardAnalytics,
+      {
+        method: "GET",
+      },
+    );
 
     const payload = await getResponsePayload(response);
 
@@ -185,6 +191,57 @@ export async function fetchBookingRegistrationTrend(
     return {
       success: false,
       error: "An error occurred while fetching booking registration trend.",
+    };
+  }
+}
+
+export async function fetchTotalBookingTrend(): Promise<
+  APIResponse<TotalBookingTrendData[]>
+> {
+  try {
+    const response = await authorizedAdminRequest(
+      apiRoutes.dashboardTotalBookingTrend,
+      {
+        method: "GET",
+      },
+    );
+
+    const payload = await getResponsePayload(response);
+
+    if (!response.ok) {
+      return {
+        success: false,
+        error:
+          getPayloadMessage(payload) || "Failed to fetch total booking trend.",
+      };
+    }
+
+    if (isRecord(payload) && "status" in payload && payload.status === false) {
+      return {
+        success: false,
+        error:
+          getPayloadMessage(payload) || "Failed to fetch total booking trend.",
+      };
+    }
+
+    const trendPayload = extractTrendPayload(payload);
+
+    if (!isTotalBookingTrendInput(trendPayload)) {
+      return {
+        success: false,
+        error: "Invalid total booking trend response format.",
+      };
+    }
+
+    return {
+      success: true,
+      data: normalizeTotalBookingTrendData(trendPayload),
+    };
+  } catch (error) {
+    console.error("Error fetching total booking trend:", error);
+    return {
+      success: false,
+      error: "An error occurred while fetching total booking trend.",
     };
   }
 }

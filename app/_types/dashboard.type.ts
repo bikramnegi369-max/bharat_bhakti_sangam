@@ -6,6 +6,9 @@ export interface EventStatsInput {
   totalBookings?: Nullable<number>;
   totalRegistrations?: Nullable<number>;
   attended?: Nullable<number>;
+  barcodeEntry?: Nullable<number>;
+  barcodeEntries?: Nullable<number>;
+  barcode_entry?: Nullable<number>;
   attendanceRateDelta?: Nullable<number>;
 }
 
@@ -22,6 +25,7 @@ export interface EventStats {
   totalBookings: number;
   totalRegistrations: number;
   attended: number;
+  barcodeEntry: number;
   attendanceRateDelta: number; // % change vs last event (positive = up)
 }
 
@@ -56,4 +60,14 @@ export interface BookingRegistrationTrendData {
   date: string;
   totalBookings: number;
   totalRegistrations: number;
+}
+
+export interface TotalBookingTrendInput {
+  date?: Nullable<string>;
+  totalTickets?: Nullable<string | number>;
+}
+
+export interface TotalBookingTrendData {
+  date: string;
+  totalTickets: number;
 }

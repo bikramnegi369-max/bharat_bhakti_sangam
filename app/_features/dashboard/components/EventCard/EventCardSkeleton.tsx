@@ -5,11 +5,11 @@ function SkeletonBlock({ className }: { className: string }) {
 export function EventCardSkeleton() {
   return (
     <div
-      className="relative flex min-h-[26rem] w-full flex-col overflow-hidden rounded-xl border border-[#E8D9B5] bg-[#FBF5E8] p-5 shadow-[0_4px_24px_rgba(200,134,10,0.10)]"
+      className="relative flex min-h-140 w-full flex-col overflow-hidden rounded-xl border border-[#E8D9B5] bg-[#FBF5E8] p-5 shadow-[0_4px_24px_rgba(200,134,10,0.10)]"
       aria-busy="true"
       aria-label="Loading event card"
     >
-      <div className="pointer-events-none absolute inset-0 -translate-x-full animate-[table-shimmer_1.8s_linear_infinite] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 -translate-x-full animate-[table-shimmer_1.8s_linear_infinite] bg-linear-to-r from-transparent via-white/50 to-transparent" />
 
       <div className="relative flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1 space-y-2">
@@ -25,7 +25,7 @@ export function EventCardSkeleton() {
       </div>
 
       <div className="relative mt-5 space-y-3">
-        {Array.from({ length: 3 }).map((_, index) => (
+        {Array.from({ length: 4 }).map((_, index) => (
           <div
             key={index}
             className="flex items-center justify-between gap-4 rounded-lg bg-white/40 px-3 py-3"

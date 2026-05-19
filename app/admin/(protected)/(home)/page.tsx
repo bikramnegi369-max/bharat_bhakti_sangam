@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { EventCardSkeleton } from "@/_features/dashboard/components/EventCard";
 import EventCardGrid from "@/_features/dashboard/components/EventCardGrid/EventCardGrid";
 import BookingRegistrationTrendChart from "@/_features/dashboard/components/BookingRegistrationTrendChart/BookingRegistrationTrendChart";
+import TotalBookingTrendChart from "@/_features/dashboard/components/TotalBookingTrendChart/TotalBookingTrendChart";
 
 function GridSkeleton() {
   return (
@@ -20,7 +21,10 @@ export default function DashboardHome() {
         <EventCardGrid />
       </Suspense>
 
-      <BookingRegistrationTrendChart />
+      <div className="grid items-start gap-6 xl:grid-cols-2">
+        <TotalBookingTrendChart />
+        <BookingRegistrationTrendChart />
+      </div>
     </div>
   );
 }
