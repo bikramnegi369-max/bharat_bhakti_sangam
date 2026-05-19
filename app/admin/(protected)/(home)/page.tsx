@@ -4,6 +4,8 @@ import EventCardGrid from "@/_features/dashboard/components/EventCardGrid/EventC
 import BookingRegistrationTrendChart from "@/_features/dashboard/components/BookingRegistrationTrendChart/BookingRegistrationTrendChart";
 import TotalBookingTrendChart from "@/_features/dashboard/components/TotalBookingTrendChart/TotalBookingTrendChart";
 
+export const dynamic = "force-dynamic";
+
 function GridSkeleton() {
   return (
     <section className="grid auto-rows-fr grid-cols-1 items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">

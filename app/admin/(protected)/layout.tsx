@@ -4,6 +4,8 @@ import { adminDefaultRedirectPath } from "@/_features/admin-auth/config";
 import { getAdminAuthStateFromCookies } from "@/_features/admin-auth/server/session";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProtectedAdminLayout({
   children,
 }: {
