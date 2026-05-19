@@ -70,8 +70,8 @@ export default function AdminEventPage() {
                   ),
               },
               {
-                key: "Add Manual Attendence",
-                label: "Add Manual Attendeance",
+                key: "Add Manual Attendance",
+                label: "Add Manual Attendance",
                 icon: <Plus size={16} />,
                 onClick: () => handleAddManualAttendanceModal(event._id),
               },
