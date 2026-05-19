@@ -15,7 +15,7 @@ export function StatItem({ label, value, icon, subLabel }: StatItemProps) {
       </span>
       <div className="flex items-center gap-2">
         <span className="text-primary shrink-0">{icon}</span>
-        <span className="text-2xl font-bold text-[#1A1208] leading-none">
+        <span className="text-xl font-bold text-[#1A1208] leading-none">
           {typeof value === "number" ? value.toLocaleString("en-IN") : value}
         </span>
       </div>
