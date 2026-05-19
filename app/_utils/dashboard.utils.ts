@@ -1,29 +1,117 @@
+import {
+  EventData,
+  EventDataInput,
+  EventStats,
+  EventStatsInput,
+  EventStatus,
+  EventsApiResponse,
+} from "@/_types/dashboard.type";
 
+const EVENT_STATUS_VALUES = new Set<EventStatus>([
+  "current",
+  "last",
+  "earlier",
+  "unknown",
+]);
+
+function hasText(value: string | null | undefined): value is string {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function normalizeText(
+  value: string | null | undefined,
+  fallback: string,
+): string {
+  return hasText(value) ? value.trim() : fallback;
+}
+
+function normalizeNumber(value: number | null | undefined): number {
+  return typeof value === "number" && Number.isFinite(value) ? value : 0;
+}
+
+export function normalizeEventStatus(
+  status: string | null | undefined,
+): EventStatus {
+  return EVENT_STATUS_VALUES.has(status as EventStatus)
+    ? (status as EventStatus)
+    : "unknown";
+}
+
+export function normalizeEventStats(
+  stats?: EventStatsInput | null,
+): EventStats {
+  return {
+    totalBookings: normalizeNumber(stats?.totalBookings),
+    attended: normalizeNumber(stats?.attended),
+    attendanceRateDelta: normalizeNumber(stats?.attendanceRateDelta),
+  };
+}
+
+export function normalizeEventData(
+  event: EventDataInput,
+  index = 0,
+): EventData {
+  return {
+    id: normalizeText(event.id, `event-${index + 1}`),
+    title: normalizeText(event.title, "N/A"),
+    date: hasText(event.date) ? event.date.trim() : "",
+    venue: normalizeText(event.venue, "N/A"),
+    status: normalizeEventStatus(event.status),
+    stats: normalizeEventStats(event.stats),
+  };
+}
+
+export function normalizeEventsData(
+  events: EventDataInput[],
+): EventsApiResponse {
+  return events.map((event, index) => normalizeEventData(event, index));
+}
 
 /**
  * Formats an ISO date string to a human-readable form.
- * @example formatDate("2026-06-14") → "14 June 2026"
+ * @example formatDate("2026-06-14") -> "14 June 2026"
  */
-export function formatDate(iso: string): string {
+export function formatDate(iso?: string | null): string {
+  if (!hasText(iso)) return "N/A";
+
+  const parsedDate = new Date(iso);
+  if (Number.isNaN(parsedDate.getTime())) return "N/A";
+
   return new Intl.DateTimeFormat("en-IN", {
     day: "numeric",
     month: "long",
     year: "numeric",
-  }).format(new Date(iso));
+  }).format(parsedDate);
 }
 
 /**
  * Returns the attendance rate as a formatted string.
- * @example attendanceRate(980, 1090) → "980 / 1,090"
+ * @example attendanceRateLabel(980, 1090) -> "980 / 1,090"
  */
-export function attendanceRateLabel(attended: number, total: number): string {
-  return `${attended.toLocaleString("en-IN")} / ${total.toLocaleString("en-IN")}`;
+export function attendanceRateLabel(
+  attended?: number | null,
+  total?: number | null,
+): string {
+  const safeAttended = normalizeNumber(attended);
+  const safeTotal = normalizeNumber(total);
+
+  return `${safeAttended.toLocaleString("en-IN")} / ${safeTotal.toLocaleString("en-IN")}`;
 }
 
 /**
  * Computes the attendance percentage (0-100).
  */
-export function attendancePercent(attended: number, total: number): number {
-  if (total === 0) return 0;
-  return Math.min(100, Math.round((attended / total) * 100));
+export function attendancePercent(
+  attended?: number | null,
+  total?: number | null,
+): number {
+  const safeAttended = normalizeNumber(attended);
+  const safeTotal = normalizeNumber(total);
+
+  if (safeTotal <= 0) return 0;
+
+  return Math.min(
+    100,
+    Math.max(0, Math.round((safeAttended / safeTotal) * 100)),
+  );
 }

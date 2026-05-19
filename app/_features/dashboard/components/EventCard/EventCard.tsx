@@ -4,11 +4,12 @@
 // renders nothing else. No fetch, no state.
 // ─────────────────────────────────────────────────────────────
 
-import { EventData } from "@/_types/dashboard.type";
+import { EventDataInput } from "@/_types/dashboard.type";
 import {
   attendancePercent,
   attendanceRateLabel,
   formatDate,
+  normalizeEventData,
 } from "@/_utils/dashboard.utils";
 import { StatusBadge } from "./StatusBadge";
 import { StatItem } from "./StatItem";
@@ -25,18 +26,20 @@ import {
 
 // ── Props ──────────────────────────────────────────────────────
 interface EventCardProps {
-  event: EventData;
+  event: EventDataInput;
   className?: string;
 }
 
 // ── Component ─────────────────────────────────────────────────
 export function EventCard({ event, className }: EventCardProps) {
-  const { title, date, venue, status, stats } = event;
+  const normalizedEvent = normalizeEventData(event);
+  const { title, date, venue, status, stats } = normalizedEvent;
   const { totalBookings, attended, attendanceRateDelta } = stats;
 
   const percent = attendancePercent(attended, totalBookings);
   const rateLabel = attendanceRateLabel(attended, totalBookings);
   const isPositiveDelta = attendanceRateDelta >= 0;
+  const dateTimeValue = date || undefined;
 
   return (
     <article
@@ -63,7 +66,7 @@ export function EventCard({ event, className }: EventCardProps) {
           </h2>
           <p className="text-sm text-[#3D2E0E] flex items-center gap-1.5">
             <Calendar className="w-4 h-4 text-primary" />
-            <time dateTime={date}>{formatDate(date)}</time>
+            <time dateTime={dateTimeValue}>{formatDate(date)}</time>
           </p>
           <p className="text-sm text-[#3D2E0E] flex items-center gap-1.5">
             <MapPin className="w-4 h-4 text-primary" />

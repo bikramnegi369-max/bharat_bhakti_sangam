@@ -30,8 +30,11 @@ export default async function EventCardGrid() {
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
       aria-label="Event cards"
     >
-      {result?.data?.slice(0, 3).map((event) => (
-        <EventCard key={event.id} event={event} />
+      {result?.data?.slice(0, 3).map((event, index) => (
+        <EventCard
+          key={event.id || event.title || `event-card-${index + 1}`}
+          event={event}
+        />
       ))}
     </section>
   );
