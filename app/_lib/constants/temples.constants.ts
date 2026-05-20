@@ -460,13 +460,12 @@ export const temples: Temples = [
   {
     slug: "sanchi-stupa",
     name: "Sanchi Stupa",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/1280px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
+    heroImage: "/temples-images/sanchi-stupa/sanchi-stupa_hero.webp",
     description:
       "Sanchi Stupa is one of the oldest and most significant Buddhist monuments in India, symbolizing peace, wisdom, and spiritual enlightenment. Famous for its grand dome and beautifully carved gateways, it reflects the rich heritage of Buddhist art and architecture. This UNESCO World Heritage Site attracts pilgrims, historians, and travelers from around the world.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/2560px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/North_Gateway%2C_Sanchi.jpg/2560px-North_Gateway%2C_Sanchi.jpg",
+      "/temples-images/sanchi-stupa/description/sanchi-stupa-desc-1.webp",
+      "/temples-images/sanchi-stupa/description/sanchi-stupa-desc-2.webp",
     ],
     features: {
       title: "Features of Sanchi Stupa",
@@ -477,8 +476,8 @@ export const temples: Temples = [
         "Symbol of peace, meditation, and Buddhist teachings",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/North_Gateway%2C_Sanchi.jpg/2560px-North_Gateway%2C_Sanchi.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Sanchi_Stupa_No_3_Gateway.jpg/2560px-Sanchi_Stupa_No_3_Gateway.jpg",
+        "/temples-images/sanchi-stupa/features/sanchi-stupa-feature-1.webp",
+        "/temples-images/sanchi-stupa/features/sanchi-stupa-feature-2.webp",
       ],
     },
     location: {
@@ -486,8 +485,8 @@ export const temples: Temples = [
       description:
         "Located in Sanchi, Raisen district, Madhya Pradesh, India, Around 46 km from Bhopal",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Sanchi_Stupa_-_Madhya_Pradesh.jpg/2560px-Sanchi_Stupa_-_Madhya_Pradesh.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sanchi_Stupa_Madhya_Pradesh_11.jpg/2560px-Sanchi_Stupa_Madhya_Pradesh_11.jpg",
+        "/temples-images/sanchi-stupa/location/sanchi-stupa-location-1.webp",
+        "/temples-images/sanchi-stupa/location/sanchi-stupa-location-2.webp",
       ],
     },
     history: {
@@ -495,7 +494,8 @@ export const temples: Temples = [
       description:
         "The Great Stupa at Sanchi was originally commissioned by Emperor Ashoka in the 3rd century BCE after embracing Buddhism. Over time, it was expanded and decorated by later rulers and devotees. The site became a major center of Buddhist learning and spirituality, preserving centuries of India&rsquo;s cultural and religious heritage.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sanchi_Stupa_Madhya_Pradesh_11.jpg/2560px-Sanchi_Stupa_Madhya_Pradesh_11.jpg",
+        "/temples-images/sanchi-stupa/history/sanchi-stupa-histroy-1.webp",
+        "/temples-images/sanchi-stupa/history/sanchi-stupa-histroy-2.webp",
       ],
     },
     bestTimeToVisit: "October to March",
@@ -506,13 +506,12 @@ export const temples: Temples = [
   {
     slug: "ramanathaswamy-temple",
     name: "Ramanathaswamy Temple",
-    heroImage:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/1280px-Rameswaram_Temple_Corridor.jpg",
+    heroImage: "/temples-images/ramanathaswamy/ramanathaswamy_hero.webp",
     description:
       "Ramanathaswamy Temple is one of the holiest temples dedicated to Lord Shiva and a sacred part of the Char Dham Yatra. Located in Rameswaram, it is renowned for its magnificent corridors, towering gopurams, and deep spiritual significance. The temple beautifully reflects devotion, architecture, and the legacy of Lord Rama.",
     descriptionImages: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
+      "/temples-images/ramanathaswamy/description/ramanathaswamy-desc-1.webp",
+      "/temples-images/ramanathaswamy/description/ramanathaswamy-desc-2.webp",
     ],
     features: {
       title: "Features of Ramanathaswamy Temple",
@@ -523,8 +522,8 @@ export const temples: Temples = [
         "Sacred wells (Theerthams) used for ritual purification",
       ],
       featuresImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Corridor_Rameswaram.jpg/2560px-Corridor_Rameswaram.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
+        "/temples-images/ramanathaswamy/features/ramanathaswamy-feature-1.webp",
+        "/temples-images/ramanathaswamy/features/ramanathaswamy-feature-2.webp",
       ],
     },
     location: {
@@ -532,8 +531,8 @@ export const temples: Temples = [
       description:
         "Situated in Rameswaram, Tamil Nadu, India, Connected to mainland India via the famous Pamban Bridge, Easily accessible via road and rail",
       locationImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Rameswaram_Temple_Corridor.jpg/2560px-Rameswaram_Temple_Corridor.jpg",
+        "/temples-images/ramanathaswamy/location/ramanathaswamy-location-1.webp",
+        "/temples-images/ramanathaswamy/location/ramanathaswamy-location-2.webp",
       ],
     },
     history: {
@@ -541,7 +540,8 @@ export const temples: Temples = [
       description:
         "According to Hindu tradition, Lord Rama worshipped Lord Shiva here after defeating Ravana in Lanka. It is believed that Rama established the Shivling to seek blessings and purification. The temple was expanded over centuries by various South Indian dynasties, making it one of India&rsquo;s most important spiritual landmarks.",
       historyImages: [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rameswaram_Temple_Gopuram.jpg/2560px-Rameswaram_Temple_Gopuram.jpg",
+        "/temples-images/ramanathaswamy/history/ramanathaswamy-history-1.webp",
+        "/temples-images/ramanathaswamy/history/ramanathaswamy-history-2.webp",
       ],
     },
     bestTimeToVisit: "October to April",
@@ -783,8 +783,8 @@ export const temples: Temples = [
     description:
       "Tirupati Balaji Temple, also known as the Tirumala Venkateswara Temple, is one of the most sacred and visited temples dedicated to Lord Vishnu. Situated on the holy Tirumala Hills, the temple is renowned for its divine atmosphere, rich traditions, and spiritual significance. Millions of devotees visit every year seeking blessings, prosperity, and fulfillment.",
     descriptionImages: [
-      "/temples-images/tirupati-balaji/description/tirupati-desc-1.webp",
-      "/temples-images/tirupati-balaji/description/tirupati-desc-2.webp",
+      "/temples-images/tirupati-balaji/description/tirupati-balaji-desc-1.webp",
+      "/temples-images/tirupati-balaji/description/tirupati-balaji-desc-2.webp",
     ],
     features: {
       title: "Features of Tirupati Balaji Temple",
@@ -795,8 +795,8 @@ export const temples: Temples = [
         "Located on the sacred Seven Hills of Tirumala",
       ],
       featuresImages: [
-        "/temples-images/tirupati-balaji/features/tirupati-feature-1.webp",
-        "/temples-images/tirupati-balaji/features/tirupati-feature-2.webp",
+        "/temples-images/tirupati-balaji/features/tirupati-balaji-feature-1.webp",
+        "/temples-images/tirupati-balaji/features/tirupati-balaji-feature-2.webp",
       ],
     },
     location: {
@@ -804,8 +804,8 @@ export const temples: Temples = [
       description:
         "Situated in Tirumala, near Tirupati, Andhra Pradesh, India, Around 135 km from Chennai",
       locationImages: [
-        "/temples-images/tirupati-balaji/location/tirupati-location-1.webp",
-        "/temples-images/tirupati-balaji/location/tirupati-location-2.webp",
+        "/temples-images/tirupati-balaji/location/tirupati-balaji-location-1.webp",
+        "/temples-images/tirupati-balaji/location/tirupati-balaji-location-2.webp",
       ],
     },
     history: {
@@ -813,8 +813,8 @@ export const temples: Temples = [
       description:
         "The temple has ancient origins mentioned in Hindu scriptures and gained prominence under dynasties like the Pallavas, Cholas, and Vijayanagara Empire. It is believed that Lord Vishnu appeared here as Venkateswara to guide and protect humanity during the Kali Yuga. Over centuries, the temple has become one of the most important centers of devotion and pilgrimage in India.",
       historyImages: [
-        "/temples-images/tirupati-balaji/history/tirupati-history-1.webp",
-        "/temples-images/tirupati-balaji/history/tirupati-history-2.webp",
+        "/temples-images/tirupati-balaji/history/tirupati-balaji-history-1.webp",
+        "/temples-images/tirupati-balaji/history/tirupati-balaji-history-2.webp",
       ],
     },
     bestTimeToVisit: "September to February",
