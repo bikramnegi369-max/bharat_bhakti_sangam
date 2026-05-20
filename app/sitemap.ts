@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/_config/Site.config";
 import { getAbsoluteEventImageUrl } from "@/_lib/helpers";
 import { getLatestEvent } from "@/_features/event/services/event.service";
+import { temples } from "@/_lib/constants/temples.constants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicRoutes: Array<{
@@ -84,5 +85,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         images,
       }),
     ),
+    ...temples.map((temple) => ({
+      url: `${siteConfig.url}/${temple.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      images: [`${siteConfig.url}${temple.heroImage}`],
+    })),
   ];
 }
