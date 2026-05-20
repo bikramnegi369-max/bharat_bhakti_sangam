@@ -277,7 +277,7 @@ export function SendEmailWorkspace({
           </div>
         </form>
 
-        <aside className="space-y-6">
+        <aside className="space-y-6 xl:self-start">
           <div className="rounded-4xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-black p-3 text-primary">
@@ -338,47 +338,49 @@ export function SendEmailWorkspace({
                 No recent booking emails were found. You can still add recipients manually above.
               </div>
             ) : (
-              <div className="mt-5 grid gap-3">
-                {initialRecipientOptions.map((option) => {
-                  const isSelected = selectedRecipients.has(option.email);
+              <div className="mt-5 max-h-[32rem] overflow-y-auto pr-1">
+                <div className="grid gap-3">
+                  {initialRecipientOptions.map((option) => {
+                    const isSelected = selectedRecipients.has(option.email);
 
-                  return (
-                    <button
-                      key={option.bookingId}
-                      type="button"
-                      onClick={() => toggleRecipient(option.email)}
-                      className={clsx(
-                        "rounded-3xl border p-4 text-left transition cursor-pointer",
-                        isSelected
-                          ? "border-primary bg-primary/10 shadow-sm"
-                          : "border-slate-200 bg-slate-50 hover:bg-white",
-                      )}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-sm font-semibold text-slate-900">
-                            {option.name || option.email}
-                          </p>
-                          <p className="mt-1 text-xs text-slate-500">{option.email}</p>
+                    return (
+                      <button
+                        key={option.bookingId}
+                        type="button"
+                        onClick={() => toggleRecipient(option.email)}
+                        className={clsx(
+                          "rounded-3xl border p-4 text-left transition cursor-pointer",
+                          isSelected
+                            ? "border-primary bg-primary/10 shadow-sm"
+                            : "border-slate-200 bg-slate-50 hover:bg-white",
+                        )}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-sm font-semibold text-slate-900">
+                              {option.name || option.email}
+                            </p>
+                            <p className="mt-1 text-xs text-slate-500">{option.email}</p>
+                          </div>
+                          <span
+                            className={clsx(
+                              "rounded-full px-3 py-1 text-[10px] font-bold tracking-[0.2em]",
+                              isSelected
+                                ? "bg-black text-primary"
+                                : "bg-white text-slate-500",
+                            )}
+                          >
+                            {isSelected ? "ADDED" : "ADD"}
+                          </span>
                         </div>
-                        <span
-                          className={clsx(
-                            "rounded-full px-3 py-1 text-[10px] font-bold tracking-[0.2em]",
-                            isSelected
-                              ? "bg-black text-primary"
-                              : "bg-white text-slate-500",
-                          )}
-                        >
-                          {isSelected ? "ADDED" : "ADD"}
-                        </span>
-                      </div>
 
-                      <p className="mt-3 text-xs text-slate-500">
-                        Latest booking: {option.eventName}
-                      </p>
-                    </button>
-                  );
-                })}
+                        <p className="mt-3 text-xs text-slate-500">
+                          Latest booking: {option.eventName}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>

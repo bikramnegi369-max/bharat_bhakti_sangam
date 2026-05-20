@@ -54,6 +54,19 @@ export type PaginationProps = {
   onLimitChange?: (limit: number) => void;
 };
 
+export type TableExportColumn<T extends RowData> = {
+  header: string;
+  accessor: (row: T) => unknown;
+};
+
+export type TableExportConfig<T extends RowData> = {
+  enabled?: boolean;
+  fileName?: string;
+  sheetName?: string;
+  columns?: TableExportColumn<T>[];
+  pageSize?: number;
+};
+
 export type TableConfig<T extends RowData> = {
   columns: TableOptions<T>["columns"];
   service: TableService<T>;
@@ -65,6 +78,7 @@ export type TableConfig<T extends RowData> = {
   staleTime?: number;
   filterAction?: ReactNode;
   renderActions?: (row: T) => ReactNode;
+  exportOptions?: TableExportConfig<T> | false;
 };
 
 export type TableQueryParams = {

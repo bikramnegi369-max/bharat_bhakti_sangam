@@ -39,3 +39,18 @@ export const EventSchema = z.object({
 export type EventFormInput = z.input<typeof EventSchema>;
 
 export type EventFormData = z.infer<typeof EventSchema>;
+
+export const ManualAttendanceSchema = z.object({
+  manualAttendance: z.coerce
+    .number()
+    .int("Manual attendance must be a whole number")
+    .min(1, "Manual attendance must be at least 1"),
+});
+
+export type ManualAttendanceFormInput = z.input<
+  typeof ManualAttendanceSchema
+>;
+
+export type ManualAttendanceFormData = z.infer<
+  typeof ManualAttendanceSchema
+>;

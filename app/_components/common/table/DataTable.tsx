@@ -11,6 +11,7 @@ import { TableBody } from "./TableBody";
 import { TableConfig } from "@/_types/Table.types";
 import { RowData } from "@tanstack/react-table";
 import { getColumnSizeStyle, hasColumnSizing } from "./tableSizing";
+import { TableExportButton } from "./TableExportButton";
 
 interface Props<T extends RowData> {
   config: TableConfig<T>;
@@ -84,6 +85,21 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
   );
 
   const hasRows = tableData.items.length > 0;
+  const exportOptions =
+    config.exportOptions === false || config.exportOptions?.enabled === false
+      ? undefined
+      : (config.exportOptions ?? {});
+  const exportAction = exportOptions ? (
+    <TableExportButton
+      columns={config.columns}
+      service={config.service}
+      filters={controller.filters}
+      sorting={controller.sorting}
+      queryKeyPrefix={config.queryKeyPrefix}
+      exportOptions={exportOptions}
+      disabled={tableData.total === 0}
+    />
+  ) : null;
 
   const table = useDataTable(tableController, config.columns);
   const hasFixedWidthColumns = table
@@ -207,9 +223,22 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
           filters={config.filters}
           values={controller.filters}
           onChange={controller.setFilters}
-          action={config.filterAction}
+          action={
+            config.filterAction || exportAction ? (
+              <div className="flex flex-wrap items-end gap-3">
+                {config.filterAction}
+                {exportAction}
+              </div>
+            ) : undefined
+          }
         />
       )}
+
+      {!config.filters && exportAction ? (
+        <div className="flex flex-wrap items-center justify-end gap-3 rounded-t-xl bg-primary_light p-4 shadow-sm">
+          {exportAction}
+        </div>
+      ) : null}
 
       {/* Table */}
       <div

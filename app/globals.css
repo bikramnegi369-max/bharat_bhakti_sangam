@@ -192,3 +192,26 @@ button:active::after {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+.dashboard-chart-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(252, 173, 51, 0.75) rgba(61, 46, 14, 0.08);
+}
+
+.dashboard-chart-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.dashboard-chart-scrollbar::-webkit-scrollbar-track {
+  background: rgba(61, 46, 14, 0.08);
+  border-radius: 999px;
+}
+
+.dashboard-chart-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--primary) 0%, #ffcf82 100%);
+  border-radius: 999px;
+}
+
+.dashboard-chart-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #e99618 0%, var(--primary) 100%);
+}
