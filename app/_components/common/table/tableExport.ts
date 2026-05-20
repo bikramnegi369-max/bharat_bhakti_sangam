@@ -44,9 +44,9 @@ const sanitizeWorksheetName = (name: string): string =>
 const sanitizeFileName = (name: string): string =>
   name
     .trim()
-    .replace(/[^a-z0-9-_]+/gi, "-")
+    .replace(/[^a-z0-9-_]+/gi, "_")
     .replace(/^-+|-+$/g, "")
-    .toLowerCase() || "table-export";
+    .replace(/^_+|_+$/g, "") || "table-export";
 
 export const getDefaultExportColumns = <T extends RowData>(
   columns: TableOptions<T>["columns"],
