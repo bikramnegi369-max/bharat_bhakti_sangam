@@ -39,8 +39,8 @@ export function DashboardChartCard({
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary to-transparent" />
       <div className="pointer-events-none absolute right-0 top-0 h-28 w-44 bg-primary/10 blur-3xl" />
 
-      <header className="relative z-10 flex flex-wrap items-start justify-between gap-4">
-        <div className="min-w-0">
+      <header className="relative z-10 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0 flex-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.26em] text-primary">
             {eyebrow}
           </p>
@@ -52,11 +52,15 @@ export function DashboardChartCard({
               {description}
             </p>
           )}
+          {metric && (
+            <div className="mt-3 w-full min-w-0 sm:w-fit [&>.grid]:w-full [&>.grid]:grid-cols-1 min-[420px]:[&>.grid]:grid-cols-3 sm:[&>.grid]:w-auto">
+              {metric}
+            </div>
+          )}
         </div>
 
-        {(metric || action) && (
-          <div className="flex shrink-0 flex-wrap items-start justify-end gap-2">
-            {metric}
+        {action && (
+          <div className="flex w-full min-w-0 items-start sm:w-auto lg:shrink-0 lg:justify-end [&_label]:w-full sm:[&_label]:w-40">
             {action}
           </div>
         )}
