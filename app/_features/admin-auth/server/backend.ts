@@ -145,6 +145,35 @@ export async function loginAgainstBackend(
   };
 }
 
+export async function requestPasswordResetAgainstBackend(
+  email: string,
+): Promise<BackendActionResult> {
+  const response = await requestAdminBackend(
+    adminAuthConfig.backend.forgotPasswordPath,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        adminAuthConfig.backend.buildForgotPasswordPayload(email),
+      ),
+    },
+  );
+  const payload = await parseResponsePayload(response);
+
+  return {
+    ok: response.ok,
+    status: response.status,
+    message: getResponseMessage(
+      payload,
+      response.ok
+        ? "If an account exists with that email, we've sent a reset link."
+        : "Unable to request password reset.",
+    ),
+  };
+}
+
 export async function resetPasswordAgainstBackend(
   token: string,
   password: string,

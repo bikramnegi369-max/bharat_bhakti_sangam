@@ -6,23 +6,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Extract token from raw body since it's not in the form-focused Zod schema
-    const { token } = body;
-
-    // Validate password using pick() to ignore the missing confirmPassword field in the API request
-    const parsedBody = adminResetPasswordSchema
-      .pick({ password: true })
-      .safeParse(body);
-
-    if (!parsedBody.success) {
-      return NextResponse.json(
-        {
-          message:
-            parsedBody.error.issues[0]?.message ?? "Invalid password data.",
-        },
-        { status: 400 },
-      );
-    }
+    const { token, password } = body;
 
     if (!token || typeof token !== "string") {
       return NextResponse.json(
@@ -31,7 +15,6 @@ export async function POST(request: Request) {
       );
     }
 
-    const { password } = parsedBody.data;
     const result = await resetPasswordAgainstBackend(token, password);
 
     if (!result.ok) {
