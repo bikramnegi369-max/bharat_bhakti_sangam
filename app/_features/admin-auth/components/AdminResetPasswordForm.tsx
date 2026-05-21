@@ -22,14 +22,6 @@ export function AdminResetPasswordForm() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
-  // Derived error: prioritizing token validation, then submission errors, then schema errors
-  const error = !token
-    ? "A valid security token is required to reset your password. Please check your email for the correct link or request a new one."
-    : submitError ||
-      errors.password?.message ||
-      errors.confirmPassword?.message ||
-      errors.root?.message;
-
   const {
     register,
     handleSubmit,
@@ -41,6 +33,15 @@ export function AdminResetPasswordForm() {
       confirmPassword: "",
     },
   });
+
+  // Derived error: prioritizing token validation, then submission errors, then schema errors
+  // This must be declared after `useForm` to ensure `errors` is defined.
+  const error = !token
+    ? "A valid security token is required to reset your password. Please check your email for the correct link or request a new one."
+    : submitError ||
+      errors.password?.message ||
+      errors.confirmPassword?.message ||
+      errors.root?.message;
 
   const onSubmit = handleSubmit(async (values) => {
     if (!token) return;
