@@ -10,10 +10,7 @@ import {
   getSanatanCalenderFestivalCount,
   getSanatanCalenderYear,
 } from "@/_lib/helpers/calender.helpers";
-import {
-  createPageMetadata,
-  jsonLdScript,
-} from "@/_lib/seo";
+import { createPageMetadata, jsonLdScript } from "@/_lib/seo";
 
 const HERO_IMAGE = "/event.webp";
 
@@ -63,7 +60,7 @@ export default async function SanatanCalenderPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(calendarJsonLd)}
       />
-      <Hero backgroundImage={HERO_IMAGE} />
+      <Hero backgroundImage={HERO_IMAGE} title={`Sanatan Calender ${year}`} />
       <SanatanCalenderSection months={months} />
     </>
   );

@@ -10,7 +10,9 @@ type SanatanCalenderSectionProps = {
 export default function SanatanCalenderSection({
   months,
 }: SanatanCalenderSectionProps) {
-  const defaultOpenIndex = months.findIndex((month) => month.festivals.length > 0);
+  const defaultOpenIndex = months.findIndex(
+    (month) => month.festivals.length > 0,
+  );
 
   return (
     <AccordionSection
@@ -30,6 +32,7 @@ export default function SanatanCalenderSection({
       itemClassName="rounded-[1.4rem] border-primary bg-primary_light/75 shadow-[0_0.75rem_2rem_rgba(82,48,6,0.08)]"
       summaryClassName="px-5 py-4 sm:px-6 sm:py-5"
       contentClassName="p-0 text-base"
+      groupName="Sanatan-Calender"
     />
   );
 }
