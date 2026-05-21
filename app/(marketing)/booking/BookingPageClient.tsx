@@ -40,7 +40,7 @@ export function BookingPageClient({
     status,
     specificErrorMessage,
     reset,
-  } = useBookingForm(ticketTypes[0]?.name, eventId);
+  } = useBookingForm(ticketTypes[0]?.name, eventId, eventTitle);
   const formRef = useRef<HTMLFormElement | null>(null);
   const statusRef = useRef<HTMLDivElement | null>(null);
 
@@ -119,7 +119,11 @@ export function BookingPageClient({
                 className="w-full max-w-7xl flex justify-center items-center"
               >
                 <div className="w-full grid grid-cols-1 place-items-center max-w-2xl">
-                  <BookingForm isSubmitting={isSubmitting} />
+                  <BookingForm
+                    isSubmitting={isSubmitting}
+                    eventDate={eventDate}
+                    ticketTypes={ticketTypes}
+                  />
                 </div>
               </form>
             </FormProvider>

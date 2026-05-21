@@ -4,12 +4,28 @@ import { apiRoutes } from "@/_config/APIRoutes.config";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import { APIResponse } from "@/_types/Api.types";
 import { fetchWithTimeout } from "@/_utils/fetch";
-import { BookingCategory } from "@/_types/Booking.types";
-import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
+
+export type BookingPaymentPayload = {
+  provider: "razorpay";
+  orderId: string;
+  eventId: string;
+  paymentId: string;
+  amount: number;
+  currency: "INR";
+  receipt: string;
+  status: "created" | "attempted" | "paid" | "failed" | "refunded";
+  phone: number;
+  notes: Record<string, string>;
+  method?: string;
+  email?: string;
+  razorpaySignature: string;
+  paidAt?: string;
+};
 
 export async function submitBooking(
   payload: BookingFormData,
   eventId: string,
+  payment?: BookingPaymentPayload,
 ): Promise<APIResponse> {
   const url = `${process.env.NEXT_PUBLIC_API_URL}${apiRoutes.booking}`;
 
@@ -25,6 +41,7 @@ export async function submitBooking(
         email: payload.email,
         totalTicket: payload.tickets,
         phone: payload.mobile,
+        ...(payment ? { payment } : {}),
       }),
     });
 
