@@ -13,7 +13,8 @@ export function isEventBooking(value: unknown): value is EventBooking {
     typeof value.email === "string" &&
     typeof value.contact === "number" &&
     typeof value.tickets === "number" &&
-    typeof value.ticketId === "string"
+    typeof value.ticketId === "string" &&
+    typeof value.bookingDate === "string"
   );
 }
 

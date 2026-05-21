@@ -1,13 +1,16 @@
 import { z } from "zod";
 
 export const contactSchema = z.object({
-  fullName: z.string().min(2, "Full name is required"),
+  fullName: z
+    .string()
+    .min(2, "Full name is required")
+    .regex(/^[^0-9]*$/, "Full name should not contain numbers"),
   email: z.email("Invalid email address"),
   phone: z
     .string()
     .min(10, "Phone number must be at least 10 digits")
     .max(15, "Phone number is too long")
-    .regex(/^[0-9+\-\s]+$/, "Invalid phone number"),
+    .regex(/^[0-9]+$/, "Phone number must contain only digits"),
 
   query: z
     .string()

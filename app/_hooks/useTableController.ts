@@ -43,7 +43,10 @@ export const useTableController = <T extends RowData>(
     () => config.filters?.map((filter) => filter.key) ?? [],
     [config.filters],
   );
-  const { state, setState, setStates } = useTableState(filterKeys);
+  const { state, setState, setStates } = useTableState({
+    filterKeys,
+    defaultLimit: config.defaultLimit ?? 10,
+  });
   const appliedFilters = useMemo(
     () => normalizeFilters(state.filters),
     [state.filters],
@@ -78,10 +81,17 @@ export const useTableController = <T extends RowData>(
       getTableQueryKey({
         prefix: config.queryKeyPrefix,
         page: state.page,
+        limit: state.limit,
         filters: appliedFilters,
         sorting: state.sorting,
       }),
-    [appliedFilters, config.queryKeyPrefix, state.page, state.sorting],
+    [
+      appliedFilters,
+      config.queryKeyPrefix,
+      state.limit,
+      state.page,
+      state.sorting,
+    ],
   );
 
   const { data, isLoading, isFetching, error } = useQuery({
@@ -89,6 +99,7 @@ export const useTableController = <T extends RowData>(
     queryFn: () =>
       config.service.getAll({
         page: state.page,
+        limit: state.limit,
         ...appliedFilters,
         sortBy: state.sorting?.[0]?.id,
         order: state.sorting?.[0]?.desc ? "desc" : "asc",
@@ -160,6 +171,16 @@ export const useTableController = <T extends RowData>(
     [setStates],
   );
 
+  const setLimit = useCallback(
+    (limit: number) => {
+      setStates({
+        page: 1,
+        limit,
+      });
+    },
+    [setStates],
+  );
+
   const setFilters = useCallback((nextFilters: Record<string, string>) => {
     const normalizedNextFilters = normalizeFilters(nextFilters);
 
@@ -178,6 +199,8 @@ export const useTableController = <T extends RowData>(
 
     page: state.page,
     setPage,
+    limit: state.limit,
+    setLimit,
 
     sorting: state.sorting || [],
     setSorting,

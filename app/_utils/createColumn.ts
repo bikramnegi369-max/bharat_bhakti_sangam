@@ -1,16 +1,13 @@
+import { CreateColumnOptions } from "@/_types/Table.types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ReactNode } from "react";
 
 export const createColumn = <T>() => {
   return <V = unknown>(
     id: string,
-    options: {
-      header: string;
+    options: Omit<CreateColumnOptions<T>, "accessorFn" | "cell"> & {
       accessorFn: (row: T) => V;
       cell?: (value: V, row: T) => ReactNode;
-      enableSorting?: boolean;
-      size?: number;
-      minSize?: number;
     },
   ): ColumnDef<T, V> => {
     return {
@@ -20,6 +17,13 @@ export const createColumn = <T>() => {
       enableSorting: options.enableSorting ?? true,
       size: options.size,
       minSize: options.minSize,
+      meta: {
+        width: options.width,
+        minWidth: options.minWidth,
+        maxWidth: options.maxWidth,
+        headerClassName: options.headerClassName,
+        cellClassName: options.cellClassName,
+      },
 
       cell: (ctx) => {
         const value = ctx.getValue();

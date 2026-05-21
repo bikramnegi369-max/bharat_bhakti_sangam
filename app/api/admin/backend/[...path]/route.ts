@@ -133,8 +133,7 @@ async function handleProxy(request: NextRequest, context: RouteContext) {
     } catch (error) {
       const isTimeout =
         error instanceof Error &&
-        (error.name === "AbortError" ||
-          error.message.includes("timed out"));
+        (error.name === "AbortError" || error.message.includes("timed out"));
 
       return NextResponse.json(
         {
@@ -193,8 +192,7 @@ async function handleProxy(request: NextRequest, context: RouteContext) {
     } catch (error) {
       const isTimeout =
         error instanceof Error &&
-        (error.name === "AbortError" ||
-          error.message.includes("timed out"));
+        (error.name === "AbortError" || error.message.includes("timed out"));
 
       return NextResponse.json(
         {
@@ -244,15 +242,14 @@ async function handleProxy(request: NextRequest, context: RouteContext) {
     headers: createResponseHeaders(backendResponse.headers),
   });
 
-  if (refreshedAuth) {
+  if (backendResponse.status === 401) {
+    // If the backend specifically says 401, we MUST clear cookies
+    // to prevent the Middleware from looping the user back here.
+    clearAdminAuthCookies(response);
+  } else if (refreshedAuth) {
     const signedSession = await createSignedAdminSession(refreshedAuth.session);
     setAdminAuthCookies(response, refreshedAuth, signedSession);
   }
-
-  if (backendResponse.status === 401) {
-    clearAdminAuthCookies(response);
-  }
-
   return response;
 }
 

@@ -9,6 +9,8 @@ import { FeedbackFormStatus } from "./FeedbackFormStatus";
 import { FeedbackFormData, feedbackSchema } from "@/_schemas/feedback.schema";
 import { useFeedbackForm } from "@/_hooks/useFeedbackForm";
 import { useEffect, useRef } from "react";
+import { sendGAEvent } from "@next/third-parties/google";
+import { trackMetaPixelCustom } from "@/_lib/meta-pixel";
 
 export default function FeedbackForm() {
   const methods = useForm<FeedbackFormData>({
@@ -29,6 +31,17 @@ export default function FeedbackForm() {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (status === "success") {
+      sendGAEvent("event", "feedback_submitted", {
+        form_name: "feedback_form",
+        page_path: "/feedback",
+      });
+      trackMetaPixelCustom("FeedbackSubmitted", {
+        content_name: "Feedback Form",
+        content_category: "feedback",
+      });
+    }
+
     if ((status === "success" || status === "error") && containerRef.current) {
       containerRef.current.scrollIntoView({
         behavior: "smooth",

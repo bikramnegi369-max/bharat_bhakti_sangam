@@ -11,6 +11,7 @@ import { Loader2, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAdminAuth } from "../hooks/useAdminAuth";
+import Link from "next/link";
 
 export function AdminLoginForm({ nextPath }: { nextPath?: string | null }) {
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -80,6 +81,15 @@ export function AdminLoginForm({ nextPath }: { nextPath?: string | null }) {
           {...register("password")}
           error={errors.password?.message}
         />
+
+        <div className="flex justify-end">
+          <Link
+            href="/admin/forgot-password"
+            className="text-xs font-medium text-slate-500 transition-colors hover:text-emerald-600"
+          >
+            Forgot password?
+          </Link>
+        </div>
       </div>
 
       {submitError && (
