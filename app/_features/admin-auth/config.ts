@@ -18,9 +18,14 @@ export const adminAuthConfig = {
     loginPath: "/admin/login",
     refreshPath: "/admin/refresh",
     logoutPath: "/admin/logout",
+    resetPasswordPath: "/admin/reset-password",
     buildLoginPayload: (values: AdminLoginFormValues) => ({
       email: values.email.trim(),
       password: values.password,
+    }),
+    buildResetPasswordPayload: (token: string, password: string) => ({
+      token,
+      password,
     }),
   },
   session: {

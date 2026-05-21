@@ -32,6 +32,20 @@ type AuthRequestSuccess = {
 
 export type AuthRequestResult = AuthRequestFailure | AuthRequestSuccess;
 
+type BackendActionFailure = {
+  ok: false;
+  status: number;
+  message: string;
+};
+
+type BackendActionSuccess = {
+  ok: true;
+  status: number;
+  message: string;
+};
+
+export type BackendActionResult = BackendActionFailure | BackendActionSuccess;
+
 function createHeaders(
   headersInit?: HeadersInit,
   accessToken?: string | null,
@@ -128,6 +142,42 @@ export async function loginAgainstBackend(
     ok: true,
     status: response.status,
     auth,
+  };
+}
+
+export async function resetPasswordAgainstBackend(
+  token: string,
+  password: string,
+): Promise<BackendActionResult> {
+  const response = await requestAdminBackend(
+    adminAuthConfig.backend.resetPasswordPath,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        adminAuthConfig.backend.buildResetPasswordPayload(token, password),
+      ),
+    },
+  );
+  const payload = await parseResponsePayload(response);
+
+  if (!response.ok) {
+    return {
+      ok: false,
+      status: response.status,
+      message: getResponseMessage(payload, "Unable to reset password."),
+    };
+  }
+
+  return {
+    ok: true,
+    status: response.status,
+    message: getResponseMessage(
+      payload,
+      "Your password has been successfully updated.",
+    ),
   };
 }
 
