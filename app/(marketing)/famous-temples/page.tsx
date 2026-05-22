@@ -51,7 +51,11 @@ export default function FamousTemplesPage() {
       <div id="temple-list">
         <TempleGrid />
       </div>
-      <FAQSection title="Frequently Asked Questions" items={templesFAQs} />
+      <FAQSection
+        title="Frequently Asked Questions"
+        items={templesFAQs}
+        groupName="famous-temples-faqs"
+      />
     </div>
   );
 }
