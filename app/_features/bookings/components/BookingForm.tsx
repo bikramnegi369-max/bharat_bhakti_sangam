@@ -1,11 +1,12 @@
 import { Button } from "@/_components/ui/Button";
 import { Counter } from "@/_components/ui/Counter";
 import { Field } from "@/_components/ui/Field/Field";
+import { FormDropdown } from "@/_components/ui/Dropdown/FormDropdown";
 import { BOOKING_CONFIG } from "@/_lib/constants/booking.constants";
 import { cinzel } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
-import { CreditCard, Loader2, Ticket } from "lucide-react";
+import { CreditCard, Loader2 } from "lucide-react";
 import { useMemo } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
@@ -41,6 +42,16 @@ export default function BookingForm({
   );
   const ticketCount = values.tickets || 1;
   const total = ticketCount * (selectedTicket?.price || 0);
+
+  const ticketOptions = useMemo(
+    () =>
+      ticketTypes.map((ticket) => ({
+        label: `${ticket.name} Pass`,
+        value: ticket.name,
+        price: ticket.price,
+      })),
+    [ticketTypes],
+  );
 
   return (
     <div
@@ -85,67 +96,15 @@ export default function BookingForm({
       />
 
       {ticketTypes.length > 0 && (
-        <fieldset className="flex flex-col gap-4">
-          <legend className="text-[clamp(0.813rem,calc(0.741rem+0.357vw),1.063rem)] font-semibold tracking-[0.25em] uppercase text-gray-500">
-            Select Pass
-          </legend>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {ticketTypes.map((ticket) => {
-              const isSelected = values.ticketType === ticket.name;
-
-              return (
-                <label
-                  key={ticket.name}
-                  className={clsx(
-                    "flex min-h-24 cursor-pointer items-center gap-4 rounded-lg border-2 p-4 transition-colors",
-                    isSelected
-                      ? "border-primary bg-primary_light"
-                      : "border-gray-200 bg-white hover:border-primary/60",
-                  )}
-                >
-                  <input
-                    type="radio"
-                    value={ticket.name}
-                    className="sr-only"
-                    {...register("ticketType")}
-                    onChange={() =>
-                      setValue("ticketType", ticket.name, {
-                        shouldDirty: true,
-                        shouldValidate: true,
-                      })
-                    }
-                  />
-                  <span
-                    aria-hidden="true"
-                    className={clsx(
-                      "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border",
-                      isSelected
-                        ? "border-primary bg-primary text-black"
-                        : "border-gray-300 text-primary",
-                    )}
-                  >
-                    <Ticket className="h-5 w-5" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-base font-semibold capitalize text-heading">
-                      {ticket.name} Pass
-                    </span>
-                    <span className="block text-sm font-medium text-para">
-                      {formatPrice(ticket.price)} per ticket
-                    </span>
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-
-          {errors.ticketType?.message && (
-            <span className="text-sm text-red-600">
-              {errors.ticketType.message}
-            </span>
-          )}
-        </fieldset>
+        <FormDropdown
+          name="ticketType"
+          control={control}
+          label="Select Pass"
+          options={ticketOptions}
+          required
+          placeholder="Choose your pass type"
+          className="w-full"
+        />
       )}
 
       <div className="flex flex-col justify-center gap-3">

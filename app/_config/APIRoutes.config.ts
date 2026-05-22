@@ -23,6 +23,7 @@ export const apiRoutes = {
   latestCapacity: `${EVENT_BASE}/latest-capacity`,
   contact: "/contact",
   booking: `${BOOKING_BASE}/create-ticket`,
+  bookingReservations: `${BOOKING_BASE}/reservations`,
   feedback: "/feedback",
   subscribe: "/subscriber",
   preSignedUrl: "/admin/presign-url",

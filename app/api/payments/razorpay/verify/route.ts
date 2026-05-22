@@ -5,6 +5,7 @@ import {
   submitBooking,
 } from "@/_features/bookings/services/booking.service";
 import {
+  assertRazorpayPaymentMatchesOrder,
   assertRazorpayOrderMatchesBooking,
   buildRazorpayOrderPayload,
   fetchRazorpayPayment,
@@ -40,6 +41,13 @@ export async function POST(request: Request) {
     const body = verifySchema.parse(await request.json());
     const booking = validateOrderRequest(body.booking);
 
+    if (!booking.reservationId) {
+      return NextResponse.json(
+        { success: false, error: "Reservation is required." },
+        { status: 400 },
+      );
+    }
+
     const isValid = verifyRazorpaySignature({
       orderId: body.razorpay_order_id,
       paymentId: body.razorpay_payment_id,
@@ -61,6 +69,10 @@ export async function POST(request: Request) {
     const paymentDetails = await fetchRazorpayPayment(
       body.razorpay_payment_id,
     );
+    assertRazorpayPaymentMatchesOrder({
+      payment: paymentDetails,
+      expectedOrder: verifiedOrder,
+    });
 
     const payment: BookingPaymentPayload = {
       provider: "razorpay",

@@ -12,15 +12,18 @@ Instead, the flow is:
 
 1. User fills the booking form.
 2. The browser asks this Next.js app to create a Razorpay order.
-3. The Next.js server calculates the correct amount from the latest event data.
-4. The Next.js server creates an order with Razorpay.
-5. The browser opens Razorpay Checkout using the returned order id.
-6. The user completes payment in Razorpay.
-7. Razorpay returns payment ids and a signature to the browser.
-8. The browser sends those details back to this Next.js app.
-9. The Next.js server verifies the Razorpay signature.
-10. The Next.js server fetches the Razorpay order and checks that the amount and notes match the booking.
-11. Only after verification succeeds, the Next.js server calls the Express backend to create the ticket.
+3. The Next.js server validates the latest event and ticket price.
+4. The Next.js server asks the backend to reserve the requested tickets.
+5. The backend atomically decrements `availableTickets` and returns a `reservationId`.
+6. The Next.js server creates an order with Razorpay, including `reservationId` in the order notes.
+7. The browser opens Razorpay Checkout using the returned order id.
+8. The user completes payment in Razorpay.
+9. Razorpay returns payment ids and a signature to the browser.
+10. The browser sends those details back to this Next.js app.
+11. The Next.js server verifies the Razorpay signature.
+12. The Next.js server fetches the Razorpay order and checks that the amount and notes match the booking and reservation.
+13. The Next.js server fetches the Razorpay payment and checks that it belongs to the verified order.
+14. Only after verification succeeds, the Next.js server calls the Express backend to confirm the reservation and create the ticket.
 
 This keeps sensitive payment logic on the server and prevents the frontend from deciding the payment amount.
 
@@ -76,6 +79,14 @@ POST /api/payments/razorpay/order
 
 3. Opens Razorpay Checkout.
 
+The checkout options include a public HTTPS logo:
+
+```text
+https://www.bharatbhaktisangam.com/logo.png
+```
+
+Do not use `localhost`, `127.0.0.1`, private network, or dev-tunnel image URLs for Razorpay Checkout branding. Razorpay renders Checkout from its own origin, so browsers block it from reading loopback/private address-space assets.
+
 4. Receives Razorpay success response:
 
 ```ts
@@ -123,8 +134,148 @@ It does four important jobs:
 2. Calculates the trusted amount.
 3. Creates and fetches Razorpay orders.
 4. Verifies Razorpay signatures.
+5. Creates Razorpay orders only after the backend returns a successful reservation.
 
 It also imports `server-only`.
+
+## Capacity Protection
+
+Capacity is checked on the server, not in the browser.
+
+The payment server reads event details from:
+
+```text
+GET <API_URL>/event/latest
+```
+
+The app also has a no-cache capacity API helper for display and defensive non-reservation checks:
+
+```text
+GET <API_URL>/event/latest-capacity
+```
+
+The capacity call uses `cache: "no-store"` and must return:
+
+```ts
+{
+  eventId: string;
+  maxSeats: number;
+  bookedSeats: number;
+  availableTickets: number;
+  isSoldOut: boolean;
+}
+```
+
+For reservation-first checkout, the backend reservation endpoint is the actual inventory gate. If this app ever handles a non-reserved flow, the payment server rejects the request if:
+
+- The latest event id does not match the booking event id.
+- The capacity event id does not match the booking event id.
+- `isSoldOut` is `true`.
+- `availableTickets` is less than the requested ticket count.
+- The capacity API is unavailable or returns an invalid payload.
+
+The reservation-first payment flow no longer depends on this public capacity number to protect checkout. It uses the backend reservation endpoint as the inventory gate before Razorpay opens.
+
+Important: this Next.js app does not decrement inventory itself. The production guarantee lives in the Express backend reservation endpoint because only the backend owns booking creation and seat counts. The backend must reserve tickets atomically before this app creates the Razorpay order.
+
+## Preventing Payment When Tickets Run Out
+
+A capacity check immediately before creating a Razorpay order is useful, but it is not enough by itself.
+
+Razorpay Checkout can stay open for seconds or minutes. During that time another customer can complete checkout and consume the last available tickets. If this app only checks capacity again after payment, Razorpay may capture the payment and the backend may then return `Tickets sold out`.
+
+To prevent that, use a reservation-first flow:
+
+1. Browser submits booking details to `POST /api/payments/razorpay/order`.
+2. Next.js calls the backend `POST /booking/reservations`.
+3. Backend atomically checks `availableTickets >= totalTicket` and decrements `availableTickets`.
+4. Backend creates a short-lived reservation, for example 10 minutes.
+5. Next.js creates the Razorpay order only after the reservation succeeds.
+6. Razorpay order notes include `reservationId`.
+7. After payment verification, Next.js calls `POST /booking/create-ticket` with `reservationId` and payment details.
+8. Backend converts the reservation into a confirmed ticket.
+9. If payment fails, payment is cancelled, or the reservation expires, backend releases the reserved tickets.
+
+With this model, users cannot enter Razorpay payment unless seats have already been reserved for them.
+
+The backend reservation update should be atomic:
+
+```ts
+const event = await eventModel.findOneAndUpdate(
+  {
+    _id: eventId,
+    isActive: true,
+    availableTickets: { $gte: totalTicket },
+  },
+  {
+    $inc: {
+      availableTickets: -totalTicket,
+      bookedSeats: totalTicket,
+    },
+  },
+  { new: true, session },
+);
+
+if (!event) {
+  throw new AppError("Tickets sold out", 400);
+}
+```
+
+Recommended reservation schema:
+
+```ts
+const bookingReservationSchema = new mongoose.Schema(
+  {
+    eventId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
+      required: true,
+      index: true,
+    },
+    phone: {
+      type: Number,
+      required: true,
+      index: true,
+    },
+    email: String,
+    username: String,
+    totalTicket: {
+      type: Number,
+      required: true,
+    },
+    ticketType: String,
+    status: {
+      type: String,
+      enum: ["reserved", "confirmed", "released", "expired"],
+      default: "reserved",
+      index: true,
+    },
+    expiresAt: {
+      type: Date,
+      required: true,
+      index: true,
+    },
+    orderId: String,
+    paymentId: String,
+    bookingId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "booking",
+      default: null,
+    },
+  },
+  { timestamps: true },
+);
+
+bookingReservationSchema.index(
+  { eventId: 1, phone: 1, status: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { status: "reserved" },
+  },
+);
+```
+
+Important reservation rule: the backend needs a cleanup job that finds expired `reserved` records and releases tickets back to `availableTickets`. Do not rely only on MongoDB TTL deletion, because TTL deletion alone will not increment `availableTickets`.
 
 ## API Routes
 
@@ -157,10 +308,11 @@ The route then:
 2. Loads the latest event from the backend API.
 3. Checks that the event id matches the booking request.
 4. Checks that booking is active.
-5. Checks ticket availability.
-6. Finds the selected ticket type.
-7. Calculates amount in paise.
-8. Creates a Razorpay order.
+5. Finds the selected ticket type.
+6. Calculates amount in paise.
+7. Calls the backend reservation endpoint.
+8. Creates a Razorpay order only if reservation succeeds.
+9. Stores `reservationId` in Razorpay order notes.
 
 Razorpay expects the amount in the smallest currency unit.
 
@@ -183,6 +335,8 @@ The route returns:
     eventName: string;
     ticketType: string;
     tickets: number;
+    reservationId: string;
+    reservationExpiresAt?: string;
   }
 }
 ```
@@ -215,6 +369,7 @@ The browser sends:
     tickets: number;
     ticketType: string;
     eventId: string;
+    reservationId: string;
   }
 }
 ```
@@ -224,10 +379,12 @@ This route:
 1. Validates the request shape.
 2. Validates the booking data again.
 3. Verifies the Razorpay signature.
-4. Rebuilds the expected order details from trusted latest event data.
+4. Rebuilds the expected order details from trusted latest event data and the submitted reservation id.
 5. Fetches the Razorpay order from Razorpay.
-6. Checks that the Razorpay order amount, currency, event id, ticket type, and ticket count match the booking.
-7. Calls the existing Express backend booking API.
+6. Checks that the Razorpay order amount, currency, event id, ticket type, ticket count, and reservation id match the booking.
+7. Fetches the Razorpay payment from Razorpay.
+8. Checks that the Razorpay payment order id, amount, and currency match the verified order.
+9. Calls the existing Express backend booking API.
 
 If all checks pass, the user sees the booking success screen.
 
@@ -534,10 +691,56 @@ In this project, the payment object is sent by the Next.js verify route only aft
 - Razorpay order details are fetched from Razorpay.
 - Amount, currency, event id, ticket type, and ticket count are matched.
 - Razorpay payment details are fetched from Razorpay.
+- Razorpay payment order id, amount, and currency are matched against the verified order.
+- The Razorpay order reservation id is matched against the booking reservation id.
 
 That makes the Next.js verify route the trusted payment gate before the Express backend saves the payment.
 
-For even stronger production reliability, add Razorpay webhooks to the backend later. Webhooks let the backend update `status`, `paidAt`, refunds, and `webhookLogs` even if the user closes the browser after payment.
+For production reliability, add Razorpay webhooks to the backend. Webhooks let the backend update `status`, `paidAt`, refunds, and `webhookLogs` even if the user closes the browser after payment.
+
+### Required Backend Reservation Contract
+
+The backend must treat `/booking/reservations` as the inventory gate and `/booking/create-ticket` as the reservation confirmation step.
+
+When a reservation request arrives, the backend should do this atomically:
+
+1. Validate booking fields.
+2. Check that the phone has no confirmed booking for the event.
+3. Reuse an active reservation for the same event and phone when one exists.
+4. Decrement `availableTickets` only if enough seats remain.
+5. Create the reservation with an expiry timestamp.
+6. Commit all changes together.
+
+The exact field names can differ, but the key rule is the same: the capacity check and decrement must happen in one database write condition. Do not read capacity first and update later in separate steps.
+
+When a verified paid booking arrives at `/booking/create-ticket`, the backend should do this atomically:
+
+1. Validate booking, payment, and `reservationId`.
+2. Check idempotency by `payment.paymentId` or `payment.orderId`.
+3. Reject duplicates by returning the existing booking result instead of creating a second ticket.
+4. Verify the reservation is still `reserved`, belongs to the same event and phone, and has not expired.
+5. Create the booking/ticket record.
+6. Save or update the payment record.
+7. Mark the reservation `confirmed` and link it to the booking.
+8. Commit all changes together.
+
+The confirmation step should not decrement `availableTickets` again because the reservation already holds those tickets.
+
+With the current backend schemas, `maxSeats` is the original event capacity and `availableTickets` is the remaining saleable inventory. Use `availableTickets` in the atomic condition. `maxSeats` should not be decremented during booking.
+
+Recommended indexes for the provided models:
+
+```ts
+bookingSchema.index({ eventId: 1, phone: 1 }, { unique: true });
+bookingSchema.index({ u_id: 1 }, { unique: true });
+paymentSchema.index({ orderId: 1 }, { unique: true });
+paymentSchema.index(
+  { paymentId: 1 },
+  { unique: true, partialFilterExpression: { paymentId: { $type: "string" } } },
+);
+```
+
+If an old backend path creates a booking before decrementing `availableTickets`, replace it with the reservation-first flow. Otherwise a sold-out request can leave behind a booking document.
 
 ## Environment Variables
 
@@ -589,7 +792,7 @@ Razorpay Checkout needs permission to load scripts and frames.
 The CSP allows:
 
 ```text
-script-src https://checkout.razorpay.com
+script-src https://checkout.razorpay.com https://cdn.razorpay.com
 connect-src https://*.razorpay.com
 img-src https://*.razorpay.com
 frame-src https://*.razorpay.com
@@ -674,6 +877,8 @@ Possible causes:
 
 The error includes the payment id when available. Use it to manually reconcile the payment in Razorpay Dashboard.
 
+For production, this path should trigger an operational reconciliation workflow: either create the ticket manually after confirming capacity, or refund/cancel the payment from Razorpay and mark the payment record accordingly.
+
 ## Production Recommendations
 
 Before going live:
@@ -681,11 +886,12 @@ Before going live:
 1. Store Razorpay payment metadata in the Express backend.
 2. Add Razorpay webhooks for payment capture/refund reconciliation.
 3. Make booking creation idempotent using `razorpay_payment_id`.
-4. Ensure Razorpay Dashboard auto-capture settings are correct.
-5. Use live Razorpay keys only in production.
-6. Keep test keys out of production.
-7. Monitor failed verification and booking-confirmation errors.
-8. Add admin tooling to search bookings by Razorpay payment id.
+4. Make capacity reservation atomic in the backend reservation API.
+5. Ensure Razorpay Dashboard auto-capture settings are correct.
+6. Use live Razorpay keys only in production.
+7. Keep test keys out of production.
+8. Monitor failed verification and booking-confirmation errors.
+9. Add admin tooling to search bookings by Razorpay payment id.
 
 ## Mental Model For Beginners
 

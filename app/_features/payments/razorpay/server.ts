@@ -2,7 +2,10 @@ import "server-only";
 
 import crypto from "node:crypto";
 import { z } from "zod";
-import { getLatestEvent } from "@/_features/event/services/event.service";
+import {
+  getLatestEvent,
+  getLatestEventCapacity,
+} from "@/_features/event/services/event.service";
 import { bookingSchema } from "@/_schemas/booking.schema";
 import { getRazorpayEnv } from "./env";
 import type { RazorpayOrderRequest } from "./types";
@@ -41,6 +44,7 @@ export type RazorpayPaymentDetails = {
   id: string;
   amount?: number;
   currency?: string;
+  order_id?: string;
   status?: string;
   method?: string;
   email?: string;
@@ -52,6 +56,7 @@ export function validateOrderRequest(payload: unknown): RazorpayOrderRequest {
   const parsed = bookingSchema
     .extend({
       eventId: z.string().min(1, "Event is required"),
+      reservationId: z.string().min(1).optional(),
     })
     .parse(payload);
 
@@ -64,7 +69,7 @@ function toPaise(amount: number): number {
 
 function createReceipt(eventId: string): string {
   const uniquePart = crypto.randomUUID().replaceAll("-", "").slice(0, 18);
-  return `bk_${eventId.slice(-12)}_${uniquePart}`.slice(0, RECEIPT_MAX_LENGTH);
+  return `bbs_${eventId.slice(-12)}_${uniquePart}`.slice(0, RECEIPT_MAX_LENGTH);
 }
 
 function getEventTicketTypes(
@@ -82,8 +87,23 @@ function getEventTicketTypes(
     }));
 }
 
+async function assertLatestCapacityAvailable(request: RazorpayOrderRequest) {
+  const capacity = await getLatestEventCapacity();
+
+  if (capacity.eventId !== request.eventId) {
+    throw new Error(
+      "This booking session is no longer valid. Please refresh and try again.",
+    );
+  }
+
+  if (capacity.isSoldOut || capacity.availableTickets < request.tickets) {
+    throw new Error("Tickets sold out");
+  }
+}
+
 export async function buildRazorpayOrderPayload(
   request: RazorpayOrderRequest,
+  options: { skipCapacityCheck?: boolean } = {},
 ): Promise<{
   order: RazorpayOrderPayload;
   eventName: string;
@@ -92,18 +112,17 @@ export async function buildRazorpayOrderPayload(
   const event = await getLatestEvent();
 
   if (event._id !== request.eventId) {
-    throw new Error("This booking session is no longer valid. Please refresh and try again.");
+    throw new Error(
+      "This booking session is no longer valid. Please refresh and try again.",
+    );
   }
 
   if (event.isActive === false) {
     throw new Error("Booking is closed for this event.");
   }
 
-  if (
-    typeof event.availableTickets === "number" &&
-    event.availableTickets < request.tickets
-  ) {
-    throw new Error("Tickets sold out");
+  if (!request.reservationId && !options.skipCapacityCheck) {
+    await assertLatestCapacityAvailable(request);
   }
 
   const selectedTicket = getEventTicketTypes(event.bookingType).find(
@@ -131,6 +150,9 @@ export async function buildRazorpayOrderPayload(
         customerName: request.fullName,
         customerEmail: request.email,
         customerMobile: request.mobile,
+        ...(request.reservationId
+          ? { reservationId: request.reservationId }
+          : {}),
       },
     },
   };
@@ -149,7 +171,9 @@ export async function createRazorpayOrder(payload: RazorpayOrderPayload) {
     cache: "no-store",
   });
 
-  const data = (await response.json().catch(() => ({}))) as RazorpayOrderApiResponse & {
+  const data = (await response
+    .json()
+    .catch(() => ({}))) as RazorpayOrderApiResponse & {
     error?: { description?: string };
   };
 
@@ -187,7 +211,9 @@ export async function assertRazorpayOrderMatchesBooking({
     cache: "no-store",
   });
 
-  const data = (await response.json().catch(() => ({}))) as RazorpayOrderApiResponse & {
+  const data = (await response
+    .json()
+    .catch(() => ({}))) as RazorpayOrderApiResponse & {
     error?: { description?: string };
   };
 
@@ -208,7 +234,8 @@ export async function assertRazorpayOrderMatchesBooking({
     data.currency === expectedOrder.currency &&
     notes.eventId === expectedOrder.notes.eventId &&
     notes.ticketType === expectedOrder.notes.ticketType &&
-    notes.tickets === expectedOrder.notes.tickets;
+    notes.tickets === expectedOrder.notes.tickets &&
+    notes.reservationId === expectedOrder.notes.reservationId;
 
   if (!matchesBooking) {
     throw new Error("Payment order does not match the booking details.");
@@ -235,7 +262,9 @@ export async function fetchRazorpayPayment(
     cache: "no-store",
   });
 
-  const data = (await response.json().catch(() => ({}))) as RazorpayPaymentDetails & {
+  const data = (await response
+    .json()
+    .catch(() => ({}))) as RazorpayPaymentDetails & {
     error?: { description?: string };
   };
 
@@ -246,6 +275,27 @@ export async function fetchRazorpayPayment(
   }
 
   return data;
+}
+
+export function assertRazorpayPaymentMatchesOrder({
+  payment,
+  expectedOrder,
+}: {
+  payment: RazorpayPaymentDetails;
+  expectedOrder: VerifiedRazorpayOrder;
+}) {
+  const matchesOrder =
+    payment.order_id === expectedOrder.id &&
+    payment.amount === expectedOrder.amount &&
+    payment.currency === expectedOrder.currency;
+
+  if (!matchesOrder) {
+    throw new Error("Payment details do not match the verified order.");
+  }
+
+  if (payment.status !== "captured") {
+    throw new Error("Payment was not successful.");
+  }
 }
 
 export function verifyRazorpaySignature({
@@ -266,5 +316,8 @@ export function verifyRazorpaySignature({
   const expected = Buffer.from(expectedSignature, "hex");
   const actual = Buffer.from(signature, "hex");
 
-  return expected.length === actual.length && crypto.timingSafeEqual(expected, actual);
+  return (
+    expected.length === actual.length &&
+    crypto.timingSafeEqual(expected, actual)
+  );
 }

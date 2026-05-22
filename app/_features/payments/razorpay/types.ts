@@ -2,6 +2,7 @@ import { BookingFormData } from "@/_schemas/booking.schema";
 
 export type RazorpayOrderRequest = BookingFormData & {
   eventId: string;
+  reservationId?: string;
 };
 
 export type RazorpayOrderResponse = {
@@ -12,6 +13,8 @@ export type RazorpayOrderResponse = {
   eventName: string;
   ticketType: string;
   tickets: number;
+  reservationId: string;
+  reservationExpiresAt?: string;
 };
 
 export type RazorpayVerifyRequest = {
@@ -47,6 +50,7 @@ export type RazorpayCheckoutOptions = {
   currency: "INR";
   name: string;
   description: string;
+  image?: string;
   order_id: string;
   prefill: {
     name: string;

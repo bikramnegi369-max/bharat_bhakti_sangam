@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FormSubmitStatus } from "@/_components/common/FormSubmitStatus";
+import { siteConfig } from "@/_config/Site.config";
 import type {
   RazorpayCheckoutFailureResponse,
   RazorpayCheckoutSuccessResponse,
@@ -12,6 +13,7 @@ import type {
 } from "@/_features/payments/razorpay/types";
 
 const RAZORPAY_CHECKOUT_SCRIPT = "https://checkout.razorpay.com/v1/checkout.js";
+const RAZORPAY_CHECKOUT_LOGO = `${siteConfig.url}/logo.png`;
 
 type ApiResult<T extends object = object> = {
   success: boolean;
@@ -101,10 +103,12 @@ async function verifyPaymentAndConfirmBooking({
   payment,
   booking,
   eventId,
+  reservationId,
 }: {
   payment: RazorpayCheckoutSuccessResponse;
   booking: BookingFormData;
   eventId: string;
+  reservationId: string;
 }) {
   const response = await fetch("/api/payments/razorpay/verify", {
     method: "POST",
@@ -116,6 +120,7 @@ async function verifyPaymentAndConfirmBooking({
       booking: {
         ...booking,
         eventId,
+        reservationId,
       },
     }),
   });
@@ -164,7 +169,9 @@ export function useBookingForm(
       await new Promise<void>((resolve, reject) => {
         if (!window.Razorpay) {
           reject(
-            new Error("Secure payment window is unavailable. Please try again."),
+            new Error(
+              "Secure payment window is unavailable. Please try again.",
+            ),
           );
           return;
         }
@@ -187,8 +194,9 @@ export function useBookingForm(
           key: order.keyId,
           amount: order.amount,
           currency: order.currency,
-          name: "Bhajan Clubbing",
+          name: "Bharat Bhakti Sangam",
           description: `${eventTitle} - ${order.ticketType} Pass`,
+          image: RAZORPAY_CHECKOUT_LOGO,
           order_id: order.orderId,
           prefill: {
             name: data.fullName,
@@ -197,6 +205,7 @@ export function useBookingForm(
           },
           notes: {
             eventId,
+            reservationId: order.reservationId,
             ticketType: data.ticketType,
             tickets: String(data.tickets),
           },
@@ -216,6 +225,7 @@ export function useBookingForm(
                 payment,
                 booking: data,
                 eventId,
+                reservationId: order.reservationId,
               });
               completePayment();
             } catch (error) {

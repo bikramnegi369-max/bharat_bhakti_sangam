@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { reserveBookingTickets } from "@/_features/bookings/services/booking.service";
 import {
   buildRazorpayOrderPayload,
   createRazorpayOrder,
@@ -12,7 +13,21 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const booking = validateOrderRequest(body);
-    const { order, eventName } = await buildRazorpayOrderPayload(booking);
+
+    await buildRazorpayOrderPayload(booking, { skipCapacityCheck: true });
+
+    const reservation = await reserveBookingTickets(booking, booking.eventId);
+
+    if (!reservation.success || !reservation.data) {
+      throw new Error(reservation.error || "Unable to reserve tickets.");
+    }
+
+    const reservedBooking = {
+      ...booking,
+      reservationId: reservation.data.reservationId,
+    };
+    const { order, eventName } =
+      await buildRazorpayOrderPayload(reservedBooking);
     const razorpayOrder = await createRazorpayOrder(order);
 
     return NextResponse.json({
@@ -25,6 +40,8 @@ export async function POST(request: Request) {
         eventName,
         ticketType: booking.ticketType,
         tickets: booking.tickets,
+        reservationId: reservation.data.reservationId,
+        reservationExpiresAt: reservation.data.expiresAt,
       },
     });
   } catch (error) {
