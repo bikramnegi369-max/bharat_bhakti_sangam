@@ -52,11 +52,6 @@ export function DashboardChartCard({
               {description}
             </p>
           )}
-          {metric && (
-            <div className="mt-3 w-full min-w-0 sm:w-fit [&>.grid]:w-full [&>.grid]:grid-cols-1 min-[420px]:[&>.grid]:grid-cols-3 sm:[&>.grid]:w-auto">
-              {metric}
-            </div>
-          )}
         </div>
 
         {action && (
@@ -65,6 +60,12 @@ export function DashboardChartCard({
           </div>
         )}
       </header>
+
+      {metric && (
+        <div className="relative z-10 mt-3 w-full min-w-0 [&>.grid]:w-full [&>.grid]:grid-cols-1 min-[420px]:[&>.grid]:grid-cols-3">
+          {metric}
+        </div>
+      )}
 
       <div className="relative z-10 mt-4">{children}</div>
     </section>

@@ -22,11 +22,6 @@ export function AdminResetPasswordForm() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
-  // Derived state: Prevents cascading renders during build/mount
-  const error = !token
-    ? "A valid security token is required to reset your password. Please check your email for the correct link or request a new one."
-    : submitError;
-
   const {
     register,
     handleSubmit,
@@ -39,13 +34,17 @@ export function AdminResetPasswordForm() {
     },
   });
 
+  // Derived error: prioritizing token validation, then submission errors, then schema errors
+  // This must be declared after `useForm` to ensure `errors` is defined.
+  const error = !token
+    ? "A valid security token is required to reset your password. Please check your email for the correct link or request a new one."
+    : submitError ||
+      errors.password?.message ||
+      errors.confirmPassword?.message ||
+      errors.root?.message;
+
   const onSubmit = handleSubmit(async (values) => {
-    if (!token) {
-      setSubmitError(
-        "Invalid or expired reset token. Please request a new link.",
-      );
-      return;
-    }
+    if (!token) return;
 
     try {
       setSubmitError(null);

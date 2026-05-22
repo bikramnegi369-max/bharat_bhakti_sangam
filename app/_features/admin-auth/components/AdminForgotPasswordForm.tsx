@@ -7,7 +7,13 @@ import {
   adminForgotPasswordSchema,
   type AdminForgotPasswordSchema,
 } from "@/_schemas/adminForgotPassword.schema";
-import { Loader2, ArrowLeft, CheckCircle2, Mail } from "lucide-react";
+import {
+  Loader2,
+  ArrowLeft,
+  CheckCircle2,
+  Mail,
+  AlertCircle,
+} from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
@@ -15,9 +21,8 @@ import { useAdminAuth } from "../hooks/useAdminAuth";
 
 export function AdminForgotPasswordForm() {
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const { requestPasswordReset } = useAdminAuth();
-  const [isRequesting, setIsRequesting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const { requestPasswordReset, isRequestingReset } = useAdminAuth();
 
   const {
     register,
@@ -30,20 +35,19 @@ export function AdminForgotPasswordForm() {
     },
   });
 
+  const error = submitError || errors.email?.message || errors.root?.message;
+
   const onSubmit = handleSubmit(async (values) => {
     try {
-      setIsRequesting(true);
-      setError(null);
+      setSubmitError(null);
       await requestPasswordReset(values.email);
       setIsSuccess(true);
     } catch (err) {
-      setError(
+      setSubmitError(
         err instanceof Error
           ? err.message
           : "An error occurred while requesting a password reset.",
       );
-    } finally {
-      setIsRequesting(false);
     }
   });
 
@@ -112,17 +116,18 @@ export function AdminForgotPasswordForm() {
       </div>
 
       {error && (
-        <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          {error}
+        <div className="mt-5 flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          <p>{error}</p>
         </div>
       )}
 
       <Button
         type="submit"
-        disabled={isRequesting}
+        disabled={isRequestingReset}
         className="mt-6 h-12 w-full! text-sm font-semibold tracking-[0.16em] uppercase"
       >
-        {isRequesting ? (
+        {isRequestingReset ? (
           <Loader2 className="h-5 w-5 animate-spin" />
         ) : (
           "Send Reset Link"

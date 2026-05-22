@@ -69,8 +69,10 @@ export default function BookingForm({ isSubmitting }: Props) {
         </span>
         <Counter
           min={1}
+          max={5}
           value={values.tickets}
           onChange={(val: number) => setValue("tickets", val)}
+          error={errors.tickets?.message as string}
         />
       </div>
 
