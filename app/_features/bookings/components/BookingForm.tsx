@@ -120,28 +120,6 @@ export default function BookingForm({
         />
       </div>
 
-      <div className="rounded-lg border border-primary/50 bg-primary_light/70 p-4 space-y-3">
-        <div className="flex items-center justify-between gap-4">
-          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-600">
-            Total
-          </span>
-          <span
-            className={clsx(
-              "text-[clamp(1.375rem,calc(1.232rem+0.714vw),1.875rem)] font-bold text-heading",
-              cinzel.className,
-            )}
-          >
-            {formatPrice(total)}
-          </span>
-        </div>
-        <p className="text-sm leading-relaxed text-para">
-          {ticketCount} {ticketCount === 1 ? "entry" : "entries"}
-          {selectedTicket ? ` for ${selectedTicket.name} Pass` : ""}
-          {eventDate ? ` on ${eventDate}` : ""}. Payment opens securely through
-          Razorpay.
-        </p>
-      </div>
-
       <div className=" flex flex-col gap-4">
         <Button
           type="submit"
