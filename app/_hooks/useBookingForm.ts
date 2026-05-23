@@ -222,7 +222,7 @@ export function useBookingForm(
 
         let isPaymentResolved = false;
         let reconcileTimer: number | null = null;
-        let isReconcilingPayment = false;
+        let reconcilePaymentPromise: Promise<boolean> | null = null;
 
         const stopPaymentRecoveryPolling = () => {
           if (reconcileTimer) {
@@ -246,27 +246,28 @@ export function useBookingForm(
         };
         let checkout: RazorpayCheckoutInstance | null = null;
         const tryRecoverPayment = async () => {
-          if (isPaymentResolved || isReconcilingPayment) {
+          if (isPaymentResolved) {
             return false;
           }
 
-          isReconcilingPayment = true;
-          try {
-            const isConfirmed = await reconcilePaymentAndConfirmBooking({
+          if (!reconcilePaymentPromise) {
+            reconcilePaymentPromise = reconcilePaymentAndConfirmBooking({
               order,
               booking: data,
               eventId,
+            }).finally(() => {
+              reconcilePaymentPromise = null;
             });
-
-            if (isConfirmed) {
-              completePayment();
-              checkout?.close?.();
-            }
-
-            return isConfirmed;
-          } finally {
-            isReconcilingPayment = false;
           }
+
+          const isConfirmed = await reconcilePaymentPromise;
+
+          if (isConfirmed) {
+            completePayment();
+            checkout?.close?.();
+          }
+
+          return isConfirmed;
         };
         const startPaymentRecoveryPolling = () => {
           if (reconcileTimer) {
