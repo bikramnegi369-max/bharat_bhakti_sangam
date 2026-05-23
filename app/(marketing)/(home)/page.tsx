@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
 import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
+import LocationMapSection from "@/_components/sections/Marketing/LocationMapSection";
 import { getSeoKeywords } from "@/_config/Seo.config";
 import { siteConfig } from "@/_config/Site.config";
 import {
@@ -136,6 +137,7 @@ export default async function HomePage() {
         title="Frequently Asked Questions"
         groupName="home-faqs"
       />
+      <LocationMapSection />
     </>
   );
 }
