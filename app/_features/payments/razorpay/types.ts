@@ -69,6 +69,7 @@ export type RazorpayCheckoutOptions = {
 
 export type RazorpayCheckoutInstance = {
   open: () => void;
+  close?: () => void;
   on: (
     eventName: "payment.failed",
     handler: (response: RazorpayCheckoutFailureResponse) => void,

@@ -28,7 +28,7 @@ export type BookingPaymentPayload = {
   notes: Record<string, string>;
   method?: string;
   email?: string;
-  razorpaySignature: string;
+  razorpaySignature?: string;
   paidAt?: string;
 };
 

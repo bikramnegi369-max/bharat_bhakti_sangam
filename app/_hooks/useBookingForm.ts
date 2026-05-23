@@ -8,12 +8,14 @@ import { FormSubmitStatus } from "@/_components/common/FormSubmitStatus";
 import { siteConfig } from "@/_config/Site.config";
 import type {
   RazorpayCheckoutFailureResponse,
+  RazorpayCheckoutInstance,
   RazorpayCheckoutSuccessResponse,
   RazorpayOrderResponse,
 } from "@/_features/payments/razorpay/types";
 
 const RAZORPAY_CHECKOUT_SCRIPT = "https://checkout.razorpay.com/v1/checkout.js";
 const RAZORPAY_CHECKOUT_LOGO = `${siteConfig.url}/logo.png`;
+const PAYMENT_RECONCILE_INTERVAL_MS = 4000;
 
 type ApiResult<T extends object = object> = {
   success: boolean;
@@ -137,6 +139,48 @@ async function verifyPaymentAndConfirmBooking({
   }
 }
 
+async function reconcilePaymentAndConfirmBooking({
+  order,
+  booking,
+  eventId,
+}: {
+  order: RazorpayOrderResponse;
+  booking: BookingFormData;
+  eventId: string;
+}) {
+  const response = await fetch("/api/payments/razorpay/reconcile", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      razorpay_order_id: order.orderId,
+      booking: {
+        ...booking,
+        eventId,
+        reservationId: order.reservationId,
+      },
+    }),
+  });
+
+  const result = (await response.json()) as ApiResult;
+
+  if (response.status === 202) {
+    return false;
+  }
+
+  if (!response.ok || !result.success) {
+    const paymentReference = result.paymentId
+      ? ` Payment id: ${result.paymentId}.`
+      : "";
+    throw new Error(
+      `${result.error || "Payment reconciliation failed."}${paymentReference}`,
+    );
+  }
+
+  return true;
+}
+
 export function useBookingForm(
   defaultTicketType: string = "",
   eventId: string = "",
@@ -177,20 +221,66 @@ export function useBookingForm(
         }
 
         let isPaymentResolved = false;
+        let reconcileTimer: number | null = null;
+        let isReconcilingPayment = false;
+
+        const stopPaymentRecoveryPolling = () => {
+          if (reconcileTimer) {
+            window.clearInterval(reconcileTimer);
+            reconcileTimer = null;
+          }
+        };
         const failPayment = (error: Error) => {
           if (!isPaymentResolved) {
             isPaymentResolved = true;
+            stopPaymentRecoveryPolling();
             reject(error);
           }
         };
         const completePayment = () => {
           if (!isPaymentResolved) {
             isPaymentResolved = true;
+            stopPaymentRecoveryPolling();
             resolve();
           }
         };
+        let checkout: RazorpayCheckoutInstance | null = null;
+        const tryRecoverPayment = async () => {
+          if (isPaymentResolved || isReconcilingPayment) {
+            return false;
+          }
 
-        const checkout = new window.Razorpay({
+          isReconcilingPayment = true;
+          try {
+            const isConfirmed = await reconcilePaymentAndConfirmBooking({
+              order,
+              booking: data,
+              eventId,
+            });
+
+            if (isConfirmed) {
+              completePayment();
+              checkout?.close?.();
+            }
+
+            return isConfirmed;
+          } finally {
+            isReconcilingPayment = false;
+          }
+        };
+        const startPaymentRecoveryPolling = () => {
+          if (reconcileTimer) {
+            return;
+          }
+
+          reconcileTimer = window.setInterval(() => {
+            tryRecoverPayment().catch((error) => {
+              console.warn("Payment reconciliation check failed:", error);
+            });
+          }, PAYMENT_RECONCILE_INTERVAL_MS);
+        };
+
+        checkout = new window.Razorpay({
           key: order.keyId,
           amount: order.amount,
           currency: order.currency,
@@ -214,9 +304,23 @@ export function useBookingForm(
           },
           modal: {
             ondismiss: () => {
-              failPayment(
-                new Error("Payment was cancelled before completion."),
-              );
+              tryRecoverPayment()
+                .then((isConfirmed) => {
+                  if (!isConfirmed) {
+                    failPayment(
+                      new Error("Payment was cancelled before completion."),
+                    );
+                  }
+                })
+                .catch((error) => {
+                  failPayment(
+                    error instanceof Error
+                      ? error
+                      : new Error(
+                          "Payment status could not be confirmed. Please contact support if the amount was debited.",
+                        ),
+                  );
+                });
             },
           },
           handler: async (payment) => {
@@ -251,6 +355,7 @@ export function useBookingForm(
         );
 
         checkout.open();
+        startPaymentRecoveryPolling();
       });
 
       setStatus("success");

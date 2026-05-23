@@ -31,6 +31,10 @@ type RazorpayOrderApiResponse = {
   notes?: Record<string, string>;
 };
 
+type RazorpayOrderPaymentsApiResponse = {
+  items?: RazorpayPaymentDetails[];
+};
+
 export type VerifiedRazorpayOrder = {
   id: string;
   amount: number;
@@ -275,6 +279,37 @@ export async function fetchRazorpayPayment(
   }
 
   return data;
+}
+
+export async function fetchCapturedRazorpayPaymentForOrder(
+  orderId: string,
+): Promise<RazorpayPaymentDetails | null> {
+  const response = await fetch(`${RAZORPAY_ORDERS_URL}/${orderId}/payments`, {
+    method: "GET",
+    headers: {
+      Authorization: getRazorpayAuthHeader(),
+    },
+    cache: "no-store",
+  });
+
+  const data = (await response
+    .json()
+    .catch(() => ({}))) as RazorpayOrderPaymentsApiResponse & {
+    error?: { description?: string };
+  };
+
+  if (!response.ok || !Array.isArray(data.items)) {
+    throw new Error(
+      data.error?.description || "Unable to check payment status.",
+    );
+  }
+
+  return (
+    data.items.find(
+      (payment) =>
+        payment.order_id === orderId && payment.status === "captured",
+    ) ?? null
+  );
 }
 
 export function assertRazorpayPaymentMatchesOrder({
