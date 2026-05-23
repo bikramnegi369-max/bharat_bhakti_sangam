@@ -36,6 +36,11 @@ export const NAV_ITEMS: SidebarItem[] = [
         href: "/admin/booking",
       },
       {
+        id: "non-visited-users",
+        label: "Non Visited Users",
+        href: "/admin/booking/non-visited-users",
+      },
+      {
         id: "booking-types",
         label: "Booking Types",
         href: "/admin/booking/booking-types",
