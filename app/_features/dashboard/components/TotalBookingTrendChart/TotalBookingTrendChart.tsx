@@ -362,7 +362,7 @@ export default function TotalBookingTrendChart() {
       description="Track ticket demand by day and spot booking spikes quickly."
       ariaLabel="Total booking trend"
       metric={
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid overflow-hidden rounded-lg border border-primary/25 bg-white/6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
           <MetricPill label="Total" value={formatMetric(totalTickets)} />
           <MetricPill label="Avg/day" value={formatMetric(averageTickets)} />
           <MetricPill
@@ -398,13 +398,13 @@ export default function TotalBookingTrendChart() {
 function MetricPill({ label, value }: { label: string; value: string }) {
   return (
     <div
-      className="min-w-20 rounded-lg border border-primary/25 bg-white/6 px-3 py-2 text-right shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+      className="min-w-0 border-b border-primary/15 px-3 py-2.5 text-left last:border-b-0 min-[420px]:border-b-0 min-[420px]:border-r min-[420px]:last:border-r-0"
       aria-label={`${label}: ${value}`}
     >
-      <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-white/45">
+      <p className="truncate text-[9px] font-bold uppercase tracking-[0.08em] text-white/45">
         {label}
       </p>
-      <p className="mt-0.5 text-base font-black tabular-nums text-primary">
+      <p className="mt-1 text-lg font-black leading-none tabular-nums text-primary">
         {value}
       </p>
     </div>
