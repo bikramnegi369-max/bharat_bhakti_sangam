@@ -2,6 +2,7 @@
 
 import { AdminSidebar } from "@/_components/layout/Sidebar/AdminSidebar";
 import { MobileSidebar } from "@/_components/layout/Sidebar/MobileSidebar";
+import { AdminSessionGuard } from "@/_features/admin-auth/components/AdminSessionGuard";
 import { AdminSessionPanel } from "@/_features/admin-auth/components/AdminSessionPanel";
 import UIProvider from "@/providers/UIProvider";
 import { Menu } from "lucide-react";
@@ -12,6 +13,7 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
 
   return (
     <UIProvider>
+      <AdminSessionGuard />
       <div className="flex h-dvh w-full overflow-hidden bg-gray-50">
         <AdminSidebar />
         <MobileSidebar open={open} onClose={() => setOpen(false)} />

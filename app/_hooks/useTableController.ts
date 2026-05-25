@@ -7,6 +7,11 @@ import { useTableState } from "@/_hooks/useTableState";
 import { TableConfig } from "@/_types/Table.types";
 import { getTableQueryKey } from "@/_utils/queryKey";
 import { RowData } from "@tanstack/react-table";
+import {
+  isAdminAuthFailureStatus,
+  useAdminAuthFailureHandler,
+} from "@/_features/admin-auth/hooks/useAdminAuthFailureHandler";
+import { fetchAdminSession } from "@/_features/admin-auth/client";
 
 const normalizeFilters = (filters: Record<string, string>) =>
   Object.fromEntries(
@@ -36,9 +41,20 @@ const areFilterValuesEqual = (
   return aKeys.every((key) => a[key] === b[key]);
 };
 
+class TableServiceError extends Error {
+  constructor(
+    message: string,
+    public readonly status?: number,
+  ) {
+    super(message);
+    this.name = "TableServiceError";
+  }
+}
+
 export const useTableController = <T extends RowData>(
   config: TableConfig<T>,
 ) => {
+  const handleAdminAuthFailure = useAdminAuthFailureHandler();
   const filterKeys = useMemo(
     () => config.filters?.map((filter) => filter.key) ?? [],
     [config.filters],
@@ -96,17 +112,45 @@ export const useTableController = <T extends RowData>(
 
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey,
-    queryFn: () =>
-      config.service.getAll({
+    queryFn: async () => {
+      const session = await fetchAdminSession();
+
+      if (!session) {
+        throw new TableServiceError(
+          "Admin session has expired. Please sign in again.",
+          401,
+        );
+      }
+
+      const result = await config.service.getAll({
         page: state.page,
         limit: state.limit,
         ...appliedFilters,
         sortBy: state.sorting?.[0]?.id,
         order: state.sorting?.[0]?.desc ? "desc" : "asc",
-      }),
+      });
+
+      if (!result.success) {
+        throw new TableServiceError(
+          result.error || "Failed to load table data.",
+          result.status,
+        );
+      }
+
+      return result;
+    },
     placeholderData: (previousData) => previousData,
     staleTime: config.staleTime ?? 1000 * 10, // Default to 10 seconds
   });
+
+  useEffect(() => {
+    const status =
+      error instanceof TableServiceError ? error.status : undefined;
+
+    if (isAdminAuthFailureStatus(status)) {
+      handleAdminAuthFailure();
+    }
+  }, [error, handleAdminAuthFailure]);
 
   useEffect(() => {
     if (appliedFiltersSignature === lastAppliedFiltersSignature.current) {

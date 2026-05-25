@@ -28,6 +28,7 @@ export const apiRoutes = {
   subscribe: "/subscriber",
   preSignedUrl: "/admin/presign-url",
   getAllBookings: `${BOOKING_BASE}`,
+  getNonVisitedUsers: `${BOOKING_BASE}/non-visited-users`,
   getAllBookingTypes: `${BOOKING_TYPE_BASE}`,
   addBookingType: `${BOOKING_TYPE_BASE}`,
   bookingTypeById: (id: string) => `${BOOKING_TYPE_BASE}/${id}`,

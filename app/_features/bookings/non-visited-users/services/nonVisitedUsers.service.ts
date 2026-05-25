@@ -2,18 +2,18 @@
 
 import { apiRoutes } from "@/_config/APIRoutes.config";
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
+import { NonVisitedUser } from "@/_types/NonVisitedUser.types";
 import { APIResponse } from "@/_types/Api.types";
-import { EventBooking } from "@/_types/EventBooking.types";
 import { TableQueryParams } from "@/_types/Table.types";
+import { getPayloadMessage, getResponsePayload } from "@/_utils/api";
 import { isApiEnvelope } from "@/_utils/guards";
-import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
-import { isEventBookingsListData } from "./guards";
+import { isNonVisitedUsersListData } from "./guards";
 
-export async function getEventBookings(
+export async function getNonVisitedUsers(
   params?: Partial<TableQueryParams>,
 ): Promise<
   APIResponse<{
-    items: EventBooking[];
+    items: NonVisitedUser[];
     total: number;
     limit: number;
     page: number;
@@ -39,16 +39,16 @@ export async function getEventBookings(
       queryParams.append("page", String(params.page));
     }
 
-    const res = await authorizedAdminRequest(apiRoutes.getAllBookings, {
+    const res = await authorizedAdminRequest(apiRoutes.getNonVisitedUsers, {
       method: "GET",
       search: queryParams.toString(),
     });
     const payload = await getResponsePayload(res);
 
-    if (!res.ok || !isApiEnvelope(payload, isEventBookingsListData)) {
+    if (!res.ok || !isApiEnvelope(payload, isNonVisitedUsersListData)) {
       return {
         success: false,
-        error: getPayloadMessage(payload) || "Failed to fetch bookings",
+        error: getPayloadMessage(payload) || "Failed to fetch non visited users",
         status: res.status,
       };
     }
@@ -56,7 +56,7 @@ export async function getEventBookings(
     if (!payload.status) {
       return {
         success: false,
-        error: getPayloadMessage(payload) || "Failed to fetch bookings",
+        error: getPayloadMessage(payload) || "Failed to fetch non visited users",
       };
     }
 
@@ -71,7 +71,7 @@ export async function getEventBookings(
       },
     };
   } catch (error) {
-    console.error("Error fetching event bookings:", error);
-    return { success: false, error: "Failed to fetch bookings" };
+    console.error("Error fetching non visited users:", error);
+    return { success: false, error: "Failed to fetch non visited users" };
   }
 }

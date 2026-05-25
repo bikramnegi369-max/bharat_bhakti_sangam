@@ -14,7 +14,7 @@ import {
 } from "../client";
 import type { AdminLoginFormValues } from "../types";
 
-const adminSessionQueryKey = ["admin", "auth", "session"] as const;
+export const adminSessionQueryKey = ["admin", "auth", "session"] as const;
 
 export function useAdminAuth() {
   const router = useRouter();

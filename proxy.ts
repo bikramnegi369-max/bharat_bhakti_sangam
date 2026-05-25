@@ -42,6 +42,13 @@ function hasBackendCredentials(request: NextRequest): boolean {
   );
 }
 
+function isNavigationRequest(request: NextRequest): boolean {
+  return (
+    request.method === "GET" &&
+    (request.headers.get("accept") ?? "").includes("text/html")
+  );
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
@@ -70,6 +77,15 @@ export async function proxy(request: NextRequest) {
 
   // 3. Handle protected admin paths
   if (isProtected && (!session || !hasCredentials)) {
+    if (!isNavigationRequest(request)) {
+      return NextResponse.json(
+        {
+          message: "Admin session has expired. Please sign in again.",
+        },
+        { status: 401 },
+      );
+    }
+
     return NextResponse.redirect(
       new URL(buildAdminLoginPath(`${pathname}${search}`), request.url),
     );

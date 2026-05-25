@@ -14,6 +14,11 @@ import {
   downloadExcelWorksheet,
   getDefaultExportColumns,
 } from "./tableExport";
+import {
+  isAdminAuthFailureStatus,
+  useAdminAuthFailureHandler,
+} from "@/_features/admin-auth/hooks/useAdminAuthFailureHandler";
+import { fetchAdminSession } from "@/_features/admin-auth/client";
 
 const DEFAULT_EXPORT_PAGE_SIZE = 1000;
 const MAX_EXPORT_PAGES = 1000;
@@ -38,6 +43,16 @@ const getExportBaseName = (
     : "table-export";
 };
 
+class TableExportError extends Error {
+  constructor(
+    message: string,
+    public readonly status?: number,
+  ) {
+    super(message);
+    this.name = "TableExportError";
+  }
+}
+
 async function fetchAllRows<T extends RowData>({
   service,
   params,
@@ -54,7 +69,10 @@ async function fetchAllRows<T extends RowData>({
   });
 
   if (!firstResult.success || !firstResult.data) {
-    throw new Error(firstResult.error || "Failed to export table data.");
+    throw new TableExportError(
+      firstResult.error || "Failed to export table data.",
+      firstResult.status,
+    );
   }
 
   const firstPage = firstResult.data;
@@ -71,7 +89,10 @@ async function fetchAllRows<T extends RowData>({
     });
 
     if (!result.success || !result.data) {
-      throw new Error(result.error || "Failed to export table data.");
+      throw new TableExportError(
+        result.error || "Failed to export table data.",
+        result.status,
+      );
     }
 
     rows.push(...result.data.items);
@@ -98,6 +119,7 @@ export function TableExportButton<T extends RowData>({
   disabled?: boolean;
 }) {
   const [isExporting, setIsExporting] = useState(false);
+  const handleAdminAuthFailure = useAdminAuthFailureHandler();
   const exportColumns = useMemo(
     () =>
       exportOptions?.columns?.length
@@ -114,6 +136,15 @@ export function TableExportButton<T extends RowData>({
     setIsExporting(true);
 
     try {
+      const session = await fetchAdminSession();
+
+      if (!session) {
+        throw new TableExportError(
+          "Admin session has expired. Please sign in again.",
+          401,
+        );
+      }
+
       const baseName = getExportBaseName(
         queryKeyPrefix,
         exportOptions?.fileName,
@@ -145,6 +176,16 @@ export function TableExportButton<T extends RowData>({
         `Exported ${rows.length} row${rows.length === 1 ? "" : "s"}.`,
       );
     } catch (error) {
+      if (
+        isAdminAuthFailureStatus(
+          error instanceof TableExportError ? error.status : undefined,
+        )
+      ) {
+        toast.info("Your admin session has expired. Please sign in again.");
+        handleAdminAuthFailure();
+        return;
+      }
+
       toast.error(
         error instanceof Error
           ? error.message

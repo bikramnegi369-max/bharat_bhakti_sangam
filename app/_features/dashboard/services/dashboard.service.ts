@@ -69,6 +69,7 @@ export async function fetchEventStats(): Promise<
         success: false,
         error:
           getPayloadMessage(payload) || "Failed to fetch dashboard analytics.",
+        status: response.status,
       };
     }
 
@@ -158,6 +159,7 @@ export async function fetchBookingRegistrationTrend(
         error:
           getPayloadMessage(payload) ||
           "Failed to fetch booking registration trend.",
+        status: response.status,
       };
     }
 
@@ -213,6 +215,7 @@ export async function fetchTotalBookingTrend(): Promise<
         success: false,
         error:
           getPayloadMessage(payload) || "Failed to fetch total booking trend.",
+        status: response.status,
       };
     }
 

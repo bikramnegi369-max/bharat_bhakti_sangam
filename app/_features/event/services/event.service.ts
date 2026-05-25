@@ -246,6 +246,7 @@ export async function getAllEvents(params: TableQueryParams): Promise<
         success: false,
         error:
           errorData.message || `Failed to fetch events: ${response.status}`,
+        status: response.status,
       };
     }
 

@@ -47,6 +47,7 @@ export async function getArtists(params?: Partial<TableQueryParams>): Promise<
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch artists",
+        status: res.status,
       };
     }
 
