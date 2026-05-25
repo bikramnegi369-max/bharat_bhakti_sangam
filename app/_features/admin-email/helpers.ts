@@ -106,7 +106,6 @@ export function formatBytes(bytes: number): string {
 }
 
 export function getAttachmentPreviewKind(file: File): AttachmentPreviewKind {
-  console.log("file.type:", file.type, "file.name:", file.name);
   if (file.type.startsWith("image/")) {
     return "image";
   }

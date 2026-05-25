@@ -107,10 +107,6 @@ export async function sendAdminEmail(
     }
 
     const normalizedFormData = buildSendEmailFormData(validation.data);
-    console.log(
-      "Normalized form data prepared for sending:",
-      normalizedFormData,
-    );
     const res = await authorizedAdminRequest(apiRoutes.sendAdminEmail, {
       method: "POST",
       body: normalizedFormData,
