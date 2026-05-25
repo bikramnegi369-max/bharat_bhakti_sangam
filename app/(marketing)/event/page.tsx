@@ -4,6 +4,7 @@ import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEvent
 import AboutArtistsDetailedSection from "@/_components/sections/Marketing/Event/AboutArtistsDetailedSection";
 import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSection";
 import FAQSection from "@/_components/sections/Marketing/Event/FAQSection";
+import LocationMapSection from "@/_components/sections/Marketing/LocationMapSection";
 // import { SponsorSection } from "@/_components/sections/Marketing/Event/SponsorSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
@@ -160,6 +161,7 @@ export default async function EventPage() {
       {/* <SponsorSection /> */}
       <FAQSection />
       <AboutArtistsDetailedSection artists={artistSummaries} />
+      <LocationMapSection />
     </div>
   );
 }
