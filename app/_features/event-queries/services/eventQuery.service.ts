@@ -49,6 +49,7 @@ export async function getEventQueries(
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch event queries",
+        status: res.status,
       };
     }
 

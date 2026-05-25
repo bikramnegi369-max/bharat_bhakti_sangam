@@ -49,6 +49,7 @@ export async function getEventCategories(
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch categories",
+        status: res.status,
       };
     }
 

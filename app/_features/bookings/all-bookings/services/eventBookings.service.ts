@@ -49,6 +49,7 @@ export async function getEventBookings(
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch bookings",
+        status: res.status,
       };
     }
 

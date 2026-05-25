@@ -54,6 +54,7 @@ export async function getCalenderEntries(
         success: false,
         error:
           getPayloadMessage(payload) || "Failed to fetch calender entries",
+        status: res.status,
       };
     }
 

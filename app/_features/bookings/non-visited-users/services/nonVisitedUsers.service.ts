@@ -49,6 +49,7 @@ export async function getNonVisitedUsers(
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch non visited users",
+        status: res.status,
       };
     }
 
