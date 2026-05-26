@@ -51,6 +51,7 @@ export async function submitBooking(
         email: payload.email,
         totalTicket: payload.tickets,
         phone: payload.mobile,
+        ticketType: payload.ticketType,
         ...(payload.reservationId
           ? { reservationId: payload.reservationId }
           : {}),
@@ -60,7 +61,7 @@ export async function submitBooking(
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || "Booking failed");
+      throw new Error(errorData.message || errorData.error || "Booking failed");
     }
 
     return { success: true };

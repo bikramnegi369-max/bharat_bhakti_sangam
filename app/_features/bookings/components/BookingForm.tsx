@@ -6,7 +6,7 @@ import { BOOKING_CONFIG } from "@/_lib/constants/booking.constants";
 import { cinzel } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
-import { CreditCard, Loader2 } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
 import { useMemo } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
@@ -130,9 +130,10 @@ export default function BookingForm({
           {isSubmitting && (
             <Loader2 className="w-4 h-4 lg:w-8 lg:h-8 animate-spin" />
           )}
-          {!isSubmitting && <CreditCard className="h-5 w-5" />}
+          {!isSubmitting && <Send className="h-5 w-5" />}
           <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] font-semibold tracking-widest uppercase">
-            {isSubmitting ? "Processing..." : `Pay ${formatPrice(total)}`}
+            {/* {isSubmitting ? "Processing..." : `Pay ${formatPrice(total)}`} */}
+            {isSubmitting ? "Processing..." : `Book Now`}
           </span>
         </Button>
       </div>
