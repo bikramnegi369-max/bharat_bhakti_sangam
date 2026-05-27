@@ -1,18 +1,33 @@
 import { Button } from "@/_components/ui/Button";
 import { Counter } from "@/_components/ui/Counter";
 import { Field } from "@/_components/ui/Field/Field";
+// import { FormDropdown } from "@/_components/ui/Dropdown/FormDropdown";
 import { BOOKING_CONFIG } from "@/_lib/constants/booking.constants";
 import { cinzel } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
-import { Loader2 } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
+import { useMemo } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 
 type Props = {
   isSubmitting: boolean;
+  eventDate?: string;
+  ticketTypes: { name: string; price: number }[];
 };
 
-export default function BookingForm({ isSubmitting }: Props) {
+const formatPrice = (amount: number) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+
+export default function BookingForm({
+  isSubmitting,
+  eventDate,
+  ticketTypes,
+}: Props) {
   const {
     register,
     setValue,
@@ -21,6 +36,22 @@ export default function BookingForm({ isSubmitting }: Props) {
   } = useFormContext<BookingFormData>();
 
   const values = useWatch({ control });
+  const selectedTicket = useMemo(
+    () => ticketTypes.find((ticket) => ticket.name === values.ticketType),
+    [ticketTypes, values.ticketType],
+  );
+  const ticketCount = values.tickets || 1;
+  const total = ticketCount * (selectedTicket?.price || 0);
+
+  // const ticketOptions = useMemo(
+  //   () =>
+  //     ticketTypes.map((ticket) => ({
+  //       label: `${ticket.name} Pass`,
+  //       value: ticket.name,
+  //       price: ticket.price,
+  //     })),
+  //   [ticketTypes],
+  // );
 
   return (
     <div
@@ -63,6 +94,19 @@ export default function BookingForm({ isSubmitting }: Props) {
         maxLength={10}
         labelClassName="text-[clamp(0.625rem,calc(0.446rem+0.893vw),1.25rem)]"
       />
+
+      {/* {ticketTypes.length > 0 && (
+        <FormDropdown
+          name="ticketType"
+          control={control}
+          label="Select Pass"
+          options={ticketOptions}
+          required
+          placeholder="Choose your pass type"
+          className="w-full"
+        />
+      )} */}
+
       <div className="flex flex-col justify-center gap-3">
         <span className="text-[clamp(0.813rem,calc(0.741rem+0.357vw),1.063rem)] font-semibold tracking-[0.25em] uppercase text-gray-500 ">
           Number of Tickets
@@ -70,7 +114,7 @@ export default function BookingForm({ isSubmitting }: Props) {
         <Counter
           min={1}
           max={5}
-          value={values.tickets}
+          value={ticketCount}
           onChange={(val: number) => setValue("tickets", val)}
           error={errors.tickets?.message as string}
         />
@@ -86,8 +130,10 @@ export default function BookingForm({ isSubmitting }: Props) {
           {isSubmitting && (
             <Loader2 className="w-4 h-4 lg:w-8 lg:h-8 animate-spin" />
           )}
+          {!isSubmitting && <Send className="h-5 w-5" />}
           <span className="text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)] font-semibold tracking-widest uppercase">
-            {isSubmitting ? "Booking..." : "Book Now"}
+            {/* {isSubmitting ? "Processing..." : `Pay ${formatPrice(total)}`} */}
+            {isSubmitting ? "Processing..." : `Book Now`}
           </span>
         </Button>
       </div>

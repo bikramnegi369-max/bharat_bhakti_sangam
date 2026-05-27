@@ -49,6 +49,7 @@ export async function getEventBookingTypes(
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch booking types",
+        status: res.status,
       };
     }
 

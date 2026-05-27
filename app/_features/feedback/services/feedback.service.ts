@@ -51,6 +51,7 @@ export async function getEventFeedbacks(
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch feedback",
+        status: res.status,
       };
     }
 

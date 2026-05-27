@@ -47,6 +47,7 @@ export async function getVenues(params?: Partial<TableQueryParams>): Promise<
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch venues",
+        status: res.status,
       };
     }
 

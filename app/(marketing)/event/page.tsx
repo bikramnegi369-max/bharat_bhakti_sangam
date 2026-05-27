@@ -3,6 +3,7 @@ import AboutArtistSection from "@/_components/sections/Marketing/Event/AboutArti
 import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEventSection";
 import AboutArtistsDetailedSection from "@/_components/sections/Marketing/Event/AboutArtistsDetailedSection";
 import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSection";
+import LocationMapSection from "@/_components/sections/Marketing/LocationMapSection";
 // import { SponsorSection } from "@/_components/sections/Marketing/Event/SponsorSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import Hero from "@/_components/sections/Marketing/Hero";
@@ -165,6 +166,7 @@ export default async function EventPage() {
         highlightWord="Event"
       />
       <AboutArtistsDetailedSection artists={artistSummaries} />
+      <LocationMapSection />
     </div>
   );
 }

@@ -4,12 +4,193 @@ import { BookingFormData, bookingSchema } from "@/_schemas/booking.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { submitBooking } from "@/_features/bookings/services/booking.service";
 import { FormSubmitStatus } from "@/_components/common/FormSubmitStatus";
+// import { siteConfig } from "@/_config/Site.config";
+// import type {
+//   RazorpayCheckoutFailureResponse,
+//   RazorpayCheckoutInstance,
+//   RazorpayCheckoutSuccessResponse,
+//   RazorpayOrderResponse,
+// } from "@/_features/payments/razorpay/types";
+import { submitBooking } from "@/_features/bookings/services/booking.service";
+
+// --- Razorpay Constants Commented Out ---
+// const RAZORPAY_CHECKOUT_SCRIPT = "https://checkout.razorpay.com/v1/checkout.js";
+// const RAZORPAY_CHECKOUT_LOGO = `${siteConfig.url}/logo.png`;
+// -----------------------------------------
+const PAYMENT_RECONCILE_INTERVAL_MS = 4000;
+
+type ApiResult<T extends object = object> = {
+  success: boolean;
+  data?: T;
+  error?: string;
+  paymentId?: string;
+};
+
+function getErrorMessage(error: unknown, fallback: string) {
+  if (typeof error === "string" && error) return error;
+  return error instanceof Error ? error.message : fallback;
+}
+
+function getBookingErrorMessage(error?: string) {
+  const normalizedError = error?.toLowerCase().trim();
+
+  if (normalizedError?.includes("tickets sold out")) {
+    return "Tickets sold out";
+  }
+
+  if (
+    normalizedError?.includes(
+      "this number has already been used for booking tickets",
+    )
+  ) {
+    return "This number has already been used for booking tickets.";
+  }
+
+  return error || null;
+}
+
+// --- Razorpay Helper Functions Commented Out ---
+// async function loadRazorpayCheckout() {
+//   if (window.Razorpay) {
+//     return;
+//   }
+//
+//   await new Promise<void>((resolve, reject) => {
+//     const existingScript = document.querySelector<HTMLScriptElement>(
+//       `script[src="${RAZORPAY_CHECKOUT_SCRIPT}"]`,
+//     );
+//
+//     if (existingScript) {
+//       existingScript.addEventListener("load", () => resolve(), { once: true });
+//       existingScript.addEventListener(
+//         "error",
+//         () => reject(new Error("Unable to load the secure payment window.")),
+//         { once: true },
+//       );
+//       return;
+//     }
+//
+//     const script = document.createElement("script");
+//     script.src = RAZORPAY_CHECKOUT_SCRIPT;
+//     script.async = true;
+//     script.onload = () => resolve();
+//     script.onerror = () =>
+//       reject(new Error("Unable to load the secure payment window."));
+//     document.body.appendChild(script);
+//   });
+//
+//   if (!window.Razorpay) {
+//     throw new Error("Secure payment window is unavailable. Please try again.");
+//   }
+// }
+//
+// async function createPaymentOrder(
+//   data: BookingFormData,
+//   eventId: string,
+// ): Promise<RazorpayOrderResponse> {
+//   const response = await fetch("/api/payments/razorpay/order", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({ ...data, eventId }),
+//   });
+//
+//   const result = (await response.json()) as ApiResult<RazorpayOrderResponse>;
+//
+//   if (!response.ok || !result.success || !result.data) {
+//     throw new Error(result.error || "Unable to start secure payment.");
+//   }
+//
+//   return result.data;
+// }
+//
+// async function verifyPaymentAndConfirmBooking({
+//   payment,
+//   booking,
+//   eventId,
+//   reservationId,
+// }: {
+//   payment: RazorpayCheckoutSuccessResponse;
+//   booking: BookingFormData;
+//   eventId: string;
+//   reservationId: string;
+// }) {
+//   const response = await fetch("/api/payments/razorpay/verify", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       ...payment,
+//       booking: {
+//         ...booking,
+//         eventId,
+//         reservationId,
+//       },
+//     }),
+//   });
+//
+//   const result = (await response.json()) as ApiResult;
+//
+//   if (!response.ok || !result.success) {
+//     const paymentReference = result.paymentId
+//       ? ` Payment id: ${result.paymentId}.`
+//       : "";
+//     throw new Error(
+//       `${result.error || "Payment verification failed."}${paymentReference}`,
+//     );
+//   }
+// }
+//
+// async function reconcilePaymentAndConfirmBooking({
+//   order,
+//   booking,
+//   eventId,
+// }: {
+//   order: RazorpayOrderResponse;
+//   booking: BookingFormData;
+//   eventId: string;
+// }) {
+//   const response = await fetch("/api/payments/razorpay/reconcile", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       razorpay_order_id: order.orderId,
+//       booking: {
+//         ...booking,
+//         eventId,
+//         reservationId: order.reservationId,
+//       },
+//     }),
+//   });
+//
+//   const result = (await response.json()) as ApiResult;
+//
+//   if (response.status === 202) {
+//     return false;
+//   }
+//
+//   if (!response.ok || !result.success) {
+//     const paymentReference = result.paymentId
+//       ? ` Payment id: ${result.paymentId}.`
+//       : "";
+//     throw new Error(
+//       `${result.error || "Payment reconciliation failed."}${paymentReference}`,
+//     );
+//   }
+//
+//   return true;
+// }
+// ------------------------------------------------
 
 export function useBookingForm(
   defaultTicketType: string = "",
   eventId: string = "",
+  eventTitle: string = "Bhajan Clubbing",
 ) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<FormSubmitStatus | "idle">("idle");
@@ -29,31 +210,180 @@ export function useBookingForm(
   });
 
   const onSubmit = async (data: BookingFormData) => {
-    setSpecificErrorMessage(null); // Clear previous specific error message
+    setSpecificErrorMessage(null);
     try {
       setIsSubmitting(true);
-      const res = await submitBooking(data, eventId);
+      // await loadRazorpayCheckout();
+      // const order = await createPaymentOrder(data, eventId);
 
-      if (res.success) {
+      // await new Promise<void>((resolve, reject) => {
+      //   if (!window.Razorpay) {
+      //     reject(
+      //       new Error(
+      //         "Secure payment window is unavailable. Please try again.",
+      //       ),
+      //     );
+      //     return;
+      //   }
+
+      //   let isPaymentResolved = false;
+      //   let reconcileTimer: number | null = null;
+      //   let reconcilePaymentPromise: Promise<boolean> | null = null;
+
+      //   const stopPaymentRecoveryPolling = () => {
+      //     if (reconcileTimer) {
+      //       window.clearInterval(reconcileTimer);
+      //       reconcileTimer = null;
+      //     }
+      //   };
+      //   const failPayment = (error: Error) => {
+      //     if (!isPaymentResolved) {
+      //       isPaymentResolved = true;
+      //       stopPaymentRecoveryPolling();
+      //       reject(error);
+      //     }
+      //   };
+      //   const completePayment = () => {
+      //     if (!isPaymentResolved) {
+      //       isPaymentResolved = true;
+      //       stopPaymentRecoveryPolling();
+      //       resolve();
+      //     }
+      //   };
+      //   let checkout: RazorpayCheckoutInstance | null = null;
+      //   const tryRecoverPayment = async () => {
+      //     if (isPaymentResolved) {
+      //       return false;
+      //     }
+
+      //     if (!reconcilePaymentPromise) {
+      //       reconcilePaymentPromise = reconcilePaymentAndConfirmBooking({
+      //         order,
+      //         booking: data,
+      //         eventId,
+      //       }).finally(() => {
+      //         reconcilePaymentPromise = null;
+      //       });
+      //     }
+
+      //     const isConfirmed = await reconcilePaymentPromise;
+
+      //     if (isConfirmed) {
+      //       completePayment();
+      //       checkout?.close?.();
+      //     }
+
+      //     return isConfirmed;
+      //   };
+      //   const startPaymentRecoveryPolling = () => {
+      //     if (reconcileTimer) {
+      //       return;
+      //     }
+
+      //     reconcileTimer = window.setInterval(() => {
+      //       tryRecoverPayment().catch((error) => {
+      //         console.warn("Payment reconciliation check failed:", error);
+      //       });
+      //     }, PAYMENT_RECONCILE_INTERVAL_MS);
+      //   };
+
+      //   checkout = new window.Razorpay({
+      //     key: order.keyId,
+      //     amount: order.amount,
+      //     currency: order.currency,
+      //     name: "Bharat Bhakti Sangam",
+      //     description: `${eventTitle} - ${order.ticketType} Pass`,
+      //     image: RAZORPAY_CHECKOUT_LOGO,
+      //     order_id: order.orderId,
+      //     prefill: {
+      //       name: data.fullName,
+      //       email: data.email,
+      //       contact: data.mobile,
+      //     },
+      //     notes: {
+      //       eventId,
+      //       reservationId: order.reservationId,
+      //       ticketType: data.ticketType,
+      //       tickets: String(data.tickets),
+      //     },
+      //     theme: {
+      //       color: "#f6b545",
+      //     },
+      //     modal: {
+      //       ondismiss: () => {
+      //         tryRecoverPayment()
+      //           .then((isConfirmed) => {
+      //             if (!isConfirmed) {
+      //               failPayment(
+      //                 new Error("Payment was cancelled before completion."),
+      //               );
+      //             }
+      //           })
+      //           .catch((error) => {
+      //             failPayment(
+      //               error instanceof Error
+      //                 ? error
+      //                 : new Error(
+      //                     "Payment status could not be confirmed. Please contact support if the amount was debited.",
+      //                   ),
+      //             );
+      //           });
+      //       },
+      //     },
+      //     handler: async (payment) => {
+      //       try {
+      //         await verifyPaymentAndConfirmBooking({
+      //           payment,
+      //           booking: data,
+      //           eventId,
+      //           reservationId: order.reservationId,
+      //         });
+      //         completePayment();
+      //       } catch (error) {
+      //         failPayment(
+      //           error instanceof Error
+      //             ? error
+      //             : new Error("Payment verification failed."),
+      //         );
+      //       }
+      //     },
+      //   });
+
+      //   checkout.on(
+      //     "payment.failed",
+      //     (response: RazorpayCheckoutFailureResponse) => {
+      //       failPayment(
+      //         new Error(
+      //           response.error?.description ||
+      //             "Payment failed. Please try another method.",
+      //         ),
+      //       );
+      //     },
+      //   );
+
+      //   checkout.open();
+      //   startPaymentRecoveryPolling();
+      // });
+      const result = await submitBooking(data, eventId);
+
+      if (result.success) {
         setStatus("success");
       } else {
-        console.log("Booking failed with error:", res.error);
         setStatus("error");
-        if (res.error?.toLowerCase().includes("tickets sold out")) {
-          setSpecificErrorMessage("Tickets sold out");
-        } else if (
-          res.error
-            ?.toLowerCase()
-            .includes("this number has already been used for booking tickets")
-        ) {
-          setSpecificErrorMessage(
-            "This number has already been used for booking tickets.",
-          );
-        }
+        setSpecificErrorMessage(
+          getBookingErrorMessage(
+            getErrorMessage(result.error, "We couldn't process your booking."),
+          ),
+        );
       }
     } catch (error) {
       console.error("Booking submission failed:", error);
       setStatus("error");
+      setSpecificErrorMessage(
+        getBookingErrorMessage(
+          getErrorMessage(error, "We couldn't process your booking."),
+        ),
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -61,7 +391,7 @@ export function useBookingForm(
 
   const reset = () => {
     setStatus("idle");
-    setSpecificErrorMessage(null); // Clear specific error message on reset
+    setSpecificErrorMessage(null);
     methods.reset();
   };
 
