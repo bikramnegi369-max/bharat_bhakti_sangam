@@ -79,7 +79,7 @@ export default function TempleCard({
       <div className="p-5 flex flex-col gap-3 flex-1">
         {/* Temple name as a link */}
         <Link
-          href={`/${temple.slug}`}
+          href={`/famous-temples/${temple.slug}`}
           className="text-amber-600 font-semibold text-lg leading-snug hover:text-amber-700 hover:underline transition-colors"
         >
           {temple.name}
@@ -96,7 +96,7 @@ export default function TempleCard({
 
         {/* ── CTA ── prefetch warms detail page while user reads card */}
         <Link
-          href={`/${temple.slug}`}
+          href={`/famous-temples/${temple.slug}`}
           prefetch
           className="mt-auto flex items-center justify-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-semibold py-3 px-6 transition-colors duration-200"
           aria-label={`Read more about ${temple.name}`}

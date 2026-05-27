@@ -13,7 +13,7 @@ export default function DesktopNavLinks() {
   // Transform temples into sub-menu items
   const templeSubItems = temples.map((temple) => ({
     label: temple.name,
-    href: `/${temple.slug}`,
+    href: `/famous-temples/${temple.slug}`,
   }));
 
   return (
