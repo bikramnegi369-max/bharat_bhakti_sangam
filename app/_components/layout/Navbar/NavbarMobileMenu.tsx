@@ -101,7 +101,7 @@ export default function NavbarMobileMenu() {
                   onCloseMenu={() => setIsOpen(false)}
                   items={temples.map((t) => ({
                     label: t.name,
-                    href: `/famous-temples/${t.slug}`,
+                    href: `/${t.slug}`,
                   }))}
                 />
               );

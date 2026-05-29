@@ -4,6 +4,7 @@ import { getAbsoluteEventImageUrl } from "@/_lib/helpers";
 import { getLatestEvent } from "@/_features/event/services/event.service";
 import { temples } from "@/_lib/constants/temples.constants";
 import { getBlogPosts } from "@/_features/blog/services/wordpress.service";
+import { getFestivals } from "@/_lib/helpers/festivals.helpers";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicRoutes: Array<{
@@ -87,7 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const blog = await getBlogPosts({ perPage: 24 });
     blogRoutes = blog.posts.map((post) => ({
-      url: `${siteConfig.url}/blog/${post.slug}`,
+      url: `${siteConfig.url}/${post.slug}`,
       lastModified: new Date(post.modifiedAt),
       changeFrequency: "weekly" as const,
       priority: 0.65,
@@ -113,6 +114,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.7,
       images: [`${siteConfig.url}${temple.heroImage}`],
+    })),
+    ...getFestivals().map((festival) => ({
+      url: `${siteConfig.url}/${festival.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+      images: festival.images.map((image) =>
+        image.startsWith("http") ? image : `${siteConfig.url}${image}`,
+      ),
     })),
     ...blogRoutes,
   ];

@@ -26,6 +26,13 @@ const securityHeaders = [
 ];
 
 const devOrigins = ["localhost:3000", "*.devtunnels.ms", "api.razorpay.com"];
+const legacySlugPrefixes = [
+  "blog",
+  "blogs",
+  "festivals",
+  "famous-temple",
+  "famous-temples",
+] as const;
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -44,6 +51,13 @@ const nextConfig: NextConfig = {
         headers: securityHeaders,
       },
     ];
+  },
+  async redirects() {
+    return legacySlugPrefixes.map((prefix) => ({
+      source: `/${prefix}/:slug`,
+      destination: "/:slug",
+      permanent: true,
+    }));
   },
   images: {
     remotePatterns: [

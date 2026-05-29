@@ -61,7 +61,7 @@ export default function BlogCard({
       aria-label={`Blog post: ${post.title}`}
     >
       <Link
-        href={`/blog/${post.slug}`}
+        href={`/${post.slug}`}
         className="relative block aspect-video w-full overflow-hidden bg-stone-200"
         aria-label={`Read ${post.title}`}
       >
@@ -99,7 +99,7 @@ export default function BlogCard({
         )}
 
         <Link
-          href={`/blog/${post.slug}`}
+          href={`/${post.slug}`}
           className="text-lg font-semibold leading-snug text-stone-800 transition-colors hover:text-amber-700"
         >
           {post.title}
@@ -126,7 +126,7 @@ export default function BlogCard({
         </div>
 
         <Link
-          href={`/blog/${post.slug}`}
+          href={`/${post.slug}`}
           prefetch
           className="inline-flex items-center justify-center rounded-xl bg-amber-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-amber-600 active:bg-amber-700"
           aria-label={`Read full article: ${post.title}`}
