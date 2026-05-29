@@ -1,13 +1,32 @@
 import BlogGrid from "@/_features/blog/components/BlogGrid";
 import BlogSearchAndPagination from "@/_features/blog/components/BlogSearchAndPagination";
-import { getBlogPosts } from "@/_features/blog/services/wordpress.service";
+import {
+  getBlogIndexSeo,
+  getBlogPosts,
+} from "@/_features/blog/services/wordpress.service";
 import { cinzel } from "@/_lib/fonts";
-import { createPageMetadataFromConfig } from "@/_lib/seo";
+import {
+  createPageMetadataFromBlogSeo,
+  createPageMetadataFromConfig,
+} from "@/_lib/seo";
+import { getSeoPageConfig } from "@/_config/Seo.config";
 import type { Metadata } from "next";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = createPageMetadataFromConfig("blog");
+export async function generateMetadata(): Promise<Metadata> {
+  const fallback = getSeoPageConfig("blog");
+
+  try {
+    const seo = await getBlogIndexSeo();
+
+    return createPageMetadataFromBlogSeo(seo, fallback);
+  } catch (error) {
+    console.error("[blog] Failed to load WordPress Yoast SEO", error);
+
+    return createPageMetadataFromConfig("blog");
+  }
+}
 
 type BlogPageProps = {
   searchParams: Promise<{

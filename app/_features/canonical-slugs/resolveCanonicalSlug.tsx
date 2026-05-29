@@ -6,7 +6,7 @@ import { getBlogPostBySlug } from "@/_features/blog/services/wordpress.service";
 import { BlogDetail } from "@/_features/blog/components/BlogDetail";
 import { getFestivalBySlug } from "@/_lib/helpers/festivals.helpers";
 import { getTempleBySlug } from "@/_lib/helpers/temples.helpers";
-import { createPageMetadata } from "@/_lib/seo";
+import { createPageMetadata, createPageMetadataFromBlogSeo } from "@/_lib/seo";
 import { normalizeSlug } from "@/_utils/slug";
 
 export type CanonicalSlugPage = {
@@ -116,11 +116,12 @@ async function createBlogCanonicalPage(
   const description =
     post.excerpt ||
     `Read ${post.title} from ${siteConfig.name}, covering bhakti, devotional culture, and spiritual gatherings.`;
-  const metadata = createPageMetadata({
+  const metadata = createPageMetadataFromBlogSeo(post.seo, {
     title: post.title,
     description,
     path: `/${post.slug}`,
     image: post.image,
+    imageAlt: post.imageAlt,
     keywords: [
       post.title,
       "Bharat Bhakti Sangam blog",
@@ -138,31 +139,38 @@ async function createBlogCanonicalPage(
       openGraph: {
         ...metadata.openGraph,
         type: "article",
-        publishedTime: post.publishedAt,
-        modifiedTime: post.modifiedAt,
-        authors: post.author?.name ? [post.author.name] : undefined,
+        publishedTime:
+          post.seo?.openGraph?.publishedTime ?? post.publishedAt,
+        modifiedTime: post.seo?.openGraph?.modifiedTime ?? post.modifiedAt,
+        authors: post.seo?.openGraph?.author
+          ? [post.seo.openGraph.author]
+          : post.author?.name
+            ? [post.author.name]
+            : undefined,
         tags: post.categories.map((category) => category.name),
       },
       other: {
         ...metadata.other,
-        "application/ld+json": JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: post.title,
-          description,
-          image: post.image,
-          datePublished: post.publishedAt,
-          dateModified: post.modifiedAt,
-          author: {
-            "@type": "Person",
-            name: post.author?.name ?? siteConfig.author.name,
-          },
-          publisher: {
-            "@type": siteConfig.publisher.type,
-            name: siteConfig.publisher.name,
-          },
-          mainEntityOfPage: `${siteConfig.url}/${post.slug}`,
-        }),
+        "application/ld+json":
+          metadata.other?.["application/ld+json"] ??
+          JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description,
+            image: post.image,
+            datePublished: post.publishedAt,
+            dateModified: post.modifiedAt,
+            author: {
+              "@type": "Person",
+              name: post.author?.name ?? siteConfig.author.name,
+            },
+            publisher: {
+              "@type": siteConfig.publisher.type,
+              name: siteConfig.publisher.name,
+            },
+            mainEntityOfPage: `${siteConfig.url}/${post.slug}`,
+          }),
       },
     },
     render: () => <BlogDetail post={post} />,

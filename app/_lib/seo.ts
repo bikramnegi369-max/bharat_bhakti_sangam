@@ -1,12 +1,24 @@
 import type { Metadata } from "next";
 import { seoConfig, SeoPageKey } from "@/_config/Seo.config";
 import { siteConfig } from "@/_config/Site.config";
+import type { BlogSeo } from "@/_features/blog/types";
 
 type CreatePageMetadataOptions = {
   title: string;
   description: string;
   path: string;
   image?: string;
+  keywords?: string[];
+  noIndex?: boolean;
+  ogKey?: string;
+};
+
+type BlogSeoMetadataFallback = {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  imageAlt?: string;
   keywords?: string[];
   noIndex?: boolean;
   ogKey?: string;
@@ -64,6 +76,69 @@ function getOptimizedOgImage(url?: string) {
   return url.replace(
     "/upload/",
     "/upload/w_1200,h_630,c_fill,q_auto:eco,f_auto/",
+  );
+}
+
+function parseYoastRobotDirective(value?: string) {
+  if (!value) return undefined;
+
+  const [, directiveValue] = value.split(":");
+
+  return directiveValue ?? value;
+}
+
+function parseYoastRobotNumber(value?: string) {
+  const directiveValue = parseYoastRobotDirective(value);
+  if (!directiveValue) return undefined;
+
+  const numberValue = Number(directiveValue);
+
+  return Number.isFinite(numberValue) ? numberValue : undefined;
+}
+
+function parseYoastImagePreview(value?: string) {
+  const directiveValue = parseYoastRobotDirective(value);
+
+  if (
+    directiveValue === "none" ||
+    directiveValue === "standard" ||
+    directiveValue === "large"
+  ) {
+    return directiveValue;
+  }
+
+  return undefined;
+}
+
+function createRobotsMetadata(
+  seo?: BlogSeo,
+  noIndex = false,
+): Metadata["robots"] {
+  const shouldIndex = seo?.robots?.index
+    ? seo.robots.index !== "noindex"
+    : !noIndex;
+  const shouldFollow = seo?.robots?.follow
+    ? seo.robots.follow !== "nofollow"
+    : !noIndex;
+
+  return {
+    index: shouldIndex,
+    follow: shouldFollow,
+    googleBot: {
+      index: shouldIndex,
+      follow: shouldFollow,
+      "max-image-preview":
+        parseYoastImagePreview(seo?.robots?.maxImagePreview) ?? "large",
+      "max-snippet": parseYoastRobotNumber(seo?.robots?.maxSnippet) ?? -1,
+      "max-video-preview":
+        parseYoastRobotNumber(seo?.robots?.maxVideoPreview) ?? -1,
+    },
+  };
+}
+
+function getPrimarySeoImage(seo?: BlogSeo, fallbackImage?: string) {
+  return (
+    seo?.openGraph?.images?.[0]?.url ?? seo?.twitter?.image ?? fallbackImage
   );
 }
 
@@ -154,6 +229,80 @@ export function createPageMetadata({
     applicationName: siteConfig.name,
     icons: {
       icon: "/favicon.ico",
+    },
+  };
+}
+
+export function createPageMetadataFromBlogSeo(
+  seo: BlogSeo | undefined,
+  fallback: BlogSeoMetadataFallback,
+): Metadata {
+  const primarySeoImage = getPrimarySeoImage(seo, fallback.image);
+  const metadata = createPageMetadata({
+    title: seo?.title ?? fallback.title,
+    description: seo?.description ?? fallback.description,
+    path: seo?.canonical ?? fallback.path,
+    image: primarySeoImage,
+    keywords: fallback.keywords,
+    noIndex: fallback.noIndex,
+    ogKey: fallback.ogKey,
+  });
+
+  const openGraphImages =
+    seo?.openGraph?.images?.map((image) => ({
+      url: withCacheBusting(getOptimizedOgImage(image.url), fallback.ogKey),
+      width: image.width ?? 1200,
+      height: image.height ?? 630,
+      alt: image.alt ?? fallback.imageAlt ?? seo.title ?? fallback.title,
+      type: image.type,
+    })) ?? metadata.openGraph?.images;
+
+  return {
+    ...metadata,
+    title: seo?.title ?? metadata.title,
+    description: seo?.description ?? metadata.description,
+    alternates: {
+      ...metadata.alternates,
+      canonical: seo?.canonical ?? metadata.alternates?.canonical,
+    },
+    openGraph: {
+      ...metadata.openGraph,
+      title: seo?.openGraph?.title ?? seo?.title ?? metadata.openGraph?.title,
+      description:
+        seo?.openGraph?.description ??
+        seo?.description ??
+        metadata.openGraph?.description,
+      url: seo?.openGraph?.url ?? seo?.canonical ?? metadata.openGraph?.url,
+      siteName: seo?.openGraph?.siteName ?? metadata.openGraph?.siteName,
+      locale: seo?.openGraph?.locale ?? metadata.openGraph?.locale,
+      type: seo?.openGraph?.type === "article" ? "article" : "website",
+      images: openGraphImages,
+    },
+    twitter: {
+      ...metadata.twitter,
+      card: seo?.twitter?.card === "summary" ? "summary" : "summary_large_image",
+      title: seo?.twitter?.title ?? seo?.title ?? metadata.twitter?.title,
+      description:
+        seo?.twitter?.description ??
+        seo?.description ??
+        metadata.twitter?.description,
+      images: seo?.twitter?.image
+        ? [
+            withCacheBusting(
+              getOptimizedOgImage(seo.twitter.image),
+              fallback.ogKey,
+            ),
+          ]
+        : metadata.twitter?.images,
+    },
+    robots: createRobotsMetadata(seo, fallback.noIndex),
+    other: {
+      ...metadata.other,
+      ...(seo?.schema
+        ? {
+            "application/ld+json": JSON.stringify(seo.schema),
+          }
+        : {}),
     },
   };
 }

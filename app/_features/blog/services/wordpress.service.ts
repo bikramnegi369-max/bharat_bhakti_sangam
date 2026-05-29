@@ -4,6 +4,8 @@ import type {
   BlogAuthor,
   BlogCategory,
   BlogListResult,
+  BlogSeo,
+  BlogSeoImage,
   BlogPost,
   BlogPostCard,
 } from "../types";
@@ -12,6 +14,8 @@ const DEFAULT_REVALIDATE_SECONDS = 300;
 const DEFAULT_PER_PAGE = 5;
 const MAX_PER_PAGE = 24;
 const POSTS_PATH = "/wp/v2/posts";
+const PAGES_PATH = "/wp/v2/pages";
+const BLOG_INDEX_PAGE_SLUG = "blog";
 
 type WordpressRendered = {
   rendered?: string;
@@ -37,6 +41,42 @@ type WordpressTerm = {
   taxonomy?: string;
 };
 
+type WordpressYoastImage = {
+  url?: string;
+  width?: number;
+  height?: number;
+  alt?: string;
+  type?: string;
+};
+
+type WordpressYoastHeadJson = {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  robots?: {
+    index?: string;
+    follow?: string;
+    "max-snippet"?: string;
+    "max-image-preview"?: string;
+    "max-video-preview"?: string;
+  };
+  og_locale?: string;
+  og_type?: string;
+  og_title?: string;
+  og_description?: string;
+  og_url?: string;
+  og_site_name?: string;
+  article_published_time?: string;
+  article_modified_time?: string;
+  author?: string;
+  og_image?: WordpressYoastImage[];
+  twitter_card?: string;
+  twitter_title?: string;
+  twitter_description?: string;
+  twitter_image?: string;
+  schema?: unknown;
+};
+
 type WordpressPost = {
   id: number;
   slug: string;
@@ -45,11 +85,16 @@ type WordpressPost = {
   title?: WordpressRendered;
   excerpt?: WordpressRendered;
   content?: WordpressRendered;
+  yoast_head_json?: WordpressYoastHeadJson;
   _embedded?: {
     author?: WordpressAuthor[];
     "wp:featuredmedia"?: WordpressMedia[];
     "wp:term"?: WordpressTerm[][];
   };
+};
+
+type WordpressPageSeo = {
+  yoast_head_json?: WordpressYoastHeadJson;
 };
 
 class WordpressApiError extends Error {
@@ -74,6 +119,10 @@ function getWordpressApiBaseUrl() {
 }
 
 function getPostsUrl(path = POSTS_PATH) {
+  return new URL(`${getWordpressApiBaseUrl()}${path}`);
+}
+
+function getWordpressUrl(path: string) {
   return new URL(`${getWordpressApiBaseUrl()}${path}`);
 }
 
@@ -128,6 +177,62 @@ function getFeaturedImage(media?: WordpressMedia) {
   );
 }
 
+function normalizeYoastImages(images?: WordpressYoastImage[]): BlogSeoImage[] {
+  return (
+    images
+      ?.filter((image): image is WordpressYoastImage & { url: string } =>
+        Boolean(image.url),
+      )
+      .map((image) => ({
+        url: image.url,
+        width: image.width,
+        height: image.height,
+        alt: image.alt,
+        type: image.type,
+      })) ?? []
+  );
+}
+
+function normalizeYoastSeo(yoast?: WordpressYoastHeadJson): BlogSeo | undefined {
+  if (!yoast) return undefined;
+
+  const images = normalizeYoastImages(yoast.og_image);
+
+  return {
+    title: yoast.title,
+    description: yoast.description,
+    canonical: yoast.canonical,
+    robots: yoast.robots
+      ? {
+          index: yoast.robots.index,
+          follow: yoast.robots.follow,
+          maxSnippet: yoast.robots["max-snippet"],
+          maxImagePreview: yoast.robots["max-image-preview"],
+          maxVideoPreview: yoast.robots["max-video-preview"],
+        }
+      : undefined,
+    openGraph: {
+      title: yoast.og_title,
+      description: yoast.og_description,
+      url: yoast.og_url,
+      siteName: yoast.og_site_name,
+      locale: yoast.og_locale,
+      type: yoast.og_type,
+      publishedTime: yoast.article_published_time,
+      modifiedTime: yoast.article_modified_time,
+      author: yoast.author,
+      images: images.length ? images : undefined,
+    },
+    twitter: {
+      card: yoast.twitter_card,
+      title: yoast.twitter_title,
+      description: yoast.twitter_description,
+      image: yoast.twitter_image,
+    },
+    schema: yoast.schema,
+  };
+}
+
 function getAuthor(post: WordpressPost): BlogAuthor | undefined {
   const author = post._embedded?.author?.[0];
   if (!author?.name) return undefined;
@@ -166,6 +271,7 @@ function normalizePostCard(post: WordpressPost): BlogPostCard {
     imageAlt: stripHtml(featuredMedia?.alt_text) || title,
     author: getAuthor(post),
     categories: getCategories(post),
+    seo: normalizeYoastSeo(post.yoast_head_json),
   };
 }
 
@@ -275,6 +381,21 @@ export async function getBlogPostBySlug(slug: string) {
   const post = data[0];
 
   return post ? normalizePost(post) : null;
+}
+
+export async function getBlogIndexSeo() {
+  const url = getWordpressUrl(PAGES_PATH);
+
+  url.searchParams.set(
+    "slug",
+    process.env.WORDPRESS_BLOG_PAGE_SLUG ?? BLOG_INDEX_PAGE_SLUG,
+  );
+  url.searchParams.set("per_page", "1");
+  url.searchParams.set("_fields", "yoast_head_json");
+
+  const { data } = await fetchWordpress<WordpressPageSeo[]>(url);
+
+  return normalizeYoastSeo(data[0]?.yoast_head_json);
 }
 
 export async function getLatestBlogPostSlugs(limit = 20) {
