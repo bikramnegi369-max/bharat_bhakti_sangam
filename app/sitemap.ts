@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/_config/Site.config";
 import { getAbsoluteEventImageUrl } from "@/_lib/helpers";
 import { getLatestEvent } from "@/_features/event/services/event.service";
+import { getBlogPosts } from "@/_features/blog/services/wordpress.service";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicRoutes: Array<{
@@ -44,6 +45,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      path: "/blog",
+      changeFrequency: "weekly",
+      priority: 0.75,
+      images: [`${siteConfig.url}${siteConfig.ogImage}`],
+    },
   ];
 
   try {
@@ -74,6 +81,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("[sitemap] Failed to load latest event", error);
   }
 
+  let blogRoutes: MetadataRoute.Sitemap = [];
+
+  try {
+    const blog = await getBlogPosts({ perPage: 24 });
+    blogRoutes = blog.posts.map((post) => ({
+      url: `${siteConfig.url}/blog/${post.slug}`,
+      lastModified: new Date(post.modifiedAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.65,
+      images: post.image ? [post.image] : undefined,
+    }));
+  } catch (error) {
+    console.error("[sitemap] Failed to load blog posts", error);
+  }
+
   return [
     ...publicRoutes.map(
       ({ path, changeFrequency, priority, images, lastModified }) => ({
@@ -84,5 +106,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         images,
       }),
     ),
+    ...blogRoutes,
   ];
 }

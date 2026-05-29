@@ -268,6 +268,24 @@ export const _seoConfig = {
       " bharat bhakti sangam terms and conditions",
     ],
   },
+  blog: {
+    path: "/blog",
+    image: "/ogDefault.png",
+    title: "Blog | Bhakti, Culture and Devotional Stories",
+    description:
+      "Read Bharat Bhakti Sangam articles on bhakti, devotional music, spiritual events, temple culture, and India's living devotional traditions.",
+    keywords: [
+      "Bharat Bhakti Sangam blog",
+      "bhakti articles",
+      "devotional music blog",
+      "spiritual event stories",
+      "kirtan articles",
+      "bhajan blog",
+      "Indian devotional culture",
+      "temple culture",
+      "spiritual gatherings",
+    ],
+  },
 } satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;

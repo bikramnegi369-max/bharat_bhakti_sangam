@@ -5,7 +5,7 @@ const securityHeaders = [
   {
     key: "Content-Security-Policy",
     value:
-      "default-src 'self' blob:; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://checkout.razorpay.com https://cdn.razorpay.com; connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://connect.facebook.net https://4frnn03l-8001.inc1.devtunnels.ms https://api.cloudinary.com https://*.razorpay.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: res.cloudinary.com upload.wikimedia.org https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://*.razorpay.com; font-src 'self' data:; frame-src 'self' https://www.facebook.com https://*.razorpay.com https://maps.google.com https://www.google.com;",
+      "default-src 'self' blob:; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://checkout.razorpay.com https://cdn.razorpay.com; connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://connect.facebook.net https://4frnn03l-8001.inc1.devtunnels.ms https://api.cloudinary.com https://*.razorpay.com https://cms.bharatbhaktisangam.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: res.cloudinary.com upload.wikimedia.org https://cms.bharatbhaktisangam.com https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://*.razorpay.com; font-src 'self' data:; frame-src 'self' https://www.facebook.com https://*.razorpay.com https://maps.google.com https://www.google.com;",
   },
   {
     key: "Strict-Transport-Security",
@@ -54,6 +54,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "upload.wikimedia.org",
+      },
+      {
+        protocol: "https",
+        hostname: "cms.bharatbhaktisangam.com",
       },
     ],
     qualities: [25, 50, 60, 65, 75, 80, 85, 90, 95, 100],

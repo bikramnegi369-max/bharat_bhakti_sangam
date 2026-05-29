@@ -6,6 +6,7 @@ export const routes = {
   sponsors: "/sponsors",
   feedback: "/feedback",
   booking: "/booking",
+  blog: "/blog",
   privacyPolicy: "/privacy-policy",
   termsAndConditions: "/terms-and-conditions",
 };
