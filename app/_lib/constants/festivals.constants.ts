@@ -115,18 +115,18 @@ export const festivalsData: FestivalSection[] = [
     description:
       "Dhanteras marks the beginning of the Diwali festivities and is dedicated to Lord Dhanvantari and Goddess Lakshmi. On this auspicious day, people purchase gold, silver, and utensils as a symbol of prosperity and good fortune. Dhanteras signifies health, wealth, and the arrival of happiness, inviting blessings for a prosperous life.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Diwali_Lights.jpg/960px-Diwali_Lights.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Diwali_Celebration.jpg/960px-Diwali_Celebration.jpg",
+      "/festivals/dhanteras/dhanteras-1.webp",
+      "/festivals/dhanteras/dhanteras-2.webp",
     ],
     descriptionAnchor: "left",
   },
   {
-    title: "Narak Chaturdashi",
+    title: "Naraka Chaturdashi",
     description:
-      "Narak Chaturdashi, also known as Choti Diwali, marks Lord Krishna’s victory over the demon Narakasura, symbolizing the triumph of light over darkness. Devotees wake up early for sacred oil baths, light diyas, and offer prayers for purification and protection. This auspicious day signifies the removal of negativity and the awakening of inner light and positivity.",
+      "Naraka Chaturdashi, also known as Choti Diwali, marks Lord Krishna’s victory over the demon Narakasura, symbolizing the triumph of light over darkness. Devotees wake up early for sacred oil baths, light diyas, and offer prayers for purification and protection. This auspicious day signifies the removal of negativity and the awakening of inner light and positivity.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Narak_Chaturdashi.jpg/960px-Narak_Chaturdashi.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Narak_Chaturdashi_Krishna.jpg/960px-Narak_Chaturdashi_Krishna.jpg",
+      "/festivals/naraka-chaturdashi/naraka-chaturdashi-1.webp",
+      "/festivals/naraka-chaturdashi/naraka-chaturdashi-2.webp",
     ],
     descriptionAnchor: "right",
   },
@@ -135,8 +135,8 @@ export const festivalsData: FestivalSection[] = [
     description:
       "Govardhan Puja celebrates Lord Krishna’s divine act of lifting the Govardhan Hill to protect devotees from Indra’s wrath. Devotees prepare Annakut (a grand offering of food) and worship nature, cows, and Lord Krishna with deep devotion. This sacred festival signifies gratitude, humility, and the importance of living in harmony with nature.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Govardhan_Puja.jpg/960px-Govardhan_Puja.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Govardhan_Puja_Devotees.jpg/960px-Govardhan_Puja_Devotees.jpg",
+      "/festivals/govardhan-puja/govardhan-puja-1.webp",
+      "/festivals/govardhan-puja/govardhan-puja-2.webp",
     ],
     descriptionAnchor: "left",
   },
@@ -145,8 +145,8 @@ export const festivalsData: FestivalSection[] = [
     description:
       "Bhai Dooj celebrates the sacred bond of love, trust, and protection between siblings. On this auspicious day, sisters apply tilak on their brothers’ foreheads and pray for their long life and happiness, while brothers offer gifts and promise lifelong care. Bhai Dooj beautifully reflects affection, blessings, and the enduring strength of family relationships.",
     images: [
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Raksha_Bandhan.jpg/960px-Raksha_Bandhan.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Raksha_Bandhan_Siblings.jpg/960px-Raksha_Bandhan_Siblings.jpg",
+      "/festivals/bhai-dooj/bhai-dooj-1.webp",
+      "/festivals/bhai-dooj/bhai-dooj-2.webp",
     ],
     descriptionAnchor: "right",
   },
