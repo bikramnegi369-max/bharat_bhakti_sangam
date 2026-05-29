@@ -4,23 +4,23 @@ import { FestivalSection } from "@/_types/festivals.types";
 export const famousFestivalsCarousel: CarouselSlideData[] = [
   {
     id: 1,
-    src: "",
-    alt: "",
+    src: "/festivals/slider/image-1.webp",
+    alt: "Dhanteras festival",
   },
   {
     id: 2,
-    src: "",
-    alt: "",
+    src: "/festivals/slider/image-2.webp",
+    alt: "Holi festival",
   },
   {
     id: 3,
-    src: "",
-    alt: "",
+    src: "/festivals/slider/image-3.webp",
+    alt: "Diwali festival",
   },
   {
     id: 4,
-    src: "",
-    alt: "",
+    src: "/festivals/slider/image-4.webp",
+    alt: "Dhanteras festival",
   },
 ];
 
