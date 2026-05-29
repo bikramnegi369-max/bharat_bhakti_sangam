@@ -1,6 +1,6 @@
 "use client";
 
-import { WheelEvent, useRef, useMemo, useCallback } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDataTable } from "@/_hooks/useDataTable";
 import { TableFilters } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
@@ -10,10 +10,14 @@ import { TableHeader } from "./TableHeader";
 import { TableBody } from "./TableBody";
 import { TableConfig } from "@/_types/Table.types";
 import { RowData } from "@tanstack/react-table";
+import { getColumnSizeStyle, hasColumnSizing } from "./tableSizing";
+import { TableExportButton } from "./TableExportButton";
 
 interface Props<T extends RowData> {
   config: TableConfig<T>;
 }
+
+const DEFAULT_PAGE_SIZE_OPTIONS = [10, 25, 50];
 
 const getErrorMessage = (error: unknown) => {
   if (
@@ -43,21 +47,36 @@ const getErrorMessage = (error: unknown) => {
   return undefined;
 };
 
-const DEFAULT_TABLE_DATA = {
-  items: [],
-  total: 0,
-  limit: 10,
-  page: 1,
-  totalPages: 1,
-};
-
 export function DataTable<T extends RowData>({ config }: Props<T>) {
-  const tableScrollRef = useRef<HTMLDivElement | null>(null);
+  const [tableScrollContainer, setTableScrollContainer] =
+    useState<HTMLDivElement | null>(null);
   const controller = useTableController(config);
+  const defaultLimit = config.defaultLimit ?? 10;
+  const pageSizeOptions = useMemo(
+    () =>
+      Array.from(
+        new Set([
+          defaultLimit,
+          ...(config.pageSizeOptions?.length
+            ? config.pageSizeOptions
+            : DEFAULT_PAGE_SIZE_OPTIONS),
+        ]),
+      )
+        .filter((option) => Number.isInteger(option) && option > 0)
+        .sort((left, right) => left - right),
+    [config.pageSizeOptions, defaultLimit],
+  );
 
   const tableData = useMemo(
-    () => controller.data?.data ?? DEFAULT_TABLE_DATA,
-    [controller.data?.data],
+    () =>
+      controller.data?.data ?? {
+        items: [],
+        total: 0,
+        limit: controller.limit,
+        page: controller.page,
+        totalPages: 1,
+      },
+    [controller.data?.data, controller.limit, controller.page],
   );
 
   const tableController = useMemo(
@@ -66,44 +85,130 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
   );
 
   const hasRows = tableData.items.length > 0;
+  const exportOptions =
+    config.exportOptions === false || config.exportOptions?.enabled === false
+      ? undefined
+      : (config.exportOptions ?? {});
+  const exportAction = exportOptions ? (
+    <TableExportButton
+      columns={config.columns}
+      service={config.service}
+      filters={controller.filters}
+      sorting={controller.sorting}
+      queryKeyPrefix={config.queryKeyPrefix}
+      exportOptions={exportOptions}
+      disabled={tableData.total === 0}
+    />
+  ) : null;
 
   const table = useDataTable(tableController, config.columns);
-
-  const handleTableWheel = useCallback((event: WheelEvent<HTMLDivElement>) => {
-    const container = tableScrollRef.current;
-
-    if (!container) {
-      return;
-    }
-
-    const hasHorizontalOverflow = container.scrollWidth > container.clientWidth;
-
-    if (!hasHorizontalOverflow) {
-      return;
-    }
-
-    const delta =
-      Math.abs(event.deltaY) >= Math.abs(event.deltaX)
-        ? event.deltaY
-        : event.deltaX;
-
-    if (delta === 0) {
-      return;
-    }
-
-    const maxScrollLeft = container.scrollWidth - container.clientWidth;
-    const nextScrollLeft = Math.max(
-      0,
-      Math.min(container.scrollLeft + delta, maxScrollLeft),
+  const hasFixedWidthColumns = table
+    .getVisibleLeafColumns()
+    .some((column) =>
+      hasColumnSizing({
+        size: column.columnDef.size,
+        minSize: column.columnDef.minSize,
+        meta: column.columnDef.meta,
+      }),
     );
 
-    if (nextScrollLeft === container.scrollLeft) {
-      return;
+  const handleTableScrollRef = useCallback((node: HTMLDivElement | null) => {
+    setTableScrollContainer(node);
+  }, []);
+
+  useEffect(() => {
+    const container = tableScrollContainer;
+    const scrollTolerance = 1;
+
+    if (!container) {
+      return undefined;
     }
 
-    event.preventDefault();
-    container.scrollLeft = nextScrollLeft;
-  }, []);
+    const getVerticalScrollParent = (): HTMLElement | null => {
+      let currentElement = container.parentElement;
+
+      while (currentElement) {
+        const { overflowY, overflow } = window.getComputedStyle(currentElement);
+        const canScrollVertically =
+          /(auto|scroll|overlay)/.test(overflowY) ||
+          /(auto|scroll|overlay)/.test(overflow);
+
+        if (
+          canScrollVertically &&
+          currentElement.scrollHeight >
+            currentElement.clientHeight + scrollTolerance
+        ) {
+          return currentElement;
+        }
+
+        currentElement = currentElement.parentElement;
+      }
+
+      return document.scrollingElement instanceof HTMLElement
+        ? document.scrollingElement
+        : document.documentElement;
+    };
+
+    const scrollPageBy = (delta: number) => {
+      const verticalScrollParent = getVerticalScrollParent();
+
+      if (verticalScrollParent) {
+        verticalScrollParent.scrollTop += delta;
+        return;
+      }
+
+      window.scrollTo({
+        top: window.scrollY + delta,
+      });
+    };
+
+    const handleTableWheel = (event: WheelEvent) => {
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      const hasHorizontalOverflow = maxScrollLeft > scrollTolerance;
+
+      if (!hasHorizontalOverflow) {
+        return;
+      }
+
+      const horizontalDelta = event.deltaY !== 0 ? event.deltaY : event.deltaX;
+
+      if (horizontalDelta === 0) {
+        return;
+      }
+
+      const currentScrollLeft = container.scrollLeft;
+      const nextScrollLeft = Math.max(
+        0,
+        Math.min(currentScrollLeft + horizontalDelta, maxScrollLeft),
+      );
+      const consumedDelta = nextScrollLeft - currentScrollLeft;
+      const remainingDelta = horizontalDelta - consumedDelta;
+      const movedTable = Math.abs(consumedDelta) > scrollTolerance;
+      const shouldScrollPage = Math.abs(remainingDelta) > scrollTolerance;
+
+      if (!movedTable && !shouldScrollPage) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (movedTable) {
+        container.scrollLeft = nextScrollLeft;
+      }
+
+      if (shouldScrollPage) {
+        scrollPageBy(remainingDelta);
+      }
+    };
+
+    container.addEventListener("wheel", handleTableWheel, {
+      passive: false,
+    });
+
+    return () => {
+      container.removeEventListener("wheel", handleTableWheel);
+    };
+  }, [tableScrollContainer]);
 
   if (controller.isLoading) return <TableLoading />;
   if (controller.error) {
@@ -118,17 +223,47 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
           filters={config.filters}
           values={controller.filters}
           onChange={controller.setFilters}
-          action={config.filterAction}
+          action={
+            config.filterAction || exportAction ? (
+              <div className="flex flex-wrap items-end gap-3">
+                {config.filterAction}
+                {exportAction}
+              </div>
+            ) : undefined
+          }
         />
       )}
 
+      {!config.filters && exportAction ? (
+        <div className="flex flex-wrap items-center justify-end gap-3 rounded-t-xl bg-primary_light p-4 shadow-sm">
+          {exportAction}
+        </div>
+      ) : null}
+
       {/* Table */}
       <div
-        ref={tableScrollRef}
-        onWheel={handleTableWheel}
+        ref={handleTableScrollRef}
         className="overflow-x-auto overflow-y-hidden scrollbar-hide"
       >
-        <table className="min-w-full text-sm">
+        <table
+          className="min-w-full text-sm"
+          style={hasFixedWidthColumns ? { tableLayout: "fixed" } : undefined}
+        >
+          <colgroup>
+            {table.getVisibleLeafColumns().map((column) => (
+              <col
+                key={column.id}
+                style={getColumnSizeStyle({
+                  size: column.columnDef.size,
+                  minSize: column.columnDef.minSize,
+                  width: column.columnDef.meta?.width,
+                  minWidth: column.columnDef.meta?.minWidth,
+                  maxWidth: column.columnDef.meta?.maxWidth,
+                })}
+              />
+            ))}
+          </colgroup>
+
           <TableHeader
             table={table}
             hasActions={!!config.renderActions}
@@ -145,11 +280,13 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
 
       {/* Pagination */}
       <TablePagination
-        page={controller.page}
+        page={tableData?.page || controller.page}
         total={tableData?.total || 0}
-        limit={tableData?.limit || 10}
+        limit={tableData?.limit || controller.limit || defaultLimit}
         totalPages={tableData?.totalPages}
+        pageSizeOptions={pageSizeOptions}
         onPageChange={controller.setPage}
+        onLimitChange={controller.setLimit}
       />
 
       {/* Fetching Indicator */}

@@ -25,6 +25,7 @@ export const NAV_ITEMS: SidebarItem[] = [
   { id: "calender", label: "Calender", href: "/admin/calender" },
   { id: "query", label: "Query", href: "/admin/query" },
   { id: "feedback", label: "Feedback", href: "/admin/feedback" },
+  { id: "send-email", label: "Send Email", href: "/admin/send-email" },
   {
     id: "booking-group",
     label: "Booking",
@@ -33,6 +34,11 @@ export const NAV_ITEMS: SidebarItem[] = [
         id: "all-bookings",
         label: "All Bookings",
         href: "/admin/booking",
+      },
+      {
+        id: "non-visited-users",
+        label: "Non Visited Users",
+        href: "/admin/booking/non-visited-users",
       },
       {
         id: "booking-types",

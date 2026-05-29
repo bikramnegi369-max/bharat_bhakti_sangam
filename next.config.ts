@@ -5,7 +5,7 @@ const securityHeaders = [
   {
     key: "Content-Security-Policy",
     value:
-      "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://4frnn03l-8001.inc1.devtunnels.ms https://api.cloudinary.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: res.cloudinary.com upload.wikimedia.org https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self' data:;",
+      "default-src 'self' blob:; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://checkout.razorpay.com https://cdn.razorpay.com; connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://connect.facebook.net https://4frnn03l-8001.inc1.devtunnels.ms https://api.cloudinary.com https://*.razorpay.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: res.cloudinary.com upload.wikimedia.org https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://*.razorpay.com; font-src 'self' data:; frame-src 'self' https://www.facebook.com https://*.razorpay.com https://maps.google.com https://www.google.com;",
   },
   {
     key: "Strict-Transport-Security",
@@ -25,7 +25,7 @@ const securityHeaders = [
   },
 ];
 
-const devOrigins = ["localhost:3000", "*.devtunnels.ms"];
+const devOrigins = ["localhost:3000", "*.devtunnels.ms", "api.razorpay.com"];
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -33,6 +33,7 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       allowedOrigins: devOrigins,
+      bodySizeLimit: "50mb",
     },
   },
 

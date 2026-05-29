@@ -7,7 +7,7 @@ export default async function EventCardGrid() {
   if (!result.success) {
     return (
       <section
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        className="grid auto-rows-fr grid-cols-1 items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3"
         aria-label="Event loading error"
       >
         {Array.from({ length: 3 }).map((_, i) => (
@@ -27,11 +27,14 @@ export default async function EventCardGrid() {
 
   return (
     <section
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      className="grid auto-rows-fr grid-cols-1 items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3"
       aria-label="Event cards"
     >
-      {result?.data?.slice(0, 3).map((event) => (
-        <EventCard key={event.id} event={event} />
+      {result?.data?.slice(0, 3).map((event, index) => (
+        <EventCard
+          key={event.id || event.title || `event-card-${index + 1}`}
+          event={event}
+        />
       ))}
     </section>
   );

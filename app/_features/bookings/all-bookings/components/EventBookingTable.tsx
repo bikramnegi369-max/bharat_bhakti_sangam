@@ -22,6 +22,10 @@ export const EventBookingTable = ({ filterAction, renderActions }: Props) => {
       ],
       filterAction,
       renderActions,
+      exportOptions: {
+        fileName: "All_BOOKINGS",
+        sheetName: "All_BOOKINGS",
+      },
     }),
     [filterAction, renderActions],
   );

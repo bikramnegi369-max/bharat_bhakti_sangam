@@ -1,9 +1,6 @@
-import {
-  adminDefaultRedirectPath,
-  adminPublicPaths,
-} from "./config";
+import { adminDefaultRedirectPath, adminPublicPaths } from "./config";
 
-function normalizePath(pathname: string): string {
+export function normalizePath(pathname: string): string {
   if (!pathname) {
     return adminDefaultRedirectPath;
   }
@@ -22,9 +19,7 @@ export function isProtectedAdminPath(pathname: string): boolean {
     return false;
   }
 
-  return (
-    normalizedPath === "/admin" || normalizedPath.startsWith("/admin/")
-  );
+  return normalizedPath === "/admin" || normalizedPath.startsWith("/admin/");
 }
 
 export function sanitizeAdminNextPath(nextPath?: string | null): string {

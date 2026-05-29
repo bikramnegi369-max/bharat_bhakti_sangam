@@ -49,6 +49,7 @@ export async function getVolunteers(
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to fetch volunteers",
+        status: res.status,
       };
     }
 

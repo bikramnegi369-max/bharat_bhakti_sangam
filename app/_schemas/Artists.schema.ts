@@ -1,10 +1,16 @@
 import z from "zod";
 
 export const ArtistSchema = z.object({
-  artistName: z.string().min(1, "Artist name is required"),
+  artistName: z
+    .string()
+    .min(1, "Artist name is required")
+    .regex(/^[^0-9]*$/, "Artist name should not contain numbers"),
   role: z.string().min(1, "Role is required"),
   email: z.email("Enter a valid email"),
-  contactNo: z.string().min(1, "Contact number is required"),
+  contactNo: z
+    .string()
+    .min(1, "Contact number is required")
+    .regex(/^[0-9]+$/, "Contact number must contain only digits"),
   instruments: z
     .array(z.string().min(1))
     .min(1, "At least one instrument is required"),

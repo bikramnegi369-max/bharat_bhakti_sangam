@@ -6,4 +6,5 @@ export interface EventBooking {
   contact: number;
   tickets: number;
   ticketId: string;
+  bookingDate: string;
 }

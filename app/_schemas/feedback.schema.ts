@@ -9,7 +9,8 @@ export const feedbackSchema = z.object({
   fullName: z
     .string()
     .min(1, "Full name is required")
-    .max(100, "Name too long"),
+    .max(100, "Name too long")
+    .regex(/^[^0-9]*$/, "Full name should not contain numbers"),
 
   email: z.string().min(1, "Email is required").check(z.email("Invalid email")),
 

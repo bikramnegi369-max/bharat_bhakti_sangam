@@ -4,7 +4,7 @@ import {
   SortingState,
   TableOptions,
 } from "@tanstack/react-table";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { APIResponse } from "./Api.types";
 
 export type AccessorFn<T> = (row: T) => unknown;
@@ -18,6 +18,11 @@ export type CreateColumnOptions<T> = {
   enableSorting?: boolean;
   size?: number;
   minSize?: number;
+  width?: CSSProperties["width"];
+  minWidth?: CSSProperties["minWidth"];
+  maxWidth?: CSSProperties["maxWidth"];
+  headerClassName?: string;
+  cellClassName?: string;
 };
 
 export type CreateColumnReturn<T, TValue = unknown> = ColumnDef<T, TValue>;
@@ -44,18 +49,36 @@ export type PaginationProps = {
   total: number;
   limit?: number;
   totalPages?: number;
+  pageSizeOptions?: number[];
   onPageChange: (page: number) => void;
+  onLimitChange?: (limit: number) => void;
+};
+
+export type TableExportColumn<T extends RowData> = {
+  header: string;
+  accessor: (row: T) => unknown;
+};
+
+export type TableExportConfig<T extends RowData> = {
+  enabled?: boolean;
+  fileName?: string;
+  sheetName?: string;
+  columns?: TableExportColumn<T>[];
+  pageSize?: number;
 };
 
 export type TableConfig<T extends RowData> = {
   columns: TableOptions<T>["columns"];
   service: TableService<T>;
+  defaultLimit?: number;
+  pageSizeOptions?: number[];
   queryKeyPrefix?: readonly unknown[];
   filters?: FilterConfig[];
   filterDebounceMs?: number;
   staleTime?: number;
-  filterAction?: React.ReactNode;
-  renderActions?: (row: T) => React.ReactNode;
+  filterAction?: ReactNode;
+  renderActions?: (row: T) => ReactNode;
+  exportOptions?: TableExportConfig<T> | false;
 };
 
 export type TableQueryParams = {
@@ -91,6 +114,8 @@ export interface TableController<T> {
   setSorting: (s: SortingState) => void;
   page: number;
   setPage: (p: number) => void;
+  limit: number;
+  setLimit: (limit: number) => void;
   filters: Record<string, string>;
   setFilters: (next: Record<string, string>) => void;
   isLoading: boolean;

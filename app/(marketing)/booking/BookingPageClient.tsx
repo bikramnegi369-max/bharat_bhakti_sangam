@@ -1,26 +1,13 @@
 "use client";
 
 import Hero from "@/_components/sections/Marketing/Hero";
-// import { OrderSummary } from "@/_features/bookings/components/OrderSummary";
+import BookingForm from "@/_features/bookings/components/BookingForm";
+import BookingFormStatus from "@/_features/bookings/components/BookingFormStatus";
 import { useBookingForm } from "@/_hooks/useBookingForm";
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { FormProvider } from "react-hook-form";
-
-const BookingForm = dynamic(
-  () => import("@/_features/bookings/components/BookingForm"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-96 w-full animate-pulse bg-gray-100 rounded-3xl" />
-    ),
-  },
-);
-
-const BookingFormStatus = dynamic(
-  () => import("@/_features/bookings/components/BookingFormStatus"),
-);
+import { trackMetaPixel } from "@/_lib/meta-pixel";
 
 type TicketType = {
   name: string;
@@ -53,25 +40,42 @@ export function BookingPageClient({
     status,
     specificErrorMessage,
     reset,
-  } = useBookingForm(ticketTypes[0]?.name, eventId);
+  } = useBookingForm(ticketTypes[0]?.name, eventId, eventTitle);
+  const formRef = useRef<HTMLFormElement | null>(null);
   const statusRef = useRef<HTMLDivElement | null>(null);
 
-  const bookingDetails = useMemo(
-    () => ({
-      eventTitle,
-      eventDate,
-      eventLocation,
-      eventAddress,
-      ticketTypes,
-    }),
-    [eventTitle, eventDate, eventLocation, eventAddress, ticketTypes],
-  );
+  useEffect(() => {
+    if (status !== "idle" || !formRef.current) {
+      return;
+    }
+
+    const frameId = window.requestAnimationFrame(() => {
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      formRef.current?.querySelector<HTMLInputElement>(
+        'input[name="fullName"]',
+      )?.focus({ preventScroll: true });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [status]);
 
   useEffect(() => {
     if (status === "success") {
       sendGAEvent("event", "booking_completed", {
         event_id: eventId,
         event_name: eventTitle,
+        event_location: eventLocation,
+      });
+      trackMetaPixel("CompleteRegistration", {
+        content_name: eventTitle,
+        content_category: "event_booking",
+        event_id: eventId,
         event_location: eventLocation,
       });
     }
@@ -110,18 +114,16 @@ export function BookingPageClient({
           ) : (
             <FormProvider {...methods}>
               <form
+                ref={formRef}
                 onSubmit={methods.handleSubmit(onSubmit)}
                 className="w-full max-w-7xl flex justify-center items-center"
               >
                 <div className="w-full grid grid-cols-1 place-items-center max-w-2xl">
                   <BookingForm
-                    {...bookingDetails}
                     isSubmitting={isSubmitting}
+                    eventDate={eventDate}
+                    ticketTypes={ticketTypes}
                   />
-                  {/* <OrderSummary
-                    {...bookingDetails}
-                    isSubmitting={isSubmitting}
-                  /> */}
                 </div>
               </form>
             </FormProvider>

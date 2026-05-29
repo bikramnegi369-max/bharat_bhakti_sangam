@@ -20,7 +20,10 @@ import {
 import { DEFAULT_TIMEOUT_MS, fetchWithTimeout } from "../../../_utils/fetch";
 import { APIResponse } from "@/_types/Api.types";
 import { apiRoutes } from "@/_config/APIRoutes.config";
-import { EventFormData } from "@/_schemas/Event.schemas";
+import {
+  EventFormData,
+  ManualAttendanceFormData,
+} from "@/_schemas/Event.schemas";
 import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 import { isApiEnvelope, isRecord } from "@/_utils/guards";
 import { getResponsePayload, getPayloadMessage } from "@/_utils/api";
@@ -243,6 +246,7 @@ export async function getAllEvents(params: TableQueryParams): Promise<
         success: false,
         error:
           errorData.message || `Failed to fetch events: ${response.status}`,
+        status: response.status,
       };
     }
 
@@ -386,5 +390,49 @@ export async function updateEvent(
   } catch (error) {
     console.error("Error updating event:", error);
     return { success: false, error: "Failed to update event." };
+  }
+}
+
+export async function addManualAttendance(
+  id: string,
+  attendance: ManualAttendanceFormData,
+): Promise<APIResponse> {
+  if (!id.trim()) {
+    return { success: false, error: "Event id is required." };
+  }
+
+  try {
+    const res = await authorizedAdminRequest(apiRoutes.addManualAttendance(id), {
+      method: "POST",
+      body: JSON.stringify(attendance),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const payload = await getResponsePayload(res);
+
+    if (!res.ok) {
+      return {
+        success: false,
+        error:
+          getPayloadMessage(payload) || "Failed to add manual attendance.",
+      };
+    }
+
+    if (isRecord(payload) && "status" in payload && payload.status === false) {
+      return {
+        success: false,
+        error:
+          getPayloadMessage(payload) || "Failed to add manual attendance.",
+      };
+    }
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error("Error adding manual attendance:", error);
+    return { success: false, error: "Failed to add manual attendance." };
   }
 }
