@@ -5,6 +5,7 @@ export const NAV_LINKS = [
   { label: "Event", href: routes.event },
   { label: "Famous Temples", href: routes.famousTemples },
   { label: "Blog", href: routes.blog },
+  { label: "Festivals", href: routes.festivals },
   { label: "About", href: routes.about },
   { label: "Contact", href: routes.contact },
   // { label: "Sponsors", href: routes.sponsors },

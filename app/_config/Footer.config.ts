@@ -41,6 +41,8 @@ export const footerConfig: FooterConfig = {
         { label: "Home", href: "/" },
         { label: "Event", href: "/event" },
         { label: "Famous Temples", href: "/famous-temples" },
+        { label: "Festivals", href: "/festivals" },
+        { label: "Blog", href: "/blog" },
         { label: "About Us", href: "/about" },
         { label: "Contact Us", href: "/contact" },
         // { label: "Sponsors", href: "/sponsors" },

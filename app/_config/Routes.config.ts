@@ -10,4 +10,5 @@ export const routes = {
   privacyPolicy: "/privacy-policy",
   termsAndConditions: "/terms-and-conditions",
   famousTemples: "/famous-temples",
+  festivals: "/festivals",
 };
