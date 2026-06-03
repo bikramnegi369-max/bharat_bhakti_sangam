@@ -43,15 +43,14 @@ export const footerConfig: FooterConfig = {
         { label: "Famous Temples", href: "/famous-temples" },
         { label: "Festivals", href: "/festivals" },
         { label: "Blog", href: "/blog" },
-        { label: "About Us", href: "/about" },
-        { label: "Contact Us", href: "/contact" },
-        // { label: "Sponsors", href: "/sponsors" },
-        { label: "Feedback", href: "/feedback" },
       ],
     },
   ],
 
   legalLinks: [
+    { label: "About Us", href: "/about" },
+    { label: "Contact Us", href: "/contact" },
+    { label: "Feedback", href: "/feedback" },
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms & Conditions", href: "/terms-and-conditions" },
   ],
