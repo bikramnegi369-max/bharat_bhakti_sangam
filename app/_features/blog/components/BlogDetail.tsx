@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Hero from "@/_components/sections/Marketing/Hero";
-import { siteConfig } from "@/_config/Site.config";
 import { cinzel } from "@/_lib/fonts";
 import type { BlogPost } from "@/_features/blog/types";
 import BlogBreadcrumb from "./BlogBreadcrumb";
@@ -9,10 +8,7 @@ import { formatBlogDate } from "./formatBlogDate";
 export function BlogDetail({ post }: { post: BlogPost }) {
   return (
     <main>
-      <Hero
-        title={post.title}
-        backgroundImage={post.image ?? siteConfig.ogImage}
-      />
+      <Hero title={post.title} backgroundImage={post.image} />
 
       <article className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <BlogBreadcrumb title={post.title} />
