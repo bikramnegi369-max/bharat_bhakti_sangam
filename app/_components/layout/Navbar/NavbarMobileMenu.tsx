@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import clsx from "clsx";
 
-import { NAV_LINKS } from "@/_config/Navigation.config";
+import { NAV_LINKS, TOP_NAV_LINKS } from "@/_config/Navigation.config";
 import { routes } from "@/_config/Routes.config";
 import { CTAButton } from "../../ui/CTAButton";
 import { temples } from "@/_lib/constants/temples.constants";
@@ -124,6 +124,30 @@ export default function NavbarMobileMenu() {
               </Link>
             );
           })}
+
+          {/* Utility Links (About, Contact, Feedback) */}
+          <div className="pt-6 mt-6 border-t border-gray-100 space-y-4">
+            {TOP_NAV_LINKS.map((link) => {
+              const isActive =
+                pathname === link.href || pathname.startsWith(link.href + "/");
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={clsx(
+                    "block text-[15px] transition-colors",
+                    isActive
+                      ? "text-primary font-semibold"
+                      : "text-para/70 hover:text-heading",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
         </nav>
       </aside>
     </>
