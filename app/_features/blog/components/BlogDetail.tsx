@@ -13,7 +13,7 @@ export function BlogDetail({ post }: { post: BlogPost }) {
       <article className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <BlogBreadcrumb title={post.title} />
 
-        <header className="mx-auto max-w-3xl py-8 text-center">
+        <header className="mx-auto max-w-5xl py-8 text-center">
           <div className="flex flex-wrap justify-center gap-2">
             {post.categories.slice(0, 3).map((category) => (
               <span
@@ -38,7 +38,7 @@ export function BlogDetail({ post }: { post: BlogPost }) {
         </header>
 
         <div
-          className="blog-content mx-auto max-w-3xl pb-12 text-stone-700"
+          className="blog-content mx-auto max-w-5xl pb-12 text-stone-700"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
