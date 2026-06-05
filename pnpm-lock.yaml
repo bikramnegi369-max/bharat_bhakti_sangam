@@ -56,6 +56,9 @@ importers:
       recharts:
         specifier: ^3.8.1
         version: 3.8.1(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react-is@16.13.1)(react@19.2.4)(redux@5.0.1)
+      wp-block-styles:
+        specifier: ^1.0.21
+        version: 1.0.21
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -2282,6 +2285,9 @@ packages:
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
+
+  wp-block-styles@1.0.21:
+    resolution: {integrity: sha512-tpb38IBVB/Vjf7dNlrM9ksOX0tAZBkBEMb+VRg4myMY2U9lrE4hOB1d4idsc/k+Jh9R0cAEVmJwtNGpV6HA1rw==}
 
   ws@7.5.10:
     resolution: {integrity: sha512-+dbF1tHwZpXcbOJdVOkzLDxZP1ailvSxM6ZweXTegylPny803bFhA+vqBYw4s31NSAk4S2Qz+AKXK9a4wkdjcQ==}
@@ -4711,6 +4717,8 @@ snapshots:
       isexe: 2.0.0
 
   word-wrap@1.2.5: {}
+
+  wp-block-styles@1.0.21: {}
 
   ws@7.5.10: {}
 

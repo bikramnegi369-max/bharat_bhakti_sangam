@@ -4,6 +4,7 @@ import { cinzel } from "@/_lib/fonts";
 import type { BlogPost } from "@/_features/blog/types";
 import BlogBreadcrumb from "./BlogBreadcrumb";
 import { formatBlogDate } from "./formatBlogDate";
+import "wp-block-styles/index.min.css"; // Import default WordPress block styles for proper rendering of content
 
 export function BlogDetail({ post }: { post: BlogPost }) {
   return (
@@ -38,7 +39,7 @@ export function BlogDetail({ post }: { post: BlogPost }) {
         </header>
 
         <div
-          className="blog-content mx-auto max-w-5xl pb-12 text-stone-700"
+          className="wp-content mx-auto max-w-5xl pb-12 text-stone-700"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
