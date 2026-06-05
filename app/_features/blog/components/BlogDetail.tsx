@@ -35,12 +35,6 @@ export function BlogDetail({ post }: { post: BlogPost }) {
             {formatBlogDate(post.publishedAt)}
             {post.author?.name ? ` by ${post.author.name}` : ""}
           </p>
-
-          {post.excerpt && (
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-stone-600">
-              {post.excerpt}
-            </p>
-          )}
         </header>
 
         <div
