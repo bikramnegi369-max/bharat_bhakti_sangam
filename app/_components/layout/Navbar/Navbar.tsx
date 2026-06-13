@@ -8,40 +8,39 @@ import { getLatestEvent } from "@/_features/event/services/event.service";
 import { EVENT_LIVE_CONFIG } from "@/_config/Event.config";
 import { type LiveEventData } from "@/_hooks/useLiveStatus";
 
+/**
+ * Helper to convert "5:00 PM" to "17:00:00" for reliable Date construction
+ */
+const convert12hTo24h = (timeStr: string) => {
+  const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+  if (!match) return null;
+  let hours = parseInt(match[1], 10);
+  const minutes = match[2];
+  const period = match[3].toUpperCase();
+
+  if (period === "PM" && hours < 12) hours += 12;
+  if (period === "AM" && hours === 12) hours = 0;
+  return `${String(hours).padStart(2, "0")}:${minutes}:00`;
+};
+
 export default async function Navbar() {
   let liveEventData: LiveEventData | null = null;
 
   try {
     const event = await getLatestEvent();
-    if (event) {
-      // Normalize date/time from backend for the client hook
-      // 1. Extract YYYY-MM-DD directly from the UTC ISO string to avoid locale issues
-      const eventDate = new Date(event.date);
-      const datePart = `${eventDate.getUTCFullYear()}-${String(eventDate.getUTCMonth() + 1).padStart(2, "0")}-${String(eventDate.getUTCDate()).padStart(2, "0")}`;
+    if (event && event.date && event.time) {
+      // 1. Extract YYYY-MM-DD from the backend ISO string
+      const datePart = event.date.split("T")[0];
 
-      // 2. Extract times from "5:00 PM To 10:00 PM"
-      const timeParts = event.time?.match(
-        /(\d{1,2}:\d{2}\s?(?:AM|PM))\sTo\s(\d{1,2}:\d{2}\s?(?:AM|PM))/i,
-      );
+      // 2. Extract start and end times from range "5:00 PM To 10:00 PM"
+      const timeParts = event.time.match(/(\d{1,2}:\d{2}\s?[AP]M)/gi);
+      if (timeParts && timeParts.length >= 2) {
+        const startTime24 = convert12hTo24h(timeParts[0]);
+        const endTime24 = convert12hTo24h(timeParts[1]);
 
-      if (timeParts && timeParts.length >= 3) {
-        // Helper to convert "5:00 PM" to "17:00:00" for reliable Date construction
-        const formatTime = (timeStr: string) => {
-          const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
-          if (!match) return null;
-          let hours = parseInt(match[1], 10);
-          const minutes = match[2];
-          const period = match[3].toUpperCase();
-
-          if (period === "PM" && hours < 12) hours += 12;
-          if (period === "AM" && hours === 12) hours = 0;
-          return `${String(hours).padStart(2, "0")}:${minutes}:00`;
-        };
-
-        const startTime24 = formatTime(timeParts[1]);
-        const endTime24 = formatTime(timeParts[2]);
-
-        // Create dates using "YYYY-MM-DDTHH:mm:ss" format
+        // 3. Create Date objects.
+        // Note: Assumes event time is local to the event location.
+        // Appending 'Z' would force UTC, omitting it uses environment local time.
         const startDateTime = new Date(`${datePart}T${startTime24}`);
         const endDateTime = new Date(`${datePart}T${endTime24}`);
 
@@ -51,9 +50,6 @@ export default async function Navbar() {
           endDate: endDateTime.toISOString(),
           liveStreamUrl: EVENT_LIVE_CONFIG.defaultLiveStreamUrl, // Always use config as requested
         };
-        console.log("Navbar: Prepared live event data", liveEventData);
-      } else {
-        console.warn(`Navbar: Could not parse time range from "${event.time}"`);
       }
     }
   } catch (error) {
