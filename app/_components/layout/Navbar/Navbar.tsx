@@ -30,8 +30,11 @@ export default async function Navbar() {
     const event = await getLatestEvent();
     if (event && event.date && event.time) {
       // 1. Extract YYYY-MM-DD safely regardless of if event.date is string or Date object
+      const dateValue = event.date as unknown;
       const dateStr =
-        typeof event.date === "string" ? event.date : event.date.toISOString();
+        dateValue instanceof Date
+          ? dateValue.toISOString()
+          : (event.date as string);
       const datePart = dateStr.split("T")[0];
 
       // 2. Extract start and end times from range (e.g., "5:00 PM To 10:00 PM" or "5 PM - 10 PM")
