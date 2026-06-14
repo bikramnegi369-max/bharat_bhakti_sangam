@@ -12,10 +12,10 @@ import { type LiveEventData } from "@/_hooks/useLiveStatus";
  * Helper to convert "5:00 PM" to "17:00:00" for reliable Date construction
  */
 const convert12hTo24h = (timeStr: string) => {
-  const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+  const match = timeStr.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
   if (!match) return null;
   let hours = parseInt(match[1], 10);
-  const minutes = match[2];
+  const minutes = match[2] || "00";
   const period = match[3].toUpperCase();
 
   if (period === "PM" && hours < 12) hours += 12;
@@ -29,27 +29,39 @@ export default async function Navbar() {
   try {
     const event = await getLatestEvent();
     if (event && event.date && event.time) {
-      // 1. Extract YYYY-MM-DD from the backend ISO string
-      const datePart = event.date.split("T")[0];
+      // 1. Extract YYYY-MM-DD safely regardless of if event.date is string or Date object
+      const dateStr =
+        typeof event.date === "string" ? event.date : event.date.toISOString();
+      const datePart = dateStr.split("T")[0];
 
-      // 2. Extract start and end times from range "5:00 PM To 10:00 PM"
-      const timeParts = event.time.match(/(\d{1,2}:\d{2}\s?[AP]M)/gi);
+      // 2. Extract start and end times from range (e.g., "5:00 PM To 10:00 PM" or "5 PM - 10 PM")
+      const timeParts = event.time.match(/(\d{1,2}(?::\d{2})?\s?[AP]M)/gi);
       if (timeParts && timeParts.length >= 2) {
         const startTime24 = convert12hTo24h(timeParts[0]);
         const endTime24 = convert12hTo24h(timeParts[1]);
 
-        // 3. Create Date objects.
-        // Note: Assumes event time is local to the event location.
-        // Appending 'Z' would force UTC, omitting it uses environment local time.
-        const startDateTime = new Date(`${datePart}T${startTime24}`);
-        const endDateTime = new Date(`${datePart}T${endTime24}`);
+        if (startTime24 && endTime24) {
+          // 3. Create Date objects with explicit IST (+05:30) offset for reliability.
+          // Most cloud servers run in UTC, which can cause "Live" status to be off by 5.5 hours.
+          const startDateTime = new Date(`${datePart}T${startTime24}+05:30`);
+          const endDateTime = new Date(`${datePart}T${endTime24}+05:30`);
 
-        liveEventData = {
-          _id: event._id,
-          startDate: startDateTime.toISOString(),
-          endDate: endDateTime.toISOString(),
-          liveStreamUrl: EVENT_LIVE_CONFIG.defaultLiveStreamUrl, // Always use config as requested
-        };
+          // Handle events that cross over midnight (e.g., 10:00 PM To 02:00 AM)
+          if (endDateTime < startDateTime) {
+            endDateTime.setDate(endDateTime.getDate() + 1);
+          }
+
+          // 4. Add a 1-hour grace period (3600000ms) to the end time.
+          // This ensures the Live feature doesn't disappear prematurely if the event runs late.
+          const bufferedEndDate = new Date(endDateTime.getTime() + 3600000);
+
+          liveEventData = {
+            _id: event._id,
+            startDate: startDateTime.toISOString(),
+            endDate: bufferedEndDate.toISOString(),
+            liveStreamUrl: EVENT_LIVE_CONFIG.defaultLiveStreamUrl,
+          };
+        }
       }
     }
   } catch (error) {
