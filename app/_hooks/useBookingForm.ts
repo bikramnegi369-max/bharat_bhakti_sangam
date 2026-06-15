@@ -39,6 +39,10 @@ function getBookingErrorMessage(error?: string) {
     return "Tickets sold out";
   }
 
+  if (normalizedError?.includes("event has been ended")) {
+    return "Thank you for reaching out. The booking has now ended because the event is over. We appreciate your interest and look forward to seeing you at one of our future events.";
+  }
+
   if (
     normalizedError?.includes(
       "this number has already been used for booking tickets",

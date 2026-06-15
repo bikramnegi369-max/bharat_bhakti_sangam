@@ -25,7 +25,7 @@ const securityHeaders = [
   },
 ];
 
-const devOrigins = ["localhost:3000", "*.devtunnels.ms", "api.razorpay.com"];
+const devOrigins = ["localhost:3011", "*.devtunnels.ms", "api.razorpay.com"];
 
 const nextConfig: NextConfig = {
   /* config options here */
