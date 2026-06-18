@@ -11,10 +11,17 @@ import { routes } from "@/_config/Routes.config";
 import { CTAButton } from "../../ui/CTAButton";
 import { temples } from "@/_lib/constants/temples.constants";
 import MobileDropdown from "./MobileDropdown";
+import { LiveButton } from "../../ui/LiveButton";
+import { useLiveStatus, type LiveEventData } from "@/_hooks/useLiveStatus";
 
-export default function NavbarMobileMenu() {
+export default function NavbarMobileMenu({
+  event,
+}: {
+  event: LiveEventData | null;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { isLive, liveStreamUrl } = useLiveStatus(event);
   const menuId = "mobile-navigation-menu";
 
   // Lock background scroll when menu is open
@@ -32,13 +39,17 @@ export default function NavbarMobileMenu() {
   return (
     <>
       <div className="lg:hidden flex gap-4 items-center">
-        {pathname !== routes.booking && (
-          <CTAButton
-            href={routes.booking}
-            label="Book Now"
-            variant="primary"
-            className="bg-transparent! border border-primary text-primary"
-          />
+        {isLive ? (
+          <LiveButton href={liveStreamUrl} />
+        ) : (
+          pathname !== routes.booking && (
+            <CTAButton
+              href={routes.booking}
+              label="Book Now"
+              variant="primary"
+              className="bg-transparent! border border-primary text-primary"
+            />
+          )
         )}
 
         <button

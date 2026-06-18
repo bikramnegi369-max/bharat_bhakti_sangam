@@ -1,5 +1,3 @@
-"use client";
-
 import { MapPin, Clock, BadgeCheck, CalendarDays } from "lucide-react";
 import { Button } from "@/_components/ui/Button";
 import Link from "next/link";

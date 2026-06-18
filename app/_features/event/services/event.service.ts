@@ -402,29 +402,30 @@ export async function addManualAttendance(
   }
 
   try {
-    const res = await authorizedAdminRequest(apiRoutes.addManualAttendance(id), {
-      method: "POST",
-      body: JSON.stringify(attendance),
-      headers: {
-        "Content-Type": "application/json",
+    const res = await authorizedAdminRequest(
+      apiRoutes.addManualAttendance(id),
+      {
+        method: "POST",
+        body: JSON.stringify(attendance),
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     const payload = await getResponsePayload(res);
 
     if (!res.ok) {
       return {
         success: false,
-        error:
-          getPayloadMessage(payload) || "Failed to add manual attendance.",
+        error: getPayloadMessage(payload) || "Failed to add manual attendance.",
       };
     }
 
     if (isRecord(payload) && "status" in payload && payload.status === false) {
       return {
         success: false,
-        error:
-          getPayloadMessage(payload) || "Failed to add manual attendance.",
+        error: getPayloadMessage(payload) || "Failed to add manual attendance.",
       };
     }
 
