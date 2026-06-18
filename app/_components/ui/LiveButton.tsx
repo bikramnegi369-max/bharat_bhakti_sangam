@@ -17,7 +17,7 @@ export function LiveButton({ href, className }: LiveButtonProps) {
       rel="noopener noreferrer"
       className={clsx(
         "group relative flex items-center gap-2 overflow-hidden rounded-full",
-        "bg-gradient-to-r from-red-600 to-red-700",
+        "bg-linear-to-r from-red-600 to-red-700",
         "px-5 py-2",
         "text-white transition-all duration-300 ease-out",
         "hover:from-red-700 hover:to-red-800 hover:scale-105 active:scale-95",
