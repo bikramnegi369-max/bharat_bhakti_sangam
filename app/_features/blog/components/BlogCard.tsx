@@ -85,18 +85,6 @@ export default function BlogCard({
       </Link>
 
       <div className="flex flex-1 flex-col gap-4 p-5">
-        {post.categories.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {post.categories.slice(0, 2).map((category) => (
-              <span
-                key={`${post.id}-${category.id}-${category.slug}`}
-                className="rounded-full border border-amber-200 bg-white/60 px-3 py-1 text-xs font-semibold text-amber-700"
-              >
-                {category.name}
-              </span>
-            ))}
-          </div>
-        )}
 
         <Link
           href={`/${post.slug}`}
