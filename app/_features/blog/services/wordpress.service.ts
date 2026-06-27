@@ -11,7 +11,7 @@ import type {
 } from "../types";
 
 const DEFAULT_REVALIDATE_SECONDS = 300;
-const DEFAULT_PER_PAGE = 5;
+const DEFAULT_PER_PAGE = 9;
 const MAX_PER_PAGE = 24;
 const POSTS_PATH = "/wp/v2/posts";
 const PAGES_PATH = "/wp/v2/pages";

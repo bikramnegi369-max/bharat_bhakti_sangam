@@ -81,12 +81,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           searchQuery={searchQuery}
         />
         <BlogGrid posts={blog.posts} />
-        <BlogSearchAndPagination
-          currentPage={blog.page}
-          totalPages={blog.totalPages}
-          total={blog.total}
-          searchQuery={searchQuery}
-        />
       </section>
     </div>
   );
