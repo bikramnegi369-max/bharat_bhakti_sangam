@@ -15,16 +15,6 @@ export function BlogDetail({ post }: { post: BlogPost }) {
         <BlogBreadcrumb title={post.title} />
 
         <header className="mx-auto max-w-5xl py-8 text-center">
-          <div className="flex flex-wrap justify-center gap-2">
-            {post.categories.slice(0, 3).map((category) => (
-              <span
-                key={`${post.id}-${category.id}-${category.slug}`}
-                className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700"
-              >
-                {category.name}
-              </span>
-            ))}
-          </div>
 
           <h1
             className={`${cinzel.className} mt-4 text-3xl font-bold leading-tight text-stone-800 sm:text-4xl`}
