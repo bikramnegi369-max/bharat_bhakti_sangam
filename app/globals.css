@@ -218,4 +218,5 @@ button:active::after {
 
 .wp-block-table th {
   color: var(--secondary);
+  background-color: #1a1a1a !important;
 }
