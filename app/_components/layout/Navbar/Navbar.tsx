@@ -91,7 +91,7 @@ export default async function Navbar() {
         <MobileMenu event={liveEventData} />
       </header>
 
-      <MarqueeBar />
+      <MarqueeBar event={liveEventData} />
     </>
   );
 }
