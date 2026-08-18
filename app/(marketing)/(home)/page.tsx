@@ -22,6 +22,7 @@ import { getLatestEvent } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
 import FAQSection from "@/_components/sections/Marketing/FAQSection";
 import { homeFAQS } from "@/_lib/constants/home.constants";
+import VideoHero from "@/_components/sections/Marketing/VideoHero";
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
@@ -96,7 +97,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd)}
       />
-      <Hero
+      {/* <Hero
         title={event.eventName}
         location={getEventVenueName(event)}
         address={getEventVenueAddress(event)}
@@ -110,7 +111,8 @@ export default async function HomePage() {
           label: "Know More",
           href: "/event",
         }}
-      />
+      /> */}
+      <VideoHero src="/hero-video.mp4" overlay="medium" />
       <WelcomeSection />
       <ExperienceSection />
       <BookingSection
