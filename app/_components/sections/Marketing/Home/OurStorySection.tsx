@@ -96,17 +96,17 @@ export default function OurStorySection({
     <section
       aria-labelledby="our-story-heading"
       className={clsx(
-        "relative w-full py-[clamp(3rem,calc(2rem+4vw),6rem)] overflow-hidden",
+        "relative w-full py-[clamp(3rem,calc(2rem+4vw),6rem)]",
         className,
       )}
     >
       {/* Background Decorative Mandala Accent */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 opacity-15 select-none z-0"
+        className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 opacity-30 select-none z-0"
       >
         <Image
-          src="/welcome_bg.webp"
+          src="/mandala.webp"
           alt=""
           fill
           className="object-contain"
