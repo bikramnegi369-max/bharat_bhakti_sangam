@@ -22,7 +22,20 @@ export default function FounderSection({
   ctaLabel = "Know more",
 }: FounderSectionProps) {
   return (
-    <section className="relative overflow-hidden py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
+    <section className="relative overflow-x-clip py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
+      {/* Rotated Mandala Background Image overflowing top & anchored to right edge */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 sm:-top-44 md:-top-56 -right-42 lg:-right-72 w-115 sm:w-140 md:w-175 lg:w-200 aspect-16/10 opacity-35 rotate-90 select-none z-0"
+      >
+        <Image
+          src="/welcome_bg.webp"
+          alt=""
+          fill
+          className="object-contain object-right"
+          priority={false}
+        />
+      </div>
       <div className="relative z-10 max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         {/* Left Column: Framed Arch Image & Floating Quote Card */}
         <div className="lg:col-span-6 flex justify-center lg:justify-start">

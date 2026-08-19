@@ -26,7 +26,7 @@ export default function MarketingLayout({
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
       <MetaPixel />
       <Navbar />
-      <main className="min-h-screen">{children}</main>
+      <main className="min-h-screen overflow-x-clip">{children}</main>
       <Footer />
       <FloatingStack />
     </>
