@@ -1,13 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #fcad33;
-  --primary_light: #ffeacb;
-  --secondary: #fff5e1;
-  --heading: #595959;
+  --primary: #740E0A;
+  --primary_light: #FFF7ED;
+  --secondary: #FCFAF5;
+  --heading: #3F0605;
   --para: #5c5c5c;
-  --sub_text: #9f9f9f;
-  --header_bg: #282525;
+  --para-secondary: #4B5563;
+  --sub_text: #302D2D;
+  --header_bg: #370504;
+  --gold: #D4AF37;
+  --orange: #E86A17;
+  --mahogany: #522323;
+  --peach: #FED7AA;
+  --warm-gray: #E5DFD3;
+  --crimson: #B91C1C;
+  --rust: #9A3412;
 }
 
 @theme inline {
@@ -16,8 +24,15 @@
   --color-secondary: var(--secondary);
   --color-heading: var(--heading);
   --color-para: var(--para);
+  --color-para-secondary: var(--para-secondary);
   --color-sub_text: var(--sub_text);
   --color-header-bg: var(--header_bg);
+  --color-gold: var(--gold);
+  --color-orange: var(--orange);
+  --color-mahogany: var(--mahogany);
+  --color-peach: var(--peach);
+  --color-crimson: var(--crimson);
+  --color-rust: var(--rust);
 }
 
 @keyframes table-shimmer {

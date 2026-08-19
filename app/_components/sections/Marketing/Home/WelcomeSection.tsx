@@ -1,55 +1,67 @@
-import { cinzel } from "@/_lib/fonts";
+import { CTAButton } from "@/_components/ui/CTAButton";
+import { playfair, poppins } from "@/_lib/fonts";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function WelcomeSection() {
   return (
-    <section className="py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
-      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid lg:grid-cols-2 gap-[clamp(1.25rem,calc(0.75rem+2.5vw),3rem)] items-center">
-        <div>
-          <h2
-            className={`${cinzel.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold uppercase tracking-widest text-heading text-center`}
+    <section className="relative overflow-hidden py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
+      {/* Background Image with Opacity */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[url('/welcome_bg.webp')] bg-no-repeat bg-position-[180px_-170px] lg:bg-position-[35%_-200%] xl:bg-position-[35%_-150%] bg-size-[860px_540px] opacity-40"
+      />
+      <div className="relative z-10 max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
+        <div className="min-w-0 w-full">
+          <p
+            className={`text-[14px] uppercase tracking-widest text-heading mb-3.5`}
           >
             Welcome to
+          </p>
+
+          <h2 className={`${playfair.className} text-[48px] leading-14`}>
+            Bharat Bhakti <br />{" "}
+            <span className={`text-heading ${poppins.className} font-medium`}>
+              Sangam
+            </span>
           </h2>
 
-          <h2
-            className={`${cinzel.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] text-primary font-bold leading-widest text-center`}
-          >
-            Bhajan clubbing
-          </h2>
-
-          <p className="mt-6 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center">
+          <p className="mt-6 text-[16px] text-para leading-relaxed">
             India&apos;s most energetic devotional music experience where
             traditional bhajans, kirtans, and mantra chanting blend with modern
             beats and live performances.
           </p>
 
-          <p className="mt-4 text-[clamp(0.75rem,calc(0.607rem+0.714vw),1.25rem)] text-para text-lg leading-relaxed text-center">
+          <p className="mt-4 text-[16px] text-para leading-relaxed">
             Book your{" "}
             <Link
               href={"/booking"}
-              className="font-semibold text-black underline hover:text-primary transition"
+              className="font-semibold text-black underline hover:text-primary transition inline"
             >
               Bhajan Clubbing Tickets
             </Link>{" "}
             , join immersive spiritual EDM nights, and experience devotion like
             never before.
           </p>
+          <div className="flex flex-wrap items-center mt-8 gap-4">
+            <CTAButton label="Book Tickets" href="/bookings" />
+            <CTAButton
+              label="Know More About Us"
+              href="/about"
+              variant="secondary"
+            />
+          </div>
         </div>
 
-        <div className="relative w-[clamp(15.813rem,calc(10.491rem+26.607vw),34.438rem)] h-[clamp(10.313rem,calc(6.866rem+17.232vw),22.375rem)] rounded-lg overflow-hidden mx-auto group aspect-video border-3 border-primary">
+        <div className="relative w-full max-w-125 aspect-square rounded-lg overflow-hidden mx-auto">
           <Image
             src="/welcome.webp"
             alt="Bhajan Clubbing Experience"
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover"
             loading="lazy"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
           />
-
-          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300" />
-          <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
         </div>
       </div>
     </section>
