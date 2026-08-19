@@ -14,7 +14,7 @@ export default function WelcomeSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
         <div className="min-w-0 w-full">
           <p
-            className={`text-[14px] uppercase tracking-widest text-heading mb-3.5`}
+            className={`text-[14px] uppercase tracking-widest font-semibold text-heading mb-3.5`}
           >
             Welcome to
           </p>
