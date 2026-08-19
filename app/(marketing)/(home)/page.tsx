@@ -24,6 +24,7 @@ import FAQSection from "@/_components/sections/Marketing/FAQSection";
 import { homeFAQS } from "@/_lib/constants/home.constants";
 import VideoHero from "@/_components/sections/Marketing/VideoHero";
 import FounderSection from "@/_components/sections/Marketing/Home/FounderSection";
+import OurStorySection from "@/_components/sections/Marketing/Home/OurStorySection";
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
@@ -117,6 +118,10 @@ export default async function HomePage() {
       <WelcomeSection />
       <ExperienceSection />
       <FounderSection />
+      <OurStorySection
+        videoSrc="/hero-video.mp4"
+        posterSrc="/your_custom_dance_poster.webp"
+      />
       <BookingSection
         eventDate={getEventDisplayDate(event) || ""}
         eventTime={`${event.time} Onwards`}
