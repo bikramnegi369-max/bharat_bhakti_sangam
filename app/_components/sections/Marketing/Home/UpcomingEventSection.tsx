@@ -246,6 +246,7 @@ export default function UpcomingEventSection({
                       className="flex flex-col items-center justify-center py-2.5 sm:py-3.5 px-1 sm:px-2 rounded-xl sm:rounded-2xl bg-black/25 backdrop-blur-md border border-white/10 text-center shadow-inner"
                     >
                       <span
+                        suppressHydrationWarning
                         className={clsx(
                           poppins.className,
                           "text-lg sm:text-2xl lg:text-3xl font-bold tracking-tight text-white leading-tight",
@@ -263,7 +264,7 @@ export default function UpcomingEventSection({
                 {/* Interactive CTA Button */}
                 <Link
                   href={ctaHref}
-                  className="group relative flex items-center justify-center gap-2.5 w-full py-3.5 sm:py-4 px-6 rounded-xl sm:rounded-2xl bg-[#E86A17] hover:bg-[#D95D0D] active:scale-[0.98] text-white font-semibold text-[15px] sm:text-base shadow-[0_10px_25px_-5px_rgba(232,106,23,0.5)] transition-all duration-200 cursor-pointer"
+                  className="group relative flex items-center justify-center gap-2.5 w-full py-3.5 sm:py-4 px-6 rounded-xl sm:rounded-2xl bg-[#EC5A05] hover:bg-[#D95D0D] active:scale-[0.98] text-white font-semibold text-[15px] sm:text-base shadow-[0_10px_25px_-5px_rgba(232,106,23,0.5)] transition-all duration-200 cursor-pointer"
                 >
                   <Ticket className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" />
                   <span>{ctaText}</span>
