@@ -17,7 +17,7 @@ export const CTAButton = ({
   external = false,
 }: CTAButtonProps) => {
   const buttonStyles = clsx(
-    "CTAButton relative overflow-hidden px-4 py-1.5 rounded-xl font-medium transition-all duration-200 text-[16px] cursor-pointer flex items-center justify-center active:scale-95",
+    "CTAButton relative overflow-hidden px-5 py-2 rounded-xl font-medium transition-all duration-200 text-[16px] cursor-pointer inline-flex w-fit items-center justify-center active:scale-95",
     // Centered Ripple pseudo-element
     "after:content-[''] after:absolute after:top-1/2 after:left-1/2 after:w-5 after:h-5 after:bg-white/40 after:rounded-full after:opacity-0 after:pointer-events-none after:-translate-x-1/2 after:-translate-y-1/2",
     variant === "primary" &&

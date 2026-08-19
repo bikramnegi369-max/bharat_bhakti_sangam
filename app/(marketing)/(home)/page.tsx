@@ -23,6 +23,7 @@ import { EventApiError } from "@/_features/event/class/EventApiError";
 import FAQSection from "@/_components/sections/Marketing/FAQSection";
 import { homeFAQS } from "@/_lib/constants/home.constants";
 import VideoHero from "@/_components/sections/Marketing/VideoHero";
+import FounderSection from "@/_components/sections/Marketing/Home/FounderSection";
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
@@ -115,6 +116,7 @@ export default async function HomePage() {
       <VideoHero src="/hero-video.mp4" overlay="medium" />
       <WelcomeSection />
       <ExperienceSection />
+      <FounderSection />
       <BookingSection
         eventDate={getEventDisplayDate(event) || ""}
         eventTime={`${event.time} Onwards`}
