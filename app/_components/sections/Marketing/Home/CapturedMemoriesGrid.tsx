@@ -3,16 +3,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Heart, Maximize2, MapPin } from "lucide-react";
-import InstagramLightboxModal, {
-  GalleryItem,
-} from "./InstagramLightboxModal";
+import InstagramLightboxModal, { GalleryItem } from "./InstagramLightboxModal";
 import { poppins } from "@/_lib/fonts";
 
 interface CapturedMemoriesGridProps {
   items: GalleryItem[];
 }
 
-export default function CapturedMemoriesGrid({ items }: CapturedMemoriesGridProps) {
+export default function CapturedMemoriesGrid({
+  items,
+}: CapturedMemoriesGridProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   // Group items into 3 columns matching the exact mockup layout
@@ -67,7 +67,7 @@ export default function CapturedMemoriesGrid({ items }: CapturedMemoriesGridProp
         </div>
 
         {/* Bottom Hover Caption & Social Metadata */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 p-4 sm:p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+        <div className="absolute bottom-0 left-0 right-0 z-10 p-4 sm:p-5 opacity-0 group-hover:opacity-100 transition-opacity text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
           {item.location && (
             <p className="text-[11px] font-medium text-amber-300 flex items-center gap-1 mb-1">
               <MapPin className="w-3 h-3 text-[#E86A17]" />
@@ -76,7 +76,9 @@ export default function CapturedMemoriesGrid({ items }: CapturedMemoriesGridProp
           )}
 
           {item.title && (
-            <h4 className={`${poppins.className} text-sm sm:text-base font-semibold leading-tight text-white mb-2 line-clamp-1`}>
+            <h4
+              className={`${poppins.className} text-sm sm:text-base font-semibold leading-tight text-white mb-2 line-clamp-1`}
+            >
               {item.title}
             </h4>
           )}
@@ -84,9 +86,13 @@ export default function CapturedMemoriesGrid({ items }: CapturedMemoriesGridProp
           <div className="flex items-center justify-between text-xs text-stone-200 border-t border-white/20 pt-2 mt-1">
             <div className="flex items-center gap-1 text-rose-300">
               <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500" />
-              <span className="font-medium text-white">{item.likes ? item.likes.toLocaleString() : "1.2k"}</span>
+              <span className="font-medium text-white">
+                {item.likes ? item.likes.toLocaleString() : "1.2k"}
+              </span>
             </div>
-            <span className="text-[11px] text-stone-300 font-medium">Click to expand</span>
+            <span className="text-[11px] text-stone-300 font-medium">
+              Click to expand
+            </span>
           </div>
         </div>
       </div>
@@ -100,13 +106,15 @@ export default function CapturedMemoriesGrid({ items }: CapturedMemoriesGridProp
         {/* Column 1 (Left) */}
         <div className="flex flex-col gap-5 lg:gap-6">
           {col1Items[0] && renderCard(col1Items[0], "aspect-16/10")}
-          {col1Items[1] && renderCard(col1Items[1], "aspect-3/4 sm:aspect-4/5 lg:aspect-3/4")}
+          {col1Items[1] &&
+            renderCard(col1Items[1], "aspect-3/4 sm:aspect-4/5 lg:aspect-3/4")}
         </div>
 
         {/* Column 2 (Middle) */}
         <div className="flex flex-col gap-5 lg:gap-6">
           {col2Items[0] && renderCard(col2Items[0], "aspect-16/10")}
-          {col2Items[1] && renderCard(col2Items[1], "aspect-1/1 sm:aspect-4/3 lg:aspect-1/1")}
+          {col2Items[1] &&
+            renderCard(col2Items[1], "aspect-1/1 sm:aspect-4/3 lg:aspect-1/1")}
         </div>
 
         {/* Column 3 (Right) */}

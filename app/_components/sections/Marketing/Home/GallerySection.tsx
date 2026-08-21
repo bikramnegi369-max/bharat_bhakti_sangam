@@ -102,21 +102,22 @@ export default function GallerySection({
   viewAllLabel = "View Full Gallery",
   images,
 }: GallerySectionProps) {
-  const displayItems = images && images.length >= 6 ? images : DEFAULT_GALLERY_ITEMS;
+  const displayItems =
+    images && images.length >= 6 ? images : DEFAULT_GALLERY_ITEMS;
 
   return (
     <section className="relative overflow-x-clip bg-[#FCFAF5] py-16 sm:py-20 md:py-24 lg:py-28">
       {/* Decorative Bottom-Left Mandala Graphic (mandala_2.webp) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-16 sm:-bottom-24 md:-bottom-32 -left-16 sm:-left-24 md:-left-32 w-72 sm:w-96 md:w-120 lg:w-144 aspect-square opacity-40 select-none z-0"
+        className="pointer-events-none absolute -bottom-16 sm:-bottom-24 md:-bottom-32 -left-16 sm:-left-24 md:-left-32 w-72 sm:w-96 md:w-120 lg:w-xl aspect-square opacity-40 select-none z-0"
       >
         <Image
           src="/mandala_2.webp"
           alt=""
           fill
           sizes="(max-width: 640px) 288px, (max-width: 768px) 384px, (max-width: 1024px) 480px, 576px"
-          className="object-contain object-left-bottom"
+          className="object-contain object-bottom-left"
           priority={false}
         />
       </div>
