@@ -1,15 +1,36 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEventSection";
 import PassTiersSection, {
   mapEventBookingTypesToPasses,
 } from "@/_components/sections/Marketing/Event/PassTiersSection";
-import AboutArtistsSliderSection from "@/_components/sections/Marketing/Event/AboutArtistsSliderSection";
 import EventLocationSection from "@/_components/sections/Marketing/Event/EventLocationSection";
-import EventGallerySliderSection from "@/_components/sections/Marketing/Event/EventGallerySliderSection";
-import PreviousEventHighlightsSection from "@/_components/sections/Marketing/Event/PreviousEventHighlightsSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import EventHeroSection from "@/_components/sections/Marketing/Event/EventHeroSection";
 import EventQuickInfoBar from "@/_components/sections/Marketing/Event/EventQuickInfoBar";
+
+// Below-the-fold interactive client carousels/modals (dynamically split to reduce initial JS)
+const AboutArtistsSliderSection = dynamic(
+  () =>
+    import(
+      "@/_components/sections/Marketing/Event/AboutArtistsSliderSection"
+    ),
+  { loading: () => null },
+);
+const EventGallerySliderSection = dynamic(
+  () =>
+    import(
+      "@/_components/sections/Marketing/Event/EventGallerySliderSection"
+    ),
+  { loading: () => null },
+);
+const PreviousEventHighlightsSection = dynamic(
+  () =>
+    import(
+      "@/_components/sections/Marketing/Event/PreviousEventHighlightsSection"
+    ),
+  { loading: () => null },
+);
 import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
 import {
   calculateEventDuration,
