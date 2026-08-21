@@ -317,6 +317,21 @@ export const _seoConfig = {
       "spiritual gatherings",
     ],
   },
+  influencer: {
+    path: "/influencer",
+    image: "/ogDefault.png",
+    title: "Become an Official Influencer | Bharat Bhakti Sangam",
+    description:
+      "Join Bharat Bhakti Sangam as an official influencer and be a part of a spiritual movement. Share devotion, culture and tradition with millions of hearts.",
+    keywords: [
+      "Bharat Bhakti Sangam influencer",
+      "devotional influencer collaboration",
+      "spiritual content creator",
+      "bhakti influencer program",
+      "kirtan creator partnership",
+      "bhajan clubbing influencer",
+    ],
+  },
 } satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;
