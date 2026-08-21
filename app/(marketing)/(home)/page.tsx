@@ -61,7 +61,7 @@ const FAQ = dynamic(() => import("@/_components/sections/Marketing/Home/FAQ"), {
   loading: () => null,
 });
 const StayConnectedNewsletter = dynamic(
-  () => import("@/_components/sections/Marketing/Home/StayConnectedNewsletter"),
+  () => import("@/_components/sections/Marketing/StayConnectedNewsletter"),
   { loading: () => null },
 );
 const LocationMapSection = dynamic(

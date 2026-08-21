@@ -4,6 +4,7 @@ import { createPageMetadataFromConfig } from "@/_lib/seo";
 import InfluencerHero from "@/_components/sections/Marketing/Influencer/InfluencerHero";
 import InfluencerWhyCollaborate from "@/_components/sections/Marketing/Influencer/InfluencerWhyCollaborate";
 import InfluencerApplicationProcess from "@/_components/sections/Marketing/Influencer/InfluencerApplicationProcess";
+import StayConnectedNewsletter from "@/_components/sections/Marketing/StayConnectedNewsletter";
 import InfluencerFAQ from "@/_components/sections/Marketing/Influencer/InfluencerFAQ";
 
 // Lazy-load heavy client component (Zod, React Hook Form, Cloudinary Upload)
@@ -29,6 +30,7 @@ export default function InfluencerPage() {
       <InfluencerFormSection />
       <InfluencerApplicationProcess />
       <InfluencerFAQ />
+      <StayConnectedNewsletter />
     </div>
   );
 }
