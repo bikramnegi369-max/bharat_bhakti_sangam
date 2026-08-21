@@ -4,6 +4,7 @@ import PassTiersSection, {
   mapEventBookingTypesToPasses,
 } from "@/_components/sections/Marketing/Event/PassTiersSection";
 import AboutArtistsSliderSection from "@/_components/sections/Marketing/Event/AboutArtistsSliderSection";
+import EventLocationSection from "@/_components/sections/Marketing/Event/EventLocationSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import EventHeroSection from "@/_components/sections/Marketing/Event/EventHeroSection";
 import EventQuickInfoBar from "@/_components/sections/Marketing/Event/EventQuickInfoBar";
@@ -171,6 +172,7 @@ export default async function EventPage() {
       <AboutEventSection description={description} />
       <PassTiersSection passes={mapEventBookingTypesToPasses(event.bookingType)} />
       <AboutArtistsSliderSection artists={event.artists} />
+      <EventLocationSection venue={event.venueName} />
     </div>
   );
 }
