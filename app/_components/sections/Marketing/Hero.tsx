@@ -32,7 +32,7 @@ export default function Hero({
   );
 
   return (
-    <section className="relative h-[clamp(14.375rem,calc(6.339rem+40.179vw),42.5rem)] w-full flex items-center justify-center text-center text-white overflow-hidden my-auto">
+    <section className="relative aspect-16/9 w-full flex items-center justify-center text-center text-white overflow-hidden my-auto">
       <HeroBackgroundImage backgroundImage={backgroundImage} />
 
       {hasContent ? (
