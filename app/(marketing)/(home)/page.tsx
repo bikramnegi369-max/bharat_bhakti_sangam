@@ -19,13 +19,12 @@ import {
 } from "@/_lib/seo";
 import { getLatestEvent } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
-import FAQSection from "@/_components/sections/Marketing/FAQSection";
-import { homeFAQS } from "@/_lib/constants/home.constants";
 import VideoHero from "@/_components/sections/Marketing/VideoHero";
 import FounderSection from "@/_components/sections/Marketing/Home/FounderSection";
 import OurStorySection from "@/_components/sections/Marketing/Home/OurStorySection";
 import WhyJoinUsSection from "@/_components/sections/Marketing/Home/WhyJoinUsSection";
 import ExploreSpiritualIndiaSection from "@/_components/sections/Marketing/Home/ExploreSpiritualIndiaSection";
+import FAQ from "@/_components/sections/Marketing/Home/FAQ";
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
@@ -142,11 +141,7 @@ export default async function HomePage() {
       <ExploreSpiritualIndiaSection />
       <GallerySection />
       <DivineVideoReviewsSection />
-      <FAQSection
-        items={homeFAQS}
-        title="Frequently Asked Questions"
-        groupName="home-faqs"
-      />
+      <FAQ />
       <LocationMapSection />
     </>
   );
