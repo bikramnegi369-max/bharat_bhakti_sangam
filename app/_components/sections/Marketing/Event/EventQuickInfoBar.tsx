@@ -53,7 +53,7 @@ function InfoItem({ icon, label, primaryText, subText }: InfoItemProps) {
         <h3
           className={clsx(
             playfair.className,
-            "text-base sm:text-lg md:text-[1.188rem] lg:text-[1.125rem] xl:text-[1.25rem] font-bold text-[#1F2937] leading-snug break-words",
+            "text-base sm:text-lg md:text-[1.188rem] lg:text-[1.125rem] xl:text-[1.25rem] font-bold text-[#1F2937] leading-snug wrap-break-word",
           )}
         >
           {primaryText}
@@ -64,7 +64,7 @@ function InfoItem({ icon, label, primaryText, subText }: InfoItemProps) {
           <p
             className={clsx(
               poppins.className,
-              "text-xs sm:text-[0.813rem] text-[#6B7280] font-normal mt-0.5 leading-snug break-words",
+              "text-xs sm:text-[0.813rem] text-[#6B7280] font-normal mt-0.5 leading-snug wrap-break-word",
             )}
           >
             {subText}
@@ -104,7 +104,7 @@ export default function EventQuickInfoBar({
       <div
         className={clsx(
           "w-full bg-white rounded-2xl md:rounded-3xl",
-          "border border-black/[0.06]",
+          "border border-black/6",
           "shadow-[0_20px_45px_-15px_rgba(0,0,0,0.08),0_0_1px_1px_rgba(0,0,0,0.02)]",
           "px-5 py-5 sm:px-7 sm:py-6 md:px-8 md:py-6.5 lg:px-10 lg:py-7",
           "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-y-6 sm:gap-x-8 lg:gap-6 xl:gap-8",
