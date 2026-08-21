@@ -6,8 +6,12 @@ import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSe
 import LocationMapSection from "@/_components/sections/Marketing/LocationMapSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import EventHeroSection from "@/_components/sections/Marketing/Event/EventHeroSection";
+import EventQuickInfoBar from "@/_components/sections/Marketing/Event/EventQuickInfoBar";
 import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
 import {
+  calculateEventDuration,
+  formatEventTimeDisplay,
+  formatEventTimeString,
   getEventArtistSummaries,
   getEventDescription,
   getEventDisplayDate,
@@ -65,6 +69,33 @@ export default async function EventPage() {
   const eventDate = getEventDisplayDate(event);
   const image = getEventImage(event);
   const artistSummaries = getEventArtistSummaries(event);
+
+  // Format date parts for Quick Info Bar
+  const parsedEventDate = new Date(event.date);
+  const hasValidDate = !Number.isNaN(parsedEventDate.getTime());
+  const datePrimary = hasValidDate
+    ? new Intl.DateTimeFormat("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        timeZone: "Asia/Kolkata",
+      }).format(parsedEventDate)
+    : (eventDate ?? "Upcoming");
+  const dateSub = hasValidDate
+    ? new Intl.DateTimeFormat("en-IN", {
+        weekday: "long",
+        timeZone: "Asia/Kolkata",
+      }).format(parsedEventDate)
+    : undefined;
+
+  const venuePrimary = getEventVenueName(event);
+  const venueSub = getEventVenueAddress(event);
+
+  // Calculate dynamic start + end time display (e.g., "5:00 PM - 10:00 PM")
+  const timeDisplay = formatEventTimeDisplay(event);
+
+  // Calculate dynamic duration from event details
+  const duration = calculateEventDuration(event);
   const eventJsonLd = {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -125,7 +156,24 @@ export default async function EventPage() {
         ctaHref="/booking"
         backgroundImage={image ?? "/event.webp"}
       />
-      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
+      {/* Overlapping Event Quick Info Highlights - subtle overlap on mobile/tablet, 50% seam centered on desktop (1024px+) */}
+      <div className="-mt-6 sm:-mt-10 lg:mt-0 lg:-translate-y-1/2 relative z-20">
+        <EventQuickInfoBar
+          date={{
+            primaryText: datePrimary,
+            subText: dateSub,
+          }}
+          time={timeDisplay}
+          venue={{
+            primaryText: venuePrimary.endsWith(",")
+              ? venuePrimary
+              : `${venuePrimary},`,
+            subText: venueSub,
+          }}
+          duration={duration}
+        />
+      </div>
+      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] pt-6 sm:pt-8 lg:pt-4 pb-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* LEFT */}
           <div className="flex flex-col gap-6 h-full lg:col-span-2">

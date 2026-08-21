@@ -49,8 +49,8 @@ export default function EventHeroSection({
         className="absolute inset-0 bg-radial from-transparent via-black/20 to-black/75 pointer-events-none"
       />
 
-      {/* Main Hero Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-12 sm:py-16 lg:py-20 flex flex-col justify-center">
+      {/* Main Hero Container - extra bottom padding on mobile/tablet to prevent overlap occlusion */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-12 pb-16 sm:pt-16 sm:pb-20 md:pb-24 lg:py-20 flex flex-col justify-center">
         <div className="max-w-3xl lg:max-w-4xl flex flex-col items-start text-left">
           {/* Eyebrow / Tagline with decorative gold accents */}
           {eyebrow && (

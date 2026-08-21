@@ -78,6 +78,161 @@ export function formatLocalizedDateTimeParts(value?: string | null) {
   };
 }
 
+/**
+ * Parses time strings such as "05:00PM", "5:00 PM", "17:00", "05:00" into total minutes from midnight.
+ */
+export function parseTimeToMinutes(timeStr?: string | null): number | null {
+  if (!timeStr || typeof timeStr !== "string") return null;
+
+  const trimmed = timeStr.trim();
+  const match = trimmed.match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?$/i);
+  if (!match) {
+    // Attempt Date object parsing if it's an ISO timestamp
+    const parsedDate = new Date(trimmed);
+    if (!Number.isNaN(parsedDate.getTime())) {
+      return parsedDate.getHours() * 60 + parsedDate.getMinutes();
+    }
+    return null;
+  }
+
+  let hours = parseInt(match[1], 10);
+  const minutes = match[2] ? parseInt(match[2], 10) : 0;
+  const meridian = match[3]?.toUpperCase();
+
+  if (meridian === "PM" && hours < 12) hours += 12;
+  if (meridian === "AM" && hours === 12) hours = 0;
+
+  return hours * 60 + minutes;
+}
+
+/**
+ * Formats "05:00PM" or "17:00" into a user-friendly "5:00 PM".
+ */
+export function formatEventTimeString(timeStr?: string | null): string | null {
+  if (!timeStr) return null;
+  const minutes = parseTimeToMinutes(timeStr);
+  if (minutes === null) return timeStr;
+
+  const hours24 = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  const period = hours24 >= 12 ? "PM" : "AM";
+  const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
+  const formattedMinutes = mins < 10 ? `0${mins}` : mins;
+
+  return `${hours12}:${formattedMinutes} ${period}`;
+}
+
+/**
+ * Returns formatted time display object with primaryText (e.g., "5:00 PM - 10:00 PM" or "5:00 PM")
+ * and subText (e.g. "(IST)" or "Onwards").
+ */
+export function formatEventTimeDisplay(event: Partial<LatestEvent>): {
+  primaryText: string;
+  subText?: string;
+} {
+  const formattedStart = formatEventTimeString(event.startTime);
+  const formattedEnd = formatEventTimeString(event.endTime);
+
+  if (formattedStart && formattedEnd) {
+    return {
+      primaryText: `${formattedStart} - ${formattedEnd}`,
+      subText: "IST",
+    };
+  }
+
+  if (formattedStart) {
+    return {
+      primaryText: formattedStart,
+      subText: "Onwards",
+    };
+  }
+
+  if (event.time?.trim()) {
+    // Check if event.time already contains a range
+    const parts = event.time.split(/[-–—to]+/i).map((s) => s.trim());
+    if (parts.length === 2) {
+      const p1 = formatEventTimeString(parts[0]) || parts[0];
+      const p2 = formatEventTimeString(parts[1]) || parts[1];
+      return {
+        primaryText: `${p1} - ${p2}`,
+        subText: "IST",
+      };
+    }
+
+    const formatted = formatEventTimeString(event.time);
+    return {
+      primaryText: formatted || event.time.trim(),
+      subText: "Onwards",
+    };
+  }
+
+  return {
+    primaryText: "6:00 PM",
+    subText: "Onwards",
+  };
+}
+
+export function calculateEventDuration(
+  event: Partial<LatestEvent>,
+): { primaryText: string; subText?: string } {
+  // 1. Calculate from startTime and endTime (e.g. "05:00PM" and "10:00PM" or ISO timestamps)
+  if (event.startTime && event.endTime) {
+    const startMinutes = parseTimeToMinutes(event.startTime);
+    const endMinutes = parseTimeToMinutes(event.endTime);
+
+    if (startMinutes !== null && endMinutes !== null) {
+      let diff = endMinutes - startMinutes;
+      if (diff < 0) diff += 24 * 60; // Rollover past midnight
+
+      if (diff > 0) {
+        const hours = Math.floor(diff / 60);
+        const mins = diff % 60;
+
+        if (hours > 0 && mins > 0) {
+          return { primaryText: `${hours}h ${mins}m`, subText: "(Approx.)" };
+        }
+        if (hours > 0) {
+          return { primaryText: `${hours} ${hours === 1 ? "Hour" : "Hours"}`, subText: "(Approx.)" };
+        }
+        return { primaryText: `${mins} Minutes`, subText: "(Approx.)" };
+      }
+    }
+  }
+
+  // 2. Try parsing a time range string in event.time (e.g. "05:00PM - 10:00PM" or "6:00 PM - 10:00 PM")
+  if (event.time && typeof event.time === "string") {
+    const parts = event.time.split(/[-–—to]+/i).map((s) => s.trim());
+    if (parts.length === 2) {
+      const startMinutes = parseTimeToMinutes(parts[0]);
+      const endMinutes = parseTimeToMinutes(parts[1]);
+
+      if (startMinutes !== null && endMinutes !== null) {
+        let diff = endMinutes - startMinutes;
+        if (diff < 0) diff += 24 * 60; // Rollover past midnight
+
+        const hours = Math.floor(diff / 60);
+        const mins = diff % 60;
+
+        if (hours > 0 && mins > 0) {
+          return { primaryText: `${hours}h ${mins}m`, subText: "(Approx.)" };
+        }
+        if (hours > 0) {
+          return { primaryText: `${hours} ${hours === 1 ? "Hour" : "Hours"}`, subText: "(Approx.)" };
+        }
+        if (mins > 0) {
+          return { primaryText: `${mins} Minutes`, subText: "(Approx.)" };
+        }
+      }
+    }
+  }
+
+  // Fallback to default estimated duration
+  return {
+    primaryText: "4 Hours",
+    subText: "(Approx.)",
+  };
+}
+
 export function getEventDisplayDate(event: LatestEvent) {
   const formattedDate = formatEventDate(event.date);
   return formattedDate;
