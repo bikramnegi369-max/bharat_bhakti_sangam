@@ -8,14 +8,16 @@ import {
 
 const HERO_IMAGE_SIZES = "100vw";
 const HERO_IMAGE_WIDTHS = [640, 750, 828, 1080, 1200, 1920, 2048, 3840];
-const HERO_FALLBACK_WIDTH = 1200;
+const HERO_FALLBACK_WIDTH = 1920;
 
 type HeroBackgroundImageProps = {
   backgroundImage?: string;
+  className?: string;
 };
 
 export default function HeroBackgroundImage({
   backgroundImage,
+  className,
 }: HeroBackgroundImageProps) {
   if (!backgroundImage) {
     return null;
@@ -27,10 +29,10 @@ export default function HeroBackgroundImage({
         src={backgroundImage}
         alt=""
         fill
-        preload
+        priority
         aria-hidden="true"
         sizes={HERO_IMAGE_SIZES}
-        className="object-cover object-bottom-right"
+        className={className || "object-cover object-center"}
       />
     );
   }
@@ -59,7 +61,7 @@ export default function HeroBackgroundImage({
       loading="eager"
       decoding="async"
       aria-hidden="true"
-      className="absolute inset-0 h-full w-full object-cover object-bottom-right"
+      className={className || "absolute inset-0 h-full w-full object-cover object-center"}
     />
   );
 }

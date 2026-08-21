@@ -21,5 +21,5 @@ export const lato = Lato({
 export const playfair = Playfair({
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400"],
-})
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+});

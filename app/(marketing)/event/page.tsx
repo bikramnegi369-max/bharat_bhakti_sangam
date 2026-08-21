@@ -4,9 +4,8 @@ import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEvent
 import AboutArtistsDetailedSection from "@/_components/sections/Marketing/Event/AboutArtistsDetailedSection";
 import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSection";
 import LocationMapSection from "@/_components/sections/Marketing/LocationMapSection";
-// import { SponsorSection } from "@/_components/sections/Marketing/Event/SponsorSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
-import Hero from "@/_components/sections/Marketing/Hero";
+import EventHeroSection from "@/_components/sections/Marketing/Event/EventHeroSection";
 import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
 import {
   getEventArtistSummaries,
@@ -120,11 +119,10 @@ export default async function EventPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(eventJsonLd)}
       />
-      <Hero
+      <EventHeroSection
         title={event.eventName}
-        location={getEventVenueName(event)}
-        address={getEventVenueAddress(event)}
-        date={eventDate}
+        ctaLabel="Book Your Pass Now"
+        ctaHref="/booking"
         backgroundImage={image ?? "/event.webp"}
       />
       <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
