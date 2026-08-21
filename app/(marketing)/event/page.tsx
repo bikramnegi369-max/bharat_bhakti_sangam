@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import AboutArtistSection from "@/_components/sections/Marketing/Event/AboutArtistSection";
 import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEventSection";
-import AboutArtistsDetailedSection from "@/_components/sections/Marketing/Event/AboutArtistsDetailedSection";
-import EventInfoSection from "@/_components/sections/Marketing/Event/EventInfoSection";
-import LocationMapSection from "@/_components/sections/Marketing/LocationMapSection";
+import PassTiersSection, {
+  mapEventBookingTypesToPasses,
+} from "@/_components/sections/Marketing/Event/PassTiersSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import EventHeroSection from "@/_components/sections/Marketing/Event/EventHeroSection";
 import EventQuickInfoBar from "@/_components/sections/Marketing/Event/EventQuickInfoBar";
@@ -11,7 +10,6 @@ import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
 import {
   calculateEventDuration,
   formatEventTimeDisplay,
-  formatEventTimeString,
   getEventArtistSummaries,
   getEventDescription,
   getEventDisplayDate,
@@ -27,8 +25,6 @@ import {
 } from "@/_lib/seo";
 import { getLatestEvent } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
-import { DEFAULT_FAQS } from "@/_lib/constants/event.constants";
-import FAQSection from "@/_components/sections/Marketing/FAQSection";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -68,7 +64,6 @@ export default async function EventPage() {
   const description = getEventDescription(event);
   const eventDate = getEventDisplayDate(event);
   const image = getEventImage(event);
-  const artistSummaries = getEventArtistSummaries(event);
 
   // Format date parts for Quick Info Bar
   const parsedEventDate = new Date(event.date);
@@ -174,6 +169,7 @@ export default async function EventPage() {
         />
       </div>
       <AboutEventSection description={description} />
+      <PassTiersSection passes={mapEventBookingTypesToPasses(event.bookingType)} />
     </div>
   );
 }

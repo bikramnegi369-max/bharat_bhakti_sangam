@@ -4,7 +4,8 @@ import Hero from "@/_components/sections/Marketing/Hero";
 import BookingForm from "@/_features/bookings/components/BookingForm";
 import BookingFormStatus from "@/_features/bookings/components/BookingFormStatus";
 import { useBookingForm } from "@/_hooks/useBookingForm";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import { sendGAEvent } from "@next/third-parties/google";
 import { FormProvider } from "react-hook-form";
 import { trackMetaPixel } from "@/_lib/meta-pixel";
@@ -22,6 +23,7 @@ type BookingPageClientProps = {
   eventAddress?: string;
   heroImage: string;
   ticketTypes: TicketType[];
+  initialTicketType?: string;
 };
 
 export function BookingPageClient({
@@ -32,7 +34,21 @@ export function BookingPageClient({
   eventAddress,
   heroImage,
   ticketTypes,
+  initialTicketType,
 }: BookingPageClientProps) {
+  const searchParams = useSearchParams();
+  const passParam = searchParams.get("pass");
+
+  const resolvedPass = useMemo(() => {
+    if (passParam) {
+      const match = ticketTypes.find(
+        (t) => t.name.toLowerCase().trim() === passParam.toLowerCase().trim(),
+      );
+      if (match) return match.name;
+    }
+    return initialTicketType || ticketTypes[0]?.name || "";
+  }, [passParam, initialTicketType, ticketTypes]);
+
   const {
     methods,
     onSubmit,
@@ -40,7 +56,13 @@ export function BookingPageClient({
     status,
     specificErrorMessage,
     reset,
-  } = useBookingForm(ticketTypes[0]?.name, eventId, eventTitle);
+  } = useBookingForm(resolvedPass, eventId, eventTitle);
+
+  useEffect(() => {
+    if (resolvedPass) {
+      methods.setValue("ticketType", resolvedPass);
+    }
+  }, [resolvedPass, methods]);
   const formRef = useRef<HTMLFormElement | null>(null);
   const statusRef = useRef<HTMLDivElement | null>(null);
 

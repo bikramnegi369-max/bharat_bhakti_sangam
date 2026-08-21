@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import { getSeoKeywords } from "@/_config/Seo.config";
 import {
@@ -32,9 +33,16 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function BookingPage() {
+type BookingPageProps = {
+  searchParams?: Promise<{ pass?: string }>;
+};
+
+export default async function BookingPage({ searchParams }: BookingPageProps) {
   let event;
   let message: string | null = null;
+
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const requestedPass = resolvedSearchParams?.pass;
 
   try {
     event = await getLatestEvent();
@@ -54,23 +62,33 @@ export default async function BookingPage() {
     );
   }
 
+  const ticketTypes = (
+    Array.isArray(event.bookingType) ? event.bookingType : [event.bookingType]
+  )
+    .filter((t) => !!t)
+    .map((t) => ({
+      name: t?.name || "Pass",
+      price: t?.price || 0,
+    }));
+
+  const matchedPass = requestedPass
+    ? ticketTypes.find(
+        (t) => t.name.toLowerCase().trim() === requestedPass.toLowerCase().trim(),
+      )?.name
+    : undefined;
+
   return (
-    <BookingPageClient
-      eventId={event._id}
-      eventTitle={event.eventName}
-      eventDate={getEventDisplayDate(event)}
-      eventLocation={getEventVenueName(event)}
-      eventAddress={getEventVenueAddress(event)}
-      heroImage={getEventImage(event)}
-      ticketTypes={(Array.isArray(event.bookingType)
-        ? event.bookingType
-        : [event.bookingType]
-      )
-        .filter((t) => !!t)
-        .map((t) => ({
-          name: t?.name || "Pass",
-          price: t?.price || 0,
-        }))}
-    />
+    <Suspense>
+      <BookingPageClient
+        eventId={event._id}
+        eventTitle={event.eventName}
+        eventDate={getEventDisplayDate(event)}
+        eventLocation={getEventVenueName(event)}
+        eventAddress={getEventVenueAddress(event)}
+        heroImage={getEventImage(event)}
+        ticketTypes={ticketTypes}
+        initialTicketType={matchedPass || ticketTypes[0]?.name}
+      />
+    </Suspense>
   );
 }
