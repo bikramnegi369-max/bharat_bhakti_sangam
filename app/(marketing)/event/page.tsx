@@ -3,6 +3,7 @@ import AboutEventSection from "@/_components/sections/Marketing/Event/AboutEvent
 import PassTiersSection, {
   mapEventBookingTypesToPasses,
 } from "@/_components/sections/Marketing/Event/PassTiersSection";
+import AboutArtistsSliderSection from "@/_components/sections/Marketing/Event/AboutArtistsSliderSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import EventHeroSection from "@/_components/sections/Marketing/Event/EventHeroSection";
 import EventQuickInfoBar from "@/_components/sections/Marketing/Event/EventQuickInfoBar";
@@ -10,7 +11,6 @@ import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
 import {
   calculateEventDuration,
   formatEventTimeDisplay,
-  getEventArtistSummaries,
   getEventDescription,
   getEventDisplayDate,
   getEventImage,
@@ -170,6 +170,7 @@ export default async function EventPage() {
       </div>
       <AboutEventSection description={description} />
       <PassTiersSection passes={mapEventBookingTypesToPasses(event.bookingType)} />
+      <AboutArtistsSliderSection artists={event.artists} />
     </div>
   );
 }
