@@ -45,6 +45,13 @@ const GallerySection = dynamic(
     loading: () => null,
   },
 );
+const DivineVideoReviewsSection = dynamic(
+  () =>
+    import("@/_components/sections/Marketing/Home/DivineVideoReviewsSection"),
+  {
+    loading: () => null,
+  },
+);
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -63,12 +70,6 @@ export async function generateMetadata(): Promise<Metadata> {
     return createPageMetadataFromConfig("home");
   }
 }
-
-const IMAGES = [
-  { src: "/gallery/gallery_1.webp" },
-  { src: "/gallery/gallery_2.webp" },
-  { src: "/gallery/gallery_3.webp" },
-];
 
 export default async function HomePage() {
   let event;
@@ -140,6 +141,7 @@ export default async function HomePage() {
       />
       <ExploreSpiritualIndiaSection />
       <GallerySection />
+      <DivineVideoReviewsSection />
       <FAQSection
         items={homeFAQS}
         title="Frequently Asked Questions"
