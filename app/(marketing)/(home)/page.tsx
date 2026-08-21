@@ -25,6 +25,7 @@ import VideoHero from "@/_components/sections/Marketing/VideoHero";
 import FounderSection from "@/_components/sections/Marketing/Home/FounderSection";
 import OurStorySection from "@/_components/sections/Marketing/Home/OurStorySection";
 import WhyJoinUsSection from "@/_components/sections/Marketing/Home/WhyJoinUsSection";
+import ExploreSpiritualIndiaSection from "@/_components/sections/Marketing/Home/ExploreSpiritualIndiaSection";
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
@@ -137,6 +138,7 @@ export default async function HomePage() {
         ctaHref="/booking"
         ctaText="Book Your Seat Now"
       />
+      <ExploreSpiritualIndiaSection />
       <GallerySection images={IMAGES} />
       <FAQSection
         items={homeFAQS}
