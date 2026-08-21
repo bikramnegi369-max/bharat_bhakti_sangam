@@ -25,6 +25,7 @@ import OurStorySection from "@/_components/sections/Marketing/Home/OurStorySecti
 import WhyJoinUsSection from "@/_components/sections/Marketing/Home/WhyJoinUsSection";
 import ExploreSpiritualIndiaSection from "@/_components/sections/Marketing/Home/ExploreSpiritualIndiaSection";
 import FAQ from "@/_components/sections/Marketing/Home/FAQ";
+import StayConnectedNewsletter from "@/_components/sections/Marketing/Home/StayConnectedNewsletter";
 
 const ExperienceSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
@@ -142,6 +143,7 @@ export default async function HomePage() {
       <GallerySection />
       <DivineVideoReviewsSection />
       <FAQ />
+      <StayConnectedNewsletter />
       <LocationMapSection />
     </>
   );
