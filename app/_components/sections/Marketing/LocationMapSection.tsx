@@ -1,94 +1,183 @@
-import { Compass, LocateFixed, MapPin, Navigation } from "lucide-react";
-import { cinzel } from "@/_lib/fonts";
+import clsx from "clsx";
+import { playfair, poppins } from "@/_lib/fonts";
 
-const COORDINATES = "28.395722,76.967194";
-const MAP_QUERY = encodeURIComponent(COORDINATES);
-const MAP_EMBED_URL = `https://maps.google.com/maps?q=${MAP_QUERY}&z=16&output=embed`;
-const MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${MAP_QUERY}`;
+export interface LocationMapSectionProps {
+  title?: string;
+  subheading?: string;
+  companyName?: string;
+  addressLines?: string[];
+  contactHeading?: string;
+  phone?: string;
+  email?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  mapQuery?: string;
+  className?: string;
+}
 
-export default function LocationMapSection() {
+const DEFAULT_ADDRESS = [
+  "Bharat Bhakti Sangam,",
+  "Plot No. 190, KH No. 114 1st Flr, Vipin Garden Extn,",
+  "G.No. 37, Uttam Nagar, New Delhi - 110059, Delhi",
+];
+
+const DEFAULT_MAP_QUERY =
+  "Plot No.190,KH No.114 1st Flr, Vipin Garden Extn,G.No.37, Uttam Nagar, New Delhi 110059";
+
+export default function LocationMapSection({
+  title = "Our Location",
+  subheading = "FIND US HERE",
+  companyName = "Bharat Bhakti Sangam",
+  addressLines = DEFAULT_ADDRESS,
+  contactHeading = "CONTACT US",
+  phone = "+91 8796086743",
+  email = "contact@bharatbhaktisangam.com",
+  ctaText = "Get Directions",
+  ctaHref,
+  mapQuery = DEFAULT_MAP_QUERY,
+  className,
+}: LocationMapSectionProps) {
+  const encodedQuery = encodeURIComponent(mapQuery);
+  const mapEmbedUrl = `https://maps.google.com/maps?q=${encodedQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  const directionsUrl =
+    ctaHref ||
+    `https://www.google.com/maps/dir/?api=1&destination=${encodedQuery}`;
+
   return (
-    <section className="bg-secondary py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] lg:grid-cols-[0.8fr_1.2fr] lg:items-stretch">
-        <div className="relative overflow-hidden rounded-lg border border-primary/35 bg-white p-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] shadow-2xl shadow-primary/10">
-          <div className="absolute inset-y-0 left-0 w-1.5 bg-primary" />
-          <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-primary/70 to-transparent" />
-          <div className="flex h-full flex-col justify-between gap-10">
+    <section
+      aria-labelledby="our-location-heading"
+      className={clsx(
+        "relative w-full py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] overflow-hidden",
+        className,
+      )}
+    >
+      <div className="relative max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
+        {/* Outer Card Container matching design */}
+        <div
+          className={clsx(
+            "relative w-full rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden",
+            "bg-[#FFFDF9] border border-[#F2E8DC]",
+            "shadow-[0_8px_30px_rgba(116,14,10,0.04)]",
+            "grid grid-cols-1 lg:grid-cols-12",
+          )}
+        >
+          {/* Left Column: Location & Contact Details (5 cols on lg / 1024px) */}
+          <div
+            className={clsx(
+              "lg:col-span-5 flex flex-col justify-between",
+              "p-[clamp(1.75rem,calc(1.25rem+2vw),3.25rem)]",
+              "bg-[#FFFDF9]",
+            )}
+          >
             <div>
-              <div className="mb-6 flex items-center gap-3">
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-md bg-primary text-black shadow-lg shadow-primary/25">
-                  <MapPin className="h-6 w-6" aria-hidden="true" />
-                </span>
-                <span className="h-px flex-1 bg-primary/30" />
-              </div>
-
+              {/* Heading */}
               <h2
-                className={`text-[clamp(1.75rem,calc(1.321rem+2.143vw),3.25rem)] font-bold leading-tight text-heading ${cinzel.className}`}
+                id="our-location-heading"
+                className={clsx(
+                  playfair.className,
+                  "text-[#740E0A] font-semibold tracking-tight",
+                  "text-[clamp(2rem,calc(1.5rem+1.8vw),3rem)] leading-tight",
+                  "mb-6 sm:mb-8",
+                )}
               >
-                Event Location
+                {title}
               </h2>
 
-              <p className="mt-3 text-xs font-bold uppercase tracking-[0.22em] text-primary sm:text-sm">
-                Find us on Google Maps
-              </p>
+              {/* Address Block */}
+              <address className="not-italic flex flex-col gap-1.5 mb-6 sm:mb-8">
+                <span
+                  className={clsx(
+                    poppins.className,
+                    "text-[11px] sm:text-xs font-semibold tracking-[0.2em] text-[#C49A70] uppercase mb-1",
+                  )}
+                >
+                  {subheading}
+                </span>
 
-              <p className="mt-5 max-w-md text-sm leading-7 text-para sm:text-base">
-                A clear pinned location for smooth arrival, parking handoff,
-                and quick turn-by-turn directions to the gathering.
-              </p>
-
-              <div className="mt-8 grid gap-5 border-y border-heading/10 py-6">
-                <div className="flex items-start gap-4">
-                  <span className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-secondary text-primary">
-                    <LocateFixed className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-sub_text">
-                      Venue
+                <div
+                  className={clsx(
+                    poppins.className,
+                    "text-[#5A4A42] text-[clamp(0.925rem,calc(0.875rem+0.2vw),1.05rem)] leading-relaxed font-normal",
+                  )}
+                >
+                  {addressLines.map((line, idx) => (
+                    <p key={idx} className="leading-snug mb-0.5 last:mb-0">
+                      {line}
                     </p>
-                    <p className="mt-1 text-[clamp(1rem,calc(0.929rem+0.357vw),1.25rem)] font-semibold text-heading">
-                      Bharat Bhakti Sangam Venue
-                    </p>
-                  </div>
+                  ))}
                 </div>
+              </address>
 
-                <div className="flex items-start gap-4">
-                  <span className="mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-secondary text-primary">
-                    <Compass className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-sub_text">
-                      Arrival
-                    </p>
-                    <p className="mt-1 text-sm leading-6 text-para sm:text-base">
-                      Open the map before you leave for the most accurate route.
-                    </p>
-                  </div>
-                </div>
+              {/* Contact Block */}
+              <div className="flex flex-col gap-1.5 mb-8 sm:mb-10">
+                <span
+                  className={clsx(
+                    poppins.className,
+                    "text-[11px] sm:text-xs font-semibold tracking-[0.2em] text-[#C49A70] uppercase mb-1",
+                  )}
+                >
+                  {contactHeading}
+                </span>
+
+                {phone && (
+                  <a
+                    href={`tel:${phone.replace(/\s+/g, "")}`}
+                    className={clsx(
+                      poppins.className,
+                      "text-[#5A4A42] text-[clamp(0.925rem,calc(0.875rem+0.2vw),1.05rem)] font-normal transition-colors duration-200 hover:text-[#740E0A] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm w-fit",
+                    )}
+                  >
+                    {phone}
+                  </a>
+                )}
+
+                {email && (
+                  <a
+                    href={`mailto:${email}`}
+                    className={clsx(
+                      poppins.className,
+                      "text-[#5A4A42] text-[clamp(0.925rem,calc(0.875rem+0.2vw),1.05rem)] font-normal transition-colors duration-200 hover:text-[#740E0A] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded-sm w-fit break-all",
+                    )}
+                  >
+                    {email}
+                  </a>
+                )}
               </div>
             </div>
 
-            <a
-              href={MAP_DIRECTIONS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-md bg-primary px-5 py-3.5 text-sm font-bold text-black shadow-lg shadow-primary/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-primary/40 active:translate-y-0 active:scale-95 sm:min-w-52"
-            >
-              <Navigation className="h-4 w-4" aria-hidden="true" />
-              Get Directions
-            </a>
+            {/* CTA Button */}
+            <div>
+              <a
+                href={directionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={clsx(
+                  poppins.className,
+                  "inline-flex items-center justify-center text-center",
+                  "px-7 py-3 sm:px-8 sm:py-3.5 rounded-xl sm:rounded-2xl",
+                  "bg-[#740E0A] hover:bg-[#5E0B08] text-white font-medium text-[15px] sm:text-[16px]",
+                  "shadow-[0_4px_16px_rgba(116,14,10,0.25)] hover:shadow-[0_6px_20px_rgba(116,14,10,0.35)]",
+                  "transition-all duration-200 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 cursor-pointer",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#740E0A] focus-visible:ring-offset-2",
+                )}
+                aria-label={`Get directions to ${companyName} on Google Maps`}
+              >
+                {ctaText}
+              </a>
+            </div>
           </div>
-        </div>
 
-        <div className="min-h-[22rem] overflow-hidden rounded-lg border-3 border-primary bg-white shadow-2xl lg:min-h-[30rem]">
-          <iframe
-            title="Bharat Bhakti Sangam Google Map"
-            src={MAP_EMBED_URL}
-            className="h-full min-h-[22rem] w-full border-0 lg:min-h-[30rem]"
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          {/* Right Column: Google Maps Embed (7 cols on lg / 1024px) */}
+          <div className="lg:col-span-7 relative min-h-75 sm:min-h-95 lg:min-h-110 w-full bg-[#F4EDE4]">
+            <iframe
+              title={`${companyName} Location Map`}
+              src={mapEmbedUrl}
+              className="absolute inset-0 w-full h-full border-0"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </div>
     </section>
