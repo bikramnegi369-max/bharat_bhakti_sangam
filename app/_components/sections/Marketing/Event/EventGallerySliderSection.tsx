@@ -202,13 +202,13 @@ export default function EventGallerySliderSection({
     <section
       aria-labelledby="event-gallery-heading"
       className={clsx(
-        "w-full py-12 sm:py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden",
+        "w-full py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] relative overflow-hidden",
         className,
       )}
     >
-      <div className="w-full max-w-360 mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading with decorative gold filigree dashes matching the reference image */}
-        <div className="flex items-center justify-center gap-3 sm:gap-5 mb-8 sm:mb-12 md:mb-14">
+        <div className="flex items-center justify-center gap-3 sm:gap-5 mb-6 sm:mb-8 md:mb-10">
           {/* Left Decorative Gold Wing Graphic */}
           <div
             aria-hidden="true"

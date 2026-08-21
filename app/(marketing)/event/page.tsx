@@ -6,6 +6,7 @@ import PassTiersSection, {
 import AboutArtistsSliderSection from "@/_components/sections/Marketing/Event/AboutArtistsSliderSection";
 import EventLocationSection from "@/_components/sections/Marketing/Event/EventLocationSection";
 import EventGallerySliderSection from "@/_components/sections/Marketing/Event/EventGallerySliderSection";
+import PreviousEventHighlightsSection from "@/_components/sections/Marketing/Event/PreviousEventHighlightsSection";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import EventHeroSection from "@/_components/sections/Marketing/Event/EventHeroSection";
 import EventQuickInfoBar from "@/_components/sections/Marketing/Event/EventQuickInfoBar";
@@ -175,6 +176,7 @@ export default async function EventPage() {
       <AboutArtistsSliderSection artists={event.artists} />
       <EventLocationSection venue={event.venueName} />
       <EventGallerySliderSection />
+      <PreviousEventHighlightsSection />
     </div>
   );
 }
