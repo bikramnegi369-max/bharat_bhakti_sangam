@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
-import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
-import LocationMapSection from "@/_components/sections/Marketing/LocationMapSection";
 import { getSeoKeywords } from "@/_config/Seo.config";
 import { siteConfig } from "@/_config/Site.config";
 import {
@@ -19,38 +17,56 @@ import {
 } from "@/_lib/seo";
 import { getLatestEvent } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
-import VideoHero from "@/_components/sections/Marketing/VideoHero";
-import FounderSection from "@/_components/sections/Marketing/Home/FounderSection";
-import OurStorySection from "@/_components/sections/Marketing/Home/OurStorySection";
-import WhyJoinUsSection from "@/_components/sections/Marketing/Home/WhyJoinUsSection";
-import ExploreSpiritualIndiaSection from "@/_components/sections/Marketing/Home/ExploreSpiritualIndiaSection";
-import FAQ from "@/_components/sections/Marketing/Home/FAQ";
-import StayConnectedNewsletter from "@/_components/sections/Marketing/Home/StayConnectedNewsletter";
 
-const ExperienceSection = dynamic(
-  () => import("@/_components/sections/Marketing/Home/ExperienceSection"),
-  {
-    loading: () => null,
-  },
+// Above-the-fold Critical UI (Static imports for instant FCP / LCP)
+import VideoHero from "@/_components/sections/Marketing/VideoHero";
+import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
+
+// Below-the-fold Components (Dynamic imports for chunk splitting & reduced initial JS bundle)
+const FounderSection = dynamic(
+  () => import("@/_components/sections/Marketing/Home/FounderSection"),
+  { loading: () => null },
+);
+const OurStorySection = dynamic(
+  () => import("@/_components/sections/Marketing/Home/OurStorySection"),
+  { loading: () => null },
+);
+const WhyJoinUsSection = dynamic(
+  () => import("@/_components/sections/Marketing/Home/WhyJoinUsSection"),
+  { loading: () => null },
 );
 const UpcomingEventSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/UpcomingEventSection"),
-  {
-    loading: () => null,
-  },
+  { loading: () => null },
+);
+const ExploreSpiritualIndiaSection = dynamic(
+  () =>
+    import("@/_components/sections/Marketing/Home/ExploreSpiritualIndiaSection"),
+  { loading: () => null },
 );
 const GallerySection = dynamic(
   () => import("@/_components/sections/Marketing/Home/GallerySection"),
-  {
-    loading: () => null,
-  },
+  { loading: () => null },
+);
+const InstaHighlightsSection = dynamic(
+  () => import("@/_components/sections/Marketing/Home/InstaHighlightsSection"),
+  { loading: () => null },
 );
 const DivineVideoReviewsSection = dynamic(
   () =>
     import("@/_components/sections/Marketing/Home/DivineVideoReviewsSection"),
-  {
-    loading: () => null,
-  },
+  { loading: () => null },
+);
+const FAQ = dynamic(() => import("@/_components/sections/Marketing/Home/FAQ"), {
+  loading: () => null,
+});
+const StayConnectedNewsletter = dynamic(
+  () => import("@/_components/sections/Marketing/Home/StayConnectedNewsletter"),
+  { loading: () => null },
+);
+const LocationMapSection = dynamic(
+  () => import("@/_components/sections/Marketing/LocationMapSection"),
+  { loading: () => null },
 );
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -118,7 +134,7 @@ export default async function HomePage() {
       /> */}
       <VideoHero src="/hero-video.mp4" overlay="medium" />
       <WelcomeSection />
-      <ExperienceSection />
+      <InstaHighlightsSection />
       <FounderSection />
       <OurStorySection
         videoSrc="/hero-video.mp4"
