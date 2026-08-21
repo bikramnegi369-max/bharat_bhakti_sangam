@@ -25,7 +25,14 @@ const securityHeaders = [
   },
 ];
 
-const devOrigins = ["localhost:3000", "*.devtunnels.ms", "api.razorpay.com"];
+const devOrigins = [
+  "localhost:3000",
+  "localhost:3011",
+  "127.0.0.1:3011",
+  "*.devtunnels.ms",
+  "l3zz8htl-3011.inc1.devtunnels.ms",
+  "api.razorpay.com",
+];
 const legacySlugPrefixes = [
   "blog",
   "blogs",

@@ -1,10 +1,10 @@
 "use server";
 
 import { apiRoutes } from "@/_config/APIRoutes.config";
-import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 import { getPayloadMessage, getResponsePayload } from "@/_utils/api";
 import { isApiEnvelope, isRecord } from "@/_utils/guards";
 import { APIResponse } from "@/_types/Api.types";
+import { fetchWithTimeout } from "@/_utils/fetch";
 import { isRawCloudinarySignatureData } from "./cloudinary.guards";
 
 export interface CloudinarySignature {
@@ -19,8 +19,19 @@ export interface CloudinarySignature {
 export async function getCloudinarySignature(): Promise<
   APIResponse<CloudinarySignature>
 > {
+  const backendBase = process.env.NEXT_PUBLIC_API_URL || "";
+  const endpoint = apiRoutes.preSignedUrl;
+  const url = `${backendBase}${endpoint}`;
+
   try {
-    const res = await authorizedAdminRequest(apiRoutes.preSignedUrl);
+    const res = await fetchWithTimeout(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    });
+
     const payload = await getResponsePayload(res);
 
     if (!res.ok || !isApiEnvelope(payload, isRawCloudinarySignatureData)) {
@@ -62,11 +73,19 @@ export async function getCloudinarySignature(): Promise<
 export async function deleteImageByPublicId(
   publicId: string,
 ): Promise<APIResponse> {
+  const backendBase = process.env.NEXT_PUBLIC_API_URL || "";
+  const endpoint = apiRoutes.preSignedUrl;
+  const url = `${backendBase}${endpoint}`;
+
   try {
-    const res = await authorizedAdminRequest(`${apiRoutes.preSignedUrl}`, {
+    const res = await fetchWithTimeout(url, {
       method: "DELETE",
       body: JSON.stringify({ public_id: publicId }),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      cache: "no-store",
     });
 
     const payload = await getResponsePayload(res);
