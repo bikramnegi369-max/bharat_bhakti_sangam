@@ -1,6 +1,6 @@
 "use server";
 
-import { Event, EventDetail, LatestEvent } from "../types";
+import { Event, LatestEvent } from "../types";
 import { TableQueryParams } from "@/_types/Table.types";
 import {
   API_URL,
