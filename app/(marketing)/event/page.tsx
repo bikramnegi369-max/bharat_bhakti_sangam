@@ -173,46 +173,7 @@ export default async function EventPage() {
           duration={duration}
         />
       </div>
-      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] pt-6 sm:pt-8 lg:pt-4 pb-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)]">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* LEFT */}
-          <div className="flex flex-col gap-6 h-full lg:col-span-2">
-            <AboutEventSection
-              description={description}
-              instruments={event.tabs}
-              hashtags={event.hashTags.map((tag) =>
-                tag.startsWith("#") ? tag : `#${tag}`,
-              )}
-            />
-            <AboutArtistSection
-              artists={artistSummaries.map((artist) => ({
-                name: artist.name,
-                role: artist.role,
-              }))}
-            />
-          </div>
-
-          {/* RIGHT */}
-          <div className="w-full h-full flex justify-center">
-            <EventInfoSection
-              date={eventDate}
-              time={event.time}
-              venue={{
-                name: getEventVenueName(event),
-                address: getEventVenueAddress(event),
-              }}
-            />
-          </div>
-        </div>
-      </div>
-      {/* <SponsorSection /> */}
-      <FAQSection
-        items={DEFAULT_FAQS}
-        title="Event Guide"
-        highlightWord="Event"
-      />
-      <AboutArtistsDetailedSection artists={artistSummaries} />
-      <LocationMapSection />
+      <AboutEventSection description={description} />
     </div>
   );
 }
