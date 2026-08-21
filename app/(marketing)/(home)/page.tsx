@@ -139,7 +139,7 @@ export default async function HomePage() {
         ctaText="Book Your Seat Now"
       />
       <ExploreSpiritualIndiaSection />
-      <GallerySection images={IMAGES} />
+      <GallerySection />
       <FAQSection
         items={homeFAQS}
         title="Frequently Asked Questions"
