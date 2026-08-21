@@ -32,6 +32,7 @@ export default function FounderSection({
           src="/welcome_bg.webp"
           alt=""
           fill
+          sizes="(max-width: 640px) 460px, (max-width: 768px) 560px, (max-width: 1024px) 700px, 800px"
           className="object-contain object-right"
           priority={false}
         />

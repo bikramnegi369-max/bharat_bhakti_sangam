@@ -109,6 +109,7 @@ export default function OurStorySection({
           src="/mandala.webp"
           alt=""
           fill
+          sizes="384px"
           className="object-contain"
           priority={false}
         />
