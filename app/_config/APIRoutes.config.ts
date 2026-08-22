@@ -55,4 +55,5 @@ export const apiRoutes = {
   dashboardBookingRegistrationTrend: `${DASHBOARD_BASE}/booking-registration-trend`,
   dashboardTotalBookingTrend: `${DASHBOARD_BASE}/booking-trend`,
   sendAdminEmail: `${ADMIN_EMAIL_BASE}`,
+  artistJoin: "/artistrequest",
 };
