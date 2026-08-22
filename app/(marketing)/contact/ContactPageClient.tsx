@@ -1,32 +1,26 @@
 "use client";
 
 import Hero from "@/_components/sections/Marketing/Hero";
-import CompanyDetails from "@/_features/contact/components/CompanyDetails";
-import { ContactDetails } from "@/_features/contact/components/ContactDetails";
-import dynamic from "next/dynamic";
-
-const ContactForm = dynamic(
-  () => import("@/_features/contact/components/ContactForm"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-96 w-full animate-pulse bg-gray-100 rounded-3xl" />
-    ),
-  },
-);
+import { ContactConversationSection } from "@/_features/contact/components/ContactConversationSection";
+import { ContactOfficeSection } from "@/_features/contact/components/ContactOfficeSection";
+import StayConnectedNewsletter from "@/_components/sections/Marketing/StayConnectedNewsletter";
 
 export function ContactPageClient() {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden ">
-      <Hero title="Contact Us" backgroundImage="/contact_hero.webp" />
+    <div className="w-full bg-[#FAF8F5]/60 min-h-screen">
+      {/* Hero Header Banner */}
+      <Hero
+        backgroundImage="/contact_hero.webp"
+      />
 
-      <div className="relative -mt-30 lg:-mt-40 z-10 flex items-center justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] ">
-        <div className="w-full max-w-7xl space-y-8 lg:space-y-16">
-          <CompanyDetails />
-          <ContactDetails />
-          <ContactForm />
-        </div>
-      </div>
-    </section>
+      {/* Main Conversation & Contact Form Section */}
+      <ContactConversationSection />
+
+      {/* Visit Our Office & Location Map Section */}
+      <ContactOfficeSection />
+
+      {/* Newsletter Subscription Banner */}
+      <StayConnectedNewsletter />
+    </div>
   );
 }

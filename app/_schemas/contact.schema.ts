@@ -11,7 +11,7 @@ export const contactSchema = z.object({
     .min(10, "Phone number must be at least 10 digits")
     .max(15, "Phone number is too long")
     .regex(/^[0-9]+$/, "Phone number must contain only digits"),
-
+  subject: z.string().optional(),
   query: z
     .string()
     .min(5, "Query must be at least 5 characters")
