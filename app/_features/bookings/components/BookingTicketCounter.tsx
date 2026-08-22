@@ -37,7 +37,7 @@ export function BookingTicketCounter({
 
   return (
     <section aria-labelledby="step-ticket-count" className="w-full space-y-4">
-      <BookingStepBadge step="03" title="NUMBER OF TICKETS" />
+      <BookingStepBadge step="04" title="NUMBER OF TICKETS" />
 
       <div className="w-full bg-[#FFFDF9] border border-[#F3E5CA] rounded-2xl p-4 sm:p-5 md:p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">

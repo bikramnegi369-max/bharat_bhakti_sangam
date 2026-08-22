@@ -14,7 +14,7 @@ export function BookingUserInfoFields() {
 
   return (
     <section aria-labelledby="step-user-info" className="w-full space-y-4">
-      <BookingStepBadge step="04" title="YOUR INFORMATION" />
+      <BookingStepBadge step="03" title="YOUR INFORMATION" />
 
       <div className="w-full bg-white border border-gray-200/90 rounded-2xl p-5 sm:p-6 md:p-7 shadow-xs space-y-5">
         {/* 2-Column Responsive Grid */}

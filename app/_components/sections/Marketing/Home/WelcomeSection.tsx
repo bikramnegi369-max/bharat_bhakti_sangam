@@ -44,7 +44,7 @@ export default function WelcomeSection() {
             never before.
           </p>
           <div className="flex flex-wrap items-center mt-8 gap-4">
-            <CTAButton label="Book Tickets" href="/bookings" />
+            <CTAButton label="Book Tickets" href="/booking" />
             <CTAButton
               label="Know More About Us"
               href="/about"

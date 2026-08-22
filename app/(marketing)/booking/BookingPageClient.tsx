@@ -288,16 +288,16 @@ export function BookingPageClient({
                 onSelectPass={handleSelectPass}
               />
 
-              {/* Step 03: Number of Tickets */}
+              {/* Step 03: Your Information */}
+              <BookingUserInfoFields />
+
+              {/* Step 04: Number of Tickets */}
               <BookingTicketCounter
                 selectedPassName={activePassItem.name}
                 unitPrice={activePassItem.price}
                 ticketCount={currentTicketCount}
                 onChangeCount={(val) => methods.setValue("tickets", val)}
               />
-
-              {/* Step 04: Your Information */}
-              <BookingUserInfoFields />
 
               {/* Step 05 & 06: Booking Summary & Payment */}
               <BookingOrderSummaryCard
