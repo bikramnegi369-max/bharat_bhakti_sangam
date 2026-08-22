@@ -53,7 +53,7 @@ export function BookingPassSelector({
       {/* Dynamic Grid: Adapts for 1, 2, 3, or N passes */}
       <div
         className={clsx(
-          "grid gap-4 sm:gap-5 md:gap-6 items-stretch pt-3",
+          "grid gap-6 sm:gap-5 md:gap-6 items-stretch pt-4",
           passes.length === 1 && "grid-cols-1 max-w-sm mx-auto",
           passes.length === 2 && "grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto",
           passes.length === 3 && "grid-cols-1 md:grid-cols-3",
