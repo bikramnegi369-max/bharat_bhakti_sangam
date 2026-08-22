@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import { playfair, poppins } from "@/_lib/fonts";
+import { poppins } from "@/_lib/fonts";
 import { ContactInfoItem } from "@/_config/contact.data";
 
 const iconMap = {

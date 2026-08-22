@@ -1,13 +1,5 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
 import clsx from "clsx";
-import {
-  MapPin,
-  Clock,
-  Train,
-  ArrowRight,
-} from "lucide-react";
+import { MapPin, Clock, Train, ArrowRight } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 import { officeLocationData } from "@/_config/contact.data";
 
@@ -77,7 +69,7 @@ export function ContactOfficeSection() {
         {/* 2-Column Responsive Layout for Office & Map */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           {/* Left Column: Interactive Map Frame */}
-          <div className="lg:col-span-7 w-full h-72 sm:h-84 md:h-96 lg:h-full min-h-[320px] rounded-2xl sm:rounded-3xl overflow-hidden border border-stone-200 shadow-sm relative bg-stone-100">
+          <div className="lg:col-span-7 w-full h-72 sm:h-84 md:h-96 lg:h-full min-h-80 rounded-2xl sm:rounded-3xl overflow-hidden border border-stone-200 shadow-sm relative bg-stone-100">
             <iframe
               title="Bharat Bhakti Sangam Office Location"
               src={officeLocationData.mapEmbedUrl}
