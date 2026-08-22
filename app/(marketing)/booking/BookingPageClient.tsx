@@ -304,8 +304,6 @@ export function BookingPageClient({
                 selectedPassName={activePassItem.name}
                 ticketCount={currentTicketCount}
                 unitPrice={activePassItem.price}
-                convenienceFee={100}
-                gstRate={0.18}
                 isSubmitting={isSubmitting}
               />
             </form>

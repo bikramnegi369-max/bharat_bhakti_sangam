@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   Zap,
   Headphones,
-  Info,
 } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 
@@ -16,8 +15,6 @@ interface BookingOrderSummaryCardProps {
   selectedPassName: string;
   ticketCount: number;
   unitPrice: number;
-  convenienceFee?: number;
-  gstRate?: number; // e.g. 0.18 for 18%
   isSubmitting: boolean;
 }
 
@@ -25,13 +22,10 @@ export function BookingOrderSummaryCard({
   selectedPassName,
   ticketCount,
   unitPrice,
-  convenienceFee = 100,
-  gstRate = 0.18,
   isSubmitting,
 }: BookingOrderSummaryCardProps) {
   const ticketAmount = unitPrice * ticketCount;
-  const gstAmount = Math.round(ticketAmount * gstRate);
-  const grandTotal = ticketAmount + convenienceFee + gstAmount;
+  const grandTotal = ticketAmount;
 
   return (
     <section aria-labelledby="booking-summary-heading" className="w-full space-y-6">
@@ -83,25 +77,6 @@ export function BookingOrderSummaryCard({
               <span>Ticket Amount</span>
               <span className="font-semibold text-gray-900">
                 ₹{ticketAmount.toLocaleString("en-IN")}
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between text-gray-600">
-              <div className="flex items-center gap-1">
-                <span>Convenience Fee</span>
-                <span title="Standard processing & platform fee">
-                  <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
-                </span>
-              </div>
-              <span className="font-semibold text-gray-900">
-                ₹{convenienceFee.toLocaleString("en-IN")}
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between text-gray-600">
-              <span>GST ({Math.round(gstRate * 100)}%)</span>
-              <span className="font-semibold text-gray-900">
-                ₹{gstAmount.toLocaleString("en-IN")}
               </span>
             </div>
 
