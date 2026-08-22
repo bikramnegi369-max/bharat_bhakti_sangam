@@ -9,9 +9,7 @@ export function ContactPageClient() {
   return (
     <div className="w-full bg-[#FAF8F5]/60 min-h-screen">
       {/* Hero Header Banner */}
-      <Hero
-        backgroundImage="/contact_hero.webp"
-      />
+      <Hero title="Contact Us" backgroundImage="/contact_hero.webp" />
 
       {/* Main Conversation & Contact Form Section */}
       <ContactConversationSection />
