@@ -1,5 +1,5 @@
 import { CTAButton } from "../../ui/CTAButton";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import HeroBackgroundImage from "./HeroBackgroundImage";
 
 type HeroProps = {
@@ -48,7 +48,7 @@ export default function Hero({
             {/* Title */}
             {title && (
               <h1
-                className={`${cinzel.className} text-[clamp(1.25rem,calc(0.714rem+2.679vw),3.125rem)] font-bold leading-tight`}
+                className={`${playfair.className} text-[clamp(1.25rem,calc(0.714rem+2.679vw),3.125rem)] font-bold leading-tight`}
               >
                 {title}
               </h1>

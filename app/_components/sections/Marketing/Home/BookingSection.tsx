@@ -1,7 +1,7 @@
 import { MapPin, Clock, BadgeCheck, CalendarDays } from "lucide-react";
 import { Button } from "@/_components/ui/Button";
 import Link from "next/link";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 
 type TicketType = {
   name: string;
@@ -34,7 +34,7 @@ export default function BookingSection({
         {/* Heading */}
         <div className="text-center lg:col-span-2">
           <h2
-            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${cinzel.className}`}
+            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${playfair.className}`}
           >
             Divine <span className="text-primary">Bhajan clubbing</span>
           </h2>
@@ -57,7 +57,7 @@ export default function BookingSection({
               <MapPin className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] shrink-0 mt-1" />
               <div className="flex flex-col gap-1">
                 <p
-                  className={`font-bold text-heading ${cinzel.className} text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)]`}
+                  className={`font-bold text-heading ${playfair.className} text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)]`}
                 >
                   {venueName}
                 </p>
@@ -72,7 +72,7 @@ export default function BookingSection({
               <Clock className="text-primary w-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] h-[clamp(0.875rem,calc(0.679rem+0.982vw),1.563rem)] mt-1" />
               <div className="flex flex-col gap-1">
                 <p
-                  className={`font-bold text-heading ${cinzel.className} text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)]`}
+                  className={`font-bold text-heading ${playfair.className} text-[clamp(0.875rem,calc(0.768rem+0.536vw),1.25rem)]`}
                 >
                   {eventDay}
                 </p>
@@ -89,7 +89,7 @@ export default function BookingSection({
           {/* SECTION 2 */}
           {/* <div className="text-center flex flex-col justify-between">
             <p
-              className={`text-heading text-[clamp(1.125rem,calc(0.946rem+0.893vw),1.75rem)] font-bold tracking-widest ${cinzel.className}`}
+              className={`text-heading text-[clamp(1.125rem,calc(0.946rem+0.893vw),1.75rem)] font-bold tracking-widest ${playfair.className}`}
             >
               {ticketTypes.length > 1
                 ? "Passes Starting From"
@@ -97,7 +97,7 @@ export default function BookingSection({
             </p> */}
 
           {/* <p
-              className={`text-[clamp(1.063rem,calc(0.741rem+1.607vw),2.188rem)] font-bold text-primary mt-2 ${cinzel.className}`}
+              className={`text-[clamp(1.063rem,calc(0.741rem+1.607vw),2.188rem)] font-bold text-primary mt-2 ${playfair.className}`}
             >
               ₹{minPrice}
             </p> */}
@@ -120,7 +120,7 @@ export default function BookingSection({
         {/* What to Expect */}
         <div className="mt-5 lg:mt-10  rounded-lg p-6 lg:p-8 w-full max-w-[22.813rem] lg:max-w-none flex flex-col justify-between">
           <h3
-            className={`text-[clamp(1rem,calc(0.821rem+0.893vw),1.625rem)] text-heading font-bold mb-4 ${cinzel.className}`}
+            className={`text-[clamp(1rem,calc(0.821rem+0.893vw),1.625rem)] text-heading font-bold mb-4 ${playfair.className}`}
           >
             What to expect ?
           </h3>

@@ -1,5 +1,5 @@
 import Card from "@/_components/ui/Card";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { Brain, Music, UsersRound } from "lucide-react";
 
 const cards = [
@@ -30,7 +30,7 @@ export default function ExperienceSection() {
         {/* Heading */}
         <div className="text-center max-w-3xl mx-auto">
           <h2
-            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${cinzel.className}`}
+            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${playfair.className}`}
           >
             Where <span className="text-primary">Devotion</span> Meets{" "}
             <span className="text-primary">Celebration</span>

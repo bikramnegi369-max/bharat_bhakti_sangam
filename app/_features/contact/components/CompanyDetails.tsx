@@ -1,4 +1,4 @@
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 
 export default function CompanyDetails() {
   return (
@@ -17,7 +17,7 @@ export default function CompanyDetails() {
                   space-y-4 lg:space-y-8"
     >
       <h2
-        className={`${cinzel.className} text-[clamp(1rem,calc(0.714rem+1.429vw),2rem)] font-bold text-heading`}
+        className={`${playfair.className} text-[clamp(1rem,calc(0.714rem+1.429vw),2rem)] font-bold text-heading`}
       >
         Company Details
       </h2>

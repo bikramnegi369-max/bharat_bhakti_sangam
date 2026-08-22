@@ -3,7 +3,7 @@
 import React from "react";
 import clsx from "clsx";
 import { Sparkles, Music2, Users, Flame, LucideIcon } from "lucide-react";
-import { playfair, poppins, cinzel } from "@/_lib/fonts";
+import { playfair, poppins } from "@/_lib/fonts";
 
 export interface WhyJoinUsItem {
   id?: string | number;
@@ -82,7 +82,7 @@ export default function WhyJoinUsSection({
             <span className="h-px grow bg-linear-to-r from-transparent via-[#D4AF37]/50 to-[#D4AF37]/80" />
             <span
               className={clsx(
-                cinzel.className,
+                playfair.className,
                 "text-[clamp(0.85rem,1.1vw,1.05rem)] tracking-[0.25em] sm:tracking-[0.35em] text-[#E8C267] font-semibold uppercase px-2 drop-shadow-sm select-none",
               )}
             >

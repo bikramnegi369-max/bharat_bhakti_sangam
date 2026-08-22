@@ -4,7 +4,7 @@ import {
   getBlogIndexSeo,
   getBlogPosts,
 } from "@/_features/blog/services/wordpress.service";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import {
   createPageMetadataFromBlogSeo,
   createPageMetadataFromConfig,
@@ -58,7 +58,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             Devotion, culture, and gatherings
           </p>
           <h1
-            className={`${cinzel.className} mt-4 text-4xl font-bold leading-tight text-stone-800 sm:text-5xl`}
+            className={`${playfair.className} mt-4 text-4xl font-bold leading-tight text-stone-800 sm:text-5xl`}
           >
             Bharat Bhakti <span className="text-amber-500">Blog</span>
           </h1>

@@ -1,4 +1,4 @@
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 
 interface SectionHeadingProps {
   title: string;
@@ -21,7 +21,7 @@ interface SectionHeadingProps {
 /**
  * Reusable section heading that applies an amber accent
  * to a portion of the title string, controlled by `accentStrategy`.
- * Always uses the Cinzel display font for visual consistency.
+ * Always uses the Playfair display font for visual consistency.
  */
 export default function SectionHeading({
   title,
@@ -68,7 +68,7 @@ export default function SectionHeading({
 
   return (
     <h2
-      className={`${cinzel.className} text-xl sm:text-2xl font-bold text-stone-800 leading-snug`}
+      className={`${playfair.className} text-xl sm:text-2xl font-bold text-stone-800 leading-snug`}
     >
       {plain}
       {amber && <span className="text-amber-500">{amber}</span>}

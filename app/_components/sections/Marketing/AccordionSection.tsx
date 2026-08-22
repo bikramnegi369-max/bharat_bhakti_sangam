@@ -1,4 +1,4 @@
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import {
   AccordionIndicatorVariant,
   AccordionSectionProps,
@@ -90,7 +90,7 @@ export default function AccordionSection({
             <h2
               className={clsx(
                 "mb-10 text-center text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold",
-                cinzel.className,
+                playfair.className,
               )}
             >
               {renderTitle(title, highlightWord)}

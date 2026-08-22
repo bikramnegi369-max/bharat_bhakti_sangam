@@ -89,6 +89,7 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
         eventId={event._id}
         eventTitle={event.eventName}
         eventDate={getEventDisplayDate(event)}
+        eventTime={event.time || undefined}
         eventLocation={getEventVenueName(event)}
         eventAddress={getEventVenueAddress(event)}
         heroImage={getEventImage(event)}

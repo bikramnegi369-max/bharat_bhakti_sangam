@@ -1,5 +1,5 @@
 import { Button } from "@/_components/ui/Button";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
 import { Info, Ticket } from "lucide-react";
@@ -28,7 +28,7 @@ export const OrderSummary = ({
       <h2
         className={clsx(
           "text-[clamp(1.313rem,calc(1.063rem+1.25vw),2.188rem)] font-bold text-heading",
-          cinzel.className,
+          playfair.className,
         )}
       >
         Order Summary
@@ -40,7 +40,7 @@ export const OrderSummary = ({
           <span
             className={clsx(
               "capitalize text-[clamp(1.125rem,calc(1rem+0.625vw),1.563rem)] font-bold text-heading",
-              cinzel.className,
+              playfair.className,
             )}
           >
             {data?.ticketType} Pass
@@ -54,7 +54,7 @@ export const OrderSummary = ({
           <span
             className={clsx(
               "text-[clamp(1.375rem,calc(1.232rem+0.714vw),1.875rem)] font-bold text-heading",
-              cinzel.className,
+              playfair.className,
             )}
           >
             ₹{total}
@@ -68,7 +68,7 @@ export const OrderSummary = ({
           <span
             className={clsx(
               "text-[clamp(1.625rem,calc(1.464rem+0.804vw),2.188rem)] text-heading font-bold",
-              cinzel.className,
+              playfair.className,
             )}
           >
             ₹{total}

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import clsx from "clsx";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 
 type Artist = {
   name: string;
@@ -44,7 +44,7 @@ export default function AboutArtistsDetailedSection({
         <h2
           className={clsx(
             "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-10 lg:mb-16 text-center",
-            cinzel.className,
+            playfair.className,
           )}
         >
           {title.split(highlightWord)[0]}

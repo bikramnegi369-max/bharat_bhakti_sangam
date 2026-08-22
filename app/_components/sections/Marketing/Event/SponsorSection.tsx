@@ -1,4 +1,4 @@
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { clsx } from "clsx";
 
 export function SponsorSection() {
@@ -9,7 +9,7 @@ export function SponsorSection() {
           <h2
             className={clsx(
               "text-[clamp(1.313rem,calc(1.063rem+1.25vw),2.188rem)] font-bold mb-[clamp(1rem,calc(0.714rem+1.429vw),2rem)]",
-              cinzel.className,
+              playfair.className,
               "text-center",
             )}
           >

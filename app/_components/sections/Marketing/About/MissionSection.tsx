@@ -1,4 +1,4 @@
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import Image from "next/image";
 
 export default function MissionSection() {
@@ -8,13 +8,13 @@ export default function MissionSection() {
         <div>
           <div className="flex justify-center items-center gap-2">
             <h2
-              className={`${cinzel.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold uppercase tracking-widest text-heading text-center`}
+              className={`${playfair.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold uppercase tracking-widest text-heading text-center`}
             >
               Our
             </h2>
 
             <h2
-              className={`${cinzel.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] text-primary font-bold leading-widest text-center`}
+              className={`${playfair.className} text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] text-primary font-bold leading-widest text-center`}
             >
               Mission
             </h2>

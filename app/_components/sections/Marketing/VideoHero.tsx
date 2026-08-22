@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { Mouse } from "lucide-react";
 import HeroBackgroundImage from "./HeroBackgroundImage";
 import { CTAButton } from "../../ui/CTAButton";
@@ -132,7 +132,7 @@ export function VideoHero({
           {/* Main Title */}
           {title && (
             <h1
-              className={`${cinzel.className} text-[clamp(1.75rem,calc(1.1rem+3vw),3.75rem)] font-bold leading-tight tracking-tight text-white drop-shadow-md`}
+              className={`${playfair.className} text-[clamp(1.75rem,calc(1.1rem+3vw),3.75rem)] font-bold leading-tight tracking-tight text-white drop-shadow-md`}
             >
               {title}
             </h1>

@@ -7,7 +7,7 @@ export function ContactFormHeader() {
     <header className="text-center space-y-4 lg:mb-16">
       {/* <h1
         className={clsx(
-          cinzel.className,
+          playfair.className,
           "text-[clamp(1.75rem,1.2rem+2vw,3rem)] font-bold text-heading",
         )}
       >

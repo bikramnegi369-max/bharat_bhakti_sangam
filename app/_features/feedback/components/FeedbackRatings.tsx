@@ -3,7 +3,7 @@ import {
   FEEDBACK_FORM_CONTENT,
   FEEDBACK_RATINGS,
 } from "@/_lib/constants/feedback.constants";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { FeedbackFormData } from "@/_schemas/feedback.schema";
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -20,7 +20,7 @@ export function FeedbackRatings() {
     >
       {/* Heading */}
       <h2
-        className={`${cinzel.className}
+        className={`${playfair.className}
       text-[clamp(1rem,calc(0.714rem+1.429vw),2rem)] font-semibold text-heading tracking-widest`}
       >
         {FEEDBACK_FORM_CONTENT.heading}

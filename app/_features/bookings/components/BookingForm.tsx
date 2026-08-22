@@ -3,7 +3,7 @@ import { Counter } from "@/_components/ui/Counter";
 import { Field } from "@/_components/ui/Field/Field";
 import { FormDropdown } from "@/_components/ui/Dropdown/FormDropdown";
 import { BOOKING_CONFIG } from "@/_lib/constants/booking.constants";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { BookingFormData } from "@/_schemas/booking.schema";
 import clsx from "clsx";
 import { Send, Loader2 } from "lucide-react";
@@ -61,7 +61,7 @@ export default function BookingForm({
       <h2
         className={clsx(
           "text-[clamp(1.313rem,calc(1.116rem+0.982vw),2rem)] font-bold text-heading text-center",
-          cinzel.className,
+          playfair.className,
         )}
       >
         Booking Information

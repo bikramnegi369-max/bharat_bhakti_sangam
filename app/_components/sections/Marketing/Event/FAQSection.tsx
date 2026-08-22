@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import clsx from "clsx";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 
 type FAQItem = {
   title: string;
@@ -46,7 +46,7 @@ export default function FAQSection({
           <h2
             className={clsx(
               "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-5 lg:mb-10 text-center",
-              cinzel.className,
+              playfair.className,
             )}
           >
             <span className="text-primary">Event</span> Guide

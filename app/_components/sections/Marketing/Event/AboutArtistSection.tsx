@@ -1,4 +1,4 @@
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import clsx from "clsx";
 
 type Artist = {
@@ -24,7 +24,7 @@ export default function AboutArtistSection({
         <h2
           className={clsx(
             "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-[clamp(1rem,calc(0.714rem+1.429vw),2rem)]",
-            cinzel.className,
+            playfair.className,
           )}
         >
           About <span className="text-primary">Artist</span>

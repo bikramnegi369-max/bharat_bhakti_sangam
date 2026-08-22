@@ -1,5 +1,5 @@
 import OverlappingImages from "@/_components/common/OverlappingImages";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { FestivalSection } from "@/_types/festivals.types";
 
 export default function festivalSection({
@@ -17,7 +17,7 @@ export default function festivalSection({
             <div className="space-y-4 flex flex-col justify-center">
               <h2
                 id="festival-heading"
-                className={`${cinzel.className} text-amber-500 text-2xl font-bold leading-snug`}
+                className={`${playfair.className} text-amber-500 text-2xl font-bold leading-snug`}
               >
                 {title}
               </h2>
@@ -37,7 +37,7 @@ export default function festivalSection({
             <div className="space-y-4 flex flex-col justify-center">
               <h2
                 id="festival-heading"
-                className={`${cinzel.className} text-amber-500 text-2xl font-bold leading-snug`}
+                className={`${playfair.className} text-amber-500 text-2xl font-bold leading-snug`}
               >
                 {title}
               </h2>
@@ -52,7 +52,7 @@ export default function festivalSection({
         <div className="space-y-4 text-center lg:text-start flex flex-col justify-center">
           <h2
             id="festival-heading"
-            className={`${cinzel.className} text-amber-500 text-2xl font-bold leading-snug `}
+            className={`${playfair.className} text-amber-500 text-2xl font-bold leading-snug `}
           >
             {title}
           </h2>

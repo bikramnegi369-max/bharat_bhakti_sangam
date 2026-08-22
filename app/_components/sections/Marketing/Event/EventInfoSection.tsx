@@ -9,7 +9,7 @@ import {
 import clsx from "clsx";
 import { CTAButton } from "@/_components/ui/CTAButton";
 import { BookingCategory } from "@/_types/Booking.types";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 
 type EventInfoSectionProps = {
   date?: string;
@@ -61,7 +61,7 @@ export default function EventInfoSection({
               <p
                 className={clsx(
                   "text-[clamp(1.188rem,calc(1.134rem+0.268vw),1.375rem)]",
-                  cinzel.className,
+                  playfair.className,
                   "font-bold text-heading",
                 )}
               >
@@ -105,7 +105,7 @@ export default function EventInfoSection({
                 <p
                   className={clsx(
                     "text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)]",
-                    cinzel.className,
+                    playfair.className,
                     "font-bold text-heading",
                   )}
                 >
@@ -130,7 +130,7 @@ export default function EventInfoSection({
                           <p
                             className={clsx(
                               "text-primary font-bold text-[clamp(1.188rem,calc(1.08rem+0.536vw),1.563rem)]",
-                              cinzel.className,
+                              playfair.className,
                             )}
                           >
                             ₹{cat.price.toLocaleString("en-IN")}
@@ -191,7 +191,7 @@ function InfoBlock({
         <p
           className={clsx(
             "text-[clamp(1.188rem,calc(1.134rem+0.268vw),1.375rem)] font-bold text-heading",
-            cinzel.className,
+            playfair.className,
           )}
         >
           {label}

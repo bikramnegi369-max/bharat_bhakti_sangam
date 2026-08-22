@@ -1,5 +1,5 @@
 import Card from "@/_components/ui/Card";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { Brain, Gem, HeartPulse, Music, Sparkles, Users } from "lucide-react";
 
 const cards = [
@@ -47,7 +47,7 @@ export default function ValuesSection() {
       <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
         <div className="text-center max-w-3xl mx-auto">
           <h2
-            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${cinzel.className}`}
+            className={`text-[clamp(1.25rem,calc(0.804rem+2.232vw),2.813rem)] font-bold ${playfair.className}`}
           >
             Our <span className="text-primary">Values</span>
           </h2>

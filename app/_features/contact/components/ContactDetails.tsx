@@ -1,4 +1,4 @@
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { Contact } from "lucide-react";
 
 export function ContactDetails() {
@@ -17,7 +17,7 @@ export function ContactDetails() {
               space-y-4 lg:space-y-8"
     >
       <h2
-        className={`${cinzel.className} text-[clamp(1rem,calc(0.714rem+1.429vw),2rem)] font-bold text-heading`}
+        className={`${playfair.className} text-[clamp(1rem,calc(0.714rem+1.429vw),2rem)] font-bold text-heading`}
       >
         Connect with<span className="text-primary"> Bharat Bhakti Sangam</span>
       </h2>

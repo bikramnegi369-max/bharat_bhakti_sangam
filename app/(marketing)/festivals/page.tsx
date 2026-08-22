@@ -4,7 +4,7 @@ import {
   famousFestivalsCarousel,
   festivalsData,
 } from "@/_lib/constants/festivals.constants";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { Metadata } from "next";
 
 export const dynamic = "force-static"; // pre-render at build, serve from CDN
@@ -27,7 +27,7 @@ export default function FamousFestivalsPage() {
       {/* ── Hero header ── */}
       <header className="text-center p-12 lg:p-24 px-4 max-w-2xl mx-auto">
         <h1
-          className={`${cinzel.className} text-4xl sm:text-5xl font-bold text-stone-800 mb-6 leading-tight`}
+          className={`${playfair.className} text-4xl sm:text-5xl font-bold text-stone-800 mb-6 leading-tight`}
         >
           Famous <span className="text-amber-500">Festivals</span> of India
         </h1>

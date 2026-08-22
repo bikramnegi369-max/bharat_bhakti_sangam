@@ -3,7 +3,7 @@ import FAQSection from "@/_components/sections/Marketing/FAQSection";
 import Carousel from "@/_components/ui/Carousel/Carousel";
 import { famousTemplesCarousel } from "@/_lib/constants/carousal.constants";
 import { templesFAQs } from "@/_lib/constants/temples.constants";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { createPageMetadataFromConfig } from "@/_lib/seo";
 import type { Metadata } from "next";
 
@@ -28,7 +28,7 @@ export default function FamousTemplesPage() {
       {/* ── Hero header ── */}
       <div className="text-center py-12 px-4 max-w-2xl mx-auto">
         <h1
-          className={`${cinzel.className} text-4xl sm:text-5xl font-bold text-stone-800 mb-6 leading-tight`}
+          className={`${playfair.className} text-4xl sm:text-5xl font-bold text-stone-800 mb-6 leading-tight`}
         >
           Famous <span className="text-amber-500">Temples</span> of India
         </h1>

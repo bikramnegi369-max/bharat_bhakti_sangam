@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/_components/ui/Button";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import clsx from "clsx";
 
 export type FormSubmitStatus = "success" | "error";
@@ -86,7 +86,7 @@ export function FormSubmitStatusScreen({
 
       <h2
         className={clsx(
-          cinzel.className,
+          playfair.className,
           "text-[clamp(1.25rem,calc(0.75rem+2.5vw),2rem)] font-bold text-heading tracking-widest",
         )}
       >

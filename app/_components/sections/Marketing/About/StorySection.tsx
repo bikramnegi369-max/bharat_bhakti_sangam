@@ -1,4 +1,4 @@
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import clsx from "clsx";
 
 export default function StorySection() {
@@ -10,7 +10,7 @@ export default function StorySection() {
             <h2
               className={clsx(
                 "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-6",
-                cinzel.className,
+                playfair.className,
               )}
             >
               Our <span className="text-primary">story</span>
@@ -28,7 +28,7 @@ export default function StorySection() {
             <h2
               className={clsx(
                 "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-6",
-                cinzel.className,
+                playfair.className,
               )}
             >
               What we <span className="text-primary">do</span>
@@ -45,7 +45,7 @@ export default function StorySection() {
             <h2
               className={clsx(
                 "text-[clamp(1.25rem,calc(1.071rem+0.893vw),1.875rem)] font-bold mb-6",
-                cinzel.className,
+                playfair.className,
               )}
             >
               Why we <span className="text-primary">exist</span>

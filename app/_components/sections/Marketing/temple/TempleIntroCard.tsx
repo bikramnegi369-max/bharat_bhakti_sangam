@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 
 interface TempleIntroCardProps {
   name: string;
@@ -26,7 +26,7 @@ export default function TempleIntroCard({
       {/* Bordered intro card */}
       <div className="border border-amber-300 rounded-2xl bg-amber-50/70 px-6 py-8 text-center shadow-sm">
         <h1
-          className={`${cinzel.className} text-xl sm:text-2xl lg:text-3xl font-bold text-amber-600 leading-snug`}
+          className={`${playfair.className} text-xl sm:text-2xl lg:text-3xl font-bold text-amber-600 leading-snug`}
         >
           {name}
         </h1>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Hero from "@/_components/sections/Marketing/Hero";
-import { cinzel } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import type { BlogPost } from "@/_features/blog/types";
 import BlogBreadcrumb from "./BlogBreadcrumb";
 import { formatBlogDate } from "./formatBlogDate";
@@ -17,7 +17,7 @@ export function BlogDetail({ post }: { post: BlogPost }) {
         <header className="mx-auto max-w-5xl py-8 text-center">
 
           <h1
-            className={`${cinzel.className} mt-4 text-3xl font-bold leading-tight text-stone-800 sm:text-4xl`}
+            className={`${playfair.className} mt-4 text-3xl font-bold leading-tight text-stone-800 sm:text-4xl`}
           >
             {post.title}
           </h1>
