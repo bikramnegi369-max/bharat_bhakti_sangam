@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 type BookingPageProps = {
-  searchParams?: Promise<{ pass?: string }>;
+  searchParams?: Promise<{ pass?: string; passId?: string }>;
 };
 
 export default async function BookingPage({ searchParams }: BookingPageProps) {
@@ -43,6 +43,7 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
 
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const requestedPass = resolvedSearchParams?.pass;
+  const requestedPassId = resolvedSearchParams?.passId;
 
   try {
     event = await getLatestEvent();
@@ -67,15 +68,20 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
   )
     .filter((t) => !!t)
     .map((t) => ({
+      _id: t?._id,
       name: t?.name || "Pass",
       price: t?.price || 0,
     }));
 
-  const matchedPass = requestedPass
-    ? ticketTypes.find(
-        (t) => t.name.toLowerCase().trim() === requestedPass.toLowerCase().trim(),
-      )?.name
-    : undefined;
+  const matchedPass =
+    (requestedPassId
+      ? ticketTypes.find((t) => t._id === requestedPassId)?.name
+      : undefined) ||
+    (requestedPass
+      ? ticketTypes.find(
+          (t) => t.name.toLowerCase().trim() === requestedPass.toLowerCase().trim(),
+        )?.name
+      : undefined);
 
   return (
     <Suspense>

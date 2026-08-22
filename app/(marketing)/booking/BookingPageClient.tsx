@@ -11,6 +11,7 @@ import { FormProvider } from "react-hook-form";
 import { trackMetaPixel } from "@/_lib/meta-pixel";
 
 type TicketType = {
+  _id?: string;
   name: string;
   price: number;
 };
@@ -38,8 +39,13 @@ export function BookingPageClient({
 }: BookingPageClientProps) {
   const searchParams = useSearchParams();
   const passParam = searchParams.get("pass");
+  const passIdParam = searchParams.get("passId");
 
   const resolvedPass = useMemo(() => {
+    if (passIdParam) {
+      const matchById = ticketTypes.find((t) => t._id === passIdParam);
+      if (matchById) return matchById.name;
+    }
     if (passParam) {
       const match = ticketTypes.find(
         (t) => t.name.toLowerCase().trim() === passParam.toLowerCase().trim(),
@@ -47,7 +53,7 @@ export function BookingPageClient({
       if (match) return match.name;
     }
     return initialTicketType || ticketTypes[0]?.name || "";
-  }, [passParam, initialTicketType, ticketTypes]);
+  }, [passIdParam, passParam, initialTicketType, ticketTypes]);
 
   const {
     methods,

@@ -32,7 +32,7 @@ export default function Hero({
   );
 
   return (
-    <section className="relative aspect-16/9 w-full flex items-center justify-center text-center text-white overflow-hidden my-auto">
+    <section className="relative aspect-video w-full flex items-center justify-center text-center text-white overflow-hidden my-auto">
       <HeroBackgroundImage backgroundImage={backgroundImage} />
 
       {hasContent ? (

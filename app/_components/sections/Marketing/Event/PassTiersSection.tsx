@@ -13,6 +13,7 @@ export type PassIconType =
 
 export interface PassTierItem {
   id: string;
+  passId?: string;
   name: string;
   subtitle: string;
   price: number;
@@ -117,8 +118,8 @@ function PassIconRenderer({ icon }: { icon?: PassIconType }) {
  */
 export function mapEventBookingTypesToPasses(
   bookingTypeData?:
-    | { name?: string; price?: number }
-    | { name?: string; price?: number }[]
+    | { _id?: string; name?: string; price?: number }
+    | { _id?: string; name?: string; price?: number }[]
     | null,
 ): PassTierItem[] {
   if (!bookingTypeData) {
@@ -143,6 +144,7 @@ export function mapEventBookingTypesToPasses(
       if (idx === 0 && single.price !== undefined) {
         return {
           ...pass,
+          passId: single._id,
           price: single.price,
           name: single.name?.toUpperCase() || pass.name,
         };
@@ -207,7 +209,8 @@ export function mapEventBookingTypesToPasses(
     }
 
     return {
-      id: `pass-tier-${index}-${name.toLowerCase().replace(/\s+/g, "-")}`,
+      id: item._id || `pass-tier-${index}-${name.toLowerCase().replace(/\s+/g, "-")}`,
+      passId: item._id,
       name: name.toUpperCase(),
       subtitle,
       price,
@@ -276,9 +279,11 @@ export default function PassTiersSection({
           )}
         >
           {displayPasses.map((pass) => {
+            const queryParam = pass.passId
+              ? `passId=${encodeURIComponent(pass.passId)}`
+              : `pass=${encodeURIComponent(pass.name)}`;
             const passBookingHref =
-              pass.bookingUrl ||
-              `${bookingBaseUrl}?pass=${encodeURIComponent(pass.name)}`;
+              pass.bookingUrl || `${bookingBaseUrl}?${queryParam}`;
 
             return (
               <Link

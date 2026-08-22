@@ -43,10 +43,14 @@ function isVenueName(
 // Helper for bookingType
 function isBookingType(
   value: unknown,
-): value is { name: string; price: number } {
+): value is { _id?: string; name: string; price: number } {
   if (!value || typeof value !== "object") return false;
   const record = value as Record<string, unknown>;
-  return typeof record.name === "string" && typeof record.price === "number";
+  return (
+    (typeof record._id === "string" || record._id === undefined) &&
+    typeof record.name === "string" &&
+    typeof record.price === "number"
+  );
 }
 
 // Helper for Artist

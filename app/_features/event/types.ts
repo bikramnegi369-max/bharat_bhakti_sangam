@@ -15,10 +15,12 @@ export interface LatestEvent {
   hashTags: string[];
   bookingType?:
     | {
+        _id?: string;
         name?: string;
         price?: number;
       }
     | {
+        _id?: string;
         name?: string;
         price?: number;
       }[];
