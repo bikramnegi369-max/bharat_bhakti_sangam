@@ -18,33 +18,47 @@ import {
 } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 import {
-  InfluencerFormData,
-  influencerSchema,
-} from "@/_schemas/influencer.schema";
-import { useInfluencerForm } from "@/_hooks/useInfluencerForm";
-import { InfluencerProfileUpload } from "./InfluencerProfileUpload";
+  CreatorApplicationFormData,
+  creatorApplicationSchema,
+} from "@/_schemas/creatorApplication.schema";
+import { APIResponse } from "@/_types/Api.types";
+import { ProfilePictureUpload } from "./ProfilePictureUpload";
 
-export interface InfluencerFormSectionProps {
+export interface CreatorFormSectionProps {
   sidebarTitle?: string;
   sidebarDescription?: string;
   sidebarQuote?: string;
+  submitButtonText?: string;
+  submittingButtonText?: string;
+  successTitle?: string;
+  successDescription?: string;
+  onSubmit: (data: CreatorApplicationFormData) => Promise<APIResponse>;
   className?: string;
 }
 
-export default function InfluencerFormSection({
+export default function CreatorFormSection({
   sidebarTitle = "Your Talent Can\nInspire Millions",
   sidebarDescription = "Join Bharat Bhakti Sangam and let your art become a medium of devotion.",
   sidebarQuote = "Where talent meets devotion, memories are created for life.",
+  submitButtonText = "Submit Application",
+  submittingButtonText = "Submitting Application...",
+  successTitle = "Application Submitted!",
+  successDescription = "Thank you for joining hands with Bharat Bhakti Sangam. Our team will review your application and get in touch with you shortly.",
+  onSubmit,
   className,
-}: InfluencerFormSectionProps) {
+}: CreatorFormSectionProps) {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [status, setStatus] = React.useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm<InfluencerFormData>({
-    resolver: zodResolver(influencerSchema),
+  } = useForm<CreatorApplicationFormData>({
+    resolver: zodResolver(creatorApplicationSchema),
     mode: "onTouched",
     reValidateMode: "onChange",
     defaultValues: {
@@ -66,14 +80,6 @@ export default function InfluencerFormSection({
     },
   });
 
-  const {
-    handleSubmit: submitForm,
-    isSubmitting,
-    status,
-    errorMessage,
-    reset: resetStatus,
-  } = useInfluencerForm();
-
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -85,16 +91,35 @@ export default function InfluencerFormSection({
     }
   }, [status]);
 
-  const onFormSubmit = async (data: InfluencerFormData) => {
-    await submitForm(data);
+  const onFormSubmit = async (data: CreatorApplicationFormData) => {
+    try {
+      setIsSubmitting(true);
+      setErrorMessage(null);
+      const res = await onSubmit(data);
+
+      if (res.success) {
+        setStatus("success");
+      } else {
+        setErrorMessage(
+          res.error || "Failed to submit your request. Please try again.",
+        );
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error("Form submit error:", err);
+      setStatus("error");
+      setErrorMessage("Something unexpected happened. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleResetSuccess = () => {
     reset();
-    resetStatus();
+    setStatus("idle");
+    setErrorMessage(null);
   };
 
-  // Reusable unified input styling classes matching mockup dimensions
   const labelClass = clsx(
     poppins.className,
     "block text-[11px] sm:text-[11.5px] lg:text-[12px] font-semibold text-stone-700 mb-1 tracking-tight",
@@ -112,7 +137,7 @@ export default function InfluencerFormSection({
   return (
     <section
       ref={containerRef}
-      aria-labelledby="influencer-form-heading"
+      aria-labelledby="creator-form-heading"
       className={clsx(
         "relative w-full py-8 sm:py-12 md:py-16 lg:py-20",
         className,
@@ -123,7 +148,6 @@ export default function InfluencerFormSection({
         <div className="w-full bg-white rounded-2xl sm:rounded-3xl md:rounded-4xl shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-neutral-100/90 overflow-hidden flex flex-col lg:flex-row">
           {/* Left Maroon Branding Column (30% on lg / 1024px) */}
           <div className="w-full lg:w-[32%] xl:w-[30%] bg-[#68110D] text-white p-6 sm:p-8 md:p-10 lg:p-9 xl:p-11 flex flex-col justify-between relative overflow-hidden shrink-0 min-h-105 sm:min-h-115 lg:min-h-full">
-            {/* Background subtle glow effect */}
             <div
               aria-hidden="true"
               className="absolute -top-24 -left-24 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"
@@ -136,7 +160,7 @@ export default function InfluencerFormSection({
             {/* Top Text Block */}
             <div className="relative z-10 space-y-3 sm:space-y-4">
               <h2
-                id="influencer-form-heading"
+                id="creator-form-heading"
                 className={clsx(
                   playfair.className,
                   "text-2xl sm:text-3xl lg:text-[1.85rem] xl:text-[2.2rem] font-bold text-white leading-[1.2] whitespace-pre-line tracking-tight",
@@ -145,7 +169,6 @@ export default function InfluencerFormSection({
                 {sidebarTitle}
               </h2>
 
-              {/* Gold Accent Divider */}
               <div
                 aria-hidden="true"
                 className="w-12 h-1 bg-[#D4AF37] rounded-full mt-2.5 mb-3.5"
@@ -210,7 +233,7 @@ export default function InfluencerFormSection({
                     "text-2xl sm:text-3xl font-bold text-neutral-900",
                   )}
                 >
-                  Application Submitted!
+                  {successTitle}
                 </h3>
                 <p
                   className={clsx(
@@ -218,9 +241,7 @@ export default function InfluencerFormSection({
                     "text-stone-600 text-xs sm:text-sm max-w-md mx-auto leading-relaxed",
                   )}
                 >
-                  Thank you for joining hands with Bharat Bhakti Sangam. Our
-                  team will review your application and get in touch with you
-                  shortly.
+                  {successDescription}
                 </p>
                 <button
                   type="button"
@@ -271,7 +292,7 @@ export default function InfluencerFormSection({
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-4 lg:gap-4.5 items-stretch">
                     {/* Profile Picture Uploader (Left Column) */}
                     <div className="md:col-span-6 h-full">
-                      <InfluencerProfileUpload
+                      <ProfilePictureUpload
                         name="profilePicture"
                         control={control}
                         label="Profile Picture"
@@ -320,7 +341,7 @@ export default function InfluencerFormSection({
                         )}
                       </div>
 
-                      {/* Gender Select - Exact 100% width matching input above */}
+                      {/* Gender Select */}
                       <div className="w-full">
                         <label htmlFor="gender" className={labelClass}>
                           Gender <span className="text-stone-700">*</span>
@@ -634,7 +655,7 @@ export default function InfluencerFormSection({
                   )}
                 </div>
 
-                {/* Submit Button (Matching exact pill from image) */}
+                {/* Submit Button */}
                 <div className="pt-1">
                   <button
                     type="submit"
@@ -647,11 +668,11 @@ export default function InfluencerFormSection({
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
-                        <span>Submitting Application...</span>
+                        <span>{submittingButtonText}</span>
                       </>
                     ) : (
                       <>
-                        <span>Submit Artist Request</span>
+                        <span>{submitButtonText}</span>
                         <Send size={15} strokeWidth={2.2} />
                       </>
                     )}

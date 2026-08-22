@@ -1,64 +1,29 @@
 import React from "react";
 import clsx from "clsx";
-import {
-  Users,
-  CalendarDays,
-  Camera,
-  TrendingUp,
-  LucideIcon,
-} from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 
-export interface BenefitCardItem {
+export interface CreatorBenefitItem {
   id?: string;
   icon: LucideIcon;
   title: string;
   description: string;
 }
 
-export interface InfluencerWhyCollaborateProps {
+export interface CreatorBenefitsGridProps {
   title?: string;
-  benefits?: BenefitCardItem[];
+  benefits: CreatorBenefitItem[];
   className?: string;
 }
 
-const DEFAULT_BENEFITS: BenefitCardItem[] = [
-  {
-    id: "official-collaboration",
-    icon: Users,
-    title: "Official Collaboration",
-    description:
-      "Partner with a trusted spiritual organization with a global reach.",
-  },
-  {
-    id: "event-invitations",
-    icon: CalendarDays,
-    title: "Event Invitations",
-    description:
-      "Get exclusive invitations to our festivals, events and programs.",
-  },
-  {
-    id: "creator-recognition",
-    icon: Camera,
-    title: "Creator Recognition",
-    description: "Featured on our website and social media channels.",
-  },
-  {
-    id: "grow-together",
-    icon: TrendingUp,
-    title: "Grow Together",
-    description: "Be part of a growing community of passionate creators.",
-  },
-];
-
-export default function InfluencerWhyCollaborate({
+export default function CreatorBenefitsGrid({
   title = "WHY COLLABORATE WITH BHARAT BHAKTI SANGAM?",
-  benefits = DEFAULT_BENEFITS,
+  benefits,
   className,
-}: InfluencerWhyCollaborateProps) {
+}: CreatorBenefitsGridProps) {
   return (
     <section
-      aria-labelledby="why-collaborate-heading"
+      aria-labelledby="creator-benefits-heading"
       className={clsx(
         "relative w-full bg-[#FDFCF8] py-14 sm:py-16 md:py-20 lg:py-24",
         className,
@@ -72,7 +37,7 @@ export default function InfluencerWhyCollaborate({
             className="h-px w-12 sm:w-16 md:w-24 lg:w-28 bg-linear-to-r from-transparent via-[#D4AF37]/50 to-[#D4AF37]"
           />
           <h2
-            id="why-collaborate-heading"
+            id="creator-benefits-heading"
             className={clsx(
               playfair.className,
               "text-center text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-[0.14em] sm:tracking-[0.18em] uppercase text-heading",

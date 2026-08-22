@@ -1,61 +1,40 @@
 import React from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import { Sparkles, Award, Ticket, LucideIcon } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 
-export interface InfluencerHighlight {
+export interface CreatorHighlight {
   id?: string;
   icon: LucideIcon;
   title: string;
   subtitle: string;
 }
 
-export interface InfluencerHeroProps {
-  eyebrow?: string;
-  titleLine1?: string;
-  titleLine2?: string;
-  description?: string;
-  highlights?: InfluencerHighlight[];
+export interface CreatorHeroProps {
+  eyebrow: string;
+  titleLine1: string;
+  titleLine2: string;
+  description: string;
+  highlights: CreatorHighlight[];
   imageSrc?: string;
   imageAlt?: string;
   className?: string;
 }
 
-const DEFAULT_HIGHLIGHTS: InfluencerHighlight[] = [
-  {
-    id: "inspire-millions",
-    icon: Award,
-    title: "Inspire Millions",
-    subtitle: "through your content",
-  },
-  {
-    id: "get-recognized",
-    icon: Sparkles,
-    title: "Get Recognized",
-    subtitle: "on our official platforms",
-  },
-  {
-    id: "exclusive-access",
-    icon: Ticket,
-    title: "Exclusive Access",
-    subtitle: "to events & experiences",
-  },
-];
-
-export default function InfluencerHero({
-  eyebrow = "INFLUENCER COLLABORATION",
-  titleLine1 = "Become an Official",
-  titleLine2 = "Influencer",
-  description = "Join Bharat Bhakti Sangam and be a part of a spiritual movement. Share devotion, culture and tradition with millions of hearts.",
-  highlights = DEFAULT_HIGHLIGHTS,
+export default function CreatorHero({
+  eyebrow,
+  titleLine1,
+  titleLine2,
+  description,
+  highlights,
   imageSrc = "/about_hero.webp",
-  imageAlt = "Bharat Bhakti Sangam Influencer capturing devotional concert moments on camera",
+  imageAlt = "Bharat Bhakti Sangam sacred cultural showcase",
   className,
-}: InfluencerHeroProps) {
+}: CreatorHeroProps) {
   return (
     <section
-      aria-labelledby="influencer-hero-heading"
+      aria-labelledby="creator-hero-heading"
       className={clsx(
         "relative w-full overflow-hidden bg-secondary py-12 sm:py-16 md:py-20 lg:py-24",
         className,
@@ -83,7 +62,7 @@ export default function InfluencerHero({
 
             {/* Main Editorial Headline */}
             <h1
-              id="influencer-hero-heading"
+              id="creator-hero-heading"
               className={clsx(
                 playfair.className,
                 "text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] xl:text-[3.65rem] font-bold tracking-tight leading-[1.12] text-heading",
@@ -157,7 +136,6 @@ export default function InfluencerHero({
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, (max-width: 1280px) 45vw, 600px"
                 className="object-cover object-center transform transition-transform duration-700 hover:scale-105"
               />
-              {/* Subtle ambient lighting vignette */}
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-60"

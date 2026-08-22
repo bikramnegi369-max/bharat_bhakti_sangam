@@ -1,69 +1,29 @@
 import React from "react";
 import clsx from "clsx";
-import {
-  FileText,
-  FileCode2,
-  ScanFace,
-  MailCheck,
-  Users2,
-  LucideIcon,
-} from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 
-export interface ProcessStep {
+export interface CreatorProcessStep {
   stepNumber: number;
   icon: LucideIcon;
   title: string;
   description: string;
 }
 
-export interface InfluencerApplicationProcessProps {
+export interface CreatorTimelineProcessProps {
   title?: string;
-  steps?: ProcessStep[];
+  steps: CreatorProcessStep[];
   className?: string;
 }
 
-const DEFAULT_STEPS: ProcessStep[] = [
-  {
-    stepNumber: 1,
-    icon: FileText,
-    title: "Submit Request",
-    description: "Fill out the form and send your request.",
-  },
-  {
-    stepNumber: 2,
-    icon: FileCode2,
-    title: "Application Review",
-    description: "Our team will review your application.",
-  },
-  {
-    stepNumber: 3,
-    icon: ScanFace,
-    title: "Verification",
-    description: "You will receive an email regarding the decision.",
-  },
-  {
-    stepNumber: 4,
-    icon: MailCheck,
-    title: "Approval Email",
-    description: "You will receive an email regarding the decision.",
-  },
-  {
-    stepNumber: 5,
-    icon: Users2,
-    title: "Collaboration Begins",
-    description: "Let's create something meaningful together!",
-  },
-];
-
-export default function InfluencerApplicationProcess({
+export default function CreatorTimelineProcess({
   title = "APPLICATION PROCESS",
-  steps = DEFAULT_STEPS,
+  steps,
   className,
-}: InfluencerApplicationProcessProps) {
+}: CreatorTimelineProcessProps) {
   return (
     <section
-      aria-labelledby="application-process-heading"
+      aria-labelledby="creator-application-process-heading"
       className={clsx(
         "relative w-full overflow-hidden bg-[#FDFCF8] py-14 sm:py-16 md:py-20 lg:py-24",
         className,
@@ -77,7 +37,7 @@ export default function InfluencerApplicationProcess({
             className="h-px w-10 sm:w-16 md:w-20 lg:w-24 bg-linear-to-r from-transparent via-[#D4AF37]/50 to-[#D4AF37]"
           />
           <h2
-            id="application-process-heading"
+            id="creator-application-process-heading"
             className={clsx(
               playfair.className,
               "text-center text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-[0.14em] sm:tracking-[0.18em] uppercase text-heading",

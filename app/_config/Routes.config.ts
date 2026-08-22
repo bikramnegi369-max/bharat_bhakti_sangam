@@ -11,4 +11,5 @@ export const routes = {
   termsAndConditions: "/terms-and-conditions",
   famousTemples: "/famous-temples",
   festivals: "/festivals",
+  artist: "/artist",
 };

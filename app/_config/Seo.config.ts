@@ -332,6 +332,22 @@ export const _seoConfig = {
       "bhajan clubbing influencer",
     ],
   },
+  artist: {
+    path: "/artist",
+    image: "/ogDefault.png",
+    title: "Become a Performing Artist | Bharat Bhakti Sangam",
+    description:
+      "Showcase your talent on the Bharat Bhakti Sangam stage and inspire thousands through devotional performances. Join our artist community today.",
+    keywords: [
+      "Bharat Bhakti Sangam artist",
+      "devotional artist registration",
+      "bhajan singer collaboration",
+      "spiritual performing artist",
+      "kirtan band registration",
+      "bhajan clubbing artist",
+      "performing artist opportunity",
+    ],
+  },
 } satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;

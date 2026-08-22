@@ -6,14 +6,14 @@ import clsx from "clsx";
 import { Phone, Mail, MessageSquare, ArrowRight, Minus, Plus } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 
-export interface InfluencerFAQItem {
+export interface CreatorFAQItem {
   id?: string | number;
   question: string;
   answer: string;
   defaultOpen?: boolean;
 }
 
-export interface InfluencerContactInfo {
+export interface CreatorContactInfo {
   phone?: string;
   email?: string;
   whatsapp?: string;
@@ -21,21 +21,17 @@ export interface InfluencerContactInfo {
   ctaHref?: string;
 }
 
-export interface InfluencerFAQProps {
+export interface CreatorFAQSectionProps {
   sectionTag?: string;
   helpTitle?: string;
   helpSubtitle?: string;
-  contactInfo?: InfluencerContactInfo;
-  faqs?: InfluencerFAQItem[];
+  contactInfo?: CreatorContactInfo;
+  faqs: CreatorFAQItem[];
   className?: string;
-  /**
-   * If true, only one accordion item is open at a time (accordion behavior).
-   * If false, multiple accordion items can be open simultaneously.
-   */
   singleAccordion?: boolean;
 }
 
-const DEFAULT_CONTACT_INFO: InfluencerContactInfo = {
+const DEFAULT_CONTACT_INFO: CreatorContactInfo = {
   phone: "+91 8796086743",
   email: "contact@bharatbhaktisangam.com",
   whatsapp: "+91 8796086743",
@@ -43,55 +39,15 @@ const DEFAULT_CONTACT_INFO: InfluencerContactInfo = {
   ctaHref: "/contact",
 };
 
-const DEFAULT_FAQS: InfluencerFAQItem[] = [
-  {
-    id: 1,
-    question: "Who can apply for artist collaboration?",
-    answer:
-      "We welcome all kinds of devotional artists including singers, musicians, dancers, speakers and spiritual performers. Both individual and group applications are accepted.",
-  },
-  {
-    id: 2,
-    question: "Can groups or teams apply?",
-    answer:
-      "Yes, musical groups, choir teams, dance troupes, and devotional ensembles are fully eligible to apply. Please provide collective links and sample recordings in your submission.",
-  },
-  {
-    id: 3,
-    question: "Is there any registration or application fee?",
-    answer:
-      "No, there is absolutely zero registration or application fee. Applying and collaborating with Bharat Bhakti Sangam is completely free for all artists.",
-  },
-  {
-    id: 4,
-    question: "How long does the approval process take?",
-    answer:
-      "Our curation committee reviews applications thoroughly. You will typically receive an update via email or WhatsApp within 3 to 5 business days.",
-  },
-  {
-    id: 5,
-    question: "How will I know if my application is selected?",
-    answer:
-      "Once your profile is reviewed and shortlisted, our onboarding team will reach out via official email and phone to discuss upcoming event dates and arrangements.",
-  },
-  {
-    id: 6,
-    question: "Can I update my application after submitting?",
-    answer:
-      "Yes, if you need to update portfolio links, contact details, or performance videos, simply reach out to contact@bharatbhaktisangam.com with your application details.",
-  },
-];
-
-export default function InfluencerFAQ({
+export default function CreatorFAQSection({
   sectionTag = "FREQUENTLY ASKED QUESTIONS",
   helpTitle = "Need Help?",
   helpSubtitle = "We're here for you",
   contactInfo = DEFAULT_CONTACT_INFO,
-  faqs = DEFAULT_FAQS,
+  faqs,
   className,
   singleAccordion = true,
-}: InfluencerFAQProps) {
-  // First item open by default as shown in the design
+}: CreatorFAQSectionProps) {
   const [openIndexes, setOpenIndexes] = useState<number[]>([0]);
 
   const toggleIndex = (index: number) => {
@@ -108,7 +64,7 @@ export default function InfluencerFAQ({
 
   return (
     <section
-      aria-labelledby="influencer-faq-heading"
+      aria-labelledby="creator-faq-heading"
       className={clsx(
         "relative w-full overflow-hidden bg-[#FDFCF8] py-14 sm:py-16 md:py-20 lg:py-24",
         className,
@@ -122,7 +78,7 @@ export default function InfluencerFAQ({
             className="h-px w-10 sm:w-16 md:w-20 lg:w-24 bg-linear-to-r from-transparent via-[#D4AF37]/50 to-[#D4AF37]"
           />
           <h2
-            id="influencer-faq-heading"
+            id="creator-faq-heading"
             className={clsx(
               playfair.className,
               "text-center text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-[0.14em] sm:tracking-[0.18em] uppercase text-heading",
@@ -138,11 +94,10 @@ export default function InfluencerFAQ({
 
         {/* 2-Column Responsive Layout: Need Help Card on left, FAQ Accordions on right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
-          {/* Left Column: Need Help Card (4 cols on lg, 3.5 cols on xl) */}
+          {/* Left Column: Need Help Card */}
           <aside className="w-full lg:col-span-4 lg:sticky lg:top-24 flex justify-center">
             <div className="w-full max-w-md lg:max-w-none bg-white rounded-3xl p-6 sm:p-8 xl:p-9 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-[#F3EDE2]/80 flex flex-col justify-between">
               <div>
-                {/* Need Help Title */}
                 <h3
                   className={clsx(
                     playfair.className,
@@ -162,7 +117,6 @@ export default function InfluencerFAQ({
 
                 {/* Contact Items List */}
                 <div className="space-y-6 sm:space-y-7 mb-8 sm:mb-10">
-                  {/* CALL US */}
                   {contactInfo.phone && (
                     <div className="flex items-start gap-4">
                       <div className="p-2 sm:p-2.5 rounded-full bg-[#FFF9F6] text-[#740E0A] flex items-center justify-center shrink-0 mt-0.5">
@@ -190,7 +144,6 @@ export default function InfluencerFAQ({
                     </div>
                   )}
 
-                  {/* EMAIL US */}
                   {contactInfo.email && (
                     <div className="flex items-start gap-4">
                       <div className="p-2 sm:p-2.5 rounded-full bg-[#FFF9F6] text-[#740E0A] flex items-center justify-center shrink-0 mt-0.5">
@@ -218,7 +171,6 @@ export default function InfluencerFAQ({
                     </div>
                   )}
 
-                  {/* WHATSAPP */}
                   {contactInfo.whatsapp && (
                     <div className="flex items-start gap-4">
                       <div className="p-2 sm:p-2.5 rounded-full bg-[#FFF9F6] text-[#740E0A] flex items-center justify-center shrink-0 mt-0.5">
@@ -268,7 +220,7 @@ export default function InfluencerFAQ({
             </div>
           </aside>
 
-          {/* Right Column: FAQ Accordions (8 cols on lg) */}
+          {/* Right Column: FAQ Accordions */}
           <div className="w-full lg:col-span-8 flex flex-col space-y-4">
             {faqs.map((faq, idx) => {
               const isOpen = openIndexes.includes(idx);
@@ -282,7 +234,6 @@ export default function InfluencerFAQ({
                     isOpen && "shadow-[0_4px_16px_rgba(0,0,0,0.04)]",
                   )}
                 >
-                  {/* Left saffron/orange active accent bar */}
                   <div
                     aria-hidden="true"
                     className={clsx(
@@ -291,18 +242,17 @@ export default function InfluencerFAQ({
                     )}
                   />
 
-                  {/* Accordion Trigger Header */}
                   <h3>
                     <button
                       type="button"
-                      id={`influencer-faq-btn-${idx}`}
+                      id={`creator-faq-btn-${idx}`}
                       aria-expanded={isOpen}
-                      aria-controls={`influencer-faq-content-${idx}`}
+                      aria-controls={`creator-faq-content-${idx}`}
                       onClick={() => toggleIndex(idx)}
                       className={clsx(
                         "w-full flex items-center justify-between gap-4 py-4 sm:py-5 px-5 sm:px-7 text-left cursor-pointer",
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-inset",
-                        isOpen && "pl-6 sm:pl-8", // gentle offset to accommodate left orange bar
+                        isOpen && "pl-6 sm:pl-8",
                       )}
                     >
                       <span
@@ -315,7 +265,6 @@ export default function InfluencerFAQ({
                         {faq.question}
                       </span>
 
-                      {/* Plus/Minus Indicator */}
                       <span
                         className={clsx(
                           "shrink-0 flex items-center justify-center w-6 h-6 rounded-full transition-transform duration-300",
@@ -332,11 +281,10 @@ export default function InfluencerFAQ({
                     </button>
                   </h3>
 
-                  {/* Collapsible Answer Body */}
                   <div
-                    id={`influencer-faq-content-${idx}`}
+                    id={`creator-faq-content-${idx}`}
                     role="region"
-                    aria-labelledby={`influencer-faq-btn-${idx}`}
+                    aria-labelledby={`creator-faq-btn-${idx}`}
                     className={clsx(
                       "grid transition-all duration-300 ease-in-out",
                       isOpen

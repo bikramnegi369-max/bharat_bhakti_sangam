@@ -6,16 +6,16 @@ import CreatorBenefitsGrid from "@/_components/sections/Marketing/Creator/Creato
 import CreatorTimelineProcess from "@/_components/sections/Marketing/Creator/CreatorTimelineProcess";
 import CreatorFAQSection from "@/_components/sections/Marketing/Creator/CreatorFAQSection";
 import StayConnectedNewsletter from "@/_components/sections/Marketing/StayConnectedNewsletter";
-import { submitInfluencerForm } from "@/_features/influencer/services/influencer.service";
+import { submitArtistApplication } from "@/_features/artists/services/artistApplication.service";
 import {
-  influencerHeroData,
-  influencerBenefitsData,
-  influencerProcessSteps,
-  influencerFaqs,
-  influencerContactInfo,
-} from "./_config/influencer.data";
+  artistHeroData,
+  artistBenefitsData,
+  artistProcessSteps,
+  artistFaqs,
+  artistContactInfo,
+} from "./_config/artist.data";
 
-// Lazy-load heavy client component (Zod, React Hook Form, Cloudinary Upload)
+// Lazy-load heavy client form component (Zod, React Hook Form, Cloudinary Upload)
 const CreatorFormSection = dynamic(
   () =>
     import(
@@ -30,34 +30,34 @@ const CreatorFormSection = dynamic(
   },
 );
 
-export const metadata: Metadata = createPageMetadataFromConfig("influencer");
+export const metadata: Metadata = createPageMetadataFromConfig("artist");
 
-export default function InfluencerPage() {
+export default function ArtistPage() {
   return (
     <div className="w-full">
-      <CreatorHero {...influencerHeroData} />
+      <CreatorHero {...artistHeroData} />
       <CreatorBenefitsGrid
         title="WHY COLLABORATE WITH BHARAT BHAKTI SANGAM?"
-        benefits={influencerBenefitsData}
+        benefits={artistBenefitsData}
       />
       <CreatorFormSection
         sidebarTitle={"Your Talent Can\nInspire Millions"}
         sidebarDescription="Join Bharat Bhakti Sangam and let your art become a medium of devotion."
         sidebarQuote="Where talent meets devotion, memories are created for life."
-        submitButtonText="Submit Request"
+        submitButtonText="Submit Artist Request"
         submittingButtonText="Submitting Application..."
         successTitle="Application Submitted!"
-        successDescription="Thank you for joining hands with Bharat Bhakti Sangam. Our team will review your application and get in touch with you shortly."
-        onSubmit={submitInfluencerForm}
+        successDescription="Thank you for applying to perform with Bharat Bhakti Sangam. Our artist curation team will review your application and connect with you shortly."
+        onSubmit={submitArtistApplication}
       />
       <CreatorTimelineProcess
         title="APPLICATION PROCESS"
-        steps={influencerProcessSteps}
+        steps={artistProcessSteps}
       />
       <CreatorFAQSection
         sectionTag="FREQUENTLY ASKED QUESTIONS"
-        faqs={influencerFaqs}
-        contactInfo={influencerContactInfo}
+        faqs={artistFaqs}
+        contactInfo={artistContactInfo}
       />
       <StayConnectedNewsletter />
     </div>

@@ -13,7 +13,7 @@ import { deleteImageByPublicId } from "@/_services/cloudinary.service";
 import { extractPublicIdFromUrl } from "@/_lib/helpers";
 import { poppins } from "@/_lib/fonts";
 
-interface InfluencerProfileUploadProps<
+export interface ProfilePictureUploadProps<
   T extends FieldValues,
   TTransformedValues extends FieldValues = T,
 > {
@@ -25,7 +25,7 @@ interface InfluencerProfileUploadProps<
   className?: string;
 }
 
-export function InfluencerProfileUpload<
+export function ProfilePictureUpload<
   T extends FieldValues,
   TTransformedValues extends FieldValues = T,
 >({
@@ -35,7 +35,7 @@ export function InfluencerProfileUpload<
   error,
   required = true,
   className,
-}: InfluencerProfileUploadProps<T, TTransformedValues>) {
+}: ProfilePictureUploadProps<T, TTransformedValues>) {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [deleteData, setDeleteData] = useState<{
@@ -206,7 +206,7 @@ export function InfluencerProfileUpload<
               </div>
             ) : (
               <>
-                {/* Clean Circular Upload Icon Pill matching image */}
+                {/* Circular Upload Icon Pill */}
                 <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full border border-stone-200/90 bg-white flex items-center justify-center text-stone-500 group-hover:text-primary group-hover:border-primary/40 shadow-2xs transition-all duration-200 group-hover:scale-105">
                   <Upload size={18} strokeWidth={1.8} />
                 </div>
