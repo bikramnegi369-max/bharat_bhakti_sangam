@@ -16,6 +16,17 @@ export async function submitInfluencerForm(
   const endpoint = routes.influencer || "/influencer";
   const url = `${backendBase}${endpoint}`;
 
+  const socialLinks: Record<string, string> = {};
+  if (formData.instagramProfile?.trim()) {
+    socialLinks.instagram = formData.instagramProfile.trim();
+  }
+  if (formData.youtubeChannel?.trim()) {
+    socialLinks.youtube = formData.youtubeChannel.trim();
+  }
+  if (formData.facebookProfile?.trim()) {
+    socialLinks.facebook = formData.facebookProfile.trim();
+  }
+
   // Form data formatted to send to the backend
   const payload: InfluencerBackendPayload = {
     firstName: formData.firstName,
@@ -29,9 +40,7 @@ export async function submitInfluencerForm(
       pincode: formData.address.pincode,
     },
     profilePicture: formData.profilePicture,
-    ...(formData.instagramProfile ? { instagramProfile: formData.instagramProfile } : {}),
-    ...(formData.facebookProfile ? { facebookProfile: formData.facebookProfile } : {}),
-    ...(formData.youtubeChannel ? { youtubeChannel: formData.youtubeChannel } : {}),
+    ...(Object.keys(socialLinks).length > 0 ? { socialLinks } : {}),
   };
 
   try {

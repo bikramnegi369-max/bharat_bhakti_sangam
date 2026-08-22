@@ -74,7 +74,10 @@ export interface InfluencerBackendPayload {
     pincode: string;
   };
   profilePicture: string;
-  instagramProfile?: string;
-  facebookProfile?: string;
-  youtubeChannel?: string;
+  socialLinks?: {
+    instagram?: string;
+    youtube?: string;
+    facebook?: string;
+  };
 }
+
