@@ -1,4 +1,3 @@
-import { routes } from "./Routes.config";
 
 export interface ContactInfoItem {
   id: string;
