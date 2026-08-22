@@ -12,4 +12,6 @@ export const routes = {
   famousTemples: "/famous-temples",
   festivals: "/festivals",
   artist: "/artist",
+  founder: "/founder",
+  founders: "/founders",
 };

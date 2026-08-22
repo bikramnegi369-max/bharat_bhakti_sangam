@@ -9,65 +9,67 @@ export function AboutJourneyTimeline() {
     <section
       id="journey"
       aria-label="Our Journey So Far"
-      className="relative w-full py-12 sm:py-16 lg:py-20 bg-[#FCFAF5]"
+      className="relative w-full py-14 sm:py-18 lg:py-24 bg-white overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+        {/* Section Header: Golden Title with Flanking Horizontal Lines as in Mockup */}
+        <div className="flex items-center justify-center gap-4 sm:gap-6 mb-14 sm:mb-18 lg:mb-20">
+          <span className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]" aria-hidden="true" />
           <h2
             className={clsx(
               playfair.className,
-              "text-[clamp(1.75rem,calc(1.25rem+1.8vw),2.625rem)] font-bold tracking-tight text-[#C47D1C] uppercase mb-2",
+              "text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-bold tracking-[0.14em] text-[#D4AF37] uppercase text-center select-none",
             )}
           >
             OUR JOURNEY SO FAR
           </h2>
-          <div className="w-16 h-0.5 bg-[#C47D1C]/40 mx-auto rounded-full" />
+          <span className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]" aria-hidden="true" />
         </div>
 
-        {/* Milestones Container */}
+        {/* Milestones Horizontal Flow Container */}
         <div className="relative">
-          {/* Connecting Line behind milestones (visible on lg screens) */}
+          {/* Connecting Golden Dashed Line across the milestone centers (visible on desktop) */}
           <div
             aria-hidden="true"
-            className="hidden lg:block absolute top-7 left-[8%] right-[8%] h-0.5 bg-linear-to-r from-transparent via-[#E0CDA9] to-transparent z-0"
+            className="hidden lg:block absolute top-[36px] left-[7%] right-[7%] h-0 border-t-2 border-dashed border-[#D4AF37]/80 z-0"
           />
 
           {/* 6-Column Milestone Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-10 gap-x-4 sm:gap-x-6 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-12 gap-x-4 sm:gap-x-6 relative z-10">
             {milestones.map((milestone) => {
               const Icon = milestone.icon;
               return (
                 <div
                   key={milestone.id}
-                  className="flex flex-col items-center text-center group"
+                  className="flex flex-col items-center text-center group cursor-default"
                 >
-                  {/* Outer Golden Circle Badge */}
+                  {/* Golden Circle Outline Badge */}
                   <div
                     className={clsx(
-                      "w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-4 sm:mb-5",
-                      "bg-[#FCFAF5] border-2 border-[#C47D1C] shadow-sm",
-                      "transition-all duration-300 group-hover:scale-110 group-hover:border-[#740E0A] group-hover:shadow-md",
+                      "w-[72px] h-[72px] rounded-full flex items-center justify-center mb-5",
+                      "bg-white border-[1.5px] border-[#D4AF37] shadow-xs",
+                      "transition-all duration-300 ease-out",
+                      "group-hover:scale-110 group-hover:border-[#740E0A] group-hover:shadow-[0_4px_20px_rgba(212,175,55,0.25)]",
                     )}
                   >
-                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-[#740E0A] stroke-[1.8] transition-colors duration-300 group-hover:text-[#C47D1C]" />
+                    <Icon className="w-7 h-7 text-[#D4AF37] stroke-[1.5] transition-colors duration-300 group-hover:text-[#740E0A]" />
                   </div>
 
-                  {/* Title */}
+                  {/* Milestone Title */}
                   <h3
                     className={clsx(
                       poppins.className,
-                      "text-xs sm:text-[13px] font-bold tracking-wide uppercase text-[#590B08] mb-1.5 min-h-9 flex items-center justify-center",
+                      "text-xs sm:text-[13px] font-bold tracking-[0.08em] uppercase text-[#740E0A] mb-2 px-1 leading-snug min-h-[38px] flex items-center justify-center",
                     )}
                   >
                     {milestone.title}
                   </h3>
 
-                  {/* Description */}
+                  {/* Milestone Description */}
                   <p
                     className={clsx(
                       poppins.className,
-                      "text-[11px] sm:text-xs text-[#6B6B6B] leading-relaxed max-w-42.5",
+                      "text-[11px] sm:text-[12px] text-[#606060] font-normal leading-relaxed max-w-[170px] px-1",
                     )}
                   >
                     {milestone.description}
@@ -81,3 +83,4 @@ export function AboutJourneyTimeline() {
     </section>
   );
 }
+

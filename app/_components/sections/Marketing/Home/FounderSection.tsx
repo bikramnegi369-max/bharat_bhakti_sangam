@@ -18,7 +18,7 @@ export default function FounderSection({
   imageSrc = "/founder.webp",
   quote = "Our Culture is not just our Past, it is our Eternal Inspiration.",
   description = "A visionary leader, spiritual guide and the heart behind Bharat Bhakti Sangam. His mission is to spread devotion, preserve our cultural heritage and bring people together through the power of bhakti.",
-  ctaHref = "/about",
+  ctaHref = "/founder",
   ctaLabel = "Know more",
 }: FounderSectionProps) {
   return (

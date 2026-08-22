@@ -11,6 +11,8 @@ import {
   Radio,
   Target,
   Eye,
+  Lightbulb,
+  Zap,
 } from "lucide-react";
 import type {
   MilestoneItem,
@@ -77,40 +79,40 @@ export const ABOUT_VISION_DATA = {
 
 export const ABOUT_JOURNEY_MILESTONES: MilestoneItem[] = [
   {
-    id: "origin",
-    title: "ORIGIN",
-    description: "A small team with a divine passion & vision",
-    icon: Sparkles,
+    id: "one-idea",
+    title: "ONE IDEA",
+    description: "A simple thought to bring devotees together.",
+    icon: Lightbulb,
   },
   {
-    id: "first-major-event",
-    title: "FIRST MAJOR EVENT",
-    description: "Our inaugural kirtan evening with 500+ devotees",
-    icon: CalendarDays,
-  },
-  {
-    id: "10th-satsang",
-    title: "10TH SATSANG MILESTONE",
-    description: "Growing vibrant energy & deep community roots",
-    icon: Music,
-  },
-  {
-    id: "city-expansion",
-    title: "EXPANSION TO NEW CITY",
-    description: "Taking devotional celebrations across regions",
-    icon: MapPin,
-  },
-  {
-    id: "50k-devotees",
-    title: "50,000+ DEVOTEES REACHED",
-    description: "Deep spiritual connection touching hearts",
+    id: "first-volunteers",
+    title: "FIRST VOLUNTEERS",
+    description: "A few like-minded people joined hands with one strong belief.",
     icon: HeartHandshake,
   },
   {
-    id: "national-summit",
-    title: "NATIONAL SPIRITUAL SUMMIT",
-    description: "A marquee cultural gathering celebrating bhakti",
-    icon: Award,
+    id: "birth-of-bhajan-clubbing",
+    title: "BIRTH OF BHAJAN CLUBBING",
+    description: "A modern way to spread bhakti through music, energy & unity.",
+    icon: Music,
+  },
+  {
+    id: "first-gurgaon-gathering",
+    title: "FIRST GURGAON GATHERING",
+    description: "Our first event that turned the idea into a beautiful reality.",
+    icon: MapPin,
+  },
+  {
+    id: "expanding-across-india",
+    title: "EXPANDING ACROSS INDIA",
+    description: "More cities, more hearts, more devotion, one mission.",
+    icon: Zap,
+  },
+  {
+    id: "building-a-national-movement",
+    title: "BUILDING A NATIONAL MOVEMENT",
+    description: "A movement that belongs to Bharat, for every Bharatvasi.",
+    icon: Building2,
   },
 ];
 

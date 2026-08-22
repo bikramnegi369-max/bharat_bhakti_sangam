@@ -348,6 +348,25 @@ export const _seoConfig = {
       "performing artist opportunity",
     ],
   },
+  founder: {
+    path: "/founder",
+    image: "/founder.webp",
+    title: "Our Founder - Deepak Kothari | Bharat Bhakti Sangam",
+    description:
+      "Learn about Deepak Kothari, the visionary founder behind Bharat Bhakti Sangam and the nationwide Bhajan Clubbing movement uniting youth through devotional music and kirtan.",
+    keywords: [
+      "Deepak Kothari",
+      "Deepak Kothari Bharat Bhakti Sangam",
+      "founder Bharat Bhakti Sangam",
+      "bhajan clubbing founder",
+      "spiritual curator Deepak Kothari",
+      "devotional movement India",
+      "Vedic kirtan movement",
+      "sanatan dharma youth revolution",
+      "bhajan clubbing",
+      "kirtan event founder",
+    ],
+  },
 } satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;
