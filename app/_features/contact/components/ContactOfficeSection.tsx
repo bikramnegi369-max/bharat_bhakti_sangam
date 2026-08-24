@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { MapPin, Clock, Train, ArrowRight } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 import { officeLocationData } from "@/_config/contact.data";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 const socialIcons = {
   instagram: (
@@ -51,144 +52,171 @@ export function ContactOfficeSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <div className="text-center pb-8 sm:pb-12">
-          <h2
-            id="office-heading"
-            className={clsx(
-              playfair.className,
-              "text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-stone-900 tracking-tight",
-            )}
-          >
-            Visit Our Office
-          </h2>
-          <div
-            aria-hidden="true"
-            className="w-12 h-0.75 bg-[#D4AF37] mx-auto mt-2.5 rounded-full"
-          />
+          <ScrollReveal animation="fade-down" duration={700}>
+            <h2
+              id="office-heading"
+              className={clsx(
+                playfair.className,
+                "text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-stone-900 tracking-tight",
+              )}
+            >
+              Visit Our Office
+            </h2>
+            <div
+              aria-hidden="true"
+              className="w-12 h-0.75 bg-[#D4AF37] mx-auto mt-2.5 rounded-full"
+            />
+          </ScrollReveal>
         </div>
 
         {/* 2-Column Responsive Layout for Office & Map */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
           {/* Left Column: Interactive Map Frame */}
-          <div className="lg:col-span-7 w-full h-72 sm:h-84 md:h-96 lg:h-full min-h-80 rounded-2xl sm:rounded-3xl overflow-hidden border border-stone-200 shadow-sm relative bg-stone-100">
-            <iframe
-              title="Bharat Bhakti Sangam Office Location"
-              src={officeLocationData.mapEmbedUrl}
-              width="100%"
-              height="100%"
-              style={{ border: 0, minHeight: "100%" }}
-              allowFullScreen={false}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-full object-cover"
-            />
+          <div className="lg:col-span-7">
+            <ScrollReveal
+              animation="fade-right"
+              duration={800}
+              delay={100}
+              className="w-full h-72 sm:h-84 md:h-96 lg:h-full min-h-80 rounded-2xl sm:rounded-3xl overflow-hidden border border-stone-200 shadow-sm relative bg-stone-100"
+            >
+              <iframe
+                title="Bharat Bhakti Sangam Office Location"
+                src={officeLocationData.mapEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0, minHeight: "100%" }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full object-cover"
+              />
+            </ScrollReveal>
           </div>
 
           {/* Right Column: Office Location Details, Subway & Socials */}
-          <div className="lg:col-span-5 bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-6">
-            {/* Details List */}
-            <div className="space-y-4 sm:space-y-5">
-              {/* Address */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200/80 flex items-center justify-center text-[#8A110D] shrink-0 mt-0.5">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div>
-                  <p
-                    className={clsx(
-                      poppins.className,
-                      "text-xs sm:text-[13px] text-stone-700 font-medium leading-relaxed",
-                    )}
-                  >
-                    {officeLocationData.address}
-                  </p>
-                </div>
+          <div className="lg:col-span-5">
+            <ScrollReveal
+              animation="fade-left"
+              duration={800}
+              delay={150}
+              className="h-full bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between space-y-6"
+            >
+              {/* Details List */}
+              <div className="space-y-4 sm:space-y-5">
+                {/* Address */}
+                <ScrollReveal animation="fade-up" duration={650} delay={180}>
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200/80 flex items-center justify-center text-[#8A110D] shrink-0 mt-0.5">
+                      <MapPin className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p
+                        className={clsx(
+                          poppins.className,
+                          "text-xs sm:text-[13px] text-stone-700 font-medium leading-relaxed",
+                        )}
+                      >
+                        {officeLocationData.address}
+                      </p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+
+                {/* Working Hours */}
+                <ScrollReveal animation="fade-up" duration={650} delay={240}>
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200/80 flex items-center justify-center text-[#8A110D] shrink-0 mt-0.5">
+                      <Clock className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p
+                        className={clsx(
+                          poppins.className,
+                          "text-xs sm:text-[13px] text-stone-700 font-medium leading-relaxed",
+                        )}
+                      >
+                        {officeLocationData.hours}
+                      </p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+
+                {/* Nearest Metro */}
+                <ScrollReveal animation="fade-up" duration={650} delay={300}>
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200/80 flex items-center justify-center text-[#8A110D] shrink-0 mt-0.5">
+                      <Train className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p
+                        className={clsx(
+                          poppins.className,
+                          "text-xs sm:text-[13px] text-stone-700 font-medium leading-relaxed",
+                        )}
+                      >
+                        <span className="font-semibold text-stone-900">
+                          Nearest Metro:
+                        </span>{" "}
+                        {officeLocationData.metro.station} (
+                        {officeLocationData.metro.line}) &ndash;{" "}
+                        {officeLocationData.metro.distance}
+                      </p>
+                    </div>
+                  </div>
+                </ScrollReveal>
               </div>
 
-              {/* Working Hours */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200/80 flex items-center justify-center text-[#8A110D] shrink-0 mt-0.5">
-                  <Clock className="w-4 h-4" />
+              {/* Social Icons Strip */}
+              <ScrollReveal animation="scale-up" duration={650} delay={360}>
+                <div className="pt-2 border-t border-stone-100">
+                  <div className="flex items-center justify-around sm:justify-start sm:gap-6 py-2">
+                    {officeLocationData.socials.map((social) => (
+                      <a
+                        key={social.platform}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-col items-center gap-1.5 group text-stone-600 hover:text-[#8A110D] transition-colors"
+                      >
+                        <div className="w-10 h-10 rounded-full border border-stone-200 group-hover:border-[#8A110D]/50 flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:bg-[#8A110D] group-hover:text-white">
+                          {socialIcons[social.platform]}
+                        </div>
+                        <span
+                          className={clsx(
+                            poppins.className,
+                            "text-[9.5px] sm:text-[10px] font-bold tracking-wider text-stone-500 group-hover:text-[#8A110D] uppercase transition-colors",
+                          )}
+                        >
+                          {social.label}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
                 </div>
-                <div>
-                  <p
-                    className={clsx(
-                      poppins.className,
-                      "text-xs sm:text-[13px] text-stone-700 font-medium leading-relaxed",
-                    )}
-                  >
-                    {officeLocationData.hours}
-                  </p>
-                </div>
-              </div>
+              </ScrollReveal>
 
-              {/* Nearest Metro */}
-              <div className="flex items-start gap-3.5">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200/80 flex items-center justify-center text-[#8A110D] shrink-0 mt-0.5">
-                  <Train className="w-4 h-4" />
-                </div>
+              {/* Get Directions Button */}
+              <ScrollReveal animation="fade-up" duration={650} delay={420}>
                 <div>
-                  <p
-                    className={clsx(
-                      poppins.className,
-                      "text-xs sm:text-[13px] text-stone-700 font-medium leading-relaxed",
-                    )}
-                  >
-                    <span className="font-semibold text-stone-900">
-                      Nearest Metro:
-                    </span>{" "}
-                    {officeLocationData.metro.station} (
-                    {officeLocationData.metro.line}) &ndash;{" "}
-                    {officeLocationData.metro.distance}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Icons Strip */}
-            <div className="pt-2 border-t border-stone-100">
-              <div className="flex items-center justify-around sm:justify-start sm:gap-6 py-2">
-                {officeLocationData.socials.map((social) => (
                   <a
-                    key={social.platform}
-                    href={social.href}
+                    href={officeLocationData.directionsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex flex-col items-center gap-1.5 group text-stone-600 hover:text-[#8A110D] transition-colors"
+                    className={clsx(
+                      poppins.className,
+                      "w-full h-11 sm:h-12 px-6 rounded-xl sm:rounded-2xl bg-[#68110D] hover:bg-[#520c09] text-white font-semibold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all duration-200",
+                    )}
                   >
-                    <div className="w-10 h-10 rounded-full border border-stone-200 group-hover:border-[#8A110D]/50 flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:bg-[#8A110D] group-hover:text-white">
-                      {socialIcons[social.platform]}
-                    </div>
-                    <span
-                      className={clsx(
-                        poppins.className,
-                        "text-[9.5px] sm:text-[10px] font-bold tracking-wider text-stone-500 group-hover:text-[#8A110D] uppercase transition-colors",
-                      )}
-                    >
-                      {social.label}
-                    </span>
+                    <span>Get Directions</span>
+                    <ArrowRight size={16} strokeWidth={2.2} />
                   </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Get Directions Button */}
-            <div>
-              <a
-                href={officeLocationData.directionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={clsx(
-                  poppins.className,
-                  "w-full h-11 sm:h-12 px-6 rounded-xl sm:rounded-2xl bg-[#68110D] hover:bg-[#520c09] text-white font-semibold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all duration-200",
-                )}
-              >
-                <span>Get Directions</span>
-                <ArrowRight size={16} strokeWidth={2.2} />
-              </a>
-            </div>
+                </div>
+              </ScrollReveal>
+            </ScrollReveal>
           </div>
         </div>
       </div>
     </section>
   );
 }
+

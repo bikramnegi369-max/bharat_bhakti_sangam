@@ -12,6 +12,8 @@ import { contactSubjectOptions } from "@/_config/contact.data";
 import { sendGAEvent } from "@next/third-parties/google";
 import { trackMetaPixel } from "@/_lib/meta-pixel";
 
+import ScrollReveal from "@/_components/common/ScrollReveal";
+
 export function ContactMessageForm() {
   const {
     register,
@@ -84,7 +86,11 @@ export function ContactMessageForm() {
       )}
     >
       {status === "success" ? (
-        <div className="py-12 sm:py-16 text-center flex flex-col items-center justify-center space-y-4 my-auto">
+        <ScrollReveal
+          animation="scale-up"
+          duration={600}
+          className="py-12 sm:py-16 text-center flex flex-col items-center justify-center space-y-4 my-auto"
+        >
           <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shadow-xs">
             <CheckCircle2 size={30} />
           </div>
@@ -115,7 +121,7 @@ export function ContactMessageForm() {
           >
             Send Another Message
           </button>
-        </div>
+        </ScrollReveal>
       ) : (
         <form
           onSubmit={handleSubmit(submitForm)}
@@ -123,20 +129,22 @@ export function ContactMessageForm() {
           noValidate
         >
           {/* Header Title with Golden Accent */}
-          <div className="text-center pb-2">
-            <h3
-              className={clsx(
-                playfair.className,
-                "text-2xl sm:text-[1.75rem] font-bold text-[#8A110D] tracking-tight",
-              )}
-            >
-              Send Us a Message
-            </h3>
-            <div
-              aria-hidden="true"
-              className="w-12 h-0.75 bg-[#D4AF37] mx-auto mt-2 rounded-full"
-            />
-          </div>
+          <ScrollReveal animation="fade-down" duration={650}>
+            <div className="text-center pb-2">
+              <h3
+                className={clsx(
+                  playfair.className,
+                  "text-2xl sm:text-[1.75rem] font-bold text-[#8A110D] tracking-tight",
+                )}
+              >
+                Send Us a Message
+              </h3>
+              <div
+                aria-hidden="true"
+                className="w-12 h-0.75 bg-[#D4AF37] mx-auto mt-2 rounded-full"
+              />
+            </div>
+          </ScrollReveal>
 
           {status === "error" && errorMessage && (
             <div
@@ -154,151 +162,160 @@ export function ContactMessageForm() {
           )}
 
           {/* Row 1: Full Name & Email Address */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="fullName" className={labelClass}>
-                Full Name
-              </label>
-              <input
-                id="fullName"
-                type="text"
-                placeholder="Your full name"
-                {...register("fullName")}
-                className={inputClass(!!errors.fullName)}
-              />
-              {errors.fullName && (
-                <p className="text-[10.5px] text-red-500 font-medium mt-1">
-                  {errors.fullName.message}
-                </p>
-              )}
-            </div>
+          <ScrollReveal animation="fade-up" duration={650} delay={60}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="fullName" className={labelClass}>
+                  Full Name
+                </label>
+                <input
+                  id="fullName"
+                  type="text"
+                  placeholder="Your full name"
+                  {...register("fullName")}
+                  className={inputClass(!!errors.fullName)}
+                />
+                {errors.fullName && (
+                  <p className="text-[10.5px] text-red-500 font-medium mt-1">
+                    {errors.fullName.message}
+                  </p>
+                )}
+              </div>
 
-            <div>
-              <label htmlFor="email" className={labelClass}>
-                Email Address
-              </label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Your email address"
-                {...register("email")}
-                className={inputClass(!!errors.email)}
-              />
-              {errors.email && (
-                <p className="text-[10.5px] text-red-500 font-medium mt-1">
-                  {errors.email.message}
-                </p>
-              )}
+              <div>
+                <label htmlFor="email" className={labelClass}>
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Your email address"
+                  {...register("email")}
+                  className={inputClass(!!errors.email)}
+                />
+                {errors.email && (
+                  <p className="text-[10.5px] text-red-500 font-medium mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Row 2: Phone Number & Subject */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="phone" className={labelClass}>
-                Phone Number
-              </label>
-              <input
-                id="phone"
-                type="tel"
-                maxLength={10}
-                placeholder="Your phone number"
-                {...register("phone")}
-                className={inputClass(!!errors.phone)}
-              />
-              {errors.phone && (
-                <p className="text-[10.5px] text-red-500 font-medium mt-1">
-                  {errors.phone.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="subject" className={labelClass}>
-                Subject
-              </label>
-              <div className="relative w-full">
-                <select
-                  id="subject"
-                  {...register("subject")}
-                  defaultValue=""
-                  className={clsx(
-                    inputClass(!!errors.subject),
-                    "w-full appearance-none pr-9 cursor-pointer",
-                  )}
-                >
-                  <option value="" disabled className="text-stone-400">
-                    Select a subject
-                  </option>
-                  {contactSubjectOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"
-                  size={16}
+          <ScrollReveal animation="fade-up" duration={650} delay={120}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="phone" className={labelClass}>
+                  Phone Number
+                </label>
+                <input
+                  id="phone"
+                  type="tel"
+                  maxLength={10}
+                  placeholder="Your phone number"
+                  {...register("phone")}
+                  className={inputClass(!!errors.phone)}
                 />
+                {errors.phone && (
+                  <p className="text-[10.5px] text-red-500 font-medium mt-1">
+                    {errors.phone.message}
+                  </p>
+                )}
               </div>
-              {errors.subject && (
-                <p className="text-[10.5px] text-red-500 font-medium mt-1">
-                  {errors.subject.message}
-                </p>
-              )}
+
+              <div>
+                <label htmlFor="subject" className={labelClass}>
+                  Subject
+                </label>
+                <div className="relative w-full">
+                  <select
+                    id="subject"
+                    {...register("subject")}
+                    defaultValue=""
+                    className={clsx(
+                      inputClass(!!errors.subject),
+                      "w-full appearance-none pr-9 cursor-pointer",
+                    )}
+                  >
+                    <option value="" disabled className="text-stone-400">
+                      Select a subject
+                    </option>
+                    {contactSubjectOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none"
+                    size={16}
+                  />
+                </div>
+                {errors.subject && (
+                  <p className="text-[10.5px] text-red-500 font-medium mt-1">
+                    {errors.subject.message}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Row 3: Message Textarea */}
-          <div>
-            <label htmlFor="query" className={labelClass}>
-              Message
-            </label>
-            <textarea
-              id="query"
-              rows={4}
-              placeholder="How can we help you?"
-              {...register("query")}
-              className={clsx(
-                poppins.className,
-                "w-full p-3.5 sm:p-4 text-xs sm:text-[13px] rounded-lg sm:rounded-xl border bg-stone-50/50 text-stone-800 placeholder:text-stone-400 placeholder:font-normal focus:bg-white focus:outline-none transition-all duration-200 resize-none min-h-28",
-                errors.query
-                  ? "border-red-400 bg-red-50/20 ring-1 ring-red-300"
-                  : "border-stone-200/90 hover:border-stone-300 focus:border-[#8A110D]/40 focus:shadow-xs",
+          <ScrollReveal animation="fade-up" duration={650} delay={180}>
+            <div>
+              <label htmlFor="query" className={labelClass}>
+                Message
+              </label>
+              <textarea
+                id="query"
+                rows={4}
+                placeholder="How can we help you?"
+                {...register("query")}
+                className={clsx(
+                  poppins.className,
+                  "w-full p-3.5 sm:p-4 text-xs sm:text-[13px] rounded-lg sm:rounded-xl border bg-stone-50/50 text-stone-800 placeholder:text-stone-400 placeholder:font-normal focus:bg-white focus:outline-none transition-all duration-200 resize-none min-h-28",
+                  errors.query
+                    ? "border-red-400 bg-red-50/20 ring-1 ring-red-300"
+                    : "border-stone-200/90 hover:border-stone-300 focus:border-[#8A110D]/40 focus:shadow-xs",
+                )}
+              />
+              {errors.query && (
+                <p className="text-[10.5px] text-red-500 font-medium mt-1">
+                  {errors.query.message}
+                </p>
               )}
-            />
-            {errors.query && (
-              <p className="text-[10.5px] text-red-500 font-medium mt-1">
-                {errors.query.message}
-              </p>
-            )}
-          </div>
+            </div>
+          </ScrollReveal>
 
           {/* Submit Button */}
-          <div className="pt-2">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={clsx(
-                poppins.className,
-                "w-full h-11 sm:h-12 px-6 rounded-xl sm:rounded-2xl bg-[#68110D] hover:bg-[#520c09] active:scale-[0.99] text-white font-semibold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-75 disabled:cursor-not-allowed cursor-pointer",
-              )}
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
-                  <span>Sending Message...</span>
-                </>
-              ) : (
-                <>
-                  <Send size={15} strokeWidth={2.2} />
-                  <span>Send Message</span>
-                </>
-              )}
-            </button>
-          </div>
+          <ScrollReveal animation="scale-up" duration={650} delay={240}>
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={clsx(
+                  poppins.className,
+                  "w-full h-11 sm:h-12 px-6 rounded-xl sm:rounded-2xl bg-[#68110D] hover:bg-[#520c09] active:scale-[0.99] text-white font-semibold text-xs sm:text-sm tracking-wide flex items-center justify-center gap-2 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-75 disabled:cursor-not-allowed cursor-pointer",
+                )}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+                    <span>Sending Message...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send size={15} strokeWidth={2.2} />
+                    <span>Send Message</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </ScrollReveal>
         </form>
       )}
     </div>
   );
 }
+
