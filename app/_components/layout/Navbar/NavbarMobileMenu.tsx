@@ -10,6 +10,7 @@ import { NAV_LINKS, TOP_NAV_LINKS } from "@/_config/Navigation.config";
 import { routes } from "@/_config/Routes.config";
 import { CTAButton } from "../../ui/CTAButton";
 import { temples } from "@/_lib/constants/temples.constants";
+import { FESTIVAL_DETAILS_CONFIG_REGISTRY } from "@/_config/festival-details.config";
 import MobileDropdown from "./MobileDropdown";
 import { LiveButton } from "../../ui/LiveButton";
 import { useLiveStatus, type LiveEventData } from "@/_hooks/useLiveStatus";
@@ -114,6 +115,24 @@ export default function NavbarMobileMenu({
                     label: t.name,
                     href: `/${t.slug}`,
                   }))}
+                />
+              );
+            }
+
+            if (link.href === "/festivals") {
+              return (
+                <MobileDropdown
+                  key={link.href}
+                  label={link.label}
+                  href={link.href}
+                  isActive={isActive}
+                  onCloseMenu={() => setIsOpen(false)}
+                  items={Object.values(FESTIVAL_DETAILS_CONFIG_REGISTRY).map(
+                    (f) => ({
+                      label: f.name,
+                      href: `/${f.slug}`,
+                    }),
+                  )}
                 />
               );
             }

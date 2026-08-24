@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { NAV_LINKS } from "@/_config/Navigation.config";
 import { temples } from "@/_lib/constants/temples.constants";
+import { FESTIVAL_DETAILS_CONFIG_REGISTRY } from "@/_config/festival-details.config";
 import NavDropdown from "./NavDropdown";
 
 export default function DesktopNavLinks() {
@@ -15,6 +16,14 @@ export default function DesktopNavLinks() {
     label: temple.name,
     href: `/${temple.slug}`,
   }));
+
+  // Transform festivals into sub-menu items
+  const festivalSubItems = Object.values(FESTIVAL_DETAILS_CONFIG_REGISTRY).map(
+    (festival) => ({
+      label: festival.name,
+      href: `/${festival.slug}`,
+    }),
+  );
 
   return (
     <nav className="flex gap-6 relative items-center">
@@ -30,6 +39,18 @@ export default function DesktopNavLinks() {
               href={link.href}
               isActive={isActive}
               items={templeSubItems}
+            />
+          );
+        }
+
+        if (link.href === "/festivals") {
+          return (
+            <NavDropdown
+              key={link.href}
+              label={link.label}
+              href={link.href}
+              isActive={isActive}
+              items={festivalSubItems}
             />
           );
         }
