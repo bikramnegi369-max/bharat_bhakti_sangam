@@ -16,7 +16,7 @@ export default function NavbarDesktopActions({
   const { isLive, liveStreamUrl } = useLiveStatus(event);
 
   return (
-    <div className="hidden lg:flex items-center gap-6">
+    <div className="hidden xl:flex items-center gap-2.5 xl:gap-3.5 2xl:gap-6 shrink-0">
       <DesktopNavLinks />
 
       {isLive ? (
@@ -25,9 +25,9 @@ export default function NavbarDesktopActions({
         pathname !== routes.booking && (
           <CTAButton
             href={routes.booking}
-            label="Book Now"
-            variant="primary"
-            className="w-45! h-9.5! py-0! text-[clamp(0.5rem,calc(0.25rem+1.25vw),1.375rem)]!"
+            label="Book Tickets"
+            variant="orange"
+            className="rounded-full px-3.5 py-1.5 xl:px-4.5 xl:py-2 text-[12.5px] xl:text-[13px] 2xl:text-[14px] font-semibold shadow-md hover:shadow-orange/20 whitespace-nowrap"
           />
         )
       )}

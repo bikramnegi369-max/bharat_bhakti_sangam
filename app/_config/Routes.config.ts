@@ -11,7 +11,13 @@ export const routes = {
   termsAndConditions: "/terms-and-conditions",
   famousTemples: "/famous-temples",
   festivals: "/festivals",
-  artist: "/artist",
+  sanatanaDharma: "/sanatana-dharma",
+  calendar: "/calendar",
+  numerology: "/numerology",
   founder: "/founder",
   founders: "/founders",
+  influencer: "/influencer",
+  artist: "/artist",
+  status: "/status",
 };
+

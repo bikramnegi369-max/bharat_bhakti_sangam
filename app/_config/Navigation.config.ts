@@ -2,15 +2,22 @@ import { routes } from "./Routes.config";
 
 export const TOP_NAV_LINKS = [
   { label: "About", href: routes.about },
-  { label: "Contact", href: routes.contact },
   { label: "Feedback", href: routes.feedback },
 ];
 
 export const NAV_LINKS = [
   { label: "Home", href: routes.home },
-  { label: "Event", href: routes.event },
-  { label: "Famous Temples", href: routes.famousTemples },
-  { label: "Blog", href: routes.blog },
+  { label: "Events", href: routes.event },
+  { label: "Temples", href: routes.famousTemples },
   { label: "Festivals", href: routes.festivals },
-  // { label: "Sponsors", href: routes.sponsors },
+  { label: "Sanatana Dharma", href: routes.sanatanaDharma },
+  { label: "Calendar", href: routes.calendar },
+  { label: "Numerology", href: routes.numerology },
+  { label: "Founder", href: routes.founder },
+  { label: "Influencer", href: routes.influencer },
+  { label: "Artist Join", href: routes.artist },
+  { label: "Blog", href: routes.blog },
+  { label: "Status", href: routes.status },
+  { label: "Contact Us", href: routes.contact },
 ];
+

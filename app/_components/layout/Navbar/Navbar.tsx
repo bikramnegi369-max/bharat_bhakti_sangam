@@ -73,15 +73,15 @@ export default async function Navbar() {
 
   return (
     <>
-      <header className="h-[clamp(3.75rem,calc(3.304rem+2.232vw),5.313rem)] flex items-center justify-between p-4 lg:px-[clamp(2rem,calc(-2.923rem+7.692vw),4rem)] border-b sticky top-0 z-50 bg-header-bg">
-        <Link href={routes.home} aria-label="Go to homepage">
+      <header className="h-[clamp(3.75rem,calc(3.304rem+2.232vw),5.313rem)] flex items-center justify-between px-4 sm:px-6 xl:px-4 2xl:px-10 border-b border-white/10 sticky top-0 z-50 bg-header-bg">
+        <Link href={routes.home} aria-label="Go to homepage" className="shrink-0 mr-2 xl:mr-3 2xl:mr-5">
           <Image
             src="/logo.png"
             alt="Bharat Bhakti Sangam Logo"
             width={168}
             height={168}
             loading="eager"
-            className="cursor-pointer h-[clamp(4.375rem,calc(4.196rem+0.893vw),5rem)] w-[clamp(4.375rem,calc(4.196rem+0.893vw),5rem)] object-contain"
+            className="cursor-pointer h-[clamp(3.5rem,calc(3.2rem+1vw),4.75rem)] w-[clamp(3.5rem,calc(3.2rem+1vw),4.75rem)] object-contain"
           />
         </Link>
 

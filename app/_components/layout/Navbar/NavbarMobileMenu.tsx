@@ -39,16 +39,16 @@ export default function NavbarMobileMenu({
 
   return (
     <>
-      <div className="lg:hidden flex gap-4 items-center">
+      <div className="xl:hidden flex gap-3 sm:gap-4 items-center">
         {isLive ? (
           <LiveButton href={liveStreamUrl} />
         ) : (
           pathname !== routes.booking && (
             <CTAButton
               href={routes.booking}
-              label="Book Now"
-              variant="primary"
-              className="bg-transparent! border border-primary text-primary"
+              label="Book Tickets"
+              variant="orange"
+              className="px-3! py-1.5! text-xs! rounded-full shadow-sm"
             />
           )
         )}
@@ -59,9 +59,9 @@ export default function NavbarMobileMenu({
           aria-expanded={isOpen}
           aria-controls={menuId}
           onClick={() => setIsOpen((prev) => !prev)}
-          className="text-white"
+          className="text-white p-1 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
         >
-          <Menu size={30} />
+          <Menu size={28} />
         </button>
       </div>
 
@@ -69,7 +69,7 @@ export default function NavbarMobileMenu({
         <button
           type="button"
           aria-label="Close menu overlay"
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 xl:hidden cursor-pointer"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -77,19 +77,19 @@ export default function NavbarMobileMenu({
       <aside
         id={menuId}
         className={clsx(
-          "fixed inset-y-0 right-0 w-64 bg-white z-50 transition-transform duration-300 lg:hidden flex flex-col shadow-2xl",
+          "fixed inset-y-0 right-0 w-72 max-w-[85vw] bg-white z-50 transition-transform duration-300 xl:hidden flex flex-col shadow-2xl",
           isOpen ? "translate-x-0" : "translate-x-full",
         )}
         aria-hidden={!isOpen}
       >
-        <div className="p-4 border-b border-heading flex justify-between items-center">
-          <span className="font-semibold text-heading">Menu</span>
+        <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-[#FCFAF5]">
+          <span className="font-semibold text-heading tracking-wide">Menu</span>
 
           <button
             type="button"
             aria-label="Close menu"
             onClick={() => setIsOpen(false)}
-            className="text-heading"
+            className="text-heading p-1 hover:bg-gray-200/50 rounded-md transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -101,7 +101,9 @@ export default function NavbarMobileMenu({
         >
           {NAV_LINKS.map((link) => {
             const isActive =
-              pathname === link.href || pathname.startsWith(link.href + "/");
+              link.href === "/"
+                ? pathname === "/"
+                : pathname === link.href || pathname.startsWith(link.href + "/");
 
             if (link.href === "/famous-temples") {
               return (
@@ -144,9 +146,9 @@ export default function NavbarMobileMenu({
                 onClick={() => setIsOpen(false)}
                 aria-current={isActive ? "page" : undefined}
                 className={clsx(
-                  "block transition-colors",
+                  "block text-[15px] font-medium transition-colors py-0.5",
                   isActive
-                    ? "text-primary font-semibold"
+                    ? "text-orange font-semibold"
                     : "text-para hover:text-heading",
                 )}
               >
@@ -155,29 +157,39 @@ export default function NavbarMobileMenu({
             );
           })}
 
-          {/* Utility Links (About, Contact, Feedback) */}
-          <div className="pt-6 mt-6 border-t border-gray-100 space-y-4">
-            {TOP_NAV_LINKS.map((link) => {
-              const isActive =
-                pathname === link.href || pathname.startsWith(link.href + "/");
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  aria-current={isActive ? "page" : undefined}
-                  className={clsx(
-                    "block text-[15px] transition-colors",
-                    isActive
-                      ? "text-primary font-semibold"
-                      : "text-para/70 hover:text-heading",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </div>
+          {/* Utility Links (About, Feedback) */}
+          {TOP_NAV_LINKS.filter(
+            (topLink) =>
+              !NAV_LINKS.some((navLink) => navLink.href === topLink.href),
+          ).length > 0 && (
+            <div className="pt-4 mt-4 border-t border-gray-100 space-y-3">
+              {TOP_NAV_LINKS.filter(
+                (topLink) =>
+                  !NAV_LINKS.some((navLink) => navLink.href === topLink.href),
+              ).map((link) => {
+                const isActive =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname === link.href || pathname.startsWith(link.href + "/");
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    aria-current={isActive ? "page" : undefined}
+                    className={clsx(
+                      "block text-[14px] transition-colors",
+                      isActive
+                        ? "text-orange font-semibold"
+                        : "text-para/70 hover:text-heading",
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </nav>
       </aside>
     </>

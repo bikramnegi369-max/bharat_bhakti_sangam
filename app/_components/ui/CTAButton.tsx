@@ -4,7 +4,7 @@ import clsx from "clsx";
 interface CTAButtonProps {
   label: string;
   href: string;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "orange";
   className?: string;
   external?: boolean;
 }
@@ -24,6 +24,8 @@ export const CTAButton = ({
       "bg-primary border-2 border-primary hover:bg-primary/90 text-white",
     variant === "secondary" &&
       "text-primary border-2 border-primary hover:bg-primary/10",
+    variant === "orange" &&
+      "bg-orange border-2 border-orange hover:bg-orange/90 text-white",
     className,
   );
 

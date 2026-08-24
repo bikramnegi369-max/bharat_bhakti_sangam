@@ -37,7 +37,7 @@ export default function MobileDropdown({
           className={clsx(
             "flex-1 transition-colors",
             isActive
-              ? "text-primary font-semibold"
+              ? "text-orange font-semibold"
               : "text-para group-hover:text-heading",
           )}
         >
@@ -47,7 +47,7 @@ export default function MobileDropdown({
         <button
           type="button"
           onClick={handleToggle}
-          className="pl-4 py-1 text-para/50 hover:text-primary transition-colors"
+          className="pl-4 py-1 text-para/50 hover:text-orange transition-colors"
           aria-label={isExpanded ? `Collapse ${label}` : `Expand ${label}`}
         >
           <ChevronDown
@@ -68,7 +68,7 @@ export default function MobileDropdown({
             : "max-h-0 opacity-0 overflow-hidden",
         )}
       >
-        <div className="space-y-2 border-l border-primary/20">
+        <div className="space-y-2 border-l border-orange/30">
           {items.map((item) => {
             const isSubActive = pathname === item.href;
             return (
@@ -77,10 +77,10 @@ export default function MobileDropdown({
                 href={item.href}
                 onClick={onCloseMenu}
                 className={clsx(
-                  "block py-1.5 text-[16px] transition-colors",
+                  "block py-1.5 text-[15px] transition-colors",
                   isSubActive
-                    ? "text-primary font-bold"
-                    : "text-para/80 hover:text-primary active:text-primary",
+                    ? "text-orange font-bold"
+                    : "text-para/80 hover:text-orange active:text-orange",
                 )}
               >
                 {item.label}

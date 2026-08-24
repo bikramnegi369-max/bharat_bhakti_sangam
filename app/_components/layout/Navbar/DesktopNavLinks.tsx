@@ -26,10 +26,12 @@ export default function DesktopNavLinks() {
   );
 
   return (
-    <nav className="flex gap-6 relative items-center">
+    <nav className="flex gap-2 xl:gap-2.5 2xl:gap-4.5 relative items-center">
       {NAV_LINKS.map((link) => {
         const isActive =
-          pathname === link.href || pathname.startsWith(link.href + "/");
+          link.href === "/"
+            ? pathname === "/"
+            : pathname === link.href || pathname.startsWith(link.href + "/");
 
         if (link.href === "/famous-temples") {
           return (
@@ -59,15 +61,15 @@ export default function DesktopNavLinks() {
           <Link
             key={link.href}
             href={link.href}
-            className="relative pb-1 group"
+            className="relative pb-1 group shrink-0"
             scroll={true}
           >
             <span
               className={clsx(
-                "transition-colors text-[20px]",
+                "transition-colors text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium whitespace-nowrap",
                 isActive
-                  ? "text-primary font-semibold"
-                  : "text-white/80 hover:text-white",
+                  ? "text-orange"
+                  : "text-white/85 hover:text-white",
               )}
             >
               {link.label}
@@ -75,7 +77,7 @@ export default function DesktopNavLinks() {
 
             <span
               className={clsx(
-                "absolute left-0 bottom-0 h-0.5 bg-primary transition-all duration-300",
+                "absolute left-0 bottom-0 h-0.5 bg-orange transition-all duration-300",
                 isActive ? "w-full" : "w-0 group-hover:w-full",
               )}
             />
