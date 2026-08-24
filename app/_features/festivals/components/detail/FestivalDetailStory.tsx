@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FestivalDetailData } from "@/_types/festivals.types";
 import { playfair, poppins } from "@/_lib/fonts";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export default function FestivalDetailStory({
   festival,
@@ -47,7 +48,7 @@ export default function FestivalDetailStory({
   return (
     <section className="w-full py-12 md:py-16 bg-[#FFFDF9]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
-        {sections.map((sec) => (
+        {sections.map((sec, secIdx) => (
           <div
             key={sec.key}
             className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-14 ${
@@ -56,37 +57,56 @@ export default function FestivalDetailStory({
           >
             {/* Text Side */}
             <div className="w-full lg:w-1/2 space-y-4 text-left">
-              <h2
-                className={`${playfair.className} text-3xl sm:text-4xl font-bold text-heading leading-tight`}
+              <ScrollReveal
+                animation={sec.imageFirst ? "fade-left" : "fade-right"}
+                duration={750}
+                delay={50}
               >
-                {sec.title}
-              </h2>
+                <h2
+                  className={`${playfair.className} text-3xl sm:text-4xl font-bold text-heading leading-tight`}
+                >
+                  {sec.title}
+                </h2>
+              </ScrollReveal>
 
               <div className="space-y-3.5">
                 {sec.paragraphs.map((p, idx) => (
-                  <p
+                  <ScrollReveal
                     key={idx}
-                    className={`${poppins.className} text-stone-600 text-sm sm:text-base leading-relaxed font-normal`}
+                    animation={sec.imageFirst ? "fade-left" : "fade-right"}
+                    duration={750}
+                    delay={120 + idx * 70}
                   >
-                    {p}
-                  </p>
+                    <p
+                      className={`${poppins.className} text-stone-600 text-sm sm:text-base leading-relaxed font-normal`}
+                    >
+                      {p}
+                    </p>
+                  </ScrollReveal>
                 ))}
               </div>
             </div>
 
             {/* Image Side with Alternating Diagonal Curved Leaf Framing */}
             <div className="w-full lg:w-1/2 flex justify-center">
-              <div
-                className={`relative w-full max-w-md aspect-4/3 sm:aspect-16/11 overflow-hidden shadow-xl border border-amber-100/90 group ${sec.cornerStyle}`}
+              <ScrollReveal
+                animation="scale-up"
+                duration={800}
+                delay={100}
+                className="w-full flex justify-center"
               >
-                <Image
-                  src={sec.image}
-                  alt={sec.imageAlt}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-              </div>
+                <div
+                  className={`relative w-full max-w-md aspect-4/3 sm:aspect-16/11 overflow-hidden shadow-xl border border-amber-100/90 group ${sec.cornerStyle}`}
+                >
+                  <Image
+                    src={sec.image}
+                    alt={sec.imageAlt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                </div>
+              </ScrollReveal>
             </div>
           </div>
         ))}
