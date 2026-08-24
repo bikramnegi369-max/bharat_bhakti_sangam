@@ -14,7 +14,10 @@ export function AboutJourneyTimeline() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         {/* Section Header: Golden Title with Flanking Horizontal Lines as in Mockup */}
         <div className="flex items-center justify-center gap-4 sm:gap-6 mb-14 sm:mb-18 lg:mb-20">
-          <span className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]" aria-hidden="true" />
+          <span
+            className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]"
+            aria-hidden="true"
+          />
           <h2
             className={clsx(
               playfair.className,
@@ -23,7 +26,10 @@ export function AboutJourneyTimeline() {
           >
             OUR JOURNEY SO FAR
           </h2>
-          <span className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]" aria-hidden="true" />
+          <span
+            className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]"
+            aria-hidden="true"
+          />
         </div>
 
         {/* Milestones Horizontal Flow Container */}
@@ -31,7 +37,7 @@ export function AboutJourneyTimeline() {
           {/* Connecting Golden Dashed Line across the milestone centers (visible on desktop) */}
           <div
             aria-hidden="true"
-            className="hidden lg:block absolute top-[36px] left-[7%] right-[7%] h-0 border-t-2 border-dashed border-[#D4AF37]/80 z-0"
+            className="hidden lg:block absolute top-9 left-[7%] right-[7%] h-0 border-t-2 border-dashed border-[#D4AF37]/80 z-0"
           />
 
           {/* 6-Column Milestone Grid */}
@@ -46,7 +52,7 @@ export function AboutJourneyTimeline() {
                   {/* Golden Circle Outline Badge */}
                   <div
                     className={clsx(
-                      "w-[72px] h-[72px] rounded-full flex items-center justify-center mb-5",
+                      "w-18 h-18 rounded-full flex items-center justify-center mb-5",
                       "bg-white border-[1.5px] border-[#D4AF37] shadow-xs",
                       "transition-all duration-300 ease-out",
                       "group-hover:scale-110 group-hover:border-[#740E0A] group-hover:shadow-[0_4px_20px_rgba(212,175,55,0.25)]",
@@ -59,7 +65,7 @@ export function AboutJourneyTimeline() {
                   <h3
                     className={clsx(
                       poppins.className,
-                      "text-xs sm:text-[13px] font-bold tracking-[0.08em] uppercase text-[#740E0A] mb-2 px-1 leading-snug min-h-[38px] flex items-center justify-center",
+                      "text-xs sm:text-[13px] font-bold tracking-[0.08em] uppercase text-[#740E0A] mb-2 px-1 leading-snug min-h-9.5 flex items-center justify-center",
                     )}
                   >
                     {milestone.title}
@@ -69,7 +75,7 @@ export function AboutJourneyTimeline() {
                   <p
                     className={clsx(
                       poppins.className,
-                      "text-[11px] sm:text-[12px] text-[#606060] font-normal leading-relaxed max-w-[170px] px-1",
+                      "text-[11px] sm:text-[12px] text-[#606060] font-normal leading-relaxed max-w-42.5 px-1",
                     )}
                   >
                     {milestone.description}
@@ -83,4 +89,3 @@ export function AboutJourneyTimeline() {
     </section>
   );
 }
-
