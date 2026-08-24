@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { playfair, poppins } from "@/_lib/fonts";
 import { MOVEMENT_ACTION_CARDS } from "../constants/founder.constants";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export function FounderMovementCardsSection() {
   const cards = MOVEMENT_ACTION_CARDS;
@@ -113,64 +114,71 @@ export function FounderMovementCardsSection() {
 
   return (
     <section className="relative w-full py-16 sm:py-20 lg:py-24 bg-white overflow-hidden">
-      <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-340 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-14">
-          <h2
-            className={`${playfair.className} text-2xl sm:text-3xl md:text-4xl font-bold tracking-[0.18em] text-[#6B1410] uppercase mb-3`}
-          >
-            BECOME PART OF THE MOVEMENT
-          </h2>
-          <p
-            className={`${poppins.className} text-xs sm:text-sm md:text-[15px] text-[#717171] italic font-normal tracking-wide max-w-2xl mx-auto`}
-          >
-            This movement grows with you. Be a part of something bigger than yourself.
-          </p>
-        </div>
+        <ScrollReveal animation="fade-down" duration={700}>
+          <div className="text-center mb-10 sm:mb-14">
+            <h2
+              className={`${playfair.className} text-2xl sm:text-3xl md:text-4xl font-bold tracking-[0.18em] text-[#6B1410] uppercase mb-3`}
+            >
+              BECOME PART OF THE MOVEMENT
+            </h2>
+            <p
+              className={`${poppins.className} text-xs sm:text-sm md:text-[15px] text-[#717171] italic font-normal tracking-wide max-w-2xl mx-auto`}
+            >
+              This movement grows with you. Be a part of something bigger than
+              yourself.
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* 5-Card Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6 items-stretch">
-          {cards.map((card) => (
-            <div
+          {cards.map((card, index) => (
+            <ScrollReveal
               key={card.id}
-              className="group bg-white rounded-xl p-6 sm:p-7 border border-[#E5E0D8] shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(107,20,16,0.08)] hover:border-[#D1C7BA] transition-all duration-300 flex flex-col justify-between text-center"
+              animation="fade-up"
+              duration={700}
+              delay={index * 80}
+              className="h-full"
             >
-              {/* Top Content */}
-              <div className="flex flex-col items-center">
-                {/* Icon */}
-                <div className="h-16 flex items-center justify-center mb-3 transform group-hover:scale-105 transition-transform duration-300">
-                  {renderIcon(card.iconName)}
+              <div className="group bg-white rounded-xl p-6 sm:p-7 border border-[#E5E0D8] shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(107,20,16,0.08)] hover:border-[#D1C7BA] transition-all duration-300 flex flex-col justify-between text-center h-full">
+                {/* Top Content */}
+                <div className="flex flex-col items-center">
+                  {/* Icon */}
+                  <div className="h-16 flex items-center justify-center mb-3 transform group-hover:scale-105 transition-transform duration-300">
+                    {renderIcon(card.iconName)}
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className={`${poppins.className} text-xs sm:text-[13px] font-bold text-[#55100D] tracking-[0.08em] uppercase min-h-9.5 flex items-center justify-center text-center`}
+                  >
+                    {card.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p
+                    className={`${poppins.className} text-[11px] sm:text-xs text-[#737373] font-normal leading-relaxed mt-2.5 max-w-47.5 min-h-12 flex items-center justify-center`}
+                  >
+                    {card.description}
+                  </p>
                 </div>
 
-                {/* Title */}
-                <h3
-                  className={`${poppins.className} text-xs sm:text-[13px] font-bold text-[#55100D] tracking-[0.08em] uppercase min-h-[38px] flex items-center justify-center text-center`}
-                >
-                  {card.title}
-                </h3>
-
-                {/* Description */}
-                <p
-                  className={`${poppins.className} text-[11px] sm:text-xs text-[#737373] font-normal leading-relaxed mt-2.5 max-w-[190px] min-h-[48px] flex items-center justify-center`}
-                >
-                  {card.description}
-                </p>
+                {/* Action Button */}
+                <div className="mt-7 w-full">
+                  <Link
+                    href={card.ctaHref}
+                    className={`${poppins.className} block w-full py-2.5 px-3 rounded-xs bg-[#680F0B] hover:bg-[#520A07] text-white text-[11px] font-bold uppercase tracking-[0.14em] shadow-xs transition-all duration-200 hover:shadow-md text-center active:scale-[0.98]`}
+                  >
+                    {card.ctaLabel}
+                  </Link>
+                </div>
               </div>
-
-              {/* Action Button */}
-              <div className="mt-7 w-full">
-                <Link
-                  href={card.ctaHref}
-                  className={`${poppins.className} block w-full py-2.5 px-3 rounded-xs bg-[#680F0B] hover:bg-[#520A07] text-white text-[11px] font-bold uppercase tracking-[0.14em] shadow-xs transition-all duration-200 hover:shadow-md text-center active:scale-[0.98]`}
-                >
-                  {card.ctaLabel}
-                </Link>
-              </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
     </section>
   );
 }
-
