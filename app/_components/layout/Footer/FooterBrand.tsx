@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { playfair } from "@/_lib/fonts";
 
 type Props = {
   logoSrc: string;
@@ -9,20 +10,26 @@ type Props = {
 
 export function FooterBrand({ logoSrc, logoAlt, description }: Props) {
   return (
-    <div className="space-y-6 max-w-md">
-      <Link href="/" className="block relative w-25 h-25">
+    <div className="space-y-4 max-w-sm">
+      <Link
+        href="/"
+        className="inline-block transition-transform duration-300 hover:scale-105"
+      >
         <Image
           src={logoSrc}
           alt={logoAlt}
-          fill
-          className="object-contain"
-          sizes="80px"
+          width={130}
+          height={75}
+          className="object-contain object-left w-auto h-[75px]"
+          priority
         />
       </Link>
 
-      <p className="text-sm md:text-base leading-relaxed text-white/90">
+      <p className="text-sm md:text-[15px] font-normal leading-relaxed text-white/80 tracking-wide">
         {description}
       </p>
     </div>
   );
 }
+
+

@@ -93,7 +93,7 @@ export const DEFAULT_INSTA_HIGHLIGHTS: InstaHighlightItem[] = [
 export default function InstaHighlightsSection({
   titlePrefix = "INSTA",
   titleSuffix = "Highlights",
-  viewAllHref = "/gallery",
+  viewAllHref = "https://www.instagram.com/bharatbhaktisangam",
   viewAllLabel = "View All",
   highlights = DEFAULT_INSTA_HIGHLIGHTS,
   socials = footerConfig.socials,
@@ -288,7 +288,15 @@ export default function InstaHighlightsSection({
                     >
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                     </svg>
-                  ) : (
+                  ) : platform === "whatsapp" ? (
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-5 h-5 fill-stone-700 transition-colors duration-300 group-hover:fill-[#25D366]"
+                    >
+                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.078-1.782-.397-1.424-.59-2.348-2.029-2.42-2.124-.071-.095-.572-.76-.572-1.45 0-.69.362-1.03.49-1.169.13-.14.283-.175.378-.175.095 0 .19.002.273.006.09.005.21-.034.328.25.12.285.409.999.445 1.072.036.073.06.158.012.253-.048.095-.072.155-.143.238-.071.083-.15.185-.214.249-.071.071-.145.148-.062.29.083.143.371.612.796.99.547.487 1.009.638 1.152.71.143.071.226.06.31-.036.083-.095.357-.417.452-.56.095-.143.19-.119.321-.071.131.048.833.393.976.464.143.072.238.107.274.167.036.06.036.345-.108.75z" />
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.982-1.396A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.077c-1.637 0-3.15-.499-4.41-1.353l-.316-.214-2.964.83.83-2.883-.223-.332A8.043 8.043 0 0 1 3.923 12C3.923 7.546 7.546 3.923 12 3.923c4.454 0 8.077 3.623 8.077 8.077 0 4.454-3.623 8.077-8.077 8.077z" />
+                    </svg>
+                  ) : social.icon ? (
                     <div className="relative w-5 h-5">
                       <Image
                         src={social.icon}
@@ -297,7 +305,7 @@ export default function InstaHighlightsSection({
                         className="object-contain"
                       />
                     </div>
-                  )}
+                  ) : null}
                 </a>
               );
             })}
