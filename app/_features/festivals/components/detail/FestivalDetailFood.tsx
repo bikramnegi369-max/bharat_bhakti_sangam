@@ -70,7 +70,7 @@ export default function FestivalDetailFood({
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
             </div>
           </div>
         </div>

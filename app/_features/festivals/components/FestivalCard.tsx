@@ -21,7 +21,7 @@ export default function FestivalCard({
       aria-label={`Festival: ${festival.title}`}
     >
       {/* ── Left Image Banner ── */}
-      <div className="relative w-full md:w-5/12 lg:w-4/12 min-h-[240px] sm:min-h-[280px] md:min-h-[300px] shrink-0 overflow-hidden bg-stone-100">
+      <div className="relative w-full md:w-5/12 lg:w-4/12 min-h-60 sm:min-h-70 md:min-h-75 shrink-0 overflow-hidden bg-stone-100">
         <Image
           src={festival.image}
           alt={festival.title}
@@ -30,7 +30,7 @@ export default function FestivalCard({
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 42vw, 33vw"
           className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent md:hidden" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent md:hidden" />
       </div>
 
       {/* ── Right Content ── */}
@@ -64,7 +64,7 @@ export default function FestivalCard({
                 <span className="block text-[11px] uppercase tracking-wider text-stone-400 font-semibold">
                   Timing
                 </span>
-                <span className="font-semibold text-stone-800 break-words leading-snug">
+                <span className="font-semibold text-stone-800 wrap-break-word leading-snug">
                   {festival.season}
                 </span>
               </div>
@@ -77,7 +77,7 @@ export default function FestivalCard({
                 <span className="block text-[11px] uppercase tracking-wider text-stone-400 font-semibold">
                   Region
                 </span>
-                <span className="font-semibold text-stone-800 break-words leading-snug">
+                <span className="font-semibold text-stone-800 wrap-break-word leading-snug">
                   {festival.region}
                 </span>
               </div>
@@ -90,7 +90,7 @@ export default function FestivalCard({
                 <span className="block text-[11px] uppercase tracking-wider text-stone-400 font-semibold">
                   Significance
                 </span>
-                <span className="font-semibold text-stone-800 break-words leading-snug">
+                <span className="font-semibold text-stone-800 wrap-break-word leading-snug">
                   {festival.significance}
                 </span>
               </div>

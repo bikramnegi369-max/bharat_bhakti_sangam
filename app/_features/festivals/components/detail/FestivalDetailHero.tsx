@@ -10,7 +10,7 @@ export default function FestivalDetailHero({
   festival: FestivalDetailData;
 }) {
   return (
-    <header className="relative w-full min-h-[520px] sm:min-h-[580px] md:min-h-[640px] flex flex-col justify-between overflow-hidden bg-[#1f0404]">
+    <header className="relative w-full min-h-130 sm:min-h-145 md:min-h-160 flex flex-col justify-between overflow-hidden bg-[#1f0404]">
       {/* Background Image with Enhanced Visibility */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -22,7 +22,7 @@ export default function FestivalDetailHero({
           className="object-cover object-center opacity-85 brightness-100 saturate-125"
         />
         {/* Soft, transparent gradient that lets the background show through */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1b0303]/85 via-black/25 to-black/45" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#1b0303]/85 via-black/25 to-black/45" />
       </div>
 
       {/* Top Breadcrumb Nav */}
@@ -32,10 +32,7 @@ export default function FestivalDetailHero({
       >
         <ol className="flex items-center gap-1.5 text-xs sm:text-sm text-stone-200 font-medium drop-shadow-md">
           <li>
-            <Link
-              href="/"
-              className="hover:text-amber-300 transition-colors"
-            >
+            <Link href="/" className="hover:text-amber-300 transition-colors">
               Home
             </Link>
           </li>
@@ -49,7 +46,7 @@ export default function FestivalDetailHero({
             </Link>
           </li>
           <ChevronRight className="w-3.5 h-3.5 text-amber-400/80" />
-          <li className="text-amber-300 font-semibold truncate max-w-[180px] sm:max-w-none">
+          <li className="text-amber-300 font-semibold truncate max-w-45 sm:max-w-none">
             {festival.name}
           </li>
         </ol>
@@ -84,7 +81,7 @@ export default function FestivalDetailHero({
       </div>
 
       {/* Bottom Subtle Gradient Spacer */}
-      <div className="relative z-10 h-6 bg-gradient-to-t from-[#FFFDF9] to-transparent w-full" />
+      <div className="relative z-10 h-6 bg-linear-to-t from-[#FFFDF9] to-transparent w-full" />
     </header>
   );
 }

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FestivalDetailData } from "@/_types/festivals.types";
 import { FESTIVAL_DETAILS_CONFIG_REGISTRY } from "@/_config/festival-details.config";
-import { playfair, poppins } from "@/_lib/fonts";
+import { playfair } from "@/_lib/fonts";
 import { Compass, ArrowRight } from "lucide-react";
 
 export default function FestivalDetailExplore({
@@ -49,7 +49,7 @@ export default function FestivalDetailExplore({
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 text-white">
                   <span className="text-[11px] font-semibold text-amber-300 uppercase tracking-wider">
                     {item.dateBadge.day} {item.dateBadge.month}

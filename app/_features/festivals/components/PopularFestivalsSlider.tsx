@@ -37,7 +37,8 @@ export default function PopularFestivalsSlider() {
           <p
             className={`${poppins.className} text-xs sm:text-sm text-stone-500 font-medium max-w-lg mx-auto`}
           >
-            Celebrated with deep devotion, timeless rituals, and festive joy across India
+            Celebrated with deep devotion, timeless rituals, and festive joy
+            across India
           </p>
         </div>
 
@@ -71,7 +72,7 @@ export default function PopularFestivalsSlider() {
               <Link
                 key={festival.slug}
                 href={`/${festival.slug}`}
-                className="w-[260px] sm:w-[280px] md:w-[300px] shrink-0 snap-start bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group/card cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="w-65 sm:w-70 md:w-75 shrink-0 snap-start bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group/card cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-500"
                 aria-label={`View ${festival.title} details`}
               >
                 {/* Image & Date Badge */}

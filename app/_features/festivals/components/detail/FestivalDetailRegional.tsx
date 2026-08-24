@@ -23,7 +23,7 @@ export default function FestivalDetailRegional({
               sizes="100vw"
               className="object-cover object-center group-hover:scale-103 transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/20" />
             <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 text-white">
               <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-amber-300">
                 Spiritual Panorama

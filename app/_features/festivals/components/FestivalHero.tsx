@@ -4,7 +4,7 @@ import { Sparkles, Calendar, Heart, MapPin } from "lucide-react";
 
 export default function FestivalHero() {
   return (
-    <section className="relative w-full min-h-[460px] md:min-h-[520px] lg:min-h-[560px] flex items-center justify-start overflow-hidden bg-[#240606]">
+    <section className="relative w-full min-h-115 md:min-h-130 lg:min-h-140 flex items-center justify-start overflow-hidden bg-[#240606]">
       {/* Background Image with Dark Vignette Gradient */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -15,8 +15,8 @@ export default function FestivalHero() {
           sizes="100vw"
           className="object-cover object-center opacity-45 brightness-90 saturate-125"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#200404]/95 via-[#2b0707]/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1b0303] via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-linear-to-r from-[#200404]/95 via-[#2b0707]/80 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-[#1b0303] via-transparent to-black/40" />
       </div>
 
       {/* Content Container */}
@@ -33,7 +33,7 @@ export default function FestivalHero() {
             className={`${playfair.className} text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md`}
           >
             Famous <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-200 via-amber-400 to-amber-500">
               Festivals
             </span>{" "}
             of India
