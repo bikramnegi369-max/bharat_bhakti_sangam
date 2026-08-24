@@ -392,6 +392,30 @@ export const _seoConfig = {
       "kirtan event founder",
     ],
   },
+  sanatanaDharma: {
+    path: "/sanatana-dharma",
+    image: "/sanatana_bg.webp",
+    title: "The Eternal Sanatana Dharma Journey | Bharat Bhakti Sangam",
+    description:
+      "Explore the timeless journey of Sanātana Dharma through cosmic origin, Satya, Treta, Dvapara, and Kali Yugas to the modern Bhakti renaissance. Discover Vedic wisdom, avataras, and sacred traditions.",
+    keywords: [
+      "Sanatana Dharma",
+      "Sanatan Dharma Journey",
+      "Cosmic Origins Vedic",
+      "Satya Yuga",
+      "Treta Yuga",
+      "Dvapara Yuga",
+      "Kali Yuga",
+      "Vedic Timeline",
+      "Lord Rama",
+      "Lord Krishna",
+      "Bhagavad Gita",
+      "Vedas and Upanishads",
+      "Bhakti Movement",
+      "Modern Bhakti Renaissance",
+      "Bharat Bhakti Sangam",
+    ],
+  },
 } satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;
