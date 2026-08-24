@@ -20,8 +20,9 @@ export function FooterBrand({ logoSrc, logoAlt, description }: Props) {
           alt={logoAlt}
           width={130}
           height={75}
-          className="object-contain object-left w-auto h-[75px]"
           priority
+          style={{ width: "auto" }}
+          className="h-[75px] object-contain object-left"
         />
       </Link>
 
