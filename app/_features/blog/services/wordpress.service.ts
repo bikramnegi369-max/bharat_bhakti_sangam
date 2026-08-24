@@ -252,7 +252,12 @@ function getCategories(post: WordpressPost): BlogCategory[] {
         id: term.id ?? 0,
         name: decodeHtmlEntities(term.name ?? "Uncategorized"),
         slug: term.slug ?? "uncategorized",
-      })) ?? []
+      }))
+      .filter(
+        (category) =>
+          category.slug.toLowerCase() !== "uncategorized" &&
+          category.name.toLowerCase() !== "uncategorized",
+      ) ?? []
   );
 }
 

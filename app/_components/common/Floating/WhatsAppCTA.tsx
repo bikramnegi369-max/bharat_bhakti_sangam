@@ -16,12 +16,11 @@ export function WhatsAppCTA() {
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
       className={clsx(
-        "fixed z-50",
-        "right-5 bottom-[calc(env(safe-area-inset-bottom)+16px)]",
+        "relative",
         "flex items-center justify-center",
-        "w-16 h-16 sm:w-20 sm:h-20",
+        "w-14 h-14 sm:w-16 sm:h-16",
         "rounded-full bg-[#25D366]",
-        "shadow-xl",
+        "shadow-[0_4px_16px_rgba(37,211,102,0.35)]",
         "transition-transform duration-200",
         "hover:scale-105 active:scale-95",
         "focus:outline-none focus:ring-4 focus:ring-green-300",
@@ -31,7 +30,7 @@ export function WhatsAppCTA() {
       <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-20 animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]" />
 
       {/* Icon (proper spacing) */}
-      <WhatsAppIcon className="w-9 h-9 md:w-12 md:h-12 text-white relative z-10" />
+      <WhatsAppIcon className="w-8 h-8 sm:w-9 sm:h-9 text-white relative z-10" />
     </a>
   );
 }
