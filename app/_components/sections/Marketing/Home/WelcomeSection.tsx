@@ -2,6 +2,7 @@ import { CTAButton } from "@/_components/ui/CTAButton";
 import { playfair, poppins } from "@/_lib/fonts";
 import Image from "next/image";
 import Link from "next/link";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export default function WelcomeSection() {
   return (
@@ -9,10 +10,11 @@ export default function WelcomeSection() {
       {/* Background Image with Opacity */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[url('/welcome_bg.webp')] bg-no-repeat bg-position-[180px_-170px] lg:bg-position-[35%_-200%] xl:bg-position-[35%_-150%] bg-size-[860px_540px] opacity-40"
+        className="pointer-events-none absolute inset-0 bg-[url('/welcome_bg.webp')] bg-no-repeat bg-position-[180px_-170px] lg:bg-position-[35%_-200%] xl:bg-position-[35%_-150%] bg-size-[860px_540px] opacity-40 animate-float"
       />
       <div className="relative z-10 max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)] grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
-        <div className="min-w-0 w-full">
+        {/* Left Column Text with Staggered Entrance */}
+        <ScrollReveal animation="fade-right" duration={850} threshold={0.15} className="min-w-0 w-full">
           <p
             className={`text-[14px] uppercase tracking-widest font-semibold text-heading mb-3.5`}
           >
@@ -51,19 +53,24 @@ export default function WelcomeSection() {
               variant="secondary"
             />
           </div>
-        </div>
+        </ScrollReveal>
 
-        <div className="relative w-full max-w-125 aspect-square rounded-lg overflow-hidden mx-auto">
-          <Image
-            src="/welcome.webp"
-            alt="Bhajan Clubbing Experience"
-            fill
-            className="object-cover"
-            loading="lazy"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
-          />
-        </div>
+        {/* Right Column Image with 3D Float */}
+        <ScrollReveal animation="fade-left" delay={150} duration={900} threshold={0.15}>
+          <div className="relative w-full max-w-125 aspect-square rounded-lg overflow-hidden mx-auto">
+            <Image
+              src="/welcome.webp"
+              alt="Bhajan Clubbing Experience"
+              fill
+              className="object-cover"
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
+            />
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
+

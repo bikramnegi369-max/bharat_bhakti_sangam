@@ -21,6 +21,8 @@ import { EventApiError } from "@/_features/event/class/EventApiError";
 // Above-the-fold Critical UI (Static imports for instant FCP / LCP)
 import VideoHero from "@/_components/sections/Marketing/VideoHero";
 import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
+import ScrollProgressBar from "@/_components/common/ScrollProgressBar";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 // Below-the-fold Components (Dynamic imports for chunk splitting & reduced initial JS bundle)
 const FounderSection = dynamic(
@@ -117,30 +119,34 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd)}
       />
-      {/* <Hero
-        title={event.eventName}
-        location={getEventVenueName(event)}
-        address={getEventVenueAddress(event)}
-        date={getEventDisplayDate(event)}
-        backgroundImage={getHomeImage(event)}
-        primaryCta={{
-          label: "Book Now",
-          href: "/booking",
-        }}
-        secondaryCta={{
-          label: "Know More",
-          href: "/event",
-        }}
-      /> */}
+
+      {/* Top subtle golden scroll progress bar */}
+      <ScrollProgressBar />
+
+      {/* 1. Hero Section: Rendered directly without scroll delay to guarantee instant LCP */}
       <VideoHero src="/hero-video.mp4" overlay="medium" />
+
+      {/* 2. Welcome Section: Internal staggered entrance (Text left + 3D photo right) */}
       <WelcomeSection />
-      <InstaHighlightsSection />
+
+      {/* 3. Insta Highlights Carousel: Smooth horizontal Slide from Right */}
+      <ScrollReveal animation="fade-right" duration={850} delay={50} threshold={0.1}>
+        <InstaHighlightsSection />
+      </ScrollReveal>
+
+      {/* 4. Founder Section: Internal two-sided entrance (Arch portrait + floating quote card) */}
       <FounderSection />
+
+      {/* 5. Our Story Section: Internal 3-column entrance (Story text + Central Video + Staggered features) */}
       <OurStorySection
         videoSrc="/hero-video.mp4"
         posterSrc="/your_custom_dance_poster.webp"
       />
+
+      {/* 6. Why Join Us Section: Internal cascading 4-card scale-up */}
       <WhyJoinUsSection />
+
+      {/* 7. Upcoming Event Showcase Banner: Split stage visual + countdown timer */}
       <UpcomingEventSection
         eventName={event.eventName}
         venueName={getEventVenueName(event) || ""}
@@ -155,12 +161,27 @@ export default async function HomePage() {
         ctaHref="/booking"
         ctaText="Book Your Seat Now"
       />
+
+      {/* 8. Explore Spiritual India: Internal 4-card 3D flip staggered cascade */}
       <ExploreSpiritualIndiaSection />
+
+      {/* 9. Gallery Section: Internal asymmetric 6-photo de-blurring cascade */}
       <GallerySection />
-      <DivineVideoReviewsSection />
+
+      {/* 10. Divine Video Reviews Section: Dynamic Slide from Left */}
+      <ScrollReveal animation="fade-left" duration={900} threshold={0.12}>
+        <DivineVideoReviewsSection />
+      </ScrollReveal>
+
+      {/* 11. FAQ Accordion: Internal staggered question expansion + sticky help card glow */}
       <FAQ />
+
+      {/* 12. Stay Connected Newsletter: Internal split content + glowing pill input */}
       <StayConnectedNewsletter />
+
+      {/* 13. Location Map Section: Internal split address + maps embed */}
       <LocationMapSection />
+
     </>
   );
 }

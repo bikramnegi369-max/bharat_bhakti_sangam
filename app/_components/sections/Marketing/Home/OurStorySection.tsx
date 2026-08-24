@@ -15,6 +15,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+import ScrollReveal from "@/_components/common/ScrollReveal";
+
 export interface StoryFeatureItem {
   id?: string | number;
   icon: React.ElementType;
@@ -96,14 +98,14 @@ export default function OurStorySection({
     <section
       aria-labelledby="our-story-heading"
       className={clsx(
-        "relative w-full py-[clamp(3rem,calc(2rem+4vw),6rem)]",
+        "relative w-full py-[clamp(3rem,calc(2rem+4vw),6rem)] overflow-hidden",
         className,
       )}
     >
       {/* Background Decorative Mandala Accent */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 opacity-30 select-none z-0"
+        className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 opacity-30 select-none z-0 animate-float"
       >
         <Image
           src="/mandala.webp"
@@ -121,7 +123,12 @@ export default function OurStorySection({
           {/* ========================================================================= */}
           {/* COLUMN 1: Story Text & Action (4 Cols) */}
           {/* ========================================================================= */}
-          <div className="lg:col-span-4 flex flex-col justify-center text-left">
+          <ScrollReveal
+            animation="fade-right"
+            duration={850}
+            threshold={0.15}
+            className="lg:col-span-4 flex flex-col justify-center text-left"
+          >
             {/* Eyebrow */}
             <span className="text-[13px] sm:text-[14px] uppercase tracking-[0.2em] font-semibold text-primary mb-3 sm:mb-4">
               {eyebrow}
@@ -163,12 +170,18 @@ export default function OurStorySection({
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* ========================================================================= */}
           {/* COLUMN 2: Central Video Showcase Card (4 Cols) */}
           {/* ========================================================================= */}
-          <div className="lg:col-span-4 flex justify-center py-2 lg:py-0">
+          <ScrollReveal
+            animation="scale-up"
+            delay={120}
+            duration={900}
+            threshold={0.15}
+            className="lg:col-span-4 flex justify-center py-2 lg:py-0"
+          >
             <div
               className="relative w-full max-w-85 sm:max-w-95 lg:max-w-none aspect-3/4 sm:aspect-4/5 lg:aspect-9/13 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.18)] group cursor-pointer border border-amber-950/10 bg-neutral-900"
               onClick={() => setIsPlayingModal(true)}
@@ -215,7 +228,7 @@ export default function OurStorySection({
                 </span>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* ========================================================================= */}
           {/* COLUMN 3: Right Feature Cards (4 Cols) */}
@@ -224,30 +237,38 @@ export default function OurStorySection({
             {features.map((feature, idx) => {
               const IconComponent = feature.icon;
               return (
-                <div
+                <ScrollReveal
                   key={feature.id ?? idx}
-                  className="group relative flex items-center gap-4.5 p-4 sm:p-5 rounded-2xl border border-neutral-100 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(116,14,10,0.08)] hover:border-amber-200/60 transition-all duration-300 hover:-translate-y-0.5"
+                  animation="fade-left"
+                  delay={idx * 100 + 100}
+                  duration={750}
+                  threshold={0.1}
                 >
-                  {/* Icon Container */}
-                  <div className="shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-orange-50/80 group-hover:bg-primary/10 flex items-center justify-center transition-colors duration-300">
-                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-orange group-hover:text-primary transition-colors duration-300" />
-                  </div>
-
-                  {/* Feature Text */}
-                  <p
-                    className={clsx(
-                      poppins.className,
-                      "text-[13.5px] sm:text-[14.5px] text-neutral-700 group-hover:text-neutral-900 leading-snug font-normal transition-colors duration-200",
-                    )}
+                  <div
+                    className="group relative flex items-center gap-4.5 p-4 sm:p-5 rounded-2xl border border-neutral-100 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(116,14,10,0.08)] hover:border-amber-200/60 transition-all duration-300 hover:-translate-y-0.5"
                   >
-                    {feature.text}
-                  </p>
-                </div>
+                    {/* Icon Container */}
+                    <div className="shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-orange-50/80 group-hover:bg-primary/10 flex items-center justify-center transition-colors duration-300">
+                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-orange group-hover:text-primary transition-colors duration-300" />
+                    </div>
+
+                    {/* Feature Text */}
+                    <p
+                      className={clsx(
+                        poppins.className,
+                        "text-[13.5px] sm:text-[14.5px] text-neutral-700 group-hover:text-neutral-900 leading-snug font-normal transition-colors duration-200",
+                      )}
+                    >
+                      {feature.text}
+                    </p>
+                  </div>
+                </ScrollReveal>
               );
             })}
           </div>
         </div>
       </div>
+
 
       {/* ========================================================================= */}
       {/* Lightbox / Video Modal */}

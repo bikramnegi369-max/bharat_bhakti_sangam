@@ -7,6 +7,8 @@ import clsx from "clsx";
 import { MapPin, CalendarDays, Ticket } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 
+import ScrollReveal from "@/_components/common/ScrollReveal";
+
 export interface UpcomingEventSectionProps {
   eventName?: string;
   categoryLabel?: string;
@@ -134,7 +136,7 @@ export default function UpcomingEventSection({
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 select-none overflow-hidden"
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 sm:w-250 h-87.5 bg-[radial-gradient(ellipse_at_center,rgba(116,14,10,0.06)_0%,transparent_70%)] blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 sm:w-250 h-87.5 bg-[radial-gradient(ellipse_at_center,rgba(116,14,10,0.1)_0%,transparent_70%)] blur-3xl animate-glow" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
@@ -142,7 +144,12 @@ export default function UpcomingEventSection({
         <div className="overflow-hidden rounded-3xl lg:rounded-[2.5rem] bg-[#3B1214] text-white shadow-[0_25px_60px_-15px_rgba(46,4,3,0.35)] border border-[#5A1C1E]/50">
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-120">
             {/* Left Column: Visual Concert / Stage Image */}
-            <div className="relative lg:col-span-6 min-h-75 sm:min-h-95 lg:min-h-130 w-full overflow-hidden bg-[#240607]">
+            <ScrollReveal
+              animation="fade-right"
+              duration={900}
+              threshold={0.12}
+              className="relative lg:col-span-6 min-h-75 sm:min-h-95 lg:min-h-130 w-full overflow-hidden bg-[#240607]"
+            >
               <Image
                 src={imageSrc}
                 alt={eventName}
@@ -156,10 +163,16 @@ export default function UpcomingEventSection({
                 aria-hidden="true"
                 className="absolute inset-0 bg-linear-to-t from-[#3B1214]/80 via-transparent to-black/20 lg:bg-linear-to-r lg:from-transparent lg:via-[#3B1214]/10 lg:to-[#3B1214]"
               />
-            </div>
+            </ScrollReveal>
 
             {/* Right Column: Event Details, Progress & Countdown */}
-            <div className="relative lg:col-span-6 p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 flex flex-col justify-between">
+            <ScrollReveal
+              animation="fade-left"
+              delay={100}
+              duration={900}
+              threshold={0.12}
+              className="relative lg:col-span-6 p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 flex flex-col justify-between"
+            >
               <div>
                 {/* Category Eyebrow */}
                 <p
@@ -270,10 +283,11 @@ export default function UpcomingEventSection({
                   <span>{ctaText}</span>
                 </Link>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>
     </section>
   );
 }
+

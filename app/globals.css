@@ -292,3 +292,111 @@ button:active::after {
   animation: glow-pulse 3s ease-in-out infinite;
 }
 
+/* =========================================================================
+   Hardware-Accelerated Production-Grade Scroll Reveal Utility Classes
+   ========================================================================= */
+.scroll-reveal-base {
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  transition-property: opacity, transform, filter;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal-fade-up {
+  transform: translate3d(0, 42px, 0);
+}
+
+.scroll-reveal-fade-down {
+  transform: translate3d(0, -42px, 0);
+}
+
+.scroll-reveal-fade-left {
+  transform: translate3d(-50px, 0, 0);
+}
+
+.scroll-reveal-fade-right {
+  transform: translate3d(50px, 0, 0);
+}
+
+.scroll-reveal-scale-up {
+  transform: scale3d(0.88, 0.88, 1) translate3d(0, 30px, 0);
+}
+
+.scroll-reveal-blur-in {
+  filter: blur(12px);
+  transform: scale3d(0.95, 0.95, 1) translate3d(0, 20px, 0);
+}
+
+.scroll-reveal-flip-up {
+  transform: perspective(1000px) rotateX(15deg) translate3d(0, 40px, 0);
+  transform-origin: center bottom;
+}
+
+.scroll-reveal-glow-reveal {
+  transform: scale3d(0.94, 0.94, 1) translate3d(0, 25px, 0);
+  filter: drop-shadow(0 0 0 rgba(212, 175, 55, 0));
+}
+
+.scroll-reveal-glow-reveal.scroll-reveal-visible {
+  filter: drop-shadow(0 15px 35px rgba(212, 175, 55, 0.2)) !important;
+}
+
+/* Staggered Children Animations */
+.scroll-stagger-container > * {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.scroll-stagger-visible > *:nth-child(1) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0.05s;
+}
+.scroll-stagger-visible > *:nth-child(2) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0.15s;
+}
+.scroll-stagger-visible > *:nth-child(3) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0.25s;
+}
+.scroll-stagger-visible > *:nth-child(4) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0.35s;
+}
+.scroll-stagger-visible > *:nth-child(5) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0.45s;
+}
+.scroll-stagger-visible > *:nth-child(6) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0.55s;
+}
+
+/* Active Visible State Triggered by IntersectionObserver */
+.scroll-reveal-visible {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0deg) !important;
+  filter: blur(0) !important;
+}
+
+/* Fallback for Users Requesting Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-base,
+  .scroll-stagger-container > * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
+

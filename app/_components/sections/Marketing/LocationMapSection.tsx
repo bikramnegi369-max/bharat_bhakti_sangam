@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
 
+import ScrollReveal from "@/_components/common/ScrollReveal";
+
 export interface LocationMapSectionProps {
   title?: string;
   subheading?: string;
@@ -62,7 +64,10 @@ export default function LocationMapSection({
           )}
         >
           {/* Left Column: Location & Contact Details (5 cols on lg / 1024px) */}
-          <div
+          <ScrollReveal
+            animation="fade-right"
+            duration={850}
+            threshold={0.15}
             className={clsx(
               "lg:col-span-5 flex flex-col justify-between",
               "p-[clamp(1.75rem,calc(1.25rem+2vw),3.25rem)]",
@@ -165,10 +170,16 @@ export default function LocationMapSection({
                 {ctaText}
               </a>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right Column: Google Maps Embed (7 cols on lg / 1024px) */}
-          <div className="lg:col-span-7 relative min-h-75 sm:min-h-95 lg:min-h-110 w-full bg-[#F4EDE4]">
+          <ScrollReveal
+            animation="fade-left"
+            delay={120}
+            duration={850}
+            threshold={0.15}
+            className="lg:col-span-7 relative min-h-75 sm:min-h-95 lg:min-h-110 w-full bg-[#F4EDE4]"
+          >
             <iframe
               title={`${companyName} Location Map`}
               src={mapEmbedUrl}
@@ -177,9 +188,10 @@ export default function LocationMapSection({
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
   );
 }
+

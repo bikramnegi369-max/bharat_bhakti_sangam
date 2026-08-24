@@ -13,6 +13,8 @@ import {
 import { playfair, poppins } from "@/_lib/fonts";
 import { subscribeToNewsletter } from "@/_features/subscription/services/subscription.service";
 
+import ScrollReveal from "@/_components/common/ScrollReveal";
+
 export interface StayConnectedNewsletterProps {
   icon?: React.ElementType;
   subtitle?: string;
@@ -97,7 +99,7 @@ export default function StayConnectedNewsletter({
           {/* Decorative Mandala Overlay on the right */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-24 sm:-right-20 md:-right-12 lg:-right-10 top-1/2 -translate-y-1/2 w-85 sm:w-115 md:w-140 lg:w-155 aspect-square opacity-25 select-none"
+            className="pointer-events-none absolute -right-24 sm:-right-20 md:-right-12 lg:-right-10 top-1/2 -translate-y-1/2 w-85 sm:w-115 md:w-140 lg:w-155 aspect-square opacity-25 select-none animate-float"
           >
             <Image
               src="/mandala.webp"
@@ -116,13 +118,18 @@ export default function StayConnectedNewsletter({
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-24 right-1/4 w-80 h-80 rounded-full bg-[#FFE29A]/15 blur-3xl"
+            className="pointer-events-none absolute -bottom-24 right-1/4 w-80 h-80 rounded-full bg-[#FFE29A]/15 blur-3xl animate-glow"
           />
 
           {/* Inner Content Grid */}
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
             {/* Left Column: Icon + Subtitle + Heading (7 cols at lg) */}
-            <div className="lg:col-span-7 flex flex-col items-start text-left">
+            <ScrollReveal
+              animation="fade-right"
+              duration={850}
+              threshold={0.15}
+              className="lg:col-span-7 flex flex-col items-start text-left"
+            >
               {/* Glassmorphic Icon Badge */}
               <div
                 className={clsx(
@@ -156,10 +163,16 @@ export default function StayConnectedNewsletter({
               >
                 {title}
               </h2>
-            </div>
+            </ScrollReveal>
 
             {/* Right Column: Pill Form Input + Button (5 cols at lg) */}
-            <div className="lg:col-span-5 w-full flex flex-col justify-center">
+            <ScrollReveal
+              animation="fade-left"
+              delay={120}
+              duration={850}
+              threshold={0.15}
+              className="lg:col-span-5 w-full flex flex-col justify-center"
+            >
               <form
                 onSubmit={handleSubmit}
                 className="w-full relative group"
@@ -240,10 +253,11 @@ export default function StayConnectedNewsletter({
                   </div>
                 )}
               </form>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
