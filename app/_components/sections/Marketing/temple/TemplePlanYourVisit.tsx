@@ -1,6 +1,7 @@
 import { playfair, poppins } from "@/_lib/fonts";
 import { Plane, Home, UserCheck, CalendarDays } from "lucide-react";
 import type { Temple } from "@/_types/Temples.types";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 interface TemplePlanYourVisitProps {
   temple: Temple;
@@ -42,7 +43,11 @@ export default function TemplePlanYourVisit({
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-xl mx-auto mb-12">
+        <ScrollReveal
+          animation="fade-down"
+          duration={700}
+          className="text-center max-w-xl mx-auto mb-12"
+        >
           <span
             className={`${poppins.className} block text-xs font-semibold tracking-widest text-amber-600 uppercase mb-1.5`}
           >
@@ -55,31 +60,36 @@ export default function TemplePlanYourVisit({
             Plan Your Visit
           </h2>
           <div className="w-16 h-0.5 bg-amber-500 mx-auto mt-3" />
-        </div>
+        </ScrollReveal>
 
         {/* 4-Card Travel Logistics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {cards.map((card, idx) => {
             const Icon = card.icon;
             return (
-              <div
+              <ScrollReveal
                 key={idx}
-                className="bg-white border border-stone-200/90 rounded-2xl p-5 sm:p-6 shadow-xs hover:shadow-lg hover:border-amber-400/80 transition-all duration-300 flex flex-col"
+                animation="fade-up"
+                duration={650}
+                delay={idx * 80}
+                className="h-full"
               >
-                <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-700 flex items-center justify-center mb-4 shrink-0">
-                  <Icon className="w-6 h-6" />
+                <div className="bg-white border border-stone-200/90 rounded-2xl p-5 sm:p-6 shadow-xs hover:shadow-lg hover:border-amber-400/80 transition-all duration-300 flex flex-col h-full">
+                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-700 flex items-center justify-center mb-4 shrink-0">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <h3
+                    className={`${playfair.className} text-lg font-bold text-stone-900 mb-2`}
+                  >
+                    {card.title}
+                  </h3>
+                  <p
+                    className={`${poppins.className} text-stone-600 text-xs sm:text-sm leading-relaxed flex-1`}
+                  >
+                    {card.description}
+                  </p>
                 </div>
-                <h3
-                  className={`${playfair.className} text-lg font-bold text-stone-900 mb-2`}
-                >
-                  {card.title}
-                </h3>
-                <p
-                  className={`${poppins.className} text-stone-600 text-xs sm:text-sm leading-relaxed flex-1`}
-                >
-                  {card.description}
-                </p>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>
@@ -87,3 +97,4 @@ export default function TemplePlanYourVisit({
     </section>
   );
 }
+

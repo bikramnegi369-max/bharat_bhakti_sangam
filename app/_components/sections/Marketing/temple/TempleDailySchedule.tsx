@@ -1,6 +1,7 @@
 import { playfair, poppins } from "@/_lib/fonts";
 import { Sun, BookOpen, Gift, Star, Moon, Sparkles } from "lucide-react";
 import type { Temple } from "@/_types/Temples.types";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 interface TempleDailyScheduleProps {
   temple: Temple;
@@ -73,87 +74,92 @@ export default function TempleDailySchedule({
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header with Centered Gold Bar */}
-        <div className="flex items-center justify-center gap-4 mb-12">
-          <div className="w-12 h-0.5 bg-amber-400/80" />
-          <h2
-            id="schedule-heading"
-            className={`${playfair.className} text-2xl sm:text-4xl lg:text-[40px] font-bold text-primary tracking-wide text-center`}
-          >
-            Timings &amp; Daily Schedule
-          </h2>
-        </div>
+        <ScrollReveal animation="fade-down" duration={700}>
+          <div className="flex items-center justify-center gap-4 mb-12">
+            <div className="w-12 h-0.5 bg-amber-400/80" />
+            <h2
+              id="schedule-heading"
+              className={`${playfair.className} text-2xl sm:text-4xl lg:text-[40px] font-bold text-primary tracking-wide text-center`}
+            >
+              Timings &amp; Daily Schedule
+            </h2>
+          </div>
+        </ScrollReveal>
 
         {/* 2-Column Schedule Card with Vertical Divider */}
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-stone-200/80">
-            {/* Left Column */}
-            <div className="divide-y divide-stone-200/80">
-              {leftColumn.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-5 hover:bg-amber-50/20 transition-colors gap-2 sm:gap-4"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="shrink-0">
-                      {getScheduleIcon(item.title, idx)}
-                    </span>
+        <ScrollReveal animation="fade-up" duration={800} delay={100}>
+          <div className="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-stone-200/80">
+              {/* Left Column */}
+              <div className="divide-y divide-stone-200/80">
+                {leftColumn.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-5 hover:bg-amber-50/20 transition-colors gap-2 sm:gap-4"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="shrink-0">
+                        {getScheduleIcon(item.title, idx)}
+                      </span>
+                      <span
+                        className={`${poppins.className} text-xs sm:text-sm font-medium text-stone-800 wrap-break-word`}
+                      >
+                        {item.title}
+                      </span>
+                    </div>
                     <span
-                      className={`${poppins.className} text-xs sm:text-sm font-medium text-stone-800 wrap-break-word`}
+                      className={`${poppins.className} text-xs sm:text-sm font-bold text-stone-900 shrink-0 sm:text-right pl-8 sm:pl-0 tracking-tight`}
                     >
-                      {item.title}
+                      {item.time}
                     </span>
                   </div>
-                  <span
-                    className={`${poppins.className} text-xs sm:text-sm font-bold text-stone-900 shrink-0 sm:text-right pl-8 sm:pl-0 tracking-tight`}
-                  >
-                    {item.time}
-                  </span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            {/* Right Column */}
-            <div className="divide-y divide-stone-200/80">
-              {rightColumn.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-5 hover:bg-amber-50/20 transition-colors gap-2 sm:gap-4"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="shrink-0">
-                      {getScheduleIcon(item.title, half + idx)}
-                    </span>
+              {/* Right Column */}
+              <div className="divide-y divide-stone-200/80">
+                {rightColumn.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-6 py-4 sm:py-5 hover:bg-amber-50/20 transition-colors gap-2 sm:gap-4"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="shrink-0">
+                        {getScheduleIcon(item.title, half + idx)}
+                      </span>
+                      <span
+                        className={`${poppins.className} text-xs sm:text-sm font-medium text-stone-800 wrap-break-word`}
+                      >
+                        {item.title}
+                      </span>
+                    </div>
                     <span
-                      className={`${poppins.className} text-xs sm:text-sm font-medium text-stone-800 wrap-break-word`}
+                      className={`${poppins.className} text-xs sm:text-sm font-bold text-stone-900 shrink-0 sm:text-right pl-8 sm:pl-0 tracking-tight`}
                     >
-                      {item.title}
+                      {item.time}
                     </span>
                   </div>
-                  <span
-                    className={`${poppins.className} text-xs sm:text-sm font-bold text-stone-900 shrink-0 sm:text-right pl-8 sm:pl-0 tracking-tight`}
-                  >
-                    {item.time}
-                  </span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Bottom Cream Note Container matching Mockup */}
-          <div className="bg-[#FCFAF5] border-t border-stone-200 px-4 sm:px-6 py-3.5 flex items-start sm:items-center gap-2.5">
-            <div className="w-4 h-4 rounded-full bg-[#E86A17] text-white flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
-              <span className="text-[10px] font-bold italic">i</span>
+            {/* Bottom Cream Note Container matching Mockup */}
+            <div className="bg-[#FCFAF5] border-t border-stone-200 px-4 sm:px-6 py-3.5 flex items-start sm:items-center gap-2.5">
+              <div className="w-4 h-4 rounded-full bg-[#E86A17] text-white flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+                <span className="text-[10px] font-bold italic">i</span>
+              </div>
+              <p
+                className={`${poppins.className} text-xs text-stone-700 leading-relaxed`}
+              >
+                <span className="font-bold text-stone-800">Note: </span>
+                {temple.scheduleNote ||
+                  "Timings may change on special occasions and festivals."}
+              </p>
             </div>
-            <p
-              className={`${poppins.className} text-xs text-stone-700 leading-relaxed`}
-            >
-              <span className="font-bold text-stone-800">Note: </span>
-              {temple.scheduleNote ||
-                "Timings may change on special occasions and festivals."}
-            </p>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
 }
+
