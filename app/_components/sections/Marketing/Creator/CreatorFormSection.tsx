@@ -23,6 +23,7 @@ import {
 } from "@/_schemas/creatorApplication.schema";
 import { APIResponse } from "@/_types/Api.types";
 import { ProfilePictureUpload } from "./ProfilePictureUpload";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export interface CreatorFormSectionProps {
   sidebarTitle?: string;
@@ -145,8 +146,9 @@ export default function CreatorFormSection({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Main Card Container */}
-        <div className="w-full bg-white rounded-2xl sm:rounded-3xl md:rounded-4xl shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-neutral-100/90 overflow-hidden flex flex-col lg:flex-row">
-          {/* Left Maroon Branding Column (30% on lg / 1024px) */}
+        <ScrollReveal animation="scale-up" duration={800} threshold={0.1}>
+          <div className="w-full bg-white rounded-2xl sm:rounded-3xl md:rounded-4xl shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-neutral-100/90 overflow-hidden flex flex-col lg:flex-row">
+            {/* Left Maroon Branding Column (30% on lg / 1024px) */}
           <div className="w-full lg:w-[32%] xl:w-[30%] bg-[#68110D] text-white p-6 sm:p-8 md:p-10 lg:p-9 xl:p-11 flex flex-col justify-between relative overflow-hidden shrink-0 min-h-105 sm:min-h-115 lg:min-h-full">
             <div
               aria-hidden="true"
@@ -682,6 +684,7 @@ export default function CreatorFormSection({
             )}
           </div>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );
