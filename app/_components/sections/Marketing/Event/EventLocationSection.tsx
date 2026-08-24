@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { Navigation, Compass, MapPin } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export interface EventVenueData {
   _id?: string;
@@ -100,8 +101,13 @@ export default function EventLocationSection({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Location Details & CTA */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
+          {/* Left Column: Location Details & CTA with fade-right entrance */}
+          <ScrollReveal
+            animation="fade-right"
+            duration={850}
+            threshold={0.15}
+            className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center"
+          >
             {/* Header: Pin Icon + Title */}
             <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5">
               <span
@@ -228,10 +234,16 @@ export default function EventLocationSection({
                 <span>Get Directions</span>
               </a>
             </div>
-          </div>
+          </ScrollReveal>
 
-          {/* Right Column: Actual Live Google Map Embed */}
-          <div className="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end">
+          {/* Right Column: Live Google Map with scale-up reveal */}
+          <ScrollReveal
+            animation="scale-up"
+            delay={100}
+            duration={900}
+            threshold={0.15}
+            className="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end"
+          >
             <div className="relative w-full max-w-lg lg:max-w-none rounded-2xl overflow-hidden shadow-xl border border-[#D48D281A] bg-white">
               <div className="relative aspect-4/3 sm:aspect-16/10 lg:aspect-4/3 w-full">
                 <iframe
@@ -247,7 +259,7 @@ export default function EventLocationSection({
                 />
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

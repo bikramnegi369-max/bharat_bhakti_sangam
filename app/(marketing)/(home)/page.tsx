@@ -21,7 +21,6 @@ import { EventApiError } from "@/_features/event/class/EventApiError";
 // Above-the-fold Critical UI (Static imports for instant FCP / LCP)
 import VideoHero from "@/_components/sections/Marketing/VideoHero";
 import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
-import ScrollProgressBar from "@/_components/common/ScrollProgressBar";
 import ScrollReveal from "@/_components/common/ScrollReveal";
 
 // Below-the-fold Components (Dynamic imports for chunk splitting & reduced initial JS bundle)
@@ -119,9 +118,6 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd)}
       />
-
-      {/* Top subtle golden scroll progress bar */}
-      <ScrollProgressBar />
 
       {/* 1. Hero Section: Rendered directly without scroll delay to guarantee instant LCP */}
       <VideoHero src="/hero-video.mp4" overlay="medium" />

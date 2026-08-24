@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Navbar from "@/_components/layout/Navbar/Navbar";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { MetaPixel } from "@/_components/analytics/MetaPixel";
+import ScrollProgressBar from "@/_components/common/ScrollProgressBar";
 
 export const metadata: Metadata = {
   verification: {
@@ -25,6 +26,8 @@ export default function MarketingLayout({
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID!} />
       <MetaPixel />
+      {/* Universal smooth golden scroll progress indicator across all marketing pages */}
+      <ScrollProgressBar />
       <Navbar />
       <main className="min-h-screen overflow-x-clip">{children}</main>
       <Footer />

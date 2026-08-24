@@ -8,6 +8,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { Play, ChevronRight, Sparkles } from "lucide-react";
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 import VideoReviewModal, {
   DivineVideoReviewItem,
 } from "../Home/VideoReviewModal";
@@ -198,7 +199,7 @@ export default function PreviousEventHighlightsSection({
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header: Title with decorative underline and View All CTA */}
-        <div className="flex items-end justify-between gap-4 mb-6 sm:mb-8 md:mb-10">
+        <ScrollReveal animation="fade-right" duration={750} threshold={0.15} className="flex items-end justify-between gap-4 mb-6 sm:mb-8 md:mb-10">
           {/* Title with solid accent underline matching the reference design */}
           <div className="relative inline-block">
             <h2
@@ -232,10 +233,10 @@ export default function PreviousEventHighlightsSection({
               </span>
             </Link>
           )}
-        </div>
+        </ScrollReveal>
 
-        {/* Carousel Slider */}
-        <div className="relative group/slider">
+        {/* Carousel Slider with smooth fade-up entrance */}
+        <ScrollReveal animation="fade-up" duration={800} delay={60} threshold={0.1} className="relative group/slider">
           <div
             ref={emblaRef}
             className="overflow-hidden cursor-grab active:cursor-grabbing px-0.5 py-2"
@@ -329,7 +330,7 @@ export default function PreviousEventHighlightsSection({
               ))}
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Carousel Pagination Dots matching the design */}
         {scrollSnaps.length > 1 && (

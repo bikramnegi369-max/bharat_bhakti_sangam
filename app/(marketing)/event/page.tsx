@@ -8,7 +8,7 @@ import EventLocationSection from "@/_components/sections/Marketing/Event/EventLo
 import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import EventHeroSection from "@/_components/sections/Marketing/Event/EventHeroSection";
 import EventQuickInfoBar from "@/_components/sections/Marketing/Event/EventQuickInfoBar";
-
+import ScrollReveal from "@/_components/common/ScrollReveal";
 // Below-the-fold interactive client carousels/modals (dynamically split to reduce initial JS)
 const AboutArtistsSliderSection = dynamic(
   () =>
@@ -31,6 +31,7 @@ const PreviousEventHighlightsSection = dynamic(
     ),
   { loading: () => null },
 );
+
 import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
 import {
   calculateEventDuration,
@@ -169,34 +170,51 @@ export default async function EventPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript(eventJsonLd)}
       />
+
+      {/* 1. Hero Section: Critical above-the-fold component rendered directly for optimal LCP */}
       <EventHeroSection
         title={event.eventName}
         ctaLabel="Book Your Pass Now"
         ctaHref="/booking"
         backgroundImage={image ?? "/event.webp"}
       />
-      {/* Overlapping Event Quick Info Highlights - subtle overlap on mobile/tablet, 50% seam centered on desktop (1024px+) */}
+
+      {/* 2. Floating Quick Info Bar: Subtle fade-up elevation effect with threshold */}
       <div className="-mt-6 sm:-mt-10 lg:mt-0 lg:-translate-y-1/2 relative z-20">
-        <EventQuickInfoBar
-          date={{
-            primaryText: datePrimary,
-            subText: dateSub,
-          }}
-          time={timeDisplay}
-          venue={{
-            primaryText: venuePrimary.endsWith(",")
-              ? venuePrimary
-              : `${venuePrimary},`,
-            subText: venueSub,
-          }}
-          duration={duration}
-        />
+        <ScrollReveal animation="fade-up" duration={700} delay={100} threshold={0.1}>
+          <EventQuickInfoBar
+            date={{
+              primaryText: datePrimary,
+              subText: dateSub,
+            }}
+            time={timeDisplay}
+            venue={{
+              primaryText: venuePrimary.endsWith(",")
+                ? venuePrimary
+                : `${venuePrimary},`,
+              subText: venueSub,
+            }}
+            duration={duration}
+          />
+        </ScrollReveal>
       </div>
+
+      {/* 3. About Event: Internal 2-column layout-matched animations (text fade-right + image scale-up) */}
       <AboutEventSection description={description} />
+
+      {/* 4. Pass Tiers: Header fade-down + individual cards staggered scale-up with index-based delays */}
       <PassTiersSection passes={mapEventBookingTypesToPasses(event.bookingType)} />
+
+      {/* 5. About Artists Slider: Header fade-down + carousel viewport smooth fade-left */}
       <AboutArtistsSliderSection artists={event.artists} />
+
+      {/* 6. Event Location Map: Two-sided entrance (details fade-right + interactive map scale-up) */}
       <EventLocationSection venue={event.venueName} />
+
+      {/* 7. Event Gallery Slider: Header fade-down + gallery carousel smooth fade-right */}
       <EventGallerySliderSection />
+
+      {/* 8. Previous Event Highlights: Header fade-right + video cards carousel smooth fade-up */}
       <PreviousEventHighlightsSection />
     </div>
   );

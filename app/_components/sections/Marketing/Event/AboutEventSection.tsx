@@ -8,6 +8,7 @@ import {
   HeartHandshake,
   LucideIcon,
 } from "lucide-react";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export interface EventHighlightItem {
   id?: string | number;
@@ -57,12 +58,9 @@ export default function AboutEventSection({
       )}
     >
       {/* Subtle Background Decorative Star / Sparkle Accent in top-right */}
-
-
-
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-10 -right-10 sm:-top-16 sm:-right-16 w-48 h-48 sm:w-64 sm:h-64 opacity-20 select-none z-0"
+        className="pointer-events-none absolute -top-10 -right-10 sm:-top-16 sm:-right-16 w-48 h-48 sm:w-64 sm:h-64 opacity-20 select-none z-0 animate-float"
       >
         <svg
           viewBox="0 0 200 200"
@@ -88,7 +86,12 @@ export default function AboutEventSection({
         {/* ========================================================================= */}
         {/* LEFT COLUMN: Eyebrow, Heading, Description Paragraph, Highlight Items */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-6 xl:col-span-7 flex flex-col justify-center text-left">
+        <ScrollReveal
+          animation="fade-right"
+          duration={850}
+          threshold={0.15}
+          className="lg:col-span-6 xl:col-span-7 flex flex-col justify-center text-left"
+        >
           {/* Eyebrow with decorative accent line */}
           <div className="inline-flex items-center gap-3 mb-3.5 sm:mb-4">
             <span
@@ -159,12 +162,18 @@ export default function AboutEventSection({
               );
             })}
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* ========================================================================= */}
-        {/* RIGHT COLUMN: Rounded Event Image Showcase */}
+        {/* RIGHT COLUMN: Rounded Event Image Showcase with Smooth Scale Up */}
         {/* ========================================================================= */}
-        <div className="lg:col-span-6 xl:col-span-5 w-full flex justify-center lg:justify-end">
+        <ScrollReveal
+          animation="scale-up"
+          delay={120}
+          duration={900}
+          threshold={0.15}
+          className="lg:col-span-6 xl:col-span-5 w-full flex justify-center lg:justify-end"
+        >
           <div className="relative w-full aspect-4/3 sm:aspect-16/10 lg:aspect-4/3 max-w-xl lg:max-w-none rounded-3xl overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.12)] border border-stone-200/60 group bg-neutral-900">
             <Image
               src={imageSrc}
@@ -181,7 +190,7 @@ export default function AboutEventSection({
               className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 rounded-3xl"
             />
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

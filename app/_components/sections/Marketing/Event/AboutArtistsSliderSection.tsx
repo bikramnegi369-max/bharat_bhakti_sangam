@@ -7,6 +7,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export interface ArtistItem {
   _id?: string;
@@ -196,7 +197,7 @@ export default function AboutArtistsSliderSection({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 xl:px-16">
         {/* Section Heading - Exact Typography: Playfair, Maroon/Burgundy #740E0A, Uppercase */}
-        <div className="text-center mb-10 sm:mb-14 lg:mb-16">
+        <ScrollReveal animation="fade-down" duration={750} threshold={0.15} className="text-center mb-10 sm:mb-14 lg:mb-16">
           <h2
             id="about-artists-slider-heading"
             className={clsx(
@@ -206,10 +207,10 @@ export default function AboutArtistsSliderSection({
           >
             {title}
           </h2>
-        </div>
+        </ScrollReveal>
 
         {/* Carousel / Slider Container with side navigation arrows */}
-        <div className="relative group/artist-slider">
+        <ScrollReveal animation="fade-left" duration={800} delay={80} threshold={0.1} className="relative group/artist-slider">
           {/* Left Arrow Button */}
           {canSlide && (
             <button
@@ -324,7 +325,7 @@ export default function AboutArtistsSliderSection({
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 stroke-[2.5]" />
             </button>
           )}
-        </div>
+        </ScrollReveal>
 
         {/* Carousel Pagination Dots (Mobile & Tablet enhancement) */}
         {scrollSnaps.length > 1 && (

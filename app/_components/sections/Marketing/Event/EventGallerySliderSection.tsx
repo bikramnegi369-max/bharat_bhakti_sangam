@@ -7,6 +7,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 import clsx from "clsx";
 import { playfair } from "@/_lib/fonts";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 import InstagramLightboxModal, {
   GalleryItem,
 } from "../Home/InstagramLightboxModal";
@@ -208,40 +209,42 @@ export default function EventGallerySliderSection({
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading with decorative gold filigree dashes matching the reference image */}
-        <div className="flex items-center justify-center gap-3 sm:gap-5 mb-6 sm:mb-8 md:mb-10">
-          {/* Left Decorative Gold Wing Graphic */}
-          <div
-            aria-hidden="true"
-            className="flex items-center gap-1 sm:gap-1.5 text-[#D4AF37] select-none"
-          >
-            <span className="w-4 sm:w-6 md:w-8 h-[1.5px] bg-linear-to-r from-transparent to-[#D4AF37]" />
-            <span className="inline-block w-1.5 h-3 border border-[#D4AF37] rounded-[1px]" />
-            <span className="w-2 sm:w-3.5 h-[1.5px] bg-[#D4AF37]" />
+        <ScrollReveal animation="fade-down" duration={750} threshold={0.15}>
+          <div className="flex items-center justify-center gap-3 sm:gap-5 mb-6 sm:mb-8 md:mb-10">
+            {/* Left Decorative Gold Wing Graphic */}
+            <div
+              aria-hidden="true"
+              className="flex items-center gap-1 sm:gap-1.5 text-[#D4AF37] select-none"
+            >
+              <span className="w-4 sm:w-6 md:w-8 h-[1.5px] bg-linear-to-r from-transparent to-[#D4AF37]" />
+              <span className="inline-block w-1.5 h-3 border border-[#D4AF37] rounded-[1px]" />
+              <span className="w-2 sm:w-3.5 h-[1.5px] bg-[#D4AF37]" />
+            </div>
+
+            <h2
+              id="event-gallery-heading"
+              className={clsx(
+                playfair.className,
+                "text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#740E0A] tracking-[0.14em] sm:tracking-[0.18em] uppercase text-center leading-none",
+              )}
+            >
+              {title}
+            </h2>
+
+            {/* Right Decorative Gold Wing Graphic */}
+            <div
+              aria-hidden="true"
+              className="flex items-center gap-1 sm:gap-1.5 text-[#D4AF37] select-none"
+            >
+              <span className="w-2 sm:w-3.5 h-[1.5px] bg-[#D4AF37]" />
+              <span className="inline-block w-1.5 h-3 border border-[#D4AF37] rounded-[1px]" />
+              <span className="w-4 sm:w-6 md:w-8 h-[1.5px] bg-linear-to-l from-transparent to-[#D4AF37]" />
+            </div>
           </div>
+        </ScrollReveal>
 
-          <h2
-            id="event-gallery-heading"
-            className={clsx(
-              playfair.className,
-              "text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-[#740E0A] tracking-[0.14em] sm:tracking-[0.18em] uppercase text-center leading-none",
-            )}
-          >
-            {title}
-          </h2>
-
-          {/* Right Decorative Gold Wing Graphic */}
-          <div
-            aria-hidden="true"
-            className="flex items-center gap-1 sm:gap-1.5 text-[#D4AF37] select-none"
-          >
-            <span className="w-2 sm:w-3.5 h-[1.5px] bg-[#D4AF37]" />
-            <span className="inline-block w-1.5 h-3 border border-[#D4AF37] rounded-[1px]" />
-            <span className="w-4 sm:w-6 md:w-8 h-[1.5px] bg-linear-to-l from-transparent to-[#D4AF37]" />
-          </div>
-        </div>
-
-        {/* Carousel Container */}
-        <div className="relative group/gallery-slider">
+        {/* Carousel Container with smooth slide from right */}
+        <ScrollReveal animation="fade-right" duration={800} delay={80} threshold={0.1} className="relative group/gallery-slider">
           {/* Left Navigation Chevron Button */}
           {canSlide && (
             <button
@@ -341,7 +344,7 @@ export default function EventGallerySliderSection({
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
             </button>
           )}
-        </div>
+        </ScrollReveal>
 
         {/* Carousel Pagination Dots matching the design */}
         {scrollSnaps.length > 1 && (
