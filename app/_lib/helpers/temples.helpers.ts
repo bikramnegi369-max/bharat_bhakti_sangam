@@ -12,3 +12,8 @@ export function getTempleFullDetailBySlug(slug: string): Temple | undefined {
   return getNormalizedTempleDetail(temple);
 }
 
+export function getAllNormalizedTemples(): Temple[] {
+  return temples.map((temple) => getNormalizedTempleDetail(temple));
+}
+
+

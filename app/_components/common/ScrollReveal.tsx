@@ -44,13 +44,12 @@ export function ScrollReveal({
     const el = elementRef.current;
     if (!el) return;
 
-    // Check for reduced motion preference
+    // Check for reduced motion preference (CSS media query in globals.css automatically overrides visibility)
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
     if (prefersReducedMotion) {
-      setIsVisible(true);
       return;
     }
 

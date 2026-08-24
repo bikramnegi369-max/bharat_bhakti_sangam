@@ -1,9 +1,10 @@
-import TempleGrid from "@/_components/layout/temple/TempleGrid";
-import FAQSection from "@/_components/sections/Marketing/FAQSection";
-import Carousel from "@/_components/ui/Carousel/Carousel";
-import { famousTemplesCarousel } from "@/_lib/constants/carousal.constants";
+import TempleListHero from "@/_features/temples/components/TempleListHero";
+import FeaturedTemplesSlider from "@/_features/temples/components/FeaturedTemplesSlider";
+import TempleCatalog from "@/_features/temples/components/TempleCatalog";
+import TempleDevotionalQuote from "@/_features/temples/components/TempleDevotionalQuote";
+import FAQ from "@/_components/sections/Marketing/Home/FAQ";
 import { templesFAQs } from "@/_lib/constants/temples.constants";
-import { playfair } from "@/_lib/fonts";
+import { getAllNormalizedTemples } from "@/_lib/helpers/temples.helpers";
 import { createPageMetadataFromConfig } from "@/_lib/seo";
 import type { Metadata } from "next";
 
@@ -12,50 +13,43 @@ export const dynamic = "force-static"; // pre-render at build, serve from CDN
 export const metadata: Metadata = createPageMetadataFromConfig("famousTemples");
 
 export default function FamousTemplesPage() {
-  return (
-    <div>
-      {/* ── Skip link: accessibility for keyboard/screen-reader users ── */}
+  const allTemples = getAllNormalizedTemples();
 
+  return (
+    <div className="w-full bg-[#FAF8F5]">
+      {/* ── Skip link: accessibility for keyboard/screen-reader users ── */}
       <a
-        href="#temple-list"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-amber-500 text-white px-4 py-2 rounded-lg z-50"
+        href="#temple-catalog"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-lg z-50 shadow-md font-medium"
       >
-        Skip to temple list
+        Skip to temples catalog
       </a>
 
-      <Carousel slides={famousTemplesCarousel} />
+      {/* ── 01. Cinematic Devotional Hero Header ── */}
+      <TempleListHero />
 
-      {/* ── Hero header ── */}
-      <div className="text-center py-12 px-4 max-w-2xl mx-auto">
-        <h1
-          className={`${playfair.className} text-4xl sm:text-5xl font-bold text-stone-800 mb-6 leading-tight`}
-        >
-          Famous <span className="text-amber-500">Temples</span> of India
-        </h1>
+      {/* ── 02. Featured Sacred Sanctums Slider ── */}
+      <FeaturedTemplesSlider />
 
-        <p className="text-stone-600 text-base sm:text-lg leading-relaxed mb-4">
-          India is home to some of the world&rsquo;s most revered temples, each
-          reflecting timeless devotion, rich heritage, and architectural
-          brilliance.
-        </p>
+      {/* ── 03. Interactive Temples Catalog (Search, Category Filters & Paginated Grid) ── */}
+      <TempleCatalog temples={allTemples} />
 
-        <p className="text-stone-600 text-base sm:text-lg leading-relaxed">
-          From Kedarnath and Badrinath to Tirupati Balaji, Meenakshi, and
-          Jagannath temples, these sacred sites inspire millions and stand as
-          enduring symbols of Sanatana Dharma, faith, and India&rsquo;s vibrant
-          spiritual legacy.
-        </p>
-      </div>
+      {/* ── 04. Sacred Devotional Quote Callout ── */}
+      <TempleDevotionalQuote />
 
-      {/* ── Temple grid ── */}
-      <div id="temple-list">
-        <TempleGrid />
-      </div>
-      <FAQSection
+      {/* ── 05. Luxury Devotional FAQs Matching Brand Theme ── */}
+      <FAQ
         title="Frequently Asked Questions"
         items={templesFAQs}
-        groupName="famous-temples-faqs"
+        helpTitle="Have Temple Questions?"
+        helpSubtitle="Need guidance on darshan timings, best travel seasons, or pilgrimage yatra planning? We are here to help."
+        ctaText="Contact Pilgrimage Helpdesk"
+        ctaHref="/contact"
+        className="bg-[#FAF8F5] border-t border-amber-200/60"
       />
     </div>
   );
 }
+
+
+
