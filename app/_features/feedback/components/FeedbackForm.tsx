@@ -56,7 +56,7 @@ export default function FeedbackForm() {
   };
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="w-full">
       {status === "success" || status === "error" ? (
         <FeedbackFormStatus
           status={status}
@@ -67,11 +67,10 @@ export default function FeedbackForm() {
         <FormProvider {...methods}>
           <form
             onSubmit={methods.handleSubmit(handleSubmit)}
-            className="w-full max-w-2xl mx-auto rounded-2xl space-y-8"
+            className="w-full max-w-2xl mx-auto space-y-6 sm:space-y-8"
             noValidate
           >
             <FeedbackRatings />
-            <hr className="border-gray-200" />
             <FeedbackFormFields />
             <FeedbackFormActions isSubmitting={isSubmitting} />
           </form>

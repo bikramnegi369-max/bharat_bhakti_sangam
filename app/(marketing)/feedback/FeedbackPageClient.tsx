@@ -29,7 +29,13 @@ export function FeedbackPageClient({
   heroImage,
 }: FeedbackPageClientProps) {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden">
+    <section className="relative w-full min-h-screen overflow-hidden bg-[#FCFAF5]">
+      {/* Background ambient spiritual warmth glows */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-linear-to-b from-[#FFF0D4]/60 via-[#FDF3E7]/40 to-transparent blur-3xl opacity-70"
+      />
+
       <Hero
         title={eventTitle}
         location={eventLocation}
@@ -38,8 +44,8 @@ export function FeedbackPageClient({
         backgroundImage={heroImage}
       />
 
-      <div className="relative -mt-20 lg:-mt-40 z-10 flex items-center justify-center py-[clamp(2.5rem,calc(1.786rem+3.571vw),5rem)] mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
-        <div className="w-full max-w-7xl">
+      <div className="relative -mt-16 sm:-mt-24 lg:-mt-32 z-10 flex items-center justify-center pb-16 sm:pb-20 lg:pb-24 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-3xl">
           <FeedbackForm />
         </div>
       </div>

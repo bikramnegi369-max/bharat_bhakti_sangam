@@ -56,8 +56,10 @@ export const FEEDBACK_MEDIA = {
 
 // MESSAGES
 export const FEEDBACK_MESSAGES = {
-  success: "Thank you for your feedback 🙏",
-  error: "Something went wrong. Please try again.",
+  success:
+    "Thank you for sharing your divine experience with Bharat Bhakti Sangam 🙏",
+  error:
+    "We could not submit your feedback at this moment. Please check your network connection and try again.",
 };
 
 export const ALL_FEEDBACKS = "all-feedbacks";
@@ -65,15 +67,15 @@ export const ALL_FEEDBACKS = "all-feedbacks";
 // STATUS SCREEN
 export const FEEDBACK_STATUS_CONFIG = {
   success: {
-    heading: "Thank You!",
+    heading: "Thank You for Your Feedback! 🙏",
     message:
-      "Your feedback has been submitted successfully. We truly appreciate you taking the time to share your experience with us. 🙏",
-    action: null,
+      "Your valuable thoughts and experience have been received with gratitude. Your feedback inspires us to elevate the devotional ambience and arrangements for our sacred gatherings.",
+    action: "Submit Another Feedback",
   },
   error: {
-    heading: "Something Went Wrong",
+    heading: "Submission Could Not Complete",
     message:
-      "We couldn't submit your feedback. Please check your connection and try again.",
+      "We encountered an issue while receiving your response. Please check your internet connection or try again in a few moments.",
     action: "Try Again",
   },
 } as const;
