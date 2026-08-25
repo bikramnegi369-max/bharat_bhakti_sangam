@@ -33,7 +33,7 @@ export function FeedbackPageClient({
       {/* Background ambient spiritual warmth glows */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-linear-to-b from-[#FFF0D4]/60 via-[#FDF3E7]/40 to-transparent blur-3xl opacity-70"
+        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-175 h-125 bg-linear-to-b from-[#FFF0D4]/60 via-[#FDF3E7]/40 to-transparent blur-3xl opacity-70"
       />
 
       <Hero
