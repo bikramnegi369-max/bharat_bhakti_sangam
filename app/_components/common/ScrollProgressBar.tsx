@@ -44,7 +44,7 @@ export function ScrollProgressBar({
     <div
       aria-hidden="true"
       className={clsx(
-        "fixed top-0 left-0 right-0 z-[100] pointer-events-none w-full bg-transparent overflow-hidden",
+        "fixed top-0 left-0 right-0 z-100 pointer-events-none w-full bg-transparent overflow-hidden",
         className,
       )}
       style={{ height: `${height}px` }}

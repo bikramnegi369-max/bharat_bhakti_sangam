@@ -1,6 +1,9 @@
+"use client";
+
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
 import { ABOUT_IMPACT_METRICS } from "../constants/about.constants";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export function AboutImpactMetrics() {
   const metrics = ABOUT_IMPACT_METRICS;
@@ -12,25 +15,30 @@ export function AboutImpactMetrics() {
     >
       <div className="max-w-7xl mx-auto px-[clamp(1.25rem,calc(0.893rem+1.786vw),2.5rem)]">
         {/* Section Sub-Header */}
-        <div className="text-center max-w-xl mx-auto mb-10 sm:mb-14">
-          <span
-            className={clsx(
-              poppins.className,
-              "text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.2em] text-[#C47D1C] block mb-2",
-            )}
-          >
-            OUR IMPACT IN NUMBERS
-          </span>
-          <div className="w-12 h-0.5 bg-[#C47D1C]/40 mx-auto rounded-full" />
-        </div>
+        <ScrollReveal animation="fade-down" duration={600}>
+          <div className="text-center max-w-xl mx-auto mb-10 sm:mb-14">
+            <span
+              className={clsx(
+                poppins.className,
+                "text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.2em] text-[#C47D1C] block mb-2",
+              )}
+            >
+              OUR IMPACT IN NUMBERS
+            </span>
+            <div className="w-12 h-0.5 bg-[#C47D1C]/40 mx-auto rounded-full" />
+          </div>
+        </ScrollReveal>
 
         {/* 6-Column Metrics Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-10 gap-x-4 sm:gap-x-6">
-          {metrics.map((metric) => {
+          {metrics.map((metric, index) => {
             const Icon = metric.icon;
             return (
-              <div
+              <ScrollReveal
                 key={metric.id}
+                animation="scale-up"
+                duration={650}
+                delay={index * 80}
                 className="flex flex-col items-center text-center group"
               >
                 {/* Metric Icon */}
@@ -57,7 +65,7 @@ export function AboutImpactMetrics() {
                 >
                   {metric.label}
                 </p>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

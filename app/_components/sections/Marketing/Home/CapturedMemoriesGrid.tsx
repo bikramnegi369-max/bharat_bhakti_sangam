@@ -30,7 +30,11 @@ export default function CapturedMemoriesGrid({
     return items.findIndex((item) => item.id === targetItem.id);
   };
 
-  const renderCard = (item: GalleryItem, aspectClass: string, cardDelay: number = 0) => {
+  const renderCard = (
+    item: GalleryItem,
+    aspectClass: string,
+    cardDelay: number = 0,
+  ) => {
     const originalIndex = getItemIndex(item);
 
     return (
@@ -117,14 +121,22 @@ export default function CapturedMemoriesGrid({
         <div className="flex flex-col gap-5 lg:gap-6">
           {col1Items[0] && renderCard(col1Items[0], "aspect-16/10", 0)}
           {col1Items[1] &&
-            renderCard(col1Items[1], "aspect-3/4 sm:aspect-4/5 lg:aspect-3/4", 150)}
+            renderCard(
+              col1Items[1],
+              "aspect-3/4 sm:aspect-4/5 lg:aspect-3/4",
+              150,
+            )}
         </div>
 
         {/* Column 2 (Middle) */}
         <div className="flex flex-col gap-5 lg:gap-6">
           {col2Items[0] && renderCard(col2Items[0], "aspect-16/10", 100)}
           {col2Items[1] &&
-            renderCard(col2Items[1], "aspect-1/1 sm:aspect-4/3 lg:aspect-1/1", 250)}
+            renderCard(
+              col2Items[1],
+              "aspect-1/1 sm:aspect-4/3 lg:aspect-1/1",
+              250,
+            )}
         </div>
 
         {/* Column 3 (Right) */}
@@ -147,4 +159,3 @@ export default function CapturedMemoriesGrid({
     </>
   );
 }
-

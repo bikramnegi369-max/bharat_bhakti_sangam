@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
 import { ABOUT_HERO_DATA } from "../constants/about.constants";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export function AboutHeroSection() {
   const data = ABOUT_HERO_DATA;
@@ -23,80 +26,93 @@ export function AboutHeroSection() {
           {/* Left Column: Text & CTAs (7 cols on lg) */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             {/* Saffron Pill Badge */}
-            <span
-              className={clsx(
-                poppins.className,
-                "text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.2em] text-[#C47D1C] mb-3 sm:mb-4",
-              )}
-            >
-              {data.badge}
-            </span>
+            <ScrollReveal animation="fade-down" duration={600}>
+              <span
+                className={clsx(
+                  poppins.className,
+                  "inline-block text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.2em] text-[#C47D1C] mb-3 sm:mb-4",
+                )}
+              >
+                {data.badge}
+              </span>
+            </ScrollReveal>
 
             {/* Main Headline */}
-            <h1
-              className={clsx(
-                playfair.className,
-                "text-[clamp(2.125rem,calc(1.45rem+2.8vw),3.75rem)] font-bold leading-[1.12] tracking-tight text-[#4A0E0A] mb-5 sm:mb-6",
-              )}
-            >
-              {data.titlePart1}{" "}
-              <span className="block text-[#740E0A]">
-                {data.titleHighlight}
-              </span>
-            </h1>
+            <ScrollReveal animation="fade-up" duration={700} delay={80}>
+              <h1
+                className={clsx(
+                  playfair.className,
+                  "text-[clamp(2.125rem,calc(1.45rem+2.8vw),3.75rem)] font-bold leading-[1.12] tracking-tight text-[#4A0E0A] mb-5 sm:mb-6",
+                )}
+              >
+                {data.titlePart1}{" "}
+                <span className="block text-[#740E0A]">
+                  {data.titleHighlight}
+                </span>
+              </h1>
+            </ScrollReveal>
 
             {/* Description Paragraphs */}
-            <p
-              className={clsx(
-                poppins.className,
-                "text-[#5C5C5C] text-[clamp(0.9rem,calc(0.85rem+0.25vw),1.063rem)] leading-[1.75] font-normal max-w-xl mb-4",
-              )}
-            >
-              {data.description1}
-            </p>
+            <ScrollReveal animation="fade-up" duration={700} delay={180}>
+              <p
+                className={clsx(
+                  poppins.className,
+                  "text-[#5C5C5C] text-[clamp(0.9rem,calc(0.85rem+0.25vw),1.063rem)] leading-[1.75] font-normal max-w-xl mb-4",
+                )}
+              >
+                {data.description1}
+              </p>
 
-            <p
-              className={clsx(
-                poppins.className,
-                "text-[#5C5C5C] text-[clamp(0.9rem,calc(0.85rem+0.25vw),1.063rem)] leading-[1.75] font-normal max-w-xl mb-8 sm:mb-10",
-              )}
-            >
-              {data.description2}
-            </p>
+              <p
+                className={clsx(
+                  poppins.className,
+                  "text-[#5C5C5C] text-[clamp(0.9rem,calc(0.85rem+0.25vw),1.063rem)] leading-[1.75] font-normal max-w-xl mb-8 sm:mb-10",
+                )}
+              >
+                {data.description2}
+              </p>
+            </ScrollReveal>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
-              <Link
-                href={data.primaryCta.href}
-                className={clsx(
-                  poppins.className,
-                  "px-7 py-3 rounded-lg text-sm sm:text-[15px] font-semibold text-white",
-                  "bg-[#740E0A] hover:bg-[#590B08] shadow-md shadow-[#740E0A]/20",
-                  "transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#740E0A] focus-visible:ring-offset-2",
-                )}
-              >
-                {data.primaryCta.label}
-              </Link>
+            <ScrollReveal animation="fade-up" duration={700} delay={280}>
+              <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
+                <Link
+                  href={data.primaryCta.href}
+                  className={clsx(
+                    poppins.className,
+                    "px-7 py-3 rounded-lg text-sm sm:text-[15px] font-semibold text-white",
+                    "bg-[#740E0A] hover:bg-[#590B08] shadow-md shadow-[#740E0A]/20",
+                    "transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#740E0A] focus-visible:ring-offset-2",
+                  )}
+                >
+                  {data.primaryCta.label}
+                </Link>
 
-              <Link
-                href={data.secondaryCta.href}
-                className={clsx(
-                  poppins.className,
-                  "px-7 py-3 rounded-lg text-sm sm:text-[15px] font-semibold text-[#740E0A]",
-                  "border border-[#740E0A]/30 bg-[#740E0A]/5 hover:bg-[#740E0A]/10",
-                  "transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#740E0A] focus-visible:ring-offset-2",
-                )}
-              >
-                {data.secondaryCta.label}
-              </Link>
-            </div>
+                <Link
+                  href={data.secondaryCta.href}
+                  className={clsx(
+                    poppins.className,
+                    "px-7 py-3 rounded-lg text-sm sm:text-[15px] font-semibold text-[#740E0A]",
+                    "border border-[#740E0A]/30 bg-[#740E0A]/5 hover:bg-[#740E0A]/10",
+                    "transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#740E0A] focus-visible:ring-offset-2",
+                  )}
+                >
+                  {data.secondaryCta.label}
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
 
           {/* Right Column: Arch Frame Devotee Image (5 cols on lg) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-85 sm:max-w-100 lg:max-w-110">
+            <ScrollReveal
+              animation="blur-in"
+              duration={900}
+              delay={120}
+              className="relative w-full max-w-85 sm:max-w-100 lg:max-w-110"
+            >
               {/* Arch Frame with luxury border & shadow */}
               <div
                 className={clsx(
@@ -127,7 +143,7 @@ export function AboutHeroSection() {
                 aria-hidden="true"
                 className="pointer-events-none absolute -bottom-6 -right-6 w-36 h-36 rounded-full bg-[#E5A84B]/20 blur-2xl -z-10"
               />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>

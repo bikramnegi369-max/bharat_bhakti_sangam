@@ -1,6 +1,9 @@
+"use client";
+
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
 import { ABOUT_JOURNEY_MILESTONES } from "../constants/about.constants";
+import ScrollReveal from "@/_components/common/ScrollReveal";
 
 export function AboutJourneyTimeline() {
   const milestones = ABOUT_JOURNEY_MILESTONES;
@@ -13,24 +16,26 @@ export function AboutJourneyTimeline() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         {/* Section Header: Golden Title with Flanking Horizontal Lines as in Mockup */}
-        <div className="flex items-center justify-center gap-4 sm:gap-6 mb-14 sm:mb-18 lg:mb-20">
-          <span
-            className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]"
-            aria-hidden="true"
-          />
-          <h2
-            className={clsx(
-              playfair.className,
-              "text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-bold tracking-[0.14em] text-[#D4AF37] uppercase text-center select-none",
-            )}
-          >
-            OUR JOURNEY SO FAR
-          </h2>
-          <span
-            className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]"
-            aria-hidden="true"
-          />
-        </div>
+        <ScrollReveal animation="fade-down" duration={700}>
+          <div className="flex items-center justify-center gap-4 sm:gap-6 mb-14 sm:mb-18 lg:mb-20">
+            <span
+              className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]"
+              aria-hidden="true"
+            />
+            <h2
+              className={clsx(
+                playfair.className,
+                "text-xl sm:text-2xl md:text-3xl lg:text-[2rem] font-bold tracking-[0.14em] text-[#D4AF37] uppercase text-center select-none",
+              )}
+            >
+              OUR JOURNEY SO FAR
+            </h2>
+            <span
+              className="w-12 sm:w-20 md:w-28 h-[1.5px] bg-[#D4AF37]"
+              aria-hidden="true"
+            />
+          </div>
+        </ScrollReveal>
 
         {/* Milestones Horizontal Flow Container */}
         <div className="relative">
@@ -42,11 +47,14 @@ export function AboutJourneyTimeline() {
 
           {/* 6-Column Milestone Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-12 gap-x-4 sm:gap-x-6 relative z-10">
-            {milestones.map((milestone) => {
+            {milestones.map((milestone, index) => {
               const Icon = milestone.icon;
               return (
-                <div
+                <ScrollReveal
                   key={milestone.id}
+                  animation="scale-up"
+                  duration={650}
+                  delay={index * 100}
                   className="flex flex-col items-center text-center group cursor-default"
                 >
                   {/* Golden Circle Outline Badge */}
@@ -80,7 +88,7 @@ export function AboutJourneyTimeline() {
                   >
                     {milestone.description}
                   </p>
-                </div>
+                </ScrollReveal>
               );
             })}
           </div>
