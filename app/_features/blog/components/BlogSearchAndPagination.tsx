@@ -5,6 +5,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { poppins } from "@/_lib/fonts";
 
+import ScrollReveal from "@/_components/common/ScrollReveal";
+
 type BlogSearchAndPaginationProps = {
   currentPage: number;
   totalPages: number;
@@ -160,75 +162,79 @@ export default function BlogSearchAndPagination({
 
   if (variant === "pagination-only") {
     return (
-      <div className={`${poppins.className} w-full flex items-center justify-center py-2`}>
-        {renderPagination(false)}
-      </div>
+      <ScrollReveal animation="fade-up" duration={600} className="w-full">
+        <div className={`${poppins.className} w-full flex items-center justify-center py-2`}>
+          {renderPagination(false)}
+        </div>
+      </ScrollReveal>
     );
   }
 
   return (
     <div className={`${poppins.className} space-y-6`}>
       {/* Search & Meta Bar */}
-      <div className="flex flex-col gap-4 rounded-2xl border border-[#740E0A]/15 bg-white p-3.5 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] md:flex-row md:items-center md:justify-between">
-        {/* Search Input Form */}
-        <form
-          onSubmit={handleSubmit}
-          className="relative flex-1"
-          role="search"
-          aria-label="Search blog articles"
-        >
-          <Search
-            className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400"
-            aria-hidden
-          />
-          <input
-            type="search"
-            name="q"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search devotion, bhajans, kirtans, traditions..."
-            className="h-11 sm:h-12 w-full rounded-xl border border-[#740E0A]/15 bg-[#FCFAF5] pl-11 pr-24 text-xs sm:text-sm text-[#2E0503] outline-none transition-colors placeholder:text-stone-400 focus:border-[#740E0A] focus:bg-white focus:ring-2 focus:ring-[#740E0A]/15"
-          />
-          <button
-            type="submit"
-            disabled={isPending}
-            className="absolute right-1.5 top-1.5 inline-flex h-8 sm:h-9 items-center justify-center rounded-lg bg-[#740E0A] px-3.5 sm:px-4 text-xs sm:text-sm font-semibold text-white transition-colors hover:bg-[#8B140F] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer shadow-xs"
+      <ScrollReveal animation="fade-up" duration={650} delay={50}>
+        <div className="flex flex-col gap-4 rounded-2xl border border-[#740E0A]/15 bg-white p-3.5 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] md:flex-row md:items-center md:justify-between">
+          {/* Search Input Form */}
+          <form
+            onSubmit={handleSubmit}
+            className="relative flex-1"
+            role="search"
+            aria-label="Search blog articles"
           >
-            Search
-          </button>
-        </form>
-
-        {/* Right side items: Article counter + Clear button */}
-        <div className="flex items-center justify-between gap-3 sm:justify-end">
-          <div className="inline-flex items-center gap-2 rounded-xl bg-[#FFF7ED] px-3 py-2 border border-[#740E0A]/10">
-            <span className="h-2 w-2 rounded-full bg-[#E5A93C]" />
-            <p className="text-xs font-semibold text-[#5A100B]">
-              {total} {total === 1 ? "article" : "articles"}
-            </p>
-          </div>
-
-          {searchQuery && (
+            <Search
+              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400"
+              aria-hidden
+            />
+            <input
+              type="search"
+              name="q"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search devotion, bhajans, kirtans, traditions..."
+              className="h-11 sm:h-12 w-full rounded-xl border border-[#740E0A]/15 bg-[#FCFAF5] pl-11 pr-24 text-xs sm:text-sm text-[#2E0503] outline-none transition-colors placeholder:text-stone-400 focus:border-[#740E0A] focus:bg-white focus:ring-2 focus:ring-[#740E0A]/15"
+            />
             <button
-              type="button"
-              onClick={handleClear}
-              className="inline-flex h-9 sm:h-10 items-center gap-1.5 rounded-xl border border-stone-200 bg-white px-3 text-xs font-semibold text-stone-600 transition-colors hover:border-[#740E0A]/30 hover:text-[#740E0A] cursor-pointer"
+              type="submit"
+              disabled={isPending}
+              className="absolute right-1.5 top-1.5 inline-flex h-8 sm:h-9 items-center justify-center rounded-lg bg-[#740E0A] px-3.5 sm:px-4 text-xs sm:text-sm font-semibold text-white transition-colors hover:bg-[#8B140F] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer shadow-xs"
             >
-              <X className="h-3.5 w-3.5" aria-hidden />
-              Clear
+              Search
             </button>
-          )}
+          </form>
+
+          {/* Right side items: Article counter + Clear button */}
+          <div className="flex items-center justify-between gap-3 sm:justify-end">
+            <div className="inline-flex items-center gap-2 rounded-xl bg-[#FFF7ED] px-3 py-2 border border-[#740E0A]/10">
+              <span className="h-2 w-2 rounded-full bg-[#E5A93C]" />
+              <p className="text-xs font-semibold text-[#5A100B]">
+                {total} {total === 1 ? "article" : "articles"}
+              </p>
+            </div>
+
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={handleClear}
+                className="inline-flex h-9 sm:h-10 items-center gap-1.5 rounded-xl border border-stone-200 bg-white px-3 text-xs font-semibold text-stone-600 transition-colors hover:border-[#740E0A]/30 hover:text-[#740E0A] cursor-pointer"
+              >
+                <X className="h-3.5 w-3.5" aria-hidden />
+                Clear
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* Top Pagination Row in its dedicated place below search bar */}
       {totalPages > 1 && (
-        <div className="flex justify-center pt-1">
-          {renderPagination(false)}
-        </div>
+        <ScrollReveal animation="fade-up" duration={600} delay={100}>
+          <div className="flex justify-center pt-1">
+            {renderPagination(false)}
+          </div>
+        </ScrollReveal>
       )}
     </div>
   );
 }
-
-
 
