@@ -416,6 +416,25 @@ export const _seoConfig = {
       "Bharat Bhakti Sangam",
     ],
   },
+  numerology: {
+    path: "/numerology",
+    image: "/numerology_hero.webp",
+    title: "Vedic Numerology | The Ancient Science of Numbers & Karma",
+    description:
+      "Discover the spiritual energy hidden within your birth date and name through the timeless wisdom of Vedic Numerology. Calculate your Mulank, Bhagyank, and Namank.",
+    keywords: [
+      "Vedic Numerology",
+      "Numerology Calculator",
+      "Mulank Calculator",
+      "Bhagyank Calculator",
+      "Namank Calculator",
+      "Spiritual Numbers",
+      "Vedic Astrology",
+      "Karma Numbers",
+      "Bharat Bhakti Sangam Numerology",
+      "Navagraha Numbers",
+    ],
+  },
 } satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;
