@@ -41,6 +41,7 @@ export function FounderHeroSection() {
             alt="Deepak Kothari - Founder of Bharat Bhakti Sangam"
             fill
             priority
+            loading="eager"
             sizes="100vw"
             className="object-cover object-top-right sm:object-[center_top] lg:object-[82%_top]"
           />
