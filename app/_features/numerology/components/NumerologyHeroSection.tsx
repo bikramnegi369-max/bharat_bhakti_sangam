@@ -30,7 +30,7 @@ export function NumerologyHeroSection({
   };
 
   return (
-    <section className="relative w-full min-h-[640px] sm:min-h-[700px] lg:min-h-[760px] bg-[#120501] flex items-center overflow-hidden">
+    <section className="relative w-full min-h-160 sm:min-h-175 lg:min-h-190 bg-[#120501] flex items-center overflow-hidden">
       {/* 
         Full-Bleed Right Master Artwork Background
         The entire right half of the banner is occupied by the glowing numerology temple artwork, 
@@ -50,7 +50,7 @@ export function NumerologyHeroSection({
 
           {/* Smooth left-to-right gradient fade so text on the left sits on pure solid #120501 */}
           <div className="absolute inset-0 bg-linear-to-r from-[#120501] via-[#120501]/80 to-transparent w-full lg:w-3/5" />
-          
+
           {/* Top and bottom edge gradient blends */}
           <div className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-[#120501] to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-[#120501] to-transparent" />
@@ -58,7 +58,7 @@ export function NumerologyHeroSection({
         </div>
 
         {/* Ambient Warm Golden & Amber Glows */}
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-[#C49A45]/15 rounded-full blur-[140px]" />
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-125 h-125 bg-[#C49A45]/15 rounded-full blur-[140px]" />
       </div>
 
       {/* Main Hero Foreground Content */}
@@ -116,6 +116,4 @@ export function NumerologyHeroSection({
       </div>
     </section>
   );
-
 }
-
