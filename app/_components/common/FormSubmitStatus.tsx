@@ -54,9 +54,9 @@ export function FormSubmitStatusScreen({
         )}
       >
         {isSuccess ? (
-          <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 stroke-[2]" />
+          <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 stroke-2" />
         ) : (
-          <AlertCircle className="w-8 h-8 sm:w-10 sm:h-10 stroke-[2]" />
+          <AlertCircle className="w-8 h-8 sm:w-10 sm:h-10 stroke-2" />
         )}
       </div>
 

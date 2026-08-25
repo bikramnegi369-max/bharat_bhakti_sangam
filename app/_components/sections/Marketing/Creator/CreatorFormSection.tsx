@@ -115,6 +115,15 @@ export default function CreatorFormSection({
     }
   };
 
+  const onFormInvalid = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   const handleResetSuccess = () => {
     reset();
     setStatus("idle");
@@ -258,7 +267,7 @@ export default function CreatorFormSection({
               </div>
             ) : (
               <form
-                onSubmit={handleSubmit(onFormSubmit)}
+                onSubmit={handleSubmit(onFormSubmit, onFormInvalid)}
                 className="space-y-6 sm:space-y-7"
                 noValidate
               >
