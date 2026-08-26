@@ -30,7 +30,7 @@ export default function BlogHero({
         <div className="absolute inset-0 bg-linear-to-b from-[#2A0503]/95 via-[#4A0A08]/85 to-[#240403]/98" />
 
         {/* Subtle Radial Glow in Center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#D4AF37]/15 blur-[90px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-87.5 bg-[#D4AF37]/15 blur-[90px] rounded-full pointer-events-none" />
 
         {/* Glowing OM Watermark in center-backdrop */}
         <div
