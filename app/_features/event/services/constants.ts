@@ -7,6 +7,7 @@ export const ALL_EVENTS = "all-events";
 export const EVENT_BY_ID = "event-by-id";
 
 export const CAPACITY_TIMEOUT_MS = 3000;
+export const NAVBAR_EVENT_TIMEOUT_MS = 3000;
 
 export type EventCapacity = {
   eventId: string;

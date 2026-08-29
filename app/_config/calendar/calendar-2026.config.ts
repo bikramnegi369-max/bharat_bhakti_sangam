@@ -1,0 +1,1363 @@
+import { YearCalendarConfig } from "@/_types/calendar.types";
+
+export const CALENDAR_2026_CONFIG: YearCalendarConfig = {
+  year: 2026,
+  hero: {
+    tagline: "✦ SPIRITUAL CALENDAR ✦",
+    title: {
+      prefix: "Every Day",
+      highlight: "A Divine",
+      suffix: "Discovery",
+    },
+    description:
+      "Explore festivals, rituals, cultural events and divine traditions that connect you with our timeless Sanatan culture.",
+    metricPills: [
+      {
+        id: "festivals-count",
+        category: "major-festival",
+        count: "150+",
+        title: "Festivals & Vrat",
+        subtitle: "Monthly Events",
+        iconName: "Flame",
+        accentColor: "#E86A17",
+      },
+      {
+        id: "tithi-count",
+        category: "tithi-muhurat",
+        count: "365 Days",
+        title: "Tithi & Muhurat",
+        subtitle: "Accurate Vedic",
+        iconName: "Compass",
+        accentColor: "#0D9488",
+      },
+      {
+        id: "puja-count",
+        category: "special-puja",
+        count: "50+",
+        title: "Sacred Rituals",
+        subtitle: "Daily Guides",
+        iconName: "Sparkles",
+        accentColor: "#D97706",
+      },
+      {
+        id: "yatra-count",
+        category: "jayanti-shraadh",
+        count: "80+",
+        title: "Temple Events",
+        subtitle: "Live Streams",
+        iconName: "Moon",
+        accentColor: "#4F46E5",
+      },
+    ],
+    heroImage: "/calendar_hero.jpg",
+    heroImageAlt: "Spiritual sanctuary and meditating devotee in sacred forest",
+  },
+  legend: [
+    {
+      id: "major-festival",
+      label: "MAJOR FESTIVALS",
+      dotColor: "#B91C1C",
+      bgColor: "#FEF2F2",
+      textColor: "#991B1B",
+      borderColor: "#FECACA",
+    },
+    {
+      id: "vrat",
+      label: "VRAT DAYS",
+      dotColor: "#16A34A",
+      bgColor: "#F0FDF4",
+      textColor: "#166534",
+      borderColor: "#BBF7D0",
+    },
+    {
+      id: "tithi-muhurat",
+      label: "TITHI & MUHURAT",
+      dotColor: "#7C3AED",
+      bgColor: "#F5F3FF",
+      textColor: "#6D28D9",
+      borderColor: "#DDD6FE",
+    },
+    {
+      id: "jayanti-shraadh",
+      label: "JAYANTI & SHRAADH",
+      dotColor: "#0284C7",
+      bgColor: "#F0F9FF",
+      textColor: "#0369A1",
+      borderColor: "#BAE6FD",
+    },
+    {
+      id: "special-puja",
+      label: "SPECIAL PUJA",
+      dotColor: "#EA580C",
+      bgColor: "#FFF7ED",
+      textColor: "#C2410C",
+      borderColor: "#FFEDD5",
+    },
+  ],
+  highlights: [
+    {
+      id: "shloka-today",
+      tag: "TODAY'S SHLOKA",
+      tagColor: "gold",
+      sanskritScript:
+        "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥",
+      title: "Bhagavad Gita 18.66",
+      subtitle: "Abandon all varieties of dharmas and simply surrender unto Me alone.",
+      description:
+        "Lord Krishna assures complete liberation from all spiritual debts when one surrenders with pure devotion.",
+      ctaText: "Read Meaning & Commentary",
+      ctaHref: "/sanatana-dharma",
+    },
+    {
+      id: "muhurat-today",
+      tag: "AUSPICIOUS MUHURAT",
+      tagColor: "orange",
+      sanskritScript: "ॐ नमो भगवते वासुदेवाय नमः",
+      title: "Abhijit Muhurat",
+      subtitle: "11:45 AM - 12:35 PM (Most Auspicious for New Beginnings)",
+      description:
+        "Brahma Muhurat: 04:12 AM - 05:00 AM • Vijay Muhurat: 02:24 PM - 03:16 PM • Rahu Kaal: 04:30 PM - 06:00 PM (Inauspicious).",
+      ctaText: "View Full Panchang",
+      ctaHref: "/calendar",
+    },
+    {
+      id: "wisdom-today",
+      tag: "SPIRITUAL WISDOM",
+      tagColor: "amber",
+      title: "Purity of Mind & Soul",
+      subtitle: "Purity of mind is the greatest pilgrimage. Practice quiet contemplation today.",
+      description:
+        "When the lake of the mind is undisturbed by worldly anxieties, the divine reflection of the true Self shines crystal clear.",
+      ctaText: "Read More Insights",
+      ctaHref: "/blog",
+    },
+  ],
+  months: {
+    // ----------------------------------------------------
+    // 1. January 2026
+    // ----------------------------------------------------
+    1: {
+      monthIndex: 1,
+      monthName: "January",
+      year: 2026,
+      days: {
+        "2026-01-14": {
+          events: [
+            {
+              id: "evt-0114",
+              date: "2026-01-14",
+              dayNumber: 14,
+              monthNumber: 1,
+              yearNumber: 2026,
+              title: "Makar Sankranti & Pongal",
+              category: "major-festival",
+              badgeLabel: "Makar Sankranti",
+              isMajor: true,
+              image: "/festivals/slider/image-1.webp",
+              description: "Sun transit into Capricorn marking Uttarayana, holy bath in Ganga, and sesame offerings.",
+            },
+          ],
+        },
+        "2026-01-15": {
+          events: [
+            {
+              id: "evt-0115",
+              date: "2026-01-15",
+              dayNumber: 15,
+              monthNumber: 1,
+              yearNumber: 2026,
+              title: "Shattila Ekadashi",
+              category: "vrat",
+              badgeLabel: "Ekadashi Vrat",
+              description: "Fasting with six uses of sacred sesame seeds for Lord Vishnu's grace.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-jan-1",
+          date: "2026-01-14",
+          dayNumber: 14,
+          monthNumber: 1,
+          yearNumber: 2026,
+          title: "Makar Sankranti / Uttarayana",
+          subtitle: "Solar Transit & Harvest",
+          category: "major-festival",
+          image: "/festivals/slider/image-1.webp",
+          description: "Kite flying, til-gur prasad, and holy dips in sacred rivers.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=1&date=2026-01-14",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 2. February 2026
+    // ----------------------------------------------------
+    2: {
+      monthIndex: 2,
+      monthName: "February",
+      year: 2026,
+      days: {
+        "2026-02-15": {
+          events: [
+            {
+              id: "evt-0215",
+              date: "2026-02-15",
+              dayNumber: 15,
+              monthNumber: 2,
+              yearNumber: 2026,
+              title: "Maha Shivratri",
+              category: "major-festival",
+              badgeLabel: "Maha Shivratri",
+              isMajor: true,
+              image: "/festivals/slider/image-2.webp",
+              description: "Grand night of Lord Shiva with night-long continuous Jalabhishekam and fasting.",
+            },
+          ],
+        },
+        "2026-02-21": {
+          events: [
+            {
+              id: "evt-0221",
+              date: "2026-02-21",
+              dayNumber: 21,
+              monthNumber: 2,
+              yearNumber: 2026,
+              title: "Vasant Panchami",
+              category: "major-festival",
+              badgeLabel: "Saraswati Puja",
+              isMajor: true,
+              image: "/festivals/slider/image-3.webp",
+              description: "Worship of Goddess Saraswati for knowledge, arts, and onset of spring.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-feb-1",
+          date: "2026-02-15",
+          dayNumber: 15,
+          monthNumber: 2,
+          yearNumber: 2026,
+          title: "Maha Shivratri",
+          subtitle: "The Great Night of Shiva",
+          category: "major-festival",
+          image: "/festivals/slider/image-2.webp",
+          description: "Night-long vigil, Bilva patra offering, and Mahamrityunjaya japa.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=2&date=2026-02-15",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 3. March 2026
+    // ----------------------------------------------------
+    3: {
+      monthIndex: 3,
+      monthName: "March",
+      year: 2026,
+      days: {
+        "2026-03-03": {
+          events: [
+            {
+              id: "evt-0303",
+              date: "2026-03-03",
+              dayNumber: 3,
+              monthNumber: 3,
+              yearNumber: 2026,
+              title: "Holika Dahan",
+              category: "major-festival",
+              badgeLabel: "Holika Dahan",
+              isMajor: true,
+              image: "/festivals/slider/image-4.webp",
+              description: "Sacred bonfire celebrating the victory of Bhakta Prahlad over evil.",
+            },
+          ],
+        },
+        "2026-03-04": {
+          events: [
+            {
+              id: "evt-0304",
+              date: "2026-03-04",
+              dayNumber: 4,
+              monthNumber: 3,
+              yearNumber: 2026,
+              title: "Holi (Dhulandi)",
+              category: "major-festival",
+              badgeLabel: "Holi Colors",
+              isMajor: true,
+              image: "/festivals/slider/image-5.webp",
+              description: "Festival of colors, divine love of Radha Krishna, and spring celebration.",
+            },
+          ],
+        },
+        "2026-03-20": {
+          events: [
+            {
+              id: "evt-0320",
+              date: "2026-03-20",
+              dayNumber: 20,
+              monthNumber: 3,
+              yearNumber: 2026,
+              title: "Chaitra Navratri & Gudi Padwa",
+              category: "major-festival",
+              badgeLabel: "Nav Samvatsar",
+              isMajor: true,
+              image: "/festivals/slider/image-1.webp",
+              description: "Hindu New Year (Vikram Samvat 2083) and 9 days of Durga worship begin.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-mar-1",
+          date: "2026-03-04",
+          dayNumber: 4,
+          monthNumber: 3,
+          yearNumber: 2026,
+          title: "Holi (Festival of Colors)",
+          subtitle: "Dhulandi Celebration",
+          category: "major-festival",
+          image: "/festivals/slider/image-5.webp",
+          description: "Universal joy, herbal colors, and Krishna bhakti songs across temples.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=3&date=2026-03-04",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 4. April 2026
+    // ----------------------------------------------------
+    4: {
+      monthIndex: 4,
+      monthName: "April",
+      year: 2026,
+      days: {
+        "2026-04-02": {
+          events: [
+            {
+              id: "evt-0402",
+              date: "2026-04-02",
+              dayNumber: 2,
+              monthNumber: 4,
+              yearNumber: 2026,
+              title: "Hanuman Jayanti",
+              category: "major-festival",
+              badgeLabel: "Hanuman Jayanti",
+              isMajor: true,
+              image: "/festivals/slider/image-2.webp",
+              description: "Appearance day of Lord Hanuman with Sundarkand recitation and sindoor offering.",
+            },
+          ],
+        },
+        "2026-04-14": {
+          events: [
+            {
+              id: "evt-0414",
+              date: "2026-04-14",
+              dayNumber: 14,
+              monthNumber: 4,
+              yearNumber: 2026,
+              title: "Mesha Sankranti / Baisakhi",
+              category: "major-festival",
+              badgeLabel: "Baisakhi",
+              isMajor: true,
+              image: "/festivals/slider/image-3.webp",
+              description: "Solar New Year and harvest celebration across North and South India.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-apr-1",
+          date: "2026-04-02",
+          dayNumber: 2,
+          monthNumber: 4,
+          yearNumber: 2026,
+          title: "Hanuman Jayanti",
+          subtitle: "Chaitra Purnima",
+          category: "major-festival",
+          image: "/festivals/slider/image-2.webp",
+          description: "Hanuman Chalisa chanting 108 times and temple prasad distribution.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=4&date=2026-04-02",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 5. May 2026
+    // ----------------------------------------------------
+    5: {
+      monthIndex: 5,
+      monthName: "May",
+      year: 2026,
+      days: {
+        "2026-05-09": {
+          events: [
+            {
+              id: "evt-0509",
+              date: "2026-05-09",
+              dayNumber: 9,
+              monthNumber: 5,
+              yearNumber: 2026,
+              title: "Akshaya Tritiya",
+              category: "major-festival",
+              badgeLabel: "Akshaya Tritiya",
+              isMajor: true,
+              image: "/festivals/slider/image-4.webp",
+              description: "Day of eternal merit for charity, gold purchase, and new spiritual ventures.",
+            },
+          ],
+        },
+        "2026-05-31": {
+          events: [
+            {
+              id: "evt-0531",
+              date: "2026-05-31",
+              dayNumber: 31,
+              monthNumber: 5,
+              yearNumber: 2026,
+              title: "Buddha Purnima",
+              category: "major-festival",
+              badgeLabel: "Buddha Purnima",
+              isMajor: true,
+              image: "/festivals/slider/image-5.webp",
+              description: "Vaishakha Purnima honoring peace, dharma, and supreme compassion.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-may-1",
+          date: "2026-05-09",
+          dayNumber: 9,
+          monthNumber: 5,
+          yearNumber: 2026,
+          title: "Akshaya Tritiya (Akha Teej)",
+          subtitle: "Day of Inexhaustible Wealth",
+          category: "major-festival",
+          image: "/festivals/slider/image-4.webp",
+          description: "Auspicious day for gold purchase, charity, and Lakshmi-Narayan puja.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=5&date=2026-05-09",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 6. June 2026
+    // ----------------------------------------------------
+    6: {
+      monthIndex: 6,
+      monthName: "June",
+      year: 2026,
+      days: {
+        "2026-06-15": {
+          events: [
+            {
+              id: "evt-0615",
+              date: "2026-06-15",
+              dayNumber: 15,
+              monthNumber: 6,
+              yearNumber: 2026,
+              title: "Nirjala Ekadashi",
+              category: "vrat",
+              badgeLabel: "Nirjala Vrat",
+              isMajor: true,
+              image: "/festivals/slider/image-1.webp",
+              description: "The most austere Ekadashi fast without water for supreme spiritual purification.",
+            },
+          ],
+        },
+        "2026-06-17": {
+          events: [
+            {
+              id: "evt-0617",
+              date: "2026-06-17",
+              dayNumber: 17,
+              monthNumber: 6,
+              yearNumber: 2026,
+              title: "Jagannath Ratha Yatra",
+              category: "major-festival",
+              badgeLabel: "Ratha Yatra",
+              isMajor: true,
+              image: "/festivals/slider/image-2.webp",
+              description: "Grand chariot procession of Lord Jagannath, Balabhadra, and Subhadra in Puri.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-jun-1",
+          date: "2026-06-17",
+          dayNumber: 17,
+          monthNumber: 6,
+          yearNumber: 2026,
+          title: "Puri Jagannath Ratha Yatra",
+          subtitle: "Grand Chariot Festival",
+          category: "major-festival",
+          image: "/festivals/slider/image-2.webp",
+          description: "Millions pull the divine chariots of Lord Jagannath at Puri Dham.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=6&date=2026-06-17",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 7. July 2026 (Focal Month from Mockup)
+    // ----------------------------------------------------
+    7: {
+      monthIndex: 7,
+      monthName: "July",
+      year: 2026,
+      days: {
+        "2026-07-01": {
+          events: [
+            {
+              id: "evt-0701",
+              date: "2026-07-01",
+              dayNumber: 1,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Sampangi Vrat",
+              category: "vrat",
+              badgeLabel: "Sampangi Vrat",
+              description: "Auspicious Vrat observed in South Indian Vaishnava tradition.",
+            },
+          ],
+        },
+        "2026-07-03": {
+          events: [
+            {
+              id: "evt-0703",
+              date: "2026-07-03",
+              dayNumber: 3,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Sankashti Chaturthi",
+              category: "vrat",
+              badgeLabel: "Sankashti Vrat",
+              description: "Fasting dedicated to Lord Ganesha for removal of obstacles.",
+            },
+          ],
+        },
+        "2026-07-04": {
+          events: [
+            {
+              id: "evt-0704",
+              date: "2026-07-04",
+              dayNumber: 4,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Vivekananda Smriti",
+              category: "jayanti-shraadh",
+              badgeLabel: "Smriti Diwas",
+              description: "Remembrance of Swami Vivekananda's Mahasamadhi.",
+            },
+          ],
+        },
+        "2026-07-07": {
+          events: [
+            {
+              id: "evt-0707",
+              date: "2026-07-07",
+              dayNumber: 7,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Bhanu Saptami",
+              category: "special-puja",
+              badgeLabel: "Surya Puja",
+              description: "Sunday coinciding with Saptami, auspicious for Sun God worship.",
+            },
+          ],
+        },
+        "2026-07-09": {
+          events: [
+            {
+              id: "evt-0709",
+              date: "2026-07-09",
+              dayNumber: 9,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Yogini Ekadashi",
+              category: "vrat",
+              badgeLabel: "Ekadashi Vrat",
+              description: "Fasting on Krishna Paksha Ekadashi to purify past karmas.",
+            },
+          ],
+        },
+        "2026-07-10": {
+          events: [
+            {
+              id: "evt-0710",
+              date: "2026-07-10",
+              dayNumber: 10,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Pradosh Vrat",
+              category: "vrat",
+              badgeLabel: "Shiva Pradosh",
+              description: "Twilight worship of Lord Shiva during Trayodashi.",
+            },
+          ],
+        },
+        "2026-07-11": {
+          events: [
+            {
+              id: "evt-0711",
+              date: "2026-07-11",
+              dayNumber: 11,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Ashadha Amavasya",
+              category: "tithi-muhurat",
+              badgeLabel: "Darsha Amavasya",
+              description: "New Moon day sacred for Pitru Tarpan and meditation.",
+            },
+          ],
+        },
+        "2026-07-14": {
+          events: [
+            {
+              id: "evt-0714",
+              date: "2026-07-14",
+              dayNumber: 14,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Guru Purnima",
+              subtitle: "Vyasa Purnima Celebration",
+              category: "major-festival",
+              badgeLabel: "Guru Purnima",
+              isMajor: true,
+              image: "/festivals/slider/image-1.webp",
+              description: "Honoring spiritual guides, teachers, and Sage Ved Vyasa with deep reverence.",
+            },
+          ],
+          detail: {
+            dateFormatted: "14 July, 2026",
+            festivalName: "Guru Purnima",
+            categoryTag: "Major Festival",
+            categoryType: "major-festival",
+            image: "/festivals/slider/image-1.webp",
+            imageAlt: "Guru Purnima sacred puja and lamp offering",
+            summary:
+              "Guru Purnima is dedicated to honoring spiritual and academic teachers, expressing gratitude to mentors, and celebrating Sage Ved Vyasa on the sacred full moon day of Ashadha.",
+            schedule: [
+              {
+                id: "sch-1",
+                title: "Pooja Muhurat",
+                time: "06:30 AM - 08:15 AM",
+                icon: "🕉️",
+                note: "Shukla Purnima Auspicious Window",
+              },
+              {
+                id: "sch-2",
+                title: "Mangala Aarti",
+                time: "05:00 AM - 05:45 AM",
+                icon: "🪔",
+                note: "Temple morning divine awakening",
+              },
+              {
+                id: "sch-3",
+                title: "Prasad & Bhog",
+                time: "12:00 PM - 01:30 PM",
+                icon: "🥣",
+                note: "Satvik Feast Offering",
+              },
+              {
+                id: "sch-4",
+                title: "Katha & Satsang",
+                time: "04:30 PM - 06:00 PM",
+                icon: "📜",
+                note: "Vyasa Katha discourse",
+              },
+              {
+                id: "sch-5",
+                title: "Sandhya Aarti",
+                time: "07:00 PM - 08:00 PM",
+                icon: "🌟",
+                note: "Full Moon Deepotsav Aarti",
+              },
+            ],
+            exploreHref: "/festivals",
+            exploreText: "Explore More",
+            fastingInfo: {
+              title: "Fast Day for Devotees (Purnima)",
+              description:
+                "Devotees observe fast from sunrise to moonrise, consuming only satvik fruits and milk preparations to seek the blessings of the Guru and attain spiritual wisdom.",
+            },
+          },
+        },
+        "2026-07-16": {
+          events: [
+            {
+              id: "evt-0716",
+              date: "2026-07-16",
+              dayNumber: 16,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Karka Sankranti",
+              category: "tithi-muhurat",
+              badgeLabel: "Sankranti Tithi",
+              description: "Sun transit into Cancer marking the beginning of Dakshinayana.",
+            },
+          ],
+        },
+        "2026-07-21": {
+          events: [
+            {
+              id: "evt-0721",
+              date: "2026-07-21",
+              dayNumber: 21,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Kamika Ekadashi",
+              category: "vrat",
+              badgeLabel: "Ekadashi Vrat",
+              description: "Fasting on Shravan Krishna Ekadashi dedicated to Lord Vishnu.",
+            },
+          ],
+        },
+        "2026-07-24": {
+          events: [
+            {
+              id: "evt-0724",
+              date: "2026-07-24",
+              dayNumber: 24,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Devshayani Ekadashi",
+              subtitle: "Chaturmas Begins",
+              category: "vrat",
+              badgeLabel: "Chaturmas Vrat",
+              isMajor: true,
+              image: "/festivals/slider/image-2.webp",
+              description: "Lord Vishnu begins the 4-month cosmic slumber (Yoga Nidra). Start of holy Chaturmas.",
+            },
+          ],
+          detail: {
+            dateFormatted: "24 July, 2026",
+            festivalName: "Devshayani Ekadashi (Ashadha)",
+            categoryTag: "Vrat & Holy Day",
+            categoryType: "vrat",
+            image: "/festivals/slider/image-2.webp",
+            imageAlt: "Devshayani Ekadashi Lord Vishnu cosmic slumber",
+            summary:
+              "Devshayani Ekadashi marks the beginning of the four-month holy period of Chaturmas during which Lord Vishnu enters cosmic sleep in the Kshira Sagara.",
+            schedule: [
+              {
+                id: "sch-e1",
+                title: "Ekadashi Parana Muhurat",
+                time: "05:40 AM - 08:22 AM",
+                icon: "🕉️",
+                note: "Next day breaking of fast",
+              },
+              {
+                id: "sch-e2",
+                title: "Vishnu Sahasranama",
+                time: "06:00 AM - 07:30 AM",
+                icon: "📜",
+                note: "Sacred hymn chanting",
+              },
+              {
+                id: "sch-e3",
+                title: "Maha Aarti",
+                time: "07:30 PM - 08:30 PM",
+                icon: "🪔",
+                note: "Evening Tulsi and Vishnu Aarti",
+              },
+            ],
+            exploreHref: "/festivals",
+            exploreText: "Explore More",
+            fastingInfo: {
+              title: "Chaturmas Fasting Guidelines",
+              description:
+                "Strict adherence to grainless diet, abstaining from tamasic foods, and dedication to charity and spiritual chanting for four months.",
+            },
+          },
+        },
+        "2026-07-26": {
+          events: [
+            {
+              id: "evt-0726",
+              date: "2026-07-26",
+              dayNumber: 26,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Gauri Ganeshotsav / Chaturthi",
+              subtitle: "Shukla Chaturthi",
+              category: "major-festival",
+              badgeLabel: "Ganesh Puja",
+              isMajor: true,
+              image: "/festivals/slider/image-3.webp",
+              description: "Worship of Lord Ganesha and Mother Gauri with modaks and durva grass.",
+            },
+          ],
+          detail: {
+            dateFormatted: "26 July, 2026",
+            festivalName: "Gauri Ganesh Chaturthi",
+            categoryTag: "Major Festival",
+            categoryType: "major-festival",
+            image: "/festivals/slider/image-3.webp",
+            imageAlt: "Ganesh Chaturthi divine idol",
+            summary:
+              "Monthly Vinayaka Chaturthi celebrated with deep devotion to Lord Ganesha for removing obstacles and bestowing wisdom.",
+            schedule: [
+              {
+                id: "sch-g1",
+                title: "Madhyahna Ganesha Puja",
+                time: "11:05 AM - 01:45 PM",
+                icon: "🕉️",
+                note: "Auspicious Midday Muhurat",
+              },
+              {
+                id: "sch-g2",
+                title: "Modak Bhog Offering",
+                time: "12:30 PM - 01:00 PM",
+                icon: "🥣",
+                note: "21 Modak consecrated offering",
+              },
+            ],
+            exploreHref: "/festivals",
+            exploreText: "Explore More",
+          },
+        },
+        "2026-07-31": {
+          events: [
+            {
+              id: "evt-0731",
+              date: "2026-07-31",
+              dayNumber: 31,
+              monthNumber: 7,
+              yearNumber: 2026,
+              title: "Nag Panchami",
+              subtitle: "Nag Puja Tithi",
+              category: "major-festival",
+              badgeLabel: "Nag Panchami",
+              isMajor: true,
+              image: "/festivals/slider/image-4.webp",
+              description: "Sacred worship of the serpent deities (Nagas) on Shukla Panchami for family protection.",
+            },
+          ],
+          detail: {
+            dateFormatted: "31 July, 2026",
+            festivalName: "Nag Panchami",
+            categoryTag: "Major Festival",
+            categoryType: "major-festival",
+            image: "/festivals/slider/image-4.webp",
+            imageAlt: "Nag Panchami sacred worship",
+            summary:
+              "Nag Panchami is an ancient Sanatan tradition of offering milk, kheer, and flowers to serpent deities, invoking harmony with nature and divine forces.",
+            schedule: [
+              {
+                id: "sch-n1",
+                title: "Nag Puja Muhurat",
+                time: "05:45 AM - 08:25 AM",
+                icon: "🕉️",
+                note: "Morning Abhishekam",
+              },
+              {
+                id: "sch-n2",
+                title: "Maha Aarti",
+                time: "07:00 PM - 07:45 PM",
+                icon: "🪔",
+                note: "Evening Lamp Offering",
+              },
+            ],
+            exploreHref: "/festivals",
+            exploreText: "Explore More",
+          },
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-1",
+          date: "2026-07-14",
+          dayNumber: 14,
+          monthNumber: 7,
+          yearNumber: 2026,
+          title: "Guru Purnima",
+          subtitle: "Vyasa Purnima Celebration",
+          category: "major-festival",
+          image: "/festivals/slider/image-1.webp",
+          description: "Auspicious Day for Guru Worship, Satsang, and spiritual initiation.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=7&date=2026-07-14",
+        },
+        {
+          id: "mevt-2",
+          date: "2026-07-26",
+          dayNumber: 26,
+          monthNumber: 7,
+          yearNumber: 2026,
+          title: "Gauri Ganeshotsav / Chaturthi",
+          subtitle: "Shukla Chaturthi",
+          category: "major-festival",
+          image: "/festivals/slider/image-3.webp",
+          description: "Lord Ganesha Worship & Fasting with family prayers and modak bhog.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=7&date=2026-07-26",
+        },
+        {
+          id: "mevt-3",
+          date: "2026-07-24",
+          dayNumber: 24,
+          monthNumber: 7,
+          yearNumber: 2026,
+          title: "Devshayani Ekadashi (Ashadha)",
+          subtitle: "Chaturmas Begins",
+          category: "vrat",
+          image: "/festivals/slider/image-2.webp",
+          description: "Lord Vishnu Fasting & Rituals marking the sacred 4 holy months.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=7&date=2026-07-24",
+        },
+        {
+          id: "mevt-4",
+          date: "2026-07-31",
+          dayNumber: 31,
+          monthNumber: 7,
+          yearNumber: 2026,
+          title: "Nag Panchami",
+          subtitle: "Nag Puja Tithi",
+          category: "major-festival",
+          image: "/festivals/slider/image-4.webp",
+          description: "Worship of Snake Deities & Milk Abhishekam across temples.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=7&date=2026-07-31",
+        },
+        {
+          id: "mevt-5",
+          date: "2026-07-09",
+          dayNumber: 9,
+          monthNumber: 7,
+          yearNumber: 2026,
+          title: "Yogini Ekadashi",
+          subtitle: "Krishna Paksha Fasting",
+          category: "vrat",
+          image: "/festivals/slider/image-5.webp",
+          description: "Auspicious Vishnu fasting observed for spiritual liberation.",
+          isMajor: false,
+          deepLink: "/calendar?year=2026&month=7&date=2026-07-09",
+        },
+        {
+          id: "mevt-6",
+          date: "2026-07-07",
+          dayNumber: 7,
+          monthNumber: 7,
+          yearNumber: 2026,
+          title: "Bhanu Saptami",
+          subtitle: "Sun God Puja",
+          category: "special-puja",
+          image: "/festivals/slider/image-1.webp",
+          description: "Surya Namaskar & Arghya offering on auspicious Sunday Saptami.",
+          isMajor: false,
+          deepLink: "/calendar?year=2026&month=7&date=2026-07-07",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 8. August 2026
+    // ----------------------------------------------------
+    8: {
+      monthIndex: 8,
+      monthName: "August",
+      year: 2026,
+      days: {
+        "2026-08-03": {
+          events: [
+            {
+              id: "evt-0803",
+              date: "2026-08-03",
+              dayNumber: 3,
+              monthNumber: 8,
+              yearNumber: 2026,
+              title: "Shravan Somwar (1st)",
+              category: "vrat",
+              badgeLabel: "Shiva Vrat",
+              isMajor: true,
+              image: "/festivals/slider/image-4.webp",
+              description: "First Somwar of Shravan month with Mahadev Jalabhishekam.",
+            },
+          ],
+        },
+        "2026-08-15": {
+          events: [
+            {
+              id: "evt-0815",
+              date: "2026-08-15",
+              dayNumber: 15,
+              monthNumber: 8,
+              yearNumber: 2026,
+              title: "Varalakshmi Vratam",
+              category: "special-puja",
+              badgeLabel: "Lakshmi Puja",
+              isMajor: true,
+              image: "/festivals/slider/image-5.webp",
+              description: "Worship of Goddess Lakshmi for wealth, peace and longevity.",
+            },
+          ],
+        },
+        "2026-08-28": {
+          events: [
+            {
+              id: "evt-0828",
+              date: "2026-08-28",
+              dayNumber: 28,
+              monthNumber: 8,
+              yearNumber: 2026,
+              title: "Raksha Bandhan",
+              category: "major-festival",
+              badgeLabel: "Rakhi Purnima",
+              isMajor: true,
+              image: "/festivals/slider/image-1.webp",
+              description: "Celebration of sibling bond and sacred protective thread.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-aug-1",
+          date: "2026-08-03",
+          dayNumber: 3,
+          monthNumber: 8,
+          yearNumber: 2026,
+          title: "Shravan Somwar (1st)",
+          subtitle: "Holy Month of Shiva",
+          category: "vrat",
+          image: "/festivals/slider/image-4.webp",
+          description: "Jalabhishekam & Bilva patra offering for Lord Shiva.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=8&date=2026-08-03",
+        },
+        {
+          id: "mevt-aug-2",
+          date: "2026-08-15",
+          dayNumber: 15,
+          monthNumber: 8,
+          yearNumber: 2026,
+          title: "Varalakshmi Vratam",
+          subtitle: "Divine Mother Blessings",
+          category: "special-puja",
+          image: "/festivals/slider/image-5.webp",
+          description: "Special pooja honoring Ashta Lakshmis at homes and temples.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=8&date=2026-08-15",
+        },
+        {
+          id: "mevt-aug-3",
+          date: "2026-08-28",
+          dayNumber: 28,
+          monthNumber: 8,
+          yearNumber: 2026,
+          title: "Raksha Bandhan & Gayatri Jayanti",
+          subtitle: "Shravan Purnima",
+          category: "major-festival",
+          image: "/festivals/slider/image-1.webp",
+          description: "Sacred thread tying ceremony & Upakarma Vedic ritual.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=8&date=2026-08-28",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 9. September 2026
+    // ----------------------------------------------------
+    9: {
+      monthIndex: 9,
+      monthName: "September",
+      year: 2026,
+      days: {
+        "2026-09-04": {
+          events: [
+            {
+              id: "evt-0904",
+              date: "2026-09-04",
+              dayNumber: 4,
+              monthNumber: 9,
+              yearNumber: 2026,
+              title: "Krishna Janmashtami",
+              category: "major-festival",
+              badgeLabel: "Janmashtami",
+              isMajor: true,
+              image: "/festivals/slider/image-2.webp",
+              description: "Celebration of the divine appearance of Lord Sri Krishna.",
+            },
+          ],
+        },
+        "2026-09-14": {
+          events: [
+            {
+              id: "evt-0914",
+              date: "2026-09-14",
+              dayNumber: 14,
+              monthNumber: 9,
+              yearNumber: 2026,
+              title: "Ganesh Chaturthi",
+              category: "major-festival",
+              badgeLabel: "Ganeshotsav",
+              isMajor: true,
+              image: "/festivals/slider/image-3.webp",
+              description: "Grand 10-day festival honoring Lord Ganesha's arrival.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-sep-1",
+          date: "2026-09-04",
+          dayNumber: 4,
+          monthNumber: 9,
+          yearNumber: 2026,
+          title: "Krishna Janmashtami",
+          subtitle: "Midnight Divine Appearance",
+          category: "major-festival",
+          image: "/festivals/slider/image-2.webp",
+          description: "Fast until midnight, followed by grand Abhishekam and Makhan Bhog.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=9&date=2026-09-04",
+        },
+        {
+          id: "mevt-sep-2",
+          date: "2026-09-14",
+          dayNumber: 14,
+          monthNumber: 9,
+          yearNumber: 2026,
+          title: "Ganesh Chaturthi (Vinayaka Chavithi)",
+          subtitle: "10-Day Mahotsav",
+          category: "major-festival",
+          image: "/festivals/slider/image-3.webp",
+          description: "Prana Pratishtha of Ganpati Bappa idols with grand devotion.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=9&date=2026-09-14",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 10. October 2026
+    // ----------------------------------------------------
+    10: {
+      monthIndex: 10,
+      monthName: "October",
+      year: 2026,
+      days: {
+        "2026-10-10": {
+          events: [
+            {
+              id: "evt-1010",
+              date: "2026-10-10",
+              dayNumber: 10,
+              monthNumber: 10,
+              yearNumber: 2026,
+              title: "Shardiya Navratri Begins",
+              category: "major-festival",
+              badgeLabel: "Ghatasthapana",
+              isMajor: true,
+              image: "/festivals/slider/image-4.webp",
+              description: "9 nights of divine Mother Durga worship and Garba.",
+            },
+          ],
+        },
+        "2026-10-19": {
+          events: [
+            {
+              id: "evt-1019",
+              date: "2026-10-19",
+              dayNumber: 19,
+              monthNumber: 10,
+              yearNumber: 2026,
+              title: "Dussehra (Vijayadashami)",
+              category: "major-festival",
+              badgeLabel: "Vijayadashami",
+              isMajor: true,
+              image: "/festivals/slider/image-5.webp",
+              description: "Victory of righteousness over evil: Lord Rama's victory.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-oct-1",
+          date: "2026-10-10",
+          dayNumber: 10,
+          monthNumber: 10,
+          yearNumber: 2026,
+          title: "Shardiya Navratri (Ghatasthapana)",
+          subtitle: "9 Divine Nights",
+          category: "major-festival",
+          image: "/festivals/slider/image-4.webp",
+          description: "Sacred kalash installation and worship of Maa Shailputri.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=10&date=2026-10-10",
+        },
+        {
+          id: "mevt-oct-2",
+          date: "2026-10-19",
+          dayNumber: 19,
+          monthNumber: 10,
+          yearNumber: 2026,
+          title: "Vijayadashami (Dussehra)",
+          subtitle: "Triumph of Dharma",
+          category: "major-festival",
+          image: "/festivals/slider/image-5.webp",
+          description: "Ravan Dahan, Shami Puja, and Ayudha Puja celebrations.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=10&date=2026-10-10",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 11. November 2026
+    // ----------------------------------------------------
+    11: {
+      monthIndex: 11,
+      monthName: "November",
+      year: 2026,
+      days: {
+        "2026-11-06": {
+          events: [
+            {
+              id: "evt-1106",
+              date: "2026-11-06",
+              dayNumber: 6,
+              monthNumber: 11,
+              yearNumber: 2026,
+              title: "Dhanteras",
+              category: "major-festival",
+              badgeLabel: "Dhanteras",
+              isMajor: true,
+              image: "/festivals/slider/image-1.webp",
+              description: "Worship of Lord Dhanvantari and Goddess Lakshmi for health and abundance.",
+            },
+          ],
+        },
+        "2026-11-08": {
+          events: [
+            {
+              id: "evt-1108",
+              date: "2026-11-08",
+              dayNumber: 8,
+              monthNumber: 11,
+              yearNumber: 2026,
+              title: "Diwali (Deepavali)",
+              category: "major-festival",
+              badgeLabel: "Maha Lakshmi Puja",
+              isMajor: true,
+              image: "/festivals/slider/image-2.webp",
+              description: "The supreme festival of lights, joy, and divine illumination.",
+            },
+          ],
+        },
+        "2026-11-15": {
+          events: [
+            {
+              id: "evt-1115",
+              date: "2026-11-15",
+              dayNumber: 15,
+              monthNumber: 11,
+              yearNumber: 2026,
+              title: "Chhath Puja",
+              category: "major-festival",
+              badgeLabel: "Surya Shashti",
+              isMajor: true,
+              image: "/festivals/slider/image-4.webp",
+              description: "Sacred 4-day Sun God and Chhathi Maiya worship with holy Arghya.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-nov-1",
+          date: "2026-11-08",
+          dayNumber: 8,
+          monthNumber: 11,
+          yearNumber: 2026,
+          title: "Diwali (Deepavali)",
+          subtitle: "Festival of Divine Lights",
+          category: "major-festival",
+          image: "/festivals/slider/image-2.webp",
+          description: "Maha Lakshmi Puja, illumination of diyas, and homecoming of Lord Rama.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=11&date=2026-11-08",
+        },
+        {
+          id: "mevt-nov-2",
+          date: "2026-11-15",
+          dayNumber: 15,
+          monthNumber: 11,
+          yearNumber: 2026,
+          title: "Chhath Puja (Sandhya Arghya)",
+          subtitle: "Sun God Mahaparv",
+          category: "major-festival",
+          image: "/festivals/slider/image-4.webp",
+          description: "Offering evening and morning Arghya to Lord Surya in holy waters.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=11&date=2026-11-15",
+        },
+      ],
+    },
+
+    // ----------------------------------------------------
+    // 12. December 2026
+    // ----------------------------------------------------
+    12: {
+      monthIndex: 12,
+      monthName: "December",
+      year: 2026,
+      days: {
+        "2026-12-20": {
+          events: [
+            {
+              id: "evt-1220",
+              date: "2026-12-20",
+              dayNumber: 20,
+              monthNumber: 12,
+              yearNumber: 2026,
+              title: "Gita Jayanti",
+              category: "major-festival",
+              badgeLabel: "Mokshada Ekadashi",
+              isMajor: true,
+              image: "/festivals/slider/image-3.webp",
+              description: "Day Lord Krishna spoke the Bhagavad Gita to Arjuna at Kurukshetra.",
+            },
+          ],
+        },
+      },
+      monthEvents: [
+        {
+          id: "mevt-dec-1",
+          date: "2026-12-20",
+          dayNumber: 20,
+          monthNumber: 12,
+          yearNumber: 2026,
+          title: "Gita Jayanti & Mokshada Ekadashi",
+          subtitle: "Gita Chanting Day",
+          category: "major-festival",
+          image: "/festivals/slider/image-3.webp",
+          description: "Recitation of 700 verses of Bhagavad Gita in temples worldwide.",
+          isMajor: true,
+          deepLink: "/calendar?year=2026&month=12&date=2026-12-20",
+        },
+      ],
+    },
+  },
+};

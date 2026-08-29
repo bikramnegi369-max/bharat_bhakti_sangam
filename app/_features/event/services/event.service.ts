@@ -8,6 +8,7 @@ import {
   LATEST_EVENT_TAG,
   EVENT_CAPACITY_TAG,
   CAPACITY_TIMEOUT_MS,
+  NAVBAR_EVENT_TIMEOUT_MS,
   EventCapacity,
 } from "./constants";
 import { EventApiError } from "../class/EventApiError";
@@ -72,7 +73,7 @@ export const getLatestEvent = async (): Promise<LatestEvent> => {
           tags: [LATEST_EVENT_TAG],
         },
       },
-      DEFAULT_TIMEOUT_MS,
+      NAVBAR_EVENT_TIMEOUT_MS,
     );
   } catch (error) {
     throw new EventApiError(

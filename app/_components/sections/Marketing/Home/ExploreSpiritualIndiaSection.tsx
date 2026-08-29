@@ -29,7 +29,7 @@ const CATEGORIES: CardItem[] = [
     backDescription:
       "Explore architectural marvels, darshan timings, and ancient spiritual heritage across India's holy temples.",
     ctaText: "Explore Temples",
-    href: "/temples",
+    href: "/famous-temples",
     imageSrc: "/temples-images/konark-sun/konark-sun-hero.webp",
     icon: Landmark,
   },
@@ -51,7 +51,7 @@ const CATEGORIES: CardItem[] = [
     backDescription:
       "Track Panchang dates, Ekadashi fasts, major festivals, and upcoming Bhajan Clubbing events seamlessly.",
     ctaText: "View Calendar",
-    href: "/calender",
+    href: "/calendar",
     imageSrc: "/event.webp",
     icon: CalendarDays,
   },
@@ -73,7 +73,12 @@ export default function ExploreSpiritualIndiaSection() {
     <section className="py-16 md:py-24 bg-[#FCFAF5] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <ScrollReveal animation="fade-down" duration={750} threshold={0.15} className="text-center mb-12 md:mb-16">
+        <ScrollReveal
+          animation="fade-down"
+          duration={750}
+          threshold={0.15}
+          className="text-center mb-12 md:mb-16"
+        >
           <h2
             className={`${playfair.className} text-3xl sm:text-4xl md:text-5xl font-normal text-[#7C0F0C] tracking-tight`}
           >
@@ -176,4 +181,3 @@ export default function ExploreSpiritualIndiaSection() {
     </section>
   );
 }
-

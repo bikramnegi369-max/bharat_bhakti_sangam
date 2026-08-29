@@ -44,6 +44,8 @@ export default function InstagramLightboxModal({
   onNavigate,
 }: InstagramLightboxModalProps) {
   const currentItem = items[currentIndex];
+  const [touchStartX, setTouchStartX] = React.useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = React.useState<number | null>(null);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -75,14 +77,37 @@ export default function InstagramLightboxModal({
 
   if (!isOpen || !currentItem) return null;
 
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handlePrev = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
     onNavigate((currentIndex - 1 + items.length) % items.length);
   };
 
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleNext = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
     onNavigate((currentIndex + 1) % items.length);
+  };
+
+  // Touch Swipe Handlers for mobile gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null || touchStartY === null) return;
+    const diffX = touchStartX - e.changedTouches[0].clientX;
+    const diffY = touchStartY - e.changedTouches[0].clientY;
+
+    // Ensure horizontal swipe is dominant and above threshold (40px)
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      if (diffX > 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
+    setTouchStartX(null);
+    setTouchStartY(null);
   };
 
   return (
@@ -90,37 +115,42 @@ export default function InstagramLightboxModal({
       aria-modal="true"
       role="dialog"
       aria-label="Photo Gallery Modal"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md transition-opacity duration-300 animate-in fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-in fade-in select-none"
       onClick={onClose}
     >
-      {/* Close Button */}
-      <button
-        type="button"
-        onClick={onClose}
-        className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-black/40 hover:bg-black/70 text-white/90 hover:text-white transition-all cursor-pointer border border-white/10 shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-        aria-label="Close modal"
-      >
-        <X className="w-6 h-6" />
-      </button>
+      {/* Top Floating Close & Action Bar for Mobile and Desktop */}
+      <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-60 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+          className="p-2.5 sm:p-3 rounded-full bg-black/70 hover:bg-black/90 active:scale-95 text-white/95 transition-all cursor-pointer border border-white/20 shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-500 flex items-center justify-center"
+          aria-label="Close modal"
+        >
+          <X className="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
+      </div>
 
-      {/* Prev Navigation Arrow */}
+      {/* Prev Navigation Arrow (Hidden on small mobile screens where swipe is active, visible on md+) */}
       {items.length > 1 && (
         <button
           type="button"
           onClick={handlePrev}
-          className="absolute left-2 sm:left-4 z-50 p-3 rounded-full bg-black/40 hover:bg-black/70 text-white/90 hover:text-white transition-all cursor-pointer border border-white/10 shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-500 -translate-y-1/2 top-1/2"
+          className="hidden md:flex absolute left-3 lg:left-5 z-50 p-3 rounded-full bg-black/50 hover:bg-black/80 active:scale-95 text-white/90 hover:text-white transition-all cursor-pointer border border-white/15 shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-500 -translate-y-1/2 top-1/2 items-center justify-center"
           aria-label="Previous photo"
         >
           <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7" />
         </button>
       )}
 
-      {/* Next Navigation Arrow */}
+      {/* Next Navigation Arrow (Hidden on small mobile screens where swipe is active, visible on md+) */}
       {items.length > 1 && (
         <button
           type="button"
           onClick={handleNext}
-          className="absolute right-2 sm:right-4 z-50 p-3 rounded-full bg-black/40 hover:bg-black/70 text-white/90 hover:text-white transition-all cursor-pointer border border-white/10 shadow-lg focus:outline-none focus:ring-2 focus:ring-amber-500 -translate-y-1/2 top-1/2"
+          className="hidden md:flex absolute right-3 lg:right-5 z-50 p-3 rounded-full bg-black/50 hover:bg-black/80 active:scale-95 text-white/90 hover:text-white transition-all cursor-pointer border border-white/15 shadow-xl focus:outline-none focus:ring-2 focus:ring-amber-500 -translate-y-1/2 top-1/2 items-center justify-center"
           aria-label="Next photo"
         >
           <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -130,31 +160,55 @@ export default function InstagramLightboxModal({
       {/* Modal Card Content Container */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-5xl max-h-[90vh] bg-[#1A1211] border border-[#522323]/60 rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        className="relative w-full max-w-5xl max-h-[92vh] sm:max-h-[88vh] bg-[#1A1211] border border-[#522323]/60 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row my-auto"
       >
         {/* Left Side: Photo Frame */}
-        <div className="relative flex-1 bg-black/60 min-h-75 sm:min-h-105 lg:min-h-140 flex items-center justify-center overflow-hidden group">
+        <div className="relative flex-1 bg-black/70 h-[38vh] min-h-[220px] sm:min-h-[360px] lg:h-auto lg:min-h-[520px] flex items-center justify-center overflow-hidden group touch-pan-y">
           <Image
             src={currentItem.src}
             alt={currentItem.alt || currentItem.title || "Sacred Moment"}
             fill
-            className="object-contain"
+            className="object-contain p-1 sm:p-2"
             sizes="(max-width: 1024px) 100vw, 65vw"
             priority
           />
 
           {/* Mobile Image Counter Badge */}
-          <div className="absolute top-4 left-4 lg:hidden px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 text-white/90 text-xs font-medium">
+          <div className="absolute top-3 left-3 lg:hidden px-3 py-1 rounded-full bg-black/70 backdrop-blur-sm border border-white/15 text-white/90 text-xs font-medium">
             {currentIndex + 1} / {items.length}
           </div>
+
+          {/* Mobile Quick-Tap Navigation Overlay buttons */}
+          {items.length > 1 && (
+            <div className="flex md:hidden absolute inset-0 pointer-events-none justify-between items-center px-2">
+              <button
+                type="button"
+                onClick={handlePrev}
+                className="pointer-events-auto p-2 rounded-full bg-black/40 text-white/80 active:bg-black/80"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNext}
+                className="pointer-events-auto p-2 rounded-full bg-black/40 text-white/80 active:bg-black/80"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Right Side: Instagram-style Sidebar Details */}
-        <div className="w-full lg:w-95 xl:w-105 flex flex-col bg-[#211716] border-t lg:border-t-0 lg:border-l border-[#3D2523] text-stone-200">
+        <div className="w-full lg:w-96 xl:w-105 flex flex-col bg-[#211716] border-t lg:border-t-0 lg:border-l border-[#3D2523] text-stone-200 max-h-[46vh] sm:max-h-[48vh] lg:max-h-none">
           {/* Header Bar */}
-          <div className="p-4 sm:p-5 border-b border-[#3D2523] flex items-center justify-between">
+          <div className="p-3.5 sm:p-5 border-b border-[#3D2523] flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-full overflow-hidden border border-amber-500/40 p-0.5 bg-[#370504]">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-amber-500/40 p-0.5 bg-[#370504] shrink-0">
                 <Image
                   src="/logo.png"
                   alt="Bharat Bhakti Sangam"
@@ -163,17 +217,17 @@ export default function InstagramLightboxModal({
                   className="rounded-full object-cover"
                 />
               </div>
-              <div>
+              <div className="min-w-0">
                 <h4
-                  className={`${poppins.className} font-semibold text-sm text-amber-100 flex items-center gap-1.5`}
+                  className={`${poppins.className} font-semibold text-xs sm:text-sm text-amber-100 flex items-center gap-1.5 truncate`}
                 >
                   Bharat Bhakti Sangam
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400 fill-amber-400/20" />
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400 fill-amber-400/20 shrink-0" />
                 </h4>
                 {currentItem.location && (
-                  <p className="text-xs text-stone-400 flex items-center gap-1 mt-0.5">
-                    <MapPin className="w-3 h-3 text-[#E86A17]" />
-                    <span>{currentItem.location}</span>
+                  <p className="text-[11px] sm:text-xs text-stone-400 flex items-center gap-1 mt-0.5 truncate">
+                    <MapPin className="w-3 h-3 text-[#E86A17] shrink-0" />
+                    <span className="truncate">{currentItem.location}</span>
                   </p>
                 )}
               </div>
@@ -181,10 +235,10 @@ export default function InstagramLightboxModal({
           </div>
 
           {/* Body Caption & Content */}
-          <div className="p-4 sm:p-5 flex-1 overflow-y-auto custom-scrollbar space-y-4 text-xs sm:text-sm">
+          <div className="p-3.5 sm:p-5 flex-1 overflow-y-auto custom-scrollbar space-y-3 sm:space-y-4 text-xs sm:text-sm">
             {currentItem.title && (
               <h3
-                className={`${playfair.className} text-xl font-normal text-amber-200 leading-snug`}
+                className={`${playfair.className} text-lg sm:text-xl font-normal text-amber-200 leading-snug`}
               >
                 {currentItem.title}
               </h3>
@@ -198,13 +252,13 @@ export default function InstagramLightboxModal({
             </p>
 
             {currentItem.category && (
-              <div className="inline-block px-3 py-1 rounded-full bg-[#740E0A]/30 border border-[#740E0A]/60 text-amber-300 text-xs font-medium">
+              <div className="inline-block px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#740E0A]/30 border border-[#740E0A]/60 text-amber-300 text-[11px] sm:text-xs font-medium">
                 #{currentItem.category.replace(/\s+/g, "")}
               </div>
             )}
 
             {currentItem.date && (
-              <div className="flex items-center gap-1.5 text-stone-400 text-xs pt-2">
+              <div className="flex items-center gap-1.5 text-stone-400 text-[11px] sm:text-xs pt-1 sm:pt-2">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>{currentItem.date}</span>
               </div>
@@ -212,14 +266,14 @@ export default function InstagramLightboxModal({
           </div>
 
           {/* Footer Actions & Engagement */}
-          <div className="p-4 sm:p-5 border-t border-[#3D2523] bg-[#1A1211]/80 space-y-3">
+          <div className="p-3.5 sm:p-5 border-t border-[#3D2523] bg-[#1A1211]/80 space-y-2.5 sm:space-y-3 shrink-0">
             <div className="flex items-center justify-between text-stone-300">
               <div className="flex items-center gap-4">
                 <button
                   type="button"
-                  className="flex items-center gap-1.5 hover:text-rose-400 transition-colors group cursor-pointer"
+                  className="flex items-center gap-1.5 hover:text-rose-400 active:scale-95 transition-all group cursor-pointer"
                 >
-                  <Heart className="w-5 h-5 text-rose-500 fill-rose-500/20 group-hover:scale-110 transition-transform" />
+                  <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 fill-rose-500/20 group-hover:scale-110 transition-transform" />
                   <span className="text-xs font-semibold text-stone-200">
                     {currentItem.likes
                       ? currentItem.likes.toLocaleString()
@@ -227,7 +281,7 @@ export default function InstagramLightboxModal({
                   </span>
                 </button>
                 <div className="flex items-center gap-1.5 text-stone-400">
-                  <MessageCircle className="w-5 h-5" />
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="text-xs font-medium">
                     {currentItem.commentsCount || "84"}
                   </span>
@@ -235,10 +289,10 @@ export default function InstagramLightboxModal({
               </div>
               <button
                 type="button"
-                className="hover:text-amber-400 transition-colors cursor-pointer"
+                className="hover:text-amber-400 active:scale-95 transition-all cursor-pointer"
                 title="Share photo"
               >
-                <Share2 className="w-5 h-5" />
+                <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
 
@@ -246,7 +300,7 @@ export default function InstagramLightboxModal({
               <span>
                 Photo {currentIndex + 1} of {items.length}
               </span>
-              <span>Use &larr; &rarr; keys to navigate</span>
+              <span>Use &larr; &rarr; keys or swipe to navigate</span>
             </div>
           </div>
         </div>

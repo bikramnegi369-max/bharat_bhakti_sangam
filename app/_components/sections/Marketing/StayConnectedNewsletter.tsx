@@ -78,6 +78,7 @@ export default function StayConnectedNewsletter({
 
   return (
     <section
+      id="newsletter"
       aria-labelledby="newsletter-headline"
       className={clsx(
         "relative w-full overflow-hidden",

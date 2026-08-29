@@ -1,22 +1,14 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { EventUnavailable } from "@/_components/common/EventUnavailable";
 import { getSeoKeywords } from "@/_config/Seo.config";
 import { siteConfig } from "@/_config/Site.config";
-import {
-  getEventDisplayDate,
-  getEventVenueAddress,
-  getEventVenueName,
-  getHomeImage,
-  getOgImageUrl,
-} from "@/_lib/helpers";
+import { getOgImageUrl } from "@/_lib/helpers";
 import {
   createPageMetadata,
   createPageMetadataFromConfig,
   jsonLdScript,
 } from "@/_lib/seo";
 import { getLatestEvent } from "@/_features/event/services/event.service";
-import { EventApiError } from "@/_features/event/class/EventApiError";
 
 // Above-the-fold Critical UI (Static imports for instant FCP / LCP)
 import VideoHero from "@/_components/sections/Marketing/VideoHero";
@@ -36,10 +28,7 @@ const WhyJoinUsSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/WhyJoinUsSection"),
   { loading: () => null },
 );
-const UpcomingEventSection = dynamic(
-  () => import("@/_components/sections/Marketing/Home/UpcomingEventSection"),
-  { loading: () => null },
-);
+import UpcomingEventServerSection from "@/_components/sections/Marketing/Home/UpcomingEventServerSection";
 const ExploreSpiritualIndiaSection = dynamic(
   () =>
     import("@/_components/sections/Marketing/Home/ExploreSpiritualIndiaSection"),
@@ -88,22 +77,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function HomePage() {
-  let event;
-
-  try {
-    event = await getLatestEvent();
-  } catch (error) {
-    const message =
-      error instanceof EventApiError
-        ? error.message
-        : "We could not load the latest event right now. Please try again shortly.";
-
-    return (
-      <EventUnavailable title="Latest Event Unavailable" message={message} />
-    );
-  }
-
+export default function HomePage() {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -142,21 +116,8 @@ export default async function HomePage() {
       {/* 6. Why Join Us Section: Internal cascading 4-card scale-up */}
       <WhyJoinUsSection />
 
-      {/* 7. Upcoming Event Showcase Banner: Split stage visual + countdown timer */}
-      <UpcomingEventSection
-        eventName={event.eventName}
-        venueName={getEventVenueName(event) || ""}
-        venueAddress={getEventVenueAddress(event) || ""}
-        eventDate={getEventDisplayDate(event) || ""}
-        eventTime={event.time ? `${event.time} Onwards` : undefined}
-        targetIsoDate={event.date}
-        imageSrc={getHomeImage(event)}
-        maxSeats={event.maxSeats}
-        bookedSeats={event.bookedSeats}
-        availableTickets={event.availableTickets}
-        ctaHref="/booking"
-        ctaText="Book Your Seat Now"
-      />
+      {/* 7. Upcoming Event Showcase Banner: Isolated Async Island with Suspense & Fallback */}
+      <UpcomingEventServerSection />
 
       {/* 8. Explore Spiritual India: Internal 4-card 3D flip staggered cascade */}
       <ExploreSpiritualIndiaSection />

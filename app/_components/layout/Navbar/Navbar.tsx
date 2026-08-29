@@ -68,7 +68,12 @@ export default async function Navbar() {
       }
     }
   } catch (error) {
-    console.error("Navbar: Failed to prepare live event data", error);
+    // In production, when backend dev tunnel or upstream service is asleep or timing out,
+    // the layout navbar must fail open gracefully and render standard nav/CTA buttons.
+    console.warn(
+      "[Navbar] Latest event service unreachable or timed out. Defaulting to standard navigation.",
+      error instanceof Error ? error.message : error,
+    );
   }
 
   return (

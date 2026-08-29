@@ -49,7 +49,7 @@ import {
   jsonLdScript,
 } from "@/_lib/seo";
 import { getLatestEvent } from "@/_features/event/services/event.service";
-import { EventApiError } from "@/_features/event/class/EventApiError";
+import { DEFAULT_FALLBACK_EVENT } from "@/_config/Event.config";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -58,12 +58,15 @@ export async function generateMetadata(): Promise<Metadata> {
     const seoPage = getSeoPageConfig("event");
 
     return createPageMetadata({
-      title: `${event.eventName} Event | ${seoPage.title}`,
+      title: `${event.eventName} | Bharat Bhakti Sangam`,
       description,
       path: "/event",
       image: getOgImageUrl(event),
       ogKey: `${event._id}-${event.updatedAt ?? ""}`,
-      keywords: getSeoKeywords("event", [event.eventName.toLowerCase()]),
+      keywords: getSeoKeywords("event", [
+        event.eventName.toLowerCase(),
+        ...(event.hashTags || []).map((t) => t.replace("#", "")),
+      ]),
     });
   } catch {
     return createPageMetadataFromConfig("event");
@@ -71,18 +74,26 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function EventPage() {
-  let event;
+  let event = null;
 
   try {
-    event = await getLatestEvent();
+    const fetchedEvent = await getLatestEvent();
+    if (fetchedEvent && fetchedEvent.isActive !== false) {
+      event = fetchedEvent;
+    }
   } catch (error) {
-    const message =
-      error instanceof EventApiError
-        ? error.message
-        : "We could not load the latest event right now. Please try again shortly.";
+    console.warn(
+      "[EventPage] Backend event API unreachable or no active event scheduled.",
+      error instanceof Error ? error.message : error,
+    );
+  }
 
+  if (!event) {
     return (
-      <EventUnavailable title="Latest Event Unavailable" message={message} />
+      <EventUnavailable
+        title="Next Event in Preparation"
+        message="We are currently organizing our next Bhajan Clubbing and Kirtan gathering. Please check back soon or explore our spiritual calendar."
+      />
     );
   }
 

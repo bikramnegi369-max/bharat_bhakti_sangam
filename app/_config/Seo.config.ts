@@ -435,6 +435,25 @@ export const _seoConfig = {
       "Navagraha Numbers",
     ],
   },
+  calendar: {
+    path: "/calendar",
+    image: "/home_hero.webp",
+    title: "Sanatan Spiritual Calendar 2026 | Hindu Festivals, Tithi, Vrat & Muhurat",
+    description:
+      "Explore the comprehensive Sanatan Spiritual Calendar with daily Tithi, auspicious Muhurat, major Hindu festivals, Ekadashi Vrats, and sacred rituals with Bharat Bhakti Sangam.",
+    keywords: [
+      "Spiritual Calendar",
+      "Hindu Calendar 2026",
+      "Vedic Panchang",
+      "Guru Purnima 2026",
+      "Ekadashi Vrat 2026",
+      "Tithi and Muhurat",
+      "Sanatan Dharma Festivals",
+      "Puja Muhurat",
+      "Shravan Somwar",
+      "Bharat Bhakti Sangam Calendar",
+    ],
+  },
 } satisfies Record<string, SeoPage>;
 
 export type SeoPageKey = keyof typeof seoConfig;
