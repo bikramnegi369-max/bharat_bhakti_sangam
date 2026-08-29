@@ -13,6 +13,21 @@ interface InteractiveCalendarSectionProps {
 export default function InteractiveCalendarSection({
   calendar,
 }: InteractiveCalendarSectionProps) {
+  const detailRef = React.useRef<HTMLDivElement>(null);
+
+  const handleSelectDate = (dateString: string) => {
+    calendar.selectDate(dateString);
+    // On mobile (< 1024px), smoothly scroll to the detail section so user sees the day content immediately
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      setTimeout(() => {
+        detailRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }, 100);
+    }
+  };
+
   return (
     <section className="relative w-full py-8 lg:py-12 bg-[#FAF8F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,7 +43,7 @@ export default function InteractiveCalendarSection({
                 gridDays={calendar.gridDays}
                 legend={calendar.yearConfig.legend}
                 activeCategoryFilter={calendar.categoryFilter}
-                onSelectDate={calendar.selectDate}
+                onSelectDate={handleSelectDate}
                 onPrevMonth={calendar.prevMonth}
                 onNextMonth={calendar.nextMonth}
                 onSetMonth={calendar.setMonth}
@@ -40,7 +55,11 @@ export default function InteractiveCalendarSection({
           </div>
 
           {/* Right: Selected Date Detail Pane (lg:col-span-4) */}
-          <div className="lg:col-span-4 w-full sticky top-24">
+          <div
+            ref={detailRef}
+            id="calendar-day-detail"
+            className="lg:col-span-4 w-full scroll-mt-24 lg:sticky lg:top-24"
+          >
             <ScrollReveal animation="fade-left" delay={200}>
               <CalendarDetailSidebar
                 selectedDetail={calendar.selectedDetail}

@@ -47,6 +47,8 @@ export default function CalendarMonthGrid({
 }: CalendarMonthGridProps) {
   const [showMonthSelect, setShowMonthSelect] = useState(false);
   const monthSelectRef = useRef<HTMLDivElement>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
 
   // Close dropdown on outside click or Escape key
   useEffect(() => {
@@ -78,15 +80,37 @@ export default function CalendarMonthGrid({
     };
   }, [showMonthSelect]);
 
+  // Touch Swipe Handlers for mobile grid swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null || touchStartY === null) return;
+    const diffX = touchStartX - e.changedTouches[0].clientX;
+    const diffY = touchStartY - e.changedTouches[0].clientY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        onNextMonth();
+      } else {
+        onPrevMonth();
+      }
+    }
+    setTouchStartX(null);
+    setTouchStartY(null);
+  };
+
   return (
     <div className="w-full flex flex-col bg-white rounded-2xl border border-amber-200/80 shadow-lg overflow-hidden">
       {/* ── Top Header & Navigation Toolbar ── */}
-      <div className="p-4 sm:p-5 border-b border-amber-100 flex flex-wrap items-center justify-between gap-3 bg-[#FAF8F5]/80">
+      <div className="p-3.5 sm:p-5 border-b border-amber-100 flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 bg-[#FAF8F5]/80">
         {/* Left: Quick View / Month Selector Button */}
         <div className="relative" ref={monthSelectRef}>
           <button
             onClick={() => setShowMonthSelect(!showMonthSelect)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-amber-200 text-xs font-semibold text-[#740E0A] hover:bg-amber-50 hover:border-amber-300 shadow-2xs transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-amber-200 text-xs font-semibold text-[#740E0A] hover:bg-amber-50 hover:border-amber-300 shadow-2xs transition-colors cursor-pointer"
           >
             <CalendarIcon className="w-3.5 h-3.5" />
             <span className="uppercase tracking-wider">
@@ -167,17 +191,17 @@ export default function CalendarMonthGrid({
         </div>
 
         {/* Center: Month & Year Title with Navigation Arrows */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <button
             onClick={onPrevMonth}
             aria-label="Previous Month"
-            className="w-8 h-8 rounded-full flex items-center justify-center bg-white border border-amber-200 hover:border-[#740E0A] text-[#740E0A] hover:bg-amber-50 shadow-2xs transition-all cursor-pointer active:scale-95"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-white border border-amber-200 hover:border-[#740E0A] text-[#740E0A] hover:bg-amber-50 shadow-2xs transition-all cursor-pointer active:scale-95"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
 
           <h2
-            className={`${playfair.className} text-xl sm:text-2xl font-bold text-[#370504] tracking-tight min-w-32.5 sm:min-w-37.5 text-center`}
+            className={`${playfair.className} text-base sm:text-2xl font-bold text-[#370504] tracking-tight min-w-28 sm:min-w-37.5 text-center`}
           >
             {MONTH_NAMES[month - 1]} {year}
           </h2>
@@ -185,9 +209,9 @@ export default function CalendarMonthGrid({
           <button
             onClick={onNextMonth}
             aria-label="Next Month"
-            className="w-8 h-8 rounded-full flex items-center justify-center bg-white border border-amber-200 hover:border-[#740E0A] text-[#740E0A] hover:bg-amber-50 shadow-2xs transition-all cursor-pointer active:scale-95"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-white border border-amber-200 hover:border-[#740E0A] text-[#740E0A] hover:bg-amber-50 shadow-2xs transition-all cursor-pointer active:scale-95"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </button>
         </div>
 
@@ -195,7 +219,7 @@ export default function CalendarMonthGrid({
         <div>
           <button
             onClick={onJumpToToday}
-            className="px-3.5 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100/80 border border-amber-200/80 text-xs font-semibold text-[#740E0A] transition-colors cursor-pointer"
+            className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100/80 border border-amber-200/80 text-[11px] sm:text-xs font-semibold text-[#740E0A] transition-colors cursor-pointer"
           >
             Today
           </button>
@@ -209,7 +233,7 @@ export default function CalendarMonthGrid({
           return (
             <div
               key={day}
-              className={`py-2.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider ${
+              className={`py-2 sm:py-2.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider ${
                 isWeekend ? "text-[#740E0A]" : "text-[#71717A]"
               }`}
             >
@@ -220,7 +244,11 @@ export default function CalendarMonthGrid({
       </div>
 
       {/* ── Calendar Days Matrix ── */}
-      <div className="p-2 sm:p-3 bg-[#FAF8F5]/60">
+      <div
+        className="p-1.5 sm:p-3 bg-[#FAF8F5]/60 touch-pan-y"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
           {gridDays.map((day) => {
             const isSelected = day.dateString === selectedDate;
@@ -249,22 +277,22 @@ export default function CalendarMonthGrid({
               <button
                 key={day.dateString}
                 onClick={() => onSelectDate(day.dateString)}
-                className={`relative min-h-18 sm:min-h-21.5 lg:min-h-24 p-1.5 sm:p-2.5 flex flex-col justify-between items-start text-left transition-all duration-200 cursor-pointer rounded-xl group ${
+                className={`relative min-h-12 sm:min-h-20 lg:min-h-24 p-1 sm:p-2.5 flex flex-col justify-between items-start text-left transition-all duration-200 cursor-pointer rounded-lg sm:rounded-xl group ${
                   !day.isCurrentMonth
-                    ? "bg-stone-50/60 text-stone-300 border border-stone-100 pointer-events-auto"
+                    ? "bg-stone-50/50 text-stone-300 border border-stone-100/60 pointer-events-auto opacity-40 sm:opacity-60"
                     : isSelected
-                      ? "bg-linear-to-br from-[#740E0A] via-[#5D0A07] to-[#400604] text-white shadow-lg ring-2 ring-inset ring-amber-400 z-10"
+                      ? "bg-linear-to-br from-[#740E0A] via-[#5D0A07] to-[#400604] text-white shadow-lg ring-2 ring-amber-400 z-10"
                       : "bg-white hover:bg-[#FFFDF9] text-[#370504] border border-amber-100/80 hover:border-amber-300 hover:shadow-xs"
                 }`}
               >
                 {/* Top Row: Date Number & Lunar Indicator */}
                 <div className="flex items-center justify-between w-full">
                   <span
-                    className={`text-xs sm:text-sm font-semibold rounded-full w-6 h-6 flex items-center justify-center transition-all ${
+                    className={`text-[11px] sm:text-sm font-semibold rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center transition-all ${
                       isSelected
-                        ? "bg-amber-400 text-[#370504] font-bold shadow-xs"
+                        ? "bg-amber-400 text-[#370504] font-bold shadow-xs scale-105"
                         : day.isToday
-                          ? "bg-[#740E0A] text-white font-bold ring-2 ring-amber-300"
+                          ? "bg-[#740E0A] text-white font-bold ring-1.5 sm:ring-2 ring-amber-300"
                           : day.isCurrentMonth
                             ? "text-[#302D2D] group-hover:text-[#740E0A] group-hover:font-bold"
                             : "text-stone-300"
@@ -274,12 +302,12 @@ export default function CalendarMonthGrid({
                   </span>
 
                   {/* Right Top Indicator: Lunar Icon / Event Category Dot */}
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-0.5 sm:gap-1">
                     {day.isCurrentMonth && !isSelected && (
                       <>
                         {day.isPurnima && (
                           <span
-                            className="text-[10px] sm:text-xs"
+                            className="text-[9px] sm:text-xs"
                             title="Purnima (Full Moon)"
                           >
                             🌕
@@ -287,7 +315,7 @@ export default function CalendarMonthGrid({
                         )}
                         {day.isAmavasya && (
                           <span
-                            className="text-[10px] sm:text-xs"
+                            className="text-[9px] sm:text-xs"
                             title="Amavasya (New Moon)"
                           >
                             🌑
@@ -297,7 +325,7 @@ export default function CalendarMonthGrid({
                           !day.isPurnima &&
                           !day.isAmavasya && (
                             <span
-                              className="text-[10px]"
+                              className="text-[9px] sm:text-[10px]"
                               title="Ekadashi Holy Fast"
                             >
                               🌿
@@ -308,7 +336,7 @@ export default function CalendarMonthGrid({
 
                     {hasEvent && !isSelected && (
                       <span
-                        className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shadow-2xs transition-transform group-hover:scale-125"
+                        className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shadow-2xs transition-transform group-hover:scale-125 shrink-0"
                         style={{ backgroundColor: categoryColor }}
                         title={primaryEvent?.title}
                       />
@@ -316,8 +344,24 @@ export default function CalendarMonthGrid({
                   </div>
                 </div>
 
-                {/* Middle/Bottom: Event Badge OR Subtitle Tithi Name */}
-                <div className="w-full mt-1">
+                {/* Mobile View: Micro category dot & indicator if event exists */}
+                <div className="w-full flex sm:hidden items-center justify-center pt-0.5">
+                  {hasEvent ? (
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full ${isSelected ? "bg-amber-300 ring-1 ring-white" : ""}`}
+                      style={{
+                        backgroundColor: isSelected ? undefined : categoryColor,
+                      }}
+                    />
+                  ) : day.isCurrentMonth && (day.isPurnima || day.isAmavasya || day.isEkadashi) ? (
+                    <span className="w-1 h-1 rounded-full bg-amber-400/80" />
+                  ) : (
+                    <span className="h-1.5" />
+                  )}
+                </div>
+
+                {/* Tablet / Desktop View (sm+): Event Badge OR Subtitle Tithi Name */}
+                <div className="hidden sm:block w-full mt-1">
                   {hasEvent ? (
                     <div
                       className={`text-[9px] sm:text-[10px] font-semibold leading-tight line-clamp-2 px-1.5 py-0.5 rounded-md border transition-colors ${
@@ -349,7 +393,7 @@ export default function CalendarMonthGrid({
       </div>
 
       {/* ── Bottom Category Legend with Interactive Filter Toggles ── */}
-      <div className="p-3.5 sm:p-4 border-t border-amber-100 bg-[#FAF8F5] flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs">
+      <div className="p-3 sm:p-4 border-t border-amber-100 bg-[#FAF8F5] flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-6 gap-y-2 text-xs">
         <button
           onClick={() => onSetCategoryFilter("all")}
           className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full transition-all cursor-pointer font-medium ${
