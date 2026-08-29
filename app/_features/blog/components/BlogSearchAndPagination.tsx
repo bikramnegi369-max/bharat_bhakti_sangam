@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState, useTransition } from "react";
+import { FormEvent, useEffect, useMemo, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { poppins } from "@/_lib/fonts";
@@ -27,6 +27,11 @@ export default function BlogSearchAndPagination({
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchQuery);
   const [isPending, startTransition] = useTransition();
+
+  // Keep local input state synchronized with incoming prop changes from URL navigation
+  useEffect(() => {
+    setQuery(searchQuery);
+  }, [searchQuery]);
 
   const hasPrevious = currentPage > 1;
   const hasNext = totalPages > 0 && currentPage < totalPages;
@@ -71,6 +76,15 @@ export default function BlogSearchAndPagination({
   function handleClear() {
     setQuery("");
     navigate(1, "");
+  }
+
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const nextVal = event.target.value;
+    setQuery(nextVal);
+    // Native browser 'search' inputs provide an 'x' clear icon. When clicked, value becomes empty string.
+    if (nextVal === "" && searchQuery !== "") {
+      navigate(1, "");
+    }
   }
 
   const renderPagination = (compact = false) => {
@@ -190,7 +204,7 @@ export default function BlogSearchAndPagination({
               type="search"
               name="q"
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={handleInputChange}
               placeholder="Search devotion, bhajans, kirtans, traditions..."
               className="h-11 sm:h-12 w-full rounded-xl border border-[#740E0A]/15 bg-[#FCFAF5] pl-11 pr-24 text-xs sm:text-sm text-[#2E0503] outline-none transition-colors placeholder:text-stone-400 focus:border-[#740E0A] focus:bg-white focus:ring-2 focus:ring-[#740E0A]/15"
             />
