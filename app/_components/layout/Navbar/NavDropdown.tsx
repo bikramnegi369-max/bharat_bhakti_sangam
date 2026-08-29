@@ -77,42 +77,41 @@ export default function NavDropdown({
 
   return (
     <>
-      <div className="relative">
-        {/* Trigger */}
-        <Link
-          href={href}
-          ref={setReferenceEl}
-          {...getReferenceProps()}
-          className="flex items-center gap-1 cursor-pointer group pb-1 outline-hidden shrink-0"
+      {/* Trigger */}
+      <Link
+        href={href}
+        ref={setReferenceEl}
+        {...getReferenceProps()}
+        className="relative inline-flex items-center gap-1 cursor-pointer group pb-1 outline-hidden shrink-0"
+      >
+        <span
+          className={clsx(
+            "transition-colors duration-200 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium whitespace-nowrap",
+            isActive
+              ? "text-orange"
+              : "text-white/85 group-hover:text-white",
+          )}
         >
-          <span
-            className={clsx(
-              "transition-colors duration-200 text-[12.5px] xl:text-[13px] 2xl:text-[14.5px] font-medium whitespace-nowrap",
-              isActive
-                ? "text-orange"
-                : "text-white/85 group-hover:text-white",
-            )}
-          >
-            {label}
-          </span>
-          <ChevronDown
-            size={14}
-            strokeWidth={2.5}
-            className={clsx(
-              "transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] mt-0.5",
-              isOpen && "rotate-180",
-              isActive
-                ? "text-orange"
-                : "text-white/70 group-hover:text-white",
-            )}
-          />
-          <span
-            className={clsx(
-              "absolute left-0 bottom-0 h-0.5 bg-orange rounded-full transition-all duration-300 ease-out",
-              isActive ? "w-full" : "w-0 group-hover:w-full",
-            )}
-          />
-        </Link>
+          {label}
+        </span>
+        <ChevronDown
+          size={14}
+          strokeWidth={2.5}
+          className={clsx(
+            "transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shrink-0",
+            isOpen && "rotate-180",
+            isActive
+              ? "text-orange"
+              : "text-white/70 group-hover:text-white",
+          )}
+        />
+        <span
+          className={clsx(
+            "absolute left-0 bottom-0 h-0.5 bg-orange rounded-full transition-all duration-300 ease-out",
+            isActive ? "w-full" : "w-0 group-hover:w-full",
+          )}
+        />
+      </Link>
 
         {/* Floating panel */}
         <FloatingPortal>
@@ -225,7 +224,6 @@ export default function NavDropdown({
             </div>
           </div>
         </FloatingPortal>
-      </div>
     </>
   );
 }

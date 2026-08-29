@@ -61,7 +61,7 @@ export default function DesktopNavLinks() {
           <Link
             key={link.href}
             href={link.href}
-            className="relative pb-1 group shrink-0"
+            className="relative pb-1 group shrink-0 inline-flex items-center"
             scroll={true}
           >
             <span
