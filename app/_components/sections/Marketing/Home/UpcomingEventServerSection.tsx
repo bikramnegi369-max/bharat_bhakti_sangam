@@ -117,10 +117,10 @@ function NoActiveEventFallback() {
             >
               <div
                 className="absolute inset-0 bg-cover bg-center opacity-60 transition-transform duration-700 hover:scale-105"
-                style={{ backgroundImage: "url('/our_story_dance.webp')" }}
+                style={{ backgroundImage: "url('/event.webp')" }}
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#3B1214] via-[#3B1214]/60 to-transparent lg:bg-linear-to-r lg:from-transparent lg:via-[#3B1214]/40 lg:to-[#3B1214]" />
-              
+
               {/* Floating Badge on Visual */}
               <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-8 z-10">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-amber-200 text-xs font-semibold">
@@ -150,7 +150,9 @@ function NoActiveEventFallback() {
                 </h2>
 
                 <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-xl mb-6">
-                  Our team is curating the next transcendental evening of youth-led bhajans, collective kirtans, and divine ecstasy. Join thousands of devotees in our sacred journey.
+                  Our team is curating the next transcendental evening of
+                  youth-led bhajans, collective kirtans, and divine ecstasy.
+                  Join thousands of devotees in our sacred journey.
                 </p>
 
                 {/* Information Highlight Pills */}
@@ -160,7 +162,8 @@ function NoActiveEventFallback() {
                       ✦ First-Access Passes
                     </span>
                     <p className="text-xs text-white/70 leading-snug">
-                      Subscribers receive early booking links 24 hours before public drop.
+                      Subscribers receive early booking links 24 hours before
+                      public drop.
                     </p>
                   </div>
                   <div className="p-3 sm:p-3.5 rounded-2xl bg-black/25 backdrop-blur-md border border-white/10 text-left">
@@ -168,7 +171,8 @@ function NoActiveEventFallback() {
                       ✦ Vedic Almanac
                     </span>
                     <p className="text-xs text-white/70 leading-snug">
-                      Explore ongoing festivals, auspicious tithis, and muhurats.
+                      Explore ongoing festivals, auspicious tithis, and
+                      muhurats.
                     </p>
                   </div>
                 </div>
