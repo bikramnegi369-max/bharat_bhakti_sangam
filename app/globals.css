@@ -18,6 +18,16 @@
   --rust: #9A3412;
 }
 
+/* Fix browser autofill square white background overflowing rounded transparent inputs */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 @theme inline {
   --color-primary: var(--primary);
   --color-primary_light: var(--primary_light);

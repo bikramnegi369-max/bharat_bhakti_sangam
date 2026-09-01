@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, Loader2, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import {
+  Send,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+  Sparkles,
+} from "lucide-react";
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
 import { subscribeToNewsletter } from "../services/subscription.service";
@@ -46,7 +52,9 @@ export function SubscribeForm({
         if (result.error?.toLowerCase().includes("already subscribed")) {
           setErrorMessage("You're already on our divine journey list!");
         } else {
-          setErrorMessage(result.error || "Subscription failed. Please try again.");
+          setErrorMessage(
+            result.error || "Subscription failed. Please try again.",
+          );
         }
       }
     } catch {
@@ -88,7 +96,7 @@ export function SubscribeForm({
       <form onSubmit={handleSubmit} className="w-full relative group">
         <div
           className={clsx(
-            "relative flex items-center p-1 sm:p-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-inner transition-all duration-300",
+            "relative flex items-center p-1 sm:p-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-inner transition-all duration-300 overflow-hidden",
             "focus-within:border-gold/80 focus-within:ring-2 focus-within:ring-gold/30 focus-within:bg-white/15",
           )}
         >
@@ -108,8 +116,8 @@ export function SubscribeForm({
             disabled={status === "loading"}
             className={clsx(
               poppins.className,
-              "min-w-0 flex-1 bg-transparent pl-4 pr-2 py-2 text-xs sm:text-sm text-white placeholder:text-white/45 placeholder:font-normal font-normal border-none",
-              "focus:outline-none focus:ring-0 disabled:opacity-60",
+              "w-full min-w-0 flex-1 bg-transparent rounded-l-full pl-3.5 sm:pl-4 pr-2 py-1.5 sm:py-2 text-xs sm:text-sm text-white placeholder:text-white/45 placeholder:font-normal font-normal border-0 outline-none ring-0 shadow-none",
+              "focus:outline-none focus:ring-0 focus:border-0 disabled:opacity-60",
             )}
             aria-label="Email address for subscription"
           />
@@ -119,10 +127,10 @@ export function SubscribeForm({
             type="submit"
             disabled={status === "loading"}
             className={clsx(
-              "shrink-0 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm tracking-wide text-white cursor-pointer",
+              "shrink-0 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-xs sm:text-sm tracking-wide text-white cursor-pointer",
               "bg-linear-to-r from-primary via-[#8C1610] to-[#E86A17] hover:brightness-110",
               "border border-white/20 shadow-md transition-all duration-300 hover:scale-105 active:scale-95",
-              "flex items-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed",
+              "flex items-center gap-1.5 sm:gap-2 disabled:opacity-75 disabled:cursor-not-allowed",
             )}
           >
             {status === "loading" ? (
@@ -160,4 +168,3 @@ export function SubscribeForm({
     </div>
   );
 }
-
