@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { lockBodyScroll, unlockBodyScroll } from "@/_utils/body-scroll-lock";
 
 interface Props {
   open: boolean;
@@ -13,6 +14,8 @@ interface Props {
   width?: string;
 }
 
+const emptySubscribe = () => () => {};
+
 export default function GlobalModal({
   open,
   onClose,
@@ -22,17 +25,21 @@ export default function GlobalModal({
   size = "full",
   width,
 }: Props) {
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+
   /* -----------------------------------------
-   * Scroll lock
+   * Bulletproof Scroll lock
    * ----------------------------------------- */
   useEffect(() => {
-    const main_content = document.getElementById("__main-content");
-    if (!main_content) return;
-    const prev = main_content?.style.overflow;
+    if (!open) return;
 
-    if (open) main_content.style.overflow = "hidden";
+    lockBodyScroll();
     return () => {
-      main_content.style.overflow = prev;
+      unlockBodyScroll();
     };
   }, [open]);
 
@@ -46,14 +53,20 @@ export default function GlobalModal({
     return () => window.removeEventListener("keydown", handler);
   }, [open, onClose]);
 
-  const root = document.getElementById("__modal-root");
+  if (!open || !mounted) return null;
+
+  const root =
+    typeof document !== "undefined"
+      ? document.getElementById("__modal-root") || document.body
+      : null;
   if (!root) return null;
 
   // Stop event propagation when clicking backdrop
   const handleBackdropClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     onClose();
-  }; // Prevent clicks inside modal from closing it
+  };
+
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
@@ -64,53 +77,56 @@ export default function GlobalModal({
   const computedWidth =
     width ||
     (size === "sm"
-      ? "300px"
+      ? "360px"
       : size === "md"
-      ? "500px"
+      ? "520px"
       : size === "lg"
-      ? "700px"
+      ? "720px"
       : size === "xl"
-      ? "900px"
+      ? "920px"
       : size === "full"
-      ? "80%"
-      : "400px");
+      ? "min(92vw, 1100px)"
+      : "520px");
 
   return createPortal(
-    <>
+    <div
+      aria-modal="true"
+      role="dialog"
+      style={{ zIndex }}
+      className={`
+        fixed inset-0 flex items-center justify-center p-3 sm:p-5 md:p-6
+        transition-all duration-${animationMs} select-none overscroll-none
+        ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+      `}
+      onClick={handleBackdropClick}
+      onWheel={(e) => e.stopPropagation()}
+    >
       {/* Backdrop */}
       <div
-        onClick={handleBackdropClick}
-        style={{ zIndex }}
         className={`
-          absolute inset-0 bg-black/40 backdrop-blur-sm 
+          absolute inset-0 bg-black/60 backdrop-blur-sm 
           transition-opacity duration-${animationMs}
-          ${open ? "opacity-100" : "opacity-0 "}
-          pointer-events-${open ? "auto" : "none"}
+          ${open ? "opacity-100" : "opacity-0"}
         `}
       />
 
-      {/* Modal container */}
+      {/* Modal container card */}
       <div
-        onClick={onClose}
-        style={{ zIndex: zIndex + 1 }}
+        onClick={handleModalClick}
+        style={{
+          width: computedWidth,
+          maxHeight: "min(90vh, calc(100svh - 3rem))",
+        }}
         className={` 
-          absolute inset-0 flex items-center justify-center 
-          transition-all duration-${animationMs}
-          ${open ? "opacity-100 scale-100" : "opacity-0 scale-95 "}
+          relative bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden
+          transition-all duration-${animationMs} my-auto overscroll-contain
+          ${open ? "scale-100 translate-y-0" : "scale-95 translate-y-2"}
         `}
       >
-        <div
-          onClick={handleModalClick}
-          style={{
-            width: computedWidth,
-            maxHeight: "calc(100vh - 4rem)",
-          }}
-          className=" bg-white rounded-md pointer-events-auto  shadow-xl flex flex-col"
-        >
-          {children}
-        </div>
+        {children}
       </div>
-    </>,
-    root
+    </div>,
+    root,
   );
 }
+

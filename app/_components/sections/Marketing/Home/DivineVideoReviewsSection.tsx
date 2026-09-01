@@ -98,6 +98,7 @@ export default function DivineVideoReviewsSection({
       loop: true,
       align: "start",
       slidesToScroll: 1,
+      watchFocus: false,
       breakpoints: {
         "(min-width: 640px)": { slidesToScroll: 1 },
         "(min-width: 1024px)": { slidesToScroll: 1 },
@@ -108,6 +109,7 @@ export default function DivineVideoReviewsSection({
         delay: autoplayDelay,
         stopOnInteraction: false,
         stopOnMouseEnter: true,
+        stopOnFocusIn: true,
       }),
     ],
   );

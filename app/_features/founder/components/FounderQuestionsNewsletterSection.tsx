@@ -62,7 +62,7 @@ export function FounderQuestionsNewsletterSection() {
         aria-hidden="true"
         className="pointer-events-none absolute -right-20 -top-20 w-80 sm:w-120 aspect-square opacity-20 select-none"
       >
-        <Image src="/mandala.webp" alt="" fill className="object-contain" />
+        <Image src="/mandala.webp" alt="" fill sizes="450px" className="object-contain" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">

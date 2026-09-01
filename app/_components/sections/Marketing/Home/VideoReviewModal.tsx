@@ -12,6 +12,10 @@ import {
 import { playfair, poppins } from "@/_lib/fonts";
 import clsx from "clsx";
 
+import { lockBodyScroll, unlockBodyScroll } from "@/_utils/body-scroll-lock";
+
+import { createPortal } from "react-dom";
+
 export interface DivineVideoReviewItem {
   id: string | number;
   title: string;
@@ -33,6 +37,8 @@ interface VideoReviewModalProps {
   onNavigate: (newIndex: number) => void;
 }
 
+const emptySubscribe = () => () => {};
+
 export default function VideoReviewModal({
   isOpen,
   currentIndex,
@@ -41,6 +47,13 @@ export default function VideoReviewModal({
   onNavigate,
 }: VideoReviewModalProps) {
   const currentItem = items[currentIndex];
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
+  const [touchStartX, setTouchStartX] = React.useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = React.useState<number | null>(null);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -57,47 +70,71 @@ export default function VideoReviewModal({
   );
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    if (!isOpen) return;
+
+    lockBodyScroll();
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = "unset";
+      unlockBodyScroll();
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, handleKeyDown]);
 
-  if (!isOpen || !currentItem) return null;
+  if (!isOpen || !currentItem || !mounted) return null;
 
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handlePrev = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
     onNavigate((currentIndex - 1 + items.length) % items.length);
   };
 
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleNext = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
     onNavigate((currentIndex + 1) % items.length);
   };
 
-  return (
+  // Touch Swipe Handlers for mobile gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null || touchStartY === null) return;
+    const diffX = touchStartX - e.changedTouches[0].clientX;
+    const diffY = touchStartY - e.changedTouches[0].clientY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      if (diffX > 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
+    setTouchStartX(null);
+    setTouchStartY(null);
+  };
+
+  return createPortal(
     <div
       aria-modal="true"
       role="dialog"
       aria-label="Divine Review Video Player"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-8 bg-black/90 backdrop-blur-lg transition-opacity duration-300 animate-in fade-in"
+      className="fixed inset-0 z-9999 flex items-center justify-center p-3 sm:p-5 md:p-8 bg-black/85 backdrop-blur-md transition-opacity duration-300 animate-in fade-in select-none overscroll-none"
       onClick={onClose}
+      onWheel={(e) => e.stopPropagation()}
     >
       {/* Close Button */}
       <button
         type="button"
-        onClick={onClose}
-        className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white/90 hover:text-white transition-all cursor-pointer border border-[#D4AF37]/30 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        className="absolute top-3 right-3 sm:top-5 sm:right-5 z-60 p-2.5 rounded-full bg-black/60 hover:bg-black/80 active:scale-95 text-white/90 hover:text-white transition-all cursor-pointer border border-[#D4AF37]/40 shadow-xl focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
         aria-label="Close video player"
       >
-        <X className="w-6 h-6" />
+        <X className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       {/* Navigation: Prev Arrow */}
@@ -105,7 +142,7 @@ export default function VideoReviewModal({
         <button
           type="button"
           onClick={handlePrev}
-          className="absolute left-2 sm:left-6 z-50 p-3 rounded-full bg-black/50 hover:bg-black/80 text-[#E8C267] hover:text-white transition-all cursor-pointer border border-[#D4AF37]/30 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] -translate-y-1/2 top-1/2"
+          className="hidden sm:flex absolute left-3 md:left-6 z-50 p-3 rounded-full bg-black/60 hover:bg-black/90 active:scale-95 text-[#E8C267] hover:text-white transition-all cursor-pointer border border-[#D4AF37]/40 shadow-xl focus:outline-none focus:ring-2 focus:ring-[#D4AF37] -translate-y-1/2 top-1/2 items-center justify-center"
           aria-label="Previous video"
         >
           <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -117,7 +154,7 @@ export default function VideoReviewModal({
         <button
           type="button"
           onClick={handleNext}
-          className="absolute right-2 sm:right-6 z-50 p-3 rounded-full bg-black/50 hover:bg-black/80 text-[#E8C267] hover:text-white transition-all cursor-pointer border border-[#D4AF37]/30 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#D4AF37] -translate-y-1/2 top-1/2"
+          className="hidden sm:flex absolute right-3 md:right-6 z-50 p-3 rounded-full bg-black/60 hover:bg-black/90 active:scale-95 text-[#E8C267] hover:text-white transition-all cursor-pointer border border-[#D4AF37]/40 shadow-xl focus:outline-none focus:ring-2 focus:ring-[#D4AF37] -translate-y-1/2 top-1/2 items-center justify-center"
           aria-label="Next video"
         >
           <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -127,7 +164,9 @@ export default function VideoReviewModal({
       {/* Modal Container */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl max-h-[92vh] bg-linear-to-b from-[#250302] via-[#1A0302] to-[#120202] border border-[#D4AF37]/40 rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.8)] flex flex-col"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        className="relative w-full max-w-3xl lg:max-w-4xl max-h-[88vh] bg-linear-to-b from-[#250302] via-[#1A0302] to-[#120202] border border-[#D4AF37]/40 rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex flex-col overscroll-contain my-auto"
       >
         {/* Video Player Header */}
         <div className="px-5 py-3.5 sm:px-6 sm:py-4 border-b border-[#D4AF37]/20 flex items-center justify-between bg-black/40">
@@ -225,6 +264,7 @@ export default function VideoReviewModal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

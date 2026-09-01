@@ -133,6 +133,8 @@ export default function AboutArtistsSliderSection({
             delay: autoplayDelay,
             stopOnInteraction: false,
             stopOnMouseEnter: true,
+            stopOnFocusIn: true,
+            rootNode: (emblaRoot) => emblaRoot.parentElement,
           }),
         ]
       : [];

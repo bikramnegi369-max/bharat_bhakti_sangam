@@ -15,6 +15,8 @@ import MobileDropdown from "./MobileDropdown";
 import { LiveButton } from "../../ui/LiveButton";
 import { useLiveStatus, type LiveEventData } from "@/_hooks/useLiveStatus";
 
+import { lockBodyScroll, unlockBodyScroll } from "@/_utils/body-scroll-lock";
+
 export default function NavbarMobileMenu({
   event,
 }: {
@@ -28,12 +30,12 @@ export default function NavbarMobileMenu({
   // Lock background scroll when menu is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      lockBodyScroll();
     } else {
-      document.body.style.overflow = "";
+      unlockBodyScroll();
     }
     return () => {
-      document.body.style.overflow = "";
+      unlockBodyScroll();
     };
   }, [isOpen]);
 

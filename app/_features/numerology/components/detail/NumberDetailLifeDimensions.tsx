@@ -219,6 +219,7 @@ export function NumberDetailLifeDimensions({
                   src={loveAndRelationships.illustrationSrc || "/welcome.webp"}
                   alt="Relationship harmony"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 300px"
                   className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />

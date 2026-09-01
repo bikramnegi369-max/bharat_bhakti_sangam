@@ -76,7 +76,7 @@ export function VideoHero({
       "bg-black/60": overlay === "dark",
       "bg-black/40": overlay === "medium",
       "bg-black/20": overlay === "light",
-      "bg-gradient-to-b from-black/70 via-black/40 to-black/80":
+      "bg-linear-to-b from-black/70 via-black/40 to-black/80":
         overlay === "gradient",
     },
   );

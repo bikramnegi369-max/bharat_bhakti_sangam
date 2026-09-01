@@ -15,6 +15,10 @@ import {
 } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 
+import { lockBodyScroll, unlockBodyScroll } from "@/_utils/body-scroll-lock";
+
+import { createPortal } from "react-dom";
+
 export interface GalleryItem {
   id: string | number;
   src: string;
@@ -36,6 +40,8 @@ interface InstagramLightboxModalProps {
   onNavigate: (newIndex: number) => void;
 }
 
+const emptySubscribe = () => () => {};
+
 export default function InstagramLightboxModal({
   isOpen,
   currentIndex,
@@ -44,6 +50,11 @@ export default function InstagramLightboxModal({
   onNavigate,
 }: InstagramLightboxModalProps) {
   const currentItem = items[currentIndex];
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
   const [touchStartX, setTouchStartX] = React.useState<number | null>(null);
   const [touchStartY, setTouchStartY] = React.useState<number | null>(null);
 
@@ -62,20 +73,18 @@ export default function InstagramLightboxModal({
   );
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    if (!isOpen) return;
+
+    lockBodyScroll();
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = "unset";
+      unlockBodyScroll();
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, handleKeyDown]);
 
-  if (!isOpen || !currentItem) return null;
+  if (!isOpen || !currentItem || !mounted) return null;
 
   const handlePrev = (e?: React.MouseEvent | React.TouchEvent) => {
     e?.stopPropagation();
@@ -110,13 +119,14 @@ export default function InstagramLightboxModal({
     setTouchStartY(null);
   };
 
-  return (
+  return createPortal(
     <div
       aria-modal="true"
       role="dialog"
       aria-label="Photo Gallery Modal"
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-in fade-in select-none"
+      className="fixed inset-0 z-9999 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-in fade-in select-none overscroll-none"
       onClick={onClose}
+      onWheel={(e) => e.stopPropagation()}
     >
       {/* Top Floating Close & Action Bar for Mobile and Desktop */}
       <div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-60 flex items-center gap-2">
@@ -162,10 +172,10 @@ export default function InstagramLightboxModal({
         onClick={(e) => e.stopPropagation()}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        className="relative w-full max-w-5xl max-h-[92vh] sm:max-h-[88vh] bg-[#1A1211] border border-[#522323]/60 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row my-auto"
+        className="relative w-full max-w-5xl max-h-[90vh] sm:max-h-[86vh] bg-[#1A1211] border border-[#522323]/60 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row my-auto overscroll-contain"
       >
         {/* Left Side: Photo Frame */}
-        <div className="relative flex-1 bg-black/70 h-[38vh] min-h-[220px] sm:min-h-[360px] lg:h-auto lg:min-h-[520px] flex items-center justify-center overflow-hidden group touch-pan-y">
+        <div className="relative flex-1 bg-black/70 h-[38vh] min-h-55 sm:min-h-90 lg:h-auto lg:min-h-130 flex items-center justify-center overflow-hidden group touch-pan-y">
           <Image
             src={currentItem.src}
             alt={currentItem.alt || currentItem.title || "Sacred Moment"}
@@ -305,6 +315,7 @@ export default function InstagramLightboxModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

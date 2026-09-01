@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 
 import ScrollReveal from "@/_components/common/ScrollReveal";
+import { lockBodyScroll, unlockBodyScroll } from "@/_utils/body-scroll-lock";
+import { createPortal } from "react-dom";
 
 export interface StoryFeatureItem {
   id?: string | number;
@@ -60,6 +62,8 @@ const DEFAULT_FEATURES: StoryFeatureItem[] = [
   },
 ];
 
+const emptySubscribe = () => () => {};
+
 export default function OurStorySection({
   eyebrow = "OUR STORY",
   titlePrefix = "Where",
@@ -74,22 +78,27 @@ export default function OurStorySection({
   className,
 }: OurStorySectionProps) {
   const [isPlayingModal, setIsPlayingModal] = useState(false);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
   // Close modal on Escape key and prevent background scroll
   useEffect(() => {
+    if (!isPlayingModal) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsPlayingModal(false);
       }
     };
-    if (isPlayingModal) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "unset";
-    }
+
+    lockBodyScroll();
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      document.body.style.overflow = "unset";
+      unlockBodyScroll();
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isPlayingModal]);
@@ -273,42 +282,47 @@ export default function OurStorySection({
       {/* ========================================================================= */}
       {/* Lightbox / Video Modal */}
       {/* ========================================================================= */}
-      {isPlayingModal && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Story Video Player"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-6 md:p-10 animate-in fade-in duration-200"
-          onClick={() => setIsPlayingModal(false)}
-        >
-          {/* Close button */}
-          <button
-            type="button"
-            onClick={() => setIsPlayingModal(false)}
-            className="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer z-50"
-            aria-label="Close video player"
-          >
-            <X className="w-6 h-6" />
-          </button>
-
-          {/* Modal Container */}
+      {isPlayingModal &&
+        mounted &&
+        typeof document !== "undefined" &&
+        createPortal(
           <div
-            className="relative w-full max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Story Video Player"
+            className="fixed inset-0 z-9999 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-6 md:p-10 animate-in fade-in duration-200 select-none overscroll-none"
+            onClick={() => setIsPlayingModal(false)}
+            onWheel={(e) => e.stopPropagation()}
           >
-            <video
-              src={videoSrc}
-              controls
-              autoPlay
-              playsInline
-              className="w-full h-full object-contain"
-              poster={posterSrc}
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={() => setIsPlayingModal(false)}
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer z-60"
+              aria-label="Close video player"
             >
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-      )}
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Modal Container */}
+            <div
+              className="relative w-full max-w-3xl lg:max-w-4xl aspect-video bg-black rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/10 my-auto overscroll-contain"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <video
+                src={videoSrc}
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain"
+                poster={posterSrc}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>,
+          document.body,
+        )}
     </section>
   );
 }
