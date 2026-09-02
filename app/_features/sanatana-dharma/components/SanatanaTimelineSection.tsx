@@ -43,19 +43,6 @@ export function SanatanaTimelineSection() {
       id="sanatana-timeline-anchor"
       className="relative w-full py-10 sm:py-14 lg:py-24 overflow-hidden"
     >
-      {/* Background Seamless Layer with sanatana_bg.webp running across the entire timeline */}
-      <div className="absolute inset-0 z-0 select-none opacity-85 pointer-events-none">
-        <Image
-          src="/sanatana_bg.webp"
-          alt="Sanatana Dharma Cosmic Sacred Pattern"
-          fill
-          sizes="100vw"
-          className="object-cover object-top"
-        />
-        {/* Subtle Ambient Vignette Overlay */}
-        <div className="absolute inset-0 bg-linear-to-b from-[#FAF7F2]/60 via-transparent to-[#FAF7F2]/80" />
-      </div>
-
       {/* Section Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         {/* Section Header */}
