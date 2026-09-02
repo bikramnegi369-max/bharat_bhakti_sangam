@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { playfair, poppins } from "@/_lib/fonts";
 import {
@@ -34,20 +33,6 @@ export function SanatanaHeroSection() {
 
   return (
     <section className="relative w-full overflow-hidden">
-      {/* Full-bleed Background Layer with sanatana_bg.webp */}
-      <div className="absolute inset-0 z-0 select-none opacity-90 pointer-events-none">
-        <Image
-          src="/sanatana_bg.webp"
-          alt="Sanatana Dharma Cosmic Sacred Background"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-top"
-        />
-        {/* Soft Warm Gradients to harmonize background and contrast */}
-        <div className="absolute inset-0 bg-linear-to-b from-[#FAF7F2]/60 via-[#FAF7F2]/25 to-[#FAF7F2]/85" />
-      </div>
-
       {/* Hero Container with subtle fade-in */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 lg:pt-18 pb-12 sm:pb-16 lg:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
