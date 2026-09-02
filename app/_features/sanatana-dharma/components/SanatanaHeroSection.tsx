@@ -112,6 +112,7 @@ export function SanatanaHeroSection() {
                     src="/mandala.webp"
                     alt="Sacred Mandala Background"
                     fill
+                    priority
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 450px"
                     className="object-contain animate-[spin_120s_linear_infinite]"
                   />
