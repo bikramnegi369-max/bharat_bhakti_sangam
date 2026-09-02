@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import Image from "next/image";
 import { playfair, poppins } from "@/_lib/fonts";
 import { SANATANA_EPOCHS_DATA } from "../constants/sanatana.constants";
 import { SanatanaEpochKey } from "../types/sanatana.types";
