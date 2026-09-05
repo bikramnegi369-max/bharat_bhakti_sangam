@@ -36,17 +36,20 @@ const defaultHighlights = [
   {
     icon: "music" as const,
     title: "High-Energy Kirtan & Bhajans",
-    description: "Experience divine mantras blended with live instruments and modern devotional music.",
+    description:
+      "Experience divine mantras blended with live instruments and modern devotional music.",
   },
   {
     icon: "calendar" as const,
     title: "New Dates & City Announcements",
-    description: "We host gatherings in major cities across India. Get notified first when we come to your city.",
+    description:
+      "We host gatherings in major cities across India. Get notified first when we come to your city.",
   },
   {
     icon: "heart" as const,
     title: "Vibrant Youth & Family Community",
-    description: "A joyful, alcohol-free and pure spiritual celebration open to devotees of all age groups.",
+    description:
+      "A joyful, alcohol-free and pure spiritual celebration open to devotees of all age groups.",
   },
 ];
 
@@ -57,10 +60,12 @@ export function EventUnavailable({
   highlightPoints = defaultHighlights,
 }: EventUnavailableProps) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [statusMessage, setStatusMessage] = useState("");
 
-  const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubscribe = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmed = email.trim();
     if (!trimmed) return;
@@ -72,19 +77,27 @@ export function EventUnavailable({
       const res = await subscribeToNewsletter(trimmed);
       if (res.success) {
         setStatus("success");
-        setStatusMessage("Hare Krishna! You're on the VIP priority invite list.");
+        setStatusMessage(
+          "Hare Krishna! You're on the VIP priority invite list.",
+        );
         setEmail("");
       } else {
         setStatus("error");
         if (res.error?.toLowerCase().includes("already")) {
-          setStatusMessage("You're already registered for exclusive gathering alerts!");
+          setStatusMessage(
+            "You're already registered for exclusive gathering alerts!",
+          );
         } else {
-          setStatusMessage(res.error || "Unable to join the list right now. Please try again.");
+          setStatusMessage(
+            res.error || "Unable to join the list right now. Please try again.",
+          );
         }
       }
     } catch {
       setStatus("error");
-      setStatusMessage("Something went wrong. Please try again in a few moments.");
+      setStatusMessage(
+        "Something went wrong. Please try again in a few moments.",
+      );
     }
   };
 
@@ -102,14 +115,14 @@ export function EventUnavailable({
   };
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#FCFAF5] via-[#FFFDF9] to-[#FCFAF5]">
+    <section className="relative overflow-hidden py-16 sm:py-24 lg:py-28 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-[#FCFAF5] via-[#FFFDF9] to-[#FCFAF5]">
       {/* Sacred Ambient Background Glows */}
       <div
-        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[350px] sm:w-[850px] sm:h-[450px] bg-gradient-to-br from-[#FED7AA]/35 via-[#FCE7D0]/20 to-transparent blur-3xl -z-10"
+        className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-150 h-87.5 sm:w-212.5 sm:h-112.5 bg-linear-to-br from-[#FED7AA]/35 via-[#FCE7D0]/20 to-transparent blur-3xl -z-10"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-1/4 w-[400px] h-[300px] bg-gradient-to-t from-[#F0E6D8]/40 to-transparent blur-2xl -z-10"
+        className="pointer-events-none absolute bottom-0 right-1/4 w-100 h-75 bg-linear-to-t from-[#F0E6D8]/40 to-transparent blur-2xl -z-10"
         aria-hidden="true"
       />
 
@@ -117,9 +130,8 @@ export function EventUnavailable({
         {/* Main Coming Soon Card */}
         <ScrollReveal animation="fade-up" duration={800} className="w-full">
           <div className="relative rounded-3xl sm:rounded-4xl border border-[#F0E6D8] bg-white/95 backdrop-blur-md p-6 sm:p-12 lg:p-14 shadow-[0_20px_60px_-15px_rgba(116,14,10,0.08)] overflow-hidden">
-            
             {/* Top Decorative Accent Line */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FED7AA] via-[#E86A17] to-[#740E0A]" />
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-[#FED7AA] via-[#E86A17] to-[#740E0A]" />
 
             {/* Glowing Aura Orb */}
             <div className="pointer-events-none absolute -top-16 -right-16 w-56 h-56 rounded-full bg-[#FFF7ED] border border-[#FED7AA]/40 blur-xl opacity-70" />
@@ -131,7 +143,9 @@ export function EventUnavailable({
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E86A17] opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#E86A17]" />
                 </span>
-                <span className={`${poppins.className} text-xs sm:text-sm font-semibold tracking-wide uppercase text-[#E86A17]`}>
+                <span
+                  className={`${poppins.className} text-xs sm:text-sm font-semibold tracking-wide uppercase text-[#E86A17]`}
+                >
                   {badgeText}
                 </span>
                 <Radio className="w-3.5 h-3.5 text-[#740E0A] opacity-70 hidden sm:inline-block" />
@@ -208,7 +222,8 @@ export function EventUnavailable({
                   )}
 
                   <p className="text-[11px] sm:text-xs text-stone-500 mt-3 text-center">
-                    No spam ever. Only pure devotional updates, city announcements & early booking access.
+                    No spam ever. Only pure devotional updates, city
+                    announcements & early booking access.
                   </p>
                 </div>
               </div>
@@ -223,10 +238,14 @@ export function EventUnavailable({
                     <div className="w-10 h-10 rounded-xl bg-white border border-[#F0E6D8] flex items-center justify-center mb-3 shadow-xs group-hover:scale-105 transition-transform">
                       {renderIcon(item.icon)}
                     </div>
-                    <h2 className={`${cinzel.className} text-sm sm:text-base font-bold text-[#3F0605] mb-1.5`}>
+                    <h2
+                      className={`${cinzel.className} text-sm sm:text-base font-bold text-[#3F0605] mb-1.5`}
+                    >
                       {item.title}
                     </h2>
-                    <p className={`${poppins.className} text-xs text-stone-600 leading-relaxed`}>
+                    <p
+                      className={`${poppins.className} text-xs text-stone-600 leading-relaxed`}
+                    >
                       {item.description}
                     </p>
                   </div>
@@ -259,7 +278,6 @@ export function EventUnavailable({
                   <span>Spiritual Calendar</span>
                 </Link>
               </div>
-
             </div>
           </div>
         </ScrollReveal>
@@ -267,4 +285,3 @@ export function EventUnavailable({
     </section>
   );
 }
-
