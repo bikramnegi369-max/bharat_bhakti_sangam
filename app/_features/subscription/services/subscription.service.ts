@@ -30,12 +30,26 @@ export async function subscribeToNewsletter(
     return { success: true };
   } catch (error) {
     console.error("Newsletter Subscription Error:", error);
+    let userMessage = "Something went wrong. Please try again in a moment.";
+
+    if (error instanceof Error) {
+      if (
+        error.name === "AbortError" ||
+        error.message.toLowerCase().includes("timed out")
+      ) {
+        userMessage =
+          "We couldn't reach the server just now. Please tap 'Notify Me' once more!";
+      } else if (error.message.toLowerCase().includes("failed to fetch")) {
+        userMessage =
+          "Unable to connect right now. Please check your internet and try again.";
+      } else {
+        userMessage = error.message;
+      }
+    }
+
     return {
       success: false,
-      error:
-        error instanceof Error
-          ? error.message
-          : "Something went wrong. Please try again later.",
+      error: userMessage,
     };
   }
 }

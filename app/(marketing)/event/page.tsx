@@ -91,8 +91,9 @@ export default async function EventPage() {
   if (!event) {
     return (
       <EventUnavailable
-        title="Next Event in Preparation"
-        message="We are currently organizing our next Bhajan Clubbing and Kirtan gathering. Please check back soon or explore our spiritual calendar."
+        badgeText="Next Event Dates Announcing Soon"
+        title="Our Next Bhajan Clubbing Event is Coming Soon!"
+        message="Our team is actively finalizing the date, city, and sacred venue for the upcoming gathering. Join our VIP guest list below to get early ticket access, artist lineup announcements, and instant WhatsApp/email updates."
       />
     );
   }

@@ -57,8 +57,9 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
   if (!event) {
     return (
       <EventUnavailable
-        title="Booking Unavailable"
-        message={message ?? "Booking is temporarily unavailable."}
+        badgeText="Tickets Opening Soon"
+        title="Ticket Bookings Will Open Shortly"
+        message="Passes for our upcoming Bhajan Clubbing experience are not on sale yet. Sign up below with your email to receive early-bird ticket booking links the moment sales go live!"
       />
     );
   }
