@@ -3,9 +3,9 @@ import { getLatestEvent } from "@/_features/event/services/event.service";
 import UpcomingEventSection from "./UpcomingEventSection";
 import {
   getEventDisplayDate,
+  getEventImage,
   getEventVenueAddress,
   getEventVenueName,
-  getHomeImage,
 } from "@/_lib/helpers";
 import Link from "next/link";
 import { Sparkles, Bell } from "lucide-react";
@@ -234,7 +234,7 @@ async function UpcomingEventFetcher() {
       eventDate={getEventDisplayDate(event) || ""}
       eventTime={event.time ? `${event.time} Onwards` : undefined}
       targetIsoDate={event.date}
-      imageSrc={getHomeImage(event)}
+      imageSrc={getEventImage(event)}
       maxSeats={event.maxSeats}
       bookedSeats={event.bookedSeats}
       availableTickets={event.availableTickets}
