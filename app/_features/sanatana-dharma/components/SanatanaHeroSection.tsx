@@ -23,7 +23,7 @@ export function SanatanaHeroSection() {
     if (el) {
       const navOffset = 90;
       const elementPosition = el.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      const offsetPosition = elementPosition + window.scrollY - navOffset;
 
       window.scrollTo({
         top: offsetPosition,

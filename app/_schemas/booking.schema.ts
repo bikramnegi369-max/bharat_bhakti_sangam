@@ -12,8 +12,7 @@ export const bookingSchema = z.object({
     .regex(/^[0-9]+$/, "Mobile number must contain only digits"),
   tickets: z
     .number()
-    .min(1, "At least one ticket must be booked")
-    .max(5, "You have exceeded the maximum number of tickets allowed"),
+    .min(1, "At least one ticket must be booked"),
   ticketType: z.string().min(1),
 });
 

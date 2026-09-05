@@ -19,7 +19,7 @@ export function BookingTicketCounter({
   ticketCount,
   onChangeCount,
   min = 1,
-  max = 5,
+  max = Infinity,
 }: BookingTicketCounterProps) {
   const subtotal = unitPrice * ticketCount;
 
