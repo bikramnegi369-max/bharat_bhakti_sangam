@@ -9,7 +9,12 @@ export function isEventBookingType(value: unknown): value is EventBookingType {
   return (
     typeof value._id === "string" &&
     typeof value.bookingType === "string" &&
-    typeof value.price === "number"
+    typeof value.price === "number" &&
+    (value.subtitle === undefined || typeof value.subtitle === "string") &&
+    (value.isPopular === undefined || typeof value.isPopular === "boolean") &&
+    (value.features === undefined ||
+      (Array.isArray(value.features) &&
+        value.features.every((f) => typeof f === "string")))
   );
 }
 

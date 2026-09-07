@@ -68,16 +68,17 @@ export function BookingPassSelector({
             pass.id === selectedPassName;
 
           const isMostPopular =
-            pass.isPopular ||
-            (passes.length === 3 && index === 1) ||
-            pass.name.toLowerCase().includes("premium");
+            pass.isPopular !== undefined
+              ? pass.isPopular
+              : (passes.length === 3 && index === 1) ||
+                pass.name.toLowerCase().includes("premium");
 
           return (
             <div
               key={pass.id || pass.passId || index}
               onClick={() => onSelectPass(pass)}
               className={clsx(
-                "relative rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 cursor-pointer text-center",
+                "relative rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 cursor-pointer text-center h-full",
                 isSelected
                   ? "bg-[#FFFBF5] border-2 border-[#D4AF37] shadow-[0_8px_30px_rgba(212,175,55,0.18)] scale-[1.02] z-10"
                   : "bg-white border border-gray-200/90 shadow-xs hover:border-gray-300 hover:shadow-md opacity-75 hover:opacity-100",
@@ -95,11 +96,12 @@ export function BookingPassSelector({
                 </div>
               )}
 
-              <div>
+              {/* Card Body - flex-1 so all cards fill full height */}
+              <div className="flex-1 flex flex-col">
                 {/* Tier Top Icon */}
                 <div
                   className={clsx(
-                    "w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-3 transition-colors",
+                    "w-10 h-10 mx-auto rounded-full flex items-center justify-center mb-3 transition-colors shrink-0",
                     isSelected ? "bg-[#FEE2E2]" : "bg-gray-100",
                   )}
                 >
@@ -146,8 +148,8 @@ export function BookingPassSelector({
                 {/* Separator */}
                 <div className="w-full h-px bg-gray-200/80 mb-4" />
 
-                {/* Feature List */}
-                <ul className="space-y-2.5 text-left mb-6">
+                {/* Feature List: flex-1 ensures button is pushed to bottom equally */}
+                <ul className="space-y-2.5 text-left mb-6 flex-1">
                   {pass.features.map((feature, fIdx) => (
                     <li key={fIdx} className="flex items-center gap-2">
                       <Check
@@ -170,7 +172,7 @@ export function BookingPassSelector({
                 </ul>
               </div>
 
-              {/* Select / Selected Button */}
+              {/* Select / Selected Button - mt-auto pinned bottom */}
               <div className="mt-auto pt-2">
                 <button
                   type="button"

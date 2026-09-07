@@ -17,12 +17,20 @@ export interface LatestEvent {
     | {
         _id?: string;
         name?: string;
+        bookingType?: string;
         price?: number;
+        subtitle?: string;
+        isPopular?: boolean;
+        features?: string[];
       }
     | {
         _id?: string;
         name?: string;
+        bookingType?: string;
         price?: number;
+        subtitle?: string;
+        isPopular?: boolean;
+        features?: string[];
       }[];
   sponsors?: string[];
   artists: Array<{

@@ -43,12 +43,22 @@ function isVenueName(
 // Helper for bookingType
 function isBookingType(
   value: unknown,
-): value is { _id?: string; name: string; price: number } {
+): value is {
+  _id?: string;
+  name?: string;
+  bookingType?: string;
+  price: number;
+  subtitle?: string;
+  isPopular?: boolean;
+  features?: string[];
+} {
   if (!value || typeof value !== "object") return false;
   const record = value as Record<string, unknown>;
+  const hasValidName =
+    typeof record.name === "string" || typeof record.bookingType === "string";
   return (
     (typeof record._id === "string" || record._id === undefined) &&
-    typeof record.name === "string" &&
+    hasValidName &&
     typeof record.price === "number"
   );
 }

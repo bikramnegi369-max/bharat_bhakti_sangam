@@ -46,10 +46,10 @@ export const DEFAULT_EVENT_PASSES: PassTierItem[] = [
     priceSuffix: "/ Person",
     icon: "book",
     features: [
-      "General Entry",
-      "Common Seating",
-      "Event Access",
-      "Event Access",
+      "General Entry Access",
+      "Common Seating Area",
+      "Spiritual Kirtan Experience",
+      "Community Prasadam",
     ],
   },
   {
@@ -61,10 +61,10 @@ export const DEFAULT_EVENT_PASSES: PassTierItem[] = [
     icon: "star",
     isPopular: true,
     features: [
-      "Front Seating",
-      "Faster Entry",
-      "Better View of Stage",
-      "Better View of Stage",
+      "Front Row Seating",
+      "Fast-Track Entry",
+      "Direct View of Stage",
+      "Special Prasadam Box",
     ],
   },
   {
@@ -75,10 +75,10 @@ export const DEFAULT_EVENT_PASSES: PassTierItem[] = [
     priceSuffix: "/ Person",
     icon: "arrow",
     features: [
-      "Reserved Seating",
-      "Priority Entry",
-      "Prasadam Kit",
-      "VIP Support",
+      "Reserved Prime Seating",
+      "VIP Priority Entry",
+      "Sacred Prasadam Kit",
+      "Dedicated Devotee Support",
     ],
   },
 ];
@@ -119,8 +119,24 @@ function PassIconRenderer({ icon }: { icon?: PassIconType }) {
  */
 export function mapEventBookingTypesToPasses(
   bookingTypeData?:
-    | { _id?: string; name?: string; price?: number }
-    | { _id?: string; name?: string; price?: number }[]
+    | {
+        _id?: string;
+        name?: string;
+        bookingType?: string;
+        price?: number;
+        subtitle?: string;
+        isPopular?: boolean;
+        features?: string[];
+      }
+    | {
+        _id?: string;
+        name?: string;
+        bookingType?: string;
+        price?: number;
+        subtitle?: string;
+        isPopular?: boolean;
+        features?: string[];
+      }[]
     | null,
 ): PassTierItem[] {
   if (!bookingTypeData) {
@@ -131,23 +147,32 @@ export function mapEventBookingTypesToPasses(
     ? bookingTypeData
     : [bookingTypeData];
   const validList = list.filter(
-    (item) => !!item && (item.name || item.price !== undefined),
+    (item) =>
+      !!item &&
+      ((item.name && item.name.trim().length > 0) ||
+        (item.bookingType && item.bookingType.trim().length > 0) ||
+        item.price !== undefined),
   );
 
   if (validList.length === 0) {
     return DEFAULT_EVENT_PASSES;
   }
 
-  // If the API returns only 1 booking type, use the default 3 tiers and update the first tier's price
-  if (validList.length === 1) {
+  // If the API returns only 1 booking type and no custom perks, adapt the default 3 tiers
+  if (
+    validList.length === 1 &&
+    (!validList[0].features || validList[0].features.length === 0)
+  ) {
     const single = validList[0];
+    const resolvedName = (single.bookingType || single.name || "").toUpperCase();
     return DEFAULT_EVENT_PASSES.map((pass, idx) => {
       if (idx === 0 && single.price !== undefined) {
         return {
           ...pass,
           passId: single._id,
           price: single.price,
-          name: single.name?.toUpperCase() || pass.name,
+          name: resolvedName || pass.name,
+          subtitle: single.subtitle || pass.subtitle,
         };
       }
       return pass;
@@ -155,68 +180,68 @@ export function mapEventBookingTypesToPasses(
   }
 
   return validList.map((item, index) => {
-    const name = item.name?.trim() || `Pass Tier ${index + 1}`;
+    const rawName = item.bookingType || item.name || `Pass Tier ${index + 1}`;
+    const name = rawName.trim();
     const lowerName = name.toLowerCase();
     const price = item.price ?? 0;
-
-    // Intelligent default mapping for features and badge styling based on tier name
-    let subtitle = "Event Access";
-    let icon: PassIconType = "book";
-    let isPopular = false;
-    let features: string[] = [
-      "General Entry",
-      "Common Seating",
-      "Event Access",
-      "Event Access",
-    ];
 
     // Default middle item or second tier as popular highlight if 3 items
     const isMiddleItem = validList.length === 3 ? index === 1 : index === 1;
 
+    let defaultSubtitle = "General Entry";
+    let defaultIcon: PassIconType = "book";
+    let defaultIsPopular = false;
+    let defaultFeatures: string[] = [
+      "General Entry Access",
+      "Common Seating Area",
+      "Spiritual Kirtan Experience",
+      "Community Prasadam",
+    ];
+
     if (lowerName.includes("vip") || lowerName.includes("vvip")) {
-      subtitle = "Premium Experience";
-      icon = "arrow";
-      isPopular = isMiddleItem;
-      features = [
-        "Reserved Seating",
-        "Priority Entry",
-        "Prasadam Kit",
-        "VIP Support",
+      defaultSubtitle = "Premium Experience";
+      defaultIcon = "arrow";
+      defaultIsPopular = isMiddleItem;
+      defaultFeatures = [
+        "Reserved Prime Seating",
+        "VIP Priority Entry",
+        "Sacred Prasadam Kit",
+        "Dedicated Devotee Support",
       ];
     } else if (
       lowerName.includes("premium") ||
       lowerName.includes("gold") ||
       lowerName.includes("silver")
     ) {
-      subtitle = "Better Experience";
-      icon = "star";
-      isPopular = true;
-      features = [
-        "Front Seating",
-        "Faster Entry",
-        "Better View of Stage",
-        "Better View of Stage",
-      ];
-    } else {
-      subtitle = "General Entry";
-      icon = "book";
-      isPopular = isMiddleItem;
-      features = [
-        "General Entry",
-        "Common Seating",
-        "Event Access",
-        "Event Access",
+      defaultSubtitle = "Better Experience";
+      defaultIcon = "star";
+      defaultIsPopular = true;
+      defaultFeatures = [
+        "Front Row Seating",
+        "Fast-Track Entry",
+        "Direct View of Stage",
+        "Special Prasadam Box",
       ];
     }
 
+    const subtitle = item.subtitle?.trim() || defaultSubtitle;
+    const isPopular =
+      item.isPopular !== undefined ? item.isPopular : defaultIsPopular;
+    const features =
+      Array.isArray(item.features) && item.features.length > 0
+        ? item.features.filter((f) => Boolean(f && f.trim()))
+        : defaultFeatures;
+
     return {
-      id: item._id || `pass-tier-${index}-${name.toLowerCase().replace(/\s+/g, "-")}`,
+      id:
+        item._id ||
+        `pass-tier-${index}-${name.toLowerCase().replace(/\s+/g, "-")}`,
       passId: item._id,
       name: name.toUpperCase(),
       subtitle,
       price,
       priceSuffix: "/ Person",
-      icon,
+      icon: defaultIcon,
       isPopular,
       features,
     };
@@ -301,19 +326,20 @@ export default function PassTiersSection({
                   href={passBookingHref}
                   aria-label={`Book ${pass.name} for ₹${pass.price}`}
                   className={clsx(
-                    "group block w-full max-w-[24rem] lg:max-w-none text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-2xl",
+                    "group flex flex-col w-full max-w-[24rem] lg:max-w-none text-left cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-2xl h-full",
                   )}
                 >
                   <div
                     className={clsx(
-                      "h-full w-full flex flex-col justify-between rounded-2xl bg-white transition-all duration-300",
+                      "flex-1 w-full flex flex-col justify-between rounded-2xl bg-white transition-all duration-300",
                       "p-6 sm:p-7 lg:p-7 xl:p-8 relative",
                       pass.isPopular
                         ? "border-2 border-[#FDBA74] shadow-[0_10px_30px_rgba(234,88,12,0.12)] ring-1 ring-[#FDBA74]/60 group-hover:shadow-[0_16px_40px_rgba(234,88,12,0.2)] group-hover:-translate-y-1"
                         : "border border-[#E5E7EB] shadow-sm hover:shadow-md group-hover:shadow-lg group-hover:border-gray-300 group-hover:-translate-y-1",
                     )}
                   >
-                    <div>
+                    {/* Top + Feature Content (Stretches equally so footer buttons align) */}
+                    <div className="flex-1 flex flex-col">
                       {/* Top Row: Icon Circle + Titles & Pricing */}
                       <div className="flex items-center gap-4">
                         {/* Circle badge with soft peach tinted background */}
@@ -365,8 +391,8 @@ export default function PassTiersSection({
                         </div>
                       </div>
 
-                      {/* Feature List with Orange Tick checkmarks */}
-                      <div className="mt-7 sm:mt-8 space-y-3 sm:space-y-3.5">
+                      {/* Feature List with Orange Tick checkmarks - Stretches flex-1 */}
+                      <div className="mt-7 sm:mt-8 space-y-3 sm:space-y-3.5 flex-1">
                         {pass.features.map((feature, fIdx) => (
                           <div key={fIdx} className="flex items-start gap-3">
                             <Check
@@ -386,8 +412,8 @@ export default function PassTiersSection({
                       </div>
                     </div>
 
-                    {/* Call-To-Action Button - Styled exactly like Secondary CTAButton */}
-                    <div className="mt-8 sm:mt-9">
+                    {/* Call-To-Action Button - Pinned at bottom with mt-auto */}
+                    <div className="mt-8 sm:mt-9 pt-2">
                       <div
                         className={clsx(
                           poppins.className,
