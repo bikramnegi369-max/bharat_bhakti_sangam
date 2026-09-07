@@ -6,11 +6,11 @@ import { toast } from "react-toastify";
 import ActionMenu from "@/_components/common/ActionMenu";
 import EventBookingTypesModal from "@/_features/bookings/booking-types/components/EventBookingTypesModal";
 import { EventBookingTypesTable } from "@/_features/bookings/booking-types/components/EventBookingTypesTable";
-import { deleteBookingType } from "@/_features/bookings/booking-types/services/eventBookingTypes.service";
+import { updateBookingTypeStatus } from "@/_features/bookings/booking-types/services/eventBookingTypes.service";
 import { ALL_BOOKING_TYPES } from "@/_lib/constants/eventBookingTypes.constants";
 import { useUI } from "@/providers/UIProvider";
 import { getTableQueryKeyPrefix } from "@/_utils/queryKey";
-import { Pencil, Trash2 } from "lucide-react";
+import { BadgeCheck, Ban, Pencil } from "lucide-react";
 import { EventBookingType } from "@/_types/EventBookingType.types";
 
 export default function AdminBookingTypesPage() {
@@ -23,23 +23,32 @@ export default function AdminBookingTypesPage() {
     });
   }, [openModal]);
 
-  const handleDeleteBookingType = useCallback(
-    async (bookingTypeId: string) => {
+  const handleUpdateBookingTypeStatus = useCallback(
+    async (bookingTypeId: string, disable: boolean) => {
       try {
         await toast.promise(
           (async () => {
-            const result = await deleteBookingType(bookingTypeId);
+            const result = await updateBookingTypeStatus(
+              bookingTypeId,
+              disable,
+            );
 
             if (!result.success) {
-              throw new Error(result.error || "Failed to delete booking type.");
+              throw new Error(
+                result.error || "Failed to update booking type status.",
+              );
             }
 
             return result;
           })(),
           {
-            pending: "Deleting booking type...",
-            success: "Booking type deleted successfully!",
-            error: "Failed to delete booking type.",
+            pending: disable
+              ? "Deactivating booking type..."
+              : "Activating booking type...",
+            success: disable
+              ? "Booking type deactivated successfully!"
+              : "Booking type activated successfully!",
+            error: "Failed to update booking type status.",
           },
         );
 
@@ -47,7 +56,7 @@ export default function AdminBookingTypesPage() {
           queryKey: getTableQueryKeyPrefix([ALL_BOOKING_TYPES]),
         });
       } catch (error) {
-        console.error("Error deleting booking type:", error);
+        console.error("Error updating booking type status:", error);
       }
     },
     [queryClient],
@@ -67,34 +76,47 @@ export default function AdminBookingTypesPage() {
   );
 
   const renderActions = useCallback(
-    (bookingType: EventBookingType) => (
-      <ActionMenu
-        items={[
-          {
-            key: "edit",
-            label: "Edit",
-            icon: <Pencil size={16} />,
-            onClick: () =>
-              openModal(
-                <EventBookingTypesModal
-                  mode="edit"
-                  bookingTypeId={bookingType._id}
-                />,
-                {
-                  size: "full",
+    (bookingType: EventBookingType) => {
+      const isDeleted = Boolean(bookingType.isDelete);
+
+      return (
+        <ActionMenu
+          items={[
+            {
+              key: "edit",
+              label: "Edit",
+              icon: <Pencil size={16} />,
+              onClick: () =>
+                openModal(
+                  <EventBookingTypesModal
+                    mode="edit"
+                    bookingTypeId={bookingType._id}
+                  />,
+                  {
+                    size: "full",
+                  },
+                ),
+            },
+            isDeleted
+              ? {
+                  key: "enable",
+                  label: "Enable",
+                  icon: <BadgeCheck size={16} />,
+                  onClick: () =>
+                    handleUpdateBookingTypeStatus(bookingType._id, false),
+                }
+              : {
+                  key: "disable",
+                  label: "Disable",
+                  icon: <Ban size={16} />,
+                  onClick: () =>
+                    handleUpdateBookingTypeStatus(bookingType._id, true),
                 },
-              ),
-          },
-          {
-            key: "delete",
-            label: "Delete",
-            icon: <Trash2 size={16} />,
-            onClick: () => handleDeleteBookingType(bookingType._id),
-          },
-        ]}
-      />
-    ),
-    [openModal, handleDeleteBookingType],
+          ]}
+        />
+      );
+    },
+    [openModal, handleUpdateBookingTypeStatus],
   );
 
   return (

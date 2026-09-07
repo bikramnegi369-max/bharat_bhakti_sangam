@@ -5,4 +5,7 @@ export interface EventBookingType {
   subtitle?: string;
   isPopular?: boolean;
   features?: string[];
+  isDelete?: boolean;
+  isActive?: boolean;
 }
+

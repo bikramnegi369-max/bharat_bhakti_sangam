@@ -1,5 +1,6 @@
 import { EventBookingType } from "@/_types/EventBookingType.types";
 import { createColumn } from "@/_utils/createColumn";
+import clsx from "clsx";
 
 const c = createColumn<EventBookingType>();
 
@@ -47,4 +48,30 @@ export const EventBookingTypesColumns = [
       );
     },
   }),
+  c("isDelete", {
+    header: "Status",
+    accessorFn: (row) => {
+      if (typeof row.isDelete === "boolean") {
+        return !row.isDelete;
+      }
+      if (typeof row.isActive === "boolean") {
+        return row.isActive;
+      }
+      return true;
+    },
+    cell: (value) => {
+      const isActive = Boolean(value);
+      return (
+        <span
+          className={clsx(
+            "px-2 py-1 rounded-md text-xs font-medium",
+            isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800",
+          )}
+        >
+          {isActive ? "Active" : "Inactive"}
+        </span>
+      );
+    },
+  }),
 ];
+

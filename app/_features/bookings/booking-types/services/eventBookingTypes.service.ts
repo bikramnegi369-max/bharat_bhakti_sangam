@@ -171,10 +171,15 @@ export async function updateBookingType(
   }
 }
 
-export async function deleteBookingType(id: string): Promise<APIResponse> {
+export async function updateBookingTypeStatus(
+  id: string,
+  disable: boolean,
+): Promise<APIResponse> {
   try {
     const res = await authorizedAdminRequest(apiRoutes.bookingTypeById(id), {
       method: "DELETE",
+      body: JSON.stringify({ disable, isDelete: disable }),
+      headers: { "Content-Type": "application/json" },
     });
 
     const payload = await getResponsePayload(res);
@@ -182,20 +187,22 @@ export async function deleteBookingType(id: string): Promise<APIResponse> {
     if (!res.ok || !isApiEnvelope(payload, isRecord)) {
       return {
         success: false,
-        error: getPayloadMessage(payload) || "Failed to delete booking type",
+        error:
+          getPayloadMessage(payload) || "Failed to update booking type status",
       };
     }
 
     if (!payload.status) {
       return {
         success: false,
-        error: payload.message || "Failed to delete booking type",
+        error: payload.message || "Failed to update booking type status",
       };
     }
 
     return { success: true };
   } catch (error) {
-    console.error("Error deleting booking type:", error);
-    return { success: false, error: "Failed to delete booking type" };
+    console.error("Error updating booking type status:", error);
+    return { success: false, error: "Failed to update booking type status" };
   }
 }
+
