@@ -178,7 +178,7 @@ export async function updateBookingTypeStatus(
   try {
     const res = await authorizedAdminRequest(apiRoutes.bookingTypeById(id), {
       method: "DELETE",
-      body: JSON.stringify({ disable, isDelete: disable }),
+      body: JSON.stringify({ isDelete: disable }),
       headers: { "Content-Type": "application/json" },
     });
 
