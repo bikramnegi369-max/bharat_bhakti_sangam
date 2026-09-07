@@ -173,6 +173,13 @@ export async function fetchBookingRegistrationTrend(
     }
 
     const trendPayload = extractTrendPayload(payload);
+    if (Array.isArray(trendPayload) && trendPayload.length === 0) {
+      return {
+        success: true,
+        data: undefined,
+      };
+    }
+
     const trendItem = Array.isArray(trendPayload)
       ? trendPayload[0]
       : trendPayload;
