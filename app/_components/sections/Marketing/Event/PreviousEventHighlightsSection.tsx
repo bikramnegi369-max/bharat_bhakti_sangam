@@ -304,12 +304,27 @@ export default function PreviousEventHighlightsSection({
                       </div>
                     </div>
 
-                    {/* Bottom Right Glass Badge / Pill matching the image */}
-                    <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-10">
-                      <div className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-md sm:rounded-lg bg-white/90 backdrop-blur-md shadow-md border border-white/60 flex items-center justify-center">
-                        <div className="w-5 h-2.5 sm:w-6 sm:h-3 rounded-xs bg-stone-300/80" />
+                    {/* Bottom Right Production-Grade Frosted Glass Duration / Video Badge */}
+                    {item.duration && (
+                      <div
+                        aria-hidden="true"
+                        className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-10 pointer-events-none"
+                      >
+                        <div
+                          className={clsx(
+                            poppins.className,
+                            "inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg",
+                            "bg-black/60 hover:bg-black/70 backdrop-blur-md border border-white/20 text-white/95",
+                            "shadow-[0_4px_12px_rgba(0,0,0,0.3)] transition-all duration-300 group-hover:border-[#D4AF37]/50",
+                          )}
+                        >
+                          <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-white/90 text-white/90 shrink-0" />
+                          <span className="text-[11px] sm:text-xs font-medium tracking-wide tabular-nums select-none">
+                            {item.duration}
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     {/* Optional Item Category Pill on top left */}
                     {item.category && (
