@@ -38,7 +38,7 @@ export async function subscribeToNewsletter(
         error.message.toLowerCase().includes("timed out")
       ) {
         userMessage =
-          "We couldn't reach the server just now. Please tap 'Notify Me' once more!";
+          "We couldn't reach the server just now. Please tap 'Try Again' once more!";
       } else if (error.message.toLowerCase().includes("failed to fetch")) {
         userMessage =
           "Unable to connect right now. Please check your internet and try again.";
