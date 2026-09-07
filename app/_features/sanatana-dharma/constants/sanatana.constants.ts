@@ -53,7 +53,7 @@ export const SANATANA_EPOCHS_DATA: EpochSectionData[] = [
     badgeBg: "bg-[#FFF9E6]",
     badgeBorder: "border-[#D4AF37]",
     description:
-      "Before material creation, the unmanifest Supreme Consciousness (Brahman) resonated with the primordial primordial sound Om (AUM), birthing cosmic order (Rita) and the eternal vibrations of the four Vedas.",
+      "Before material creation, the unmanifest Supreme Consciousness (Brahman) resonated with the primordial sound Om (AUM), birthing cosmic order (Rita) and the eternal vibrations of the four Vedas.",
     nodes: [
       {
         id: "cosmic-1",
