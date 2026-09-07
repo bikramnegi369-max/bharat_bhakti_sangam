@@ -73,7 +73,9 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
       subtitle: t?.subtitle,
       isPopular: t?.isPopular,
       features: t?.features,
-    }));
+    }))
+    .sort((a, b) => a.price - b.price);
+
 
   const matchedPass =
     (requestedPassId

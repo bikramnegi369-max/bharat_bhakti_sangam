@@ -247,18 +247,22 @@ export function mapEventBookingTypesToPasses(
     };
   });
 
+  // Sort passes from low to high price
+  const sorted = [...mapped].sort((a, b) => a.price - b.price);
+
   // Business Rule: Per event there can only be ONE "Most Popular" pass.
   // Find the first pass explicitly or implicitly designated as popular.
-  const popularIndex = mapped.findIndex((p) => p.isPopular);
+  const popularIndex = sorted.findIndex((p) => p.isPopular);
   if (popularIndex !== -1) {
-    return mapped.map((pass, idx) => ({
+    return sorted.map((pass, idx) => ({
       ...pass,
       isPopular: idx === popularIndex,
     }));
   }
 
-  return mapped;
+  return sorted;
 }
+
 
 export default function PassTiersSection({
   title = "CHOOSE YOUR PASS",
