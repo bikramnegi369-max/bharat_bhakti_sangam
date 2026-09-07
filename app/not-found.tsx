@@ -21,7 +21,7 @@ export default function NotFound() {
       <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
         <Link
           href="/"
-          className="w-full sm:w-auto px-10 py-4 text-sm font-bold text-black bg-primary rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95 flex items-center justify-center"
+          className="w-full sm:w-auto px-10 py-4 text-sm font-bold text-white bg-primary rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95 flex items-center justify-center"
         >
           Back to Home
         </Link>
