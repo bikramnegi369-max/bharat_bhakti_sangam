@@ -32,7 +32,7 @@ const PreviousEventHighlightsSection = dynamic(
   { loading: () => null },
 );
 
-import { getSeoKeywords, getSeoPageConfig } from "@/_config/Seo.config";
+import { getSeoKeywords } from "@/_config/Seo.config";
 import {
   calculateEventDuration,
   formatEventTimeDisplay,
@@ -49,13 +49,11 @@ import {
   jsonLdScript,
 } from "@/_lib/seo";
 import { getLatestEvent } from "@/_features/event/services/event.service";
-import { DEFAULT_FALLBACK_EVENT } from "@/_config/Event.config";
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const event = await getLatestEvent();
     const description = getEventDescription(event);
-    const seoPage = getSeoPageConfig("event");
 
     return createPageMetadata({
       title: `${event.eventName} | Bharat Bhakti Sangam`,
