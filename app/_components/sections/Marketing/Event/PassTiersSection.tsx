@@ -179,7 +179,7 @@ export function mapEventBookingTypesToPasses(
     });
   }
 
-  return validList.map((item, index) => {
+  const mapped: PassTierItem[] = validList.map((item, index) => {
     const rawName = item.bookingType || item.name || `Pass Tier ${index + 1}`;
     const name = rawName.trim();
     const lowerName = name.toLowerCase();
@@ -246,6 +246,18 @@ export function mapEventBookingTypesToPasses(
       features,
     };
   });
+
+  // Business Rule: Per event there can only be ONE "Most Popular" pass.
+  // Find the first pass explicitly or implicitly designated as popular.
+  const popularIndex = mapped.findIndex((p) => p.isPopular);
+  if (popularIndex !== -1) {
+    return mapped.map((pass, idx) => ({
+      ...pass,
+      isPopular: idx === popularIndex,
+    }));
+  }
+
+  return mapped;
 }
 
 export default function PassTiersSection({
@@ -338,6 +350,19 @@ export default function PassTiersSection({
                         : "border border-[#E5E7EB] shadow-sm hover:shadow-md group-hover:shadow-lg group-hover:border-gray-300 group-hover:-translate-y-1",
                     )}
                   >
+                    {/* Most Popular Ribbon Badge */}
+                    {pass.isPopular && (
+                      <div
+                        className={clsx(
+                          poppins.className,
+                          "absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#5A0E0B] text-[#FDE68A] text-[0.625rem] sm:text-xs font-bold tracking-widest uppercase px-3.5 py-1 rounded-full shadow-md z-20 flex items-center gap-1 whitespace-nowrap",
+                        )}
+                      >
+                        <Star className="w-3 h-3 fill-[#FDE68A] text-[#FDE68A]" />
+                        <span>MOST POPULAR</span>
+                      </div>
+                    )}
+
                     {/* Top + Feature Content (Stretches equally so footer buttons align) */}
                     <div className="flex-1 flex flex-col">
                       {/* Top Row: Icon Circle + Titles & Pricing */}

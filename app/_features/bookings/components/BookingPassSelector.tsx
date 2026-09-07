@@ -60,18 +60,24 @@ export function BookingPassSelector({
           passes.length >= 4 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
         )}
       >
-        {passes.map((pass, index) => {
-          const isSelected =
-            pass.name.toLowerCase().trim() ===
-              selectedPassName.toLowerCase().trim() ||
-            pass.passId === selectedPassName ||
-            pass.id === selectedPassName;
+        {(() => {
+          // Enforce business rule: only ONE most popular pass per event
+          const popularIndex = passes.findIndex(
+            (p, idx) =>
+              p.isPopular === true ||
+              (p.isPopular === undefined &&
+                ((passes.length === 3 && idx === 1) ||
+                  p.name.toLowerCase().includes("premium"))),
+          );
 
-          const isMostPopular =
-            pass.isPopular !== undefined
-              ? pass.isPopular
-              : (passes.length === 3 && index === 1) ||
-                pass.name.toLowerCase().includes("premium");
+          return passes.map((pass, index) => {
+            const isSelected =
+              pass.name.toLowerCase().trim() ===
+                selectedPassName.toLowerCase().trim() ||
+              pass.passId === selectedPassName ||
+              pass.id === selectedPassName;
+
+            const isMostPopular = index === popularIndex;
 
           return (
             <div
@@ -199,7 +205,8 @@ export function BookingPassSelector({
               </div>
             </div>
           );
-        })}
+        });
+      })()}
       </div>
     </section>
   );

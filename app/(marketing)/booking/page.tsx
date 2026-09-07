@@ -10,9 +10,7 @@ import {
 } from "@/_lib/helpers";
 import { createPageMetadata, createPageMetadataFromConfig } from "@/_lib/seo";
 import { BookingPageClient } from "./BookingPageClient";
-import {
-  getLatestEvent,
-} from "@/_features/event/services/event.service";
+import { getLatestEvent } from "@/_features/event/services/event.service";
 import { EventApiError } from "@/_features/event/class/EventApiError";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -39,7 +37,6 @@ type BookingPageProps = {
 
 export default async function BookingPage({ searchParams }: BookingPageProps) {
   let event;
-  let message: string | null = null;
 
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const requestedPass = resolvedSearchParams?.pass;
@@ -48,10 +45,10 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
   try {
     event = await getLatestEvent();
   } catch (error) {
-    message =
-      error instanceof EventApiError
-        ? error.message
-        : "Booking is temporarily unavailable because the latest event could not be loaded.";
+    console.warn(
+      "[BookingPage] Unable to load latest event:",
+      error instanceof EventApiError ? error.message : error,
+    );
   }
 
   if (!event) {
@@ -70,8 +67,12 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
     .filter((t) => !!t)
     .map((t) => ({
       _id: t?._id,
-      name: t?.name || "Pass",
+      name: t?.name || t?.bookingType || "Pass",
+      bookingType: t?.bookingType,
       price: t?.price || 0,
+      subtitle: t?.subtitle,
+      isPopular: t?.isPopular,
+      features: t?.features,
     }));
 
   const matchedPass =
@@ -80,7 +81,8 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
       : undefined) ||
     (requestedPass
       ? ticketTypes.find(
-          (t) => t.name.toLowerCase().trim() === requestedPass.toLowerCase().trim(),
+          (t) =>
+            t.name.toLowerCase().trim() === requestedPass.toLowerCase().trim(),
         )?.name
       : undefined);
 

@@ -25,7 +25,11 @@ import {
 type TicketType = {
   _id?: string;
   name: string;
+  bookingType?: string;
   price: number;
+  subtitle?: string;
+  isPopular?: boolean;
+  features?: string[];
 };
 
 type BookingPageClientProps = {

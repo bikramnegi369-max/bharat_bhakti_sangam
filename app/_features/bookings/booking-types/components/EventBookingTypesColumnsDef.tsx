@@ -27,11 +27,24 @@ export const EventBookingTypesColumns = [
   }),
   c("features", {
     header: "Perks",
-    accessorFn: (row) => (row.features ? row.features.length : 0),
-    cell: (value) => (
-      <span className="text-xs text-gray-600 font-medium">
-        {value} {value === 1 ? "perk" : "perks"}
-      </span>
-    ),
+    accessorFn: (row) => row.features,
+    cell: (value) => {
+      const perks = Array.isArray(value) ? value.filter((f) => Boolean(f && f.trim())) : [];
+      if (perks.length === 0) {
+        return <span className="text-gray-400 text-xs italic">No perks</span>;
+      }
+      return (
+        <div className="flex flex-wrap gap-1.5 max-w-md py-1">
+          {perks.map((perk, idx) => (
+            <span
+              key={idx}
+              className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/80 leading-tight"
+            >
+              {perk}
+            </span>
+          ))}
+        </div>
+      );
+    },
   }),
 ];
