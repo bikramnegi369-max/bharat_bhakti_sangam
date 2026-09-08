@@ -207,6 +207,7 @@ export default function InstaHighlightsSection({
           {viewAllHref && (
             <Link
               href={viewAllHref}
+              target="_blank"
               className={clsx(
                 poppins.className,
                 "inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#740E0A] hover:text-[#9B1D0E] transition-all group cursor-pointer",
