@@ -251,8 +251,10 @@ export function mapEventBookingTypesToPasses(
   const sorted = [...mapped].sort((a, b) => a.price - b.price);
 
   // Business Rule: Per event there can only be ONE "Most Popular" pass.
-  // Find the first pass explicitly or implicitly designated as popular.
-  const popularIndex = sorted.findIndex((p) => p.isPopular);
+  // If multiple passes are marked as popular, select the one with the highest price.
+  // Since 'sorted' is already sorted ascending by price (a.price - b.price),
+  // the highest priced popular pass is the last one in 'sorted' where isPopular is true.
+  const popularIndex = sorted.findLastIndex((p) => p.isPopular);
   if (popularIndex !== -1) {
     return sorted.map((pass, idx) => ({
       ...pass,

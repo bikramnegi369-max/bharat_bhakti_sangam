@@ -60,24 +60,14 @@ export function BookingPassSelector({
           passes.length >= 4 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
         )}
       >
-        {(() => {
-          // Enforce business rule: only ONE most popular pass per event
-          const popularIndex = passes.findIndex(
-            (p, idx) =>
-              p.isPopular === true ||
-              (p.isPopular === undefined &&
-                ((passes.length === 3 && idx === 1) ||
-                  p.name.toLowerCase().includes("premium"))),
-          );
+        {passes.map((pass, index) => {
+          const isSelected =
+            pass.name.toLowerCase().trim() ===
+              selectedPassName.toLowerCase().trim() ||
+            pass.passId === selectedPassName ||
+            pass.id === selectedPassName;
 
-          return passes.map((pass, index) => {
-            const isSelected =
-              pass.name.toLowerCase().trim() ===
-                selectedPassName.toLowerCase().trim() ||
-              pass.passId === selectedPassName ||
-              pass.id === selectedPassName;
-
-            const isMostPopular = index === popularIndex;
+          const isMostPopular = Boolean(pass.isPopular);
 
           return (
             <div
@@ -115,7 +105,7 @@ export function BookingPassSelector({
                     <Star
                       className={clsx(
                         "w-5 h-5",
-                        isSelected ? "text-[#E5A83B] fill-[#E5A83B]" : "text-gray-400",
+                        isSelected ? "text-[#740E0A]" : "text-[#D4AF37]",
                       )}
                     />
                   ) : (
@@ -123,59 +113,54 @@ export function BookingPassSelector({
                   )}
                 </div>
 
-                {/* Pass Name & Subtitle */}
                 <h3
                   className={clsx(
                     playfair.className,
-                    "text-sm sm:text-base font-bold tracking-wider uppercase",
-                    isSelected ? "text-[#5A0E0B]" : "text-gray-700",
+                    "text-lg sm:text-xl font-bold tracking-wide",
+                    isSelected ? "text-[#740E0A]" : "text-gray-900",
                   )}
                 >
                   {pass.name}
                 </h3>
 
+                {pass.subtitle && (
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {pass.subtitle}
+                  </p>
+                )}
+
                 {/* Price Display */}
-                <div className="mt-2 mb-1">
-                  <span
-                    className={clsx(
-                      playfair.className,
-                      "text-2xl sm:text-3xl font-extrabold",
-                      isSelected ? "text-[#1F2937]" : "text-gray-600",
-                    )}
-                  >
-                    ₹{pass.price}
+                <div className="my-3 py-2 border-y border-gray-100">
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-xs text-gray-500 font-semibold">
+                      ₹
+                    </span>
+                    <span
+                      className={clsx(
+                        poppins.className,
+                        "text-2xl sm:text-3xl font-extrabold tracking-tight",
+                        isSelected ? "text-[#740E0A]" : "text-gray-900",
+                      )}
+                    >
+                      {pass.price}
+                    </span>
+                  </div>
+                  <span className="text-[0.625rem] text-gray-500 block -mt-0.5">
+                    {pass.priceSuffix || "/ Person"}
                   </span>
                 </div>
 
-                <p className="text-xs text-gray-500 font-medium mb-4">
-                  {pass.subtitle || "General Entry"}
-                </p>
-
-                {/* Separator */}
-                <div className="w-full h-px bg-gray-200/80 mb-4" />
-
-                {/* Feature List: flex-1 ensures button is pushed to bottom equally */}
-                <ul className="space-y-2.5 text-left mb-6 flex-1">
-                  {pass.features.map((feature, fIdx) => (
-                    <li key={fIdx} className="flex items-center gap-2">
-                      <Check
-                        className={clsx(
-                          "w-3.5 h-3.5 shrink-0 stroke-[2.5]",
-                          isSelected ? "text-[#E86A17]" : "text-gray-400",
-                        )}
-                      />
-                      <span
-                        className={clsx(
-                          poppins.className,
-                          "text-xs leading-relaxed",
-                          isSelected ? "text-gray-800 font-medium" : "text-gray-500",
-                        )}
-                      >
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Perks Checklist */}
+                {pass.features && pass.features.length > 0 && (
+                  <ul className="space-y-1.5 text-left text-xs text-gray-600 mb-4 flex-1">
+                    {pass.features.slice(0, 4).map((feature, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-1.5">
+                        <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                        <span className="leading-tight">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               {/* Select / Selected Button - mt-auto pinned bottom */}
@@ -205,8 +190,7 @@ export function BookingPassSelector({
               </div>
             </div>
           );
-        });
-      })()}
+        })}
       </div>
     </section>
   );

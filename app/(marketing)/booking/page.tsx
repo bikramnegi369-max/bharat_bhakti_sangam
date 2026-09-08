@@ -99,7 +99,7 @@ export default async function BookingPage({ searchParams }: BookingPageProps) {
         eventAddress={getEventVenueAddress(event)}
         heroImage={getEventImage(event)}
         ticketTypes={ticketTypes}
-        initialTicketType={matchedPass || ticketTypes[0]?.name}
+        initialTicketType={matchedPass}
       />
     </Suspense>
   );
