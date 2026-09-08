@@ -65,6 +65,8 @@ export interface CalendarDay {
   isToday: boolean;
   isSelected?: boolean;
   tithiName?: string;
+  nakshatra?: string;
+  paksha?: "Shukla Paksha" | "Krishna Paksha";
   isPurnima?: boolean;
   isAmavasya?: boolean;
   isEkadashi?: boolean;

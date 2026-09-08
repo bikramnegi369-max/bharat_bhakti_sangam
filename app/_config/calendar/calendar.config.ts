@@ -144,6 +144,8 @@ export function generateMonthGridDays(
       isCurrentMonth: true,
       isToday: dateString === todayString,
       tithiName: panchang.tithiName.replace("Shukla ", "").replace("Krishna ", ""),
+      nakshatra: panchang.nakshatra,
+      paksha: panchang.paksha,
       isPurnima,
       isAmavasya,
       isEkadashi,

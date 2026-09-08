@@ -245,11 +245,11 @@ export default function CalendarMonthGrid({
 
       {/* ── Calendar Days Matrix ── */}
       <div
-        className="p-1.5 sm:p-3 bg-[#FAF8F5]/60 touch-pan-y"
+        className="p-1 xs:p-1.5 sm:p-3 bg-[#FAF8F5]/60 touch-pan-y"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="grid grid-cols-7 gap-1 sm:gap-1.5">
+        <div className="grid grid-cols-7 auto-rows-fr gap-0.5 xs:gap-1 sm:gap-1.5">
           {gridDays.map((day) => {
             const isSelected = day.dateString === selectedDate;
             const hasEvent = day.events && day.events.length > 0;
@@ -277,7 +277,7 @@ export default function CalendarMonthGrid({
               <button
                 key={day.dateString}
                 onClick={() => onSelectDate(day.dateString)}
-                className={`relative min-h-12 sm:min-h-20 lg:min-h-24 p-1 sm:p-2.5 flex flex-col justify-between items-start text-left transition-all duration-200 cursor-pointer rounded-lg sm:rounded-xl group ${
+                className={`relative w-full h-20 xs:h-22 sm:h-26 lg:h-28 p-1 sm:p-2 flex flex-col justify-start gap-0.5 xs:gap-1 items-start text-left transition-all duration-200 cursor-pointer rounded-lg sm:rounded-xl group min-w-0 overflow-hidden ${
                   !day.isCurrentMonth
                     ? "bg-stone-50/50 text-stone-300 border border-stone-100/60 pointer-events-auto opacity-40 sm:opacity-60"
                     : isSelected
@@ -285,10 +285,10 @@ export default function CalendarMonthGrid({
                       : "bg-white hover:bg-[#FFFDF9] text-[#370504] border border-amber-100/80 hover:border-amber-300 hover:shadow-xs"
                 }`}
               >
-                {/* Top Row: Date Number & Lunar Indicator */}
-                <div className="flex items-center justify-between w-full">
+                {/* Top Row: Date Number & Lunar Indicator with subtle bottom margin */}
+                <div className="flex items-center justify-between w-full min-w-0 shrink-0 mb-0.5 xs:mb-1 sm:mb-1.5">
                   <span
-                    className={`text-[11px] sm:text-sm font-semibold rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center transition-all ${
+                    className={`text-[10px] xs:text-[11px] sm:text-sm font-semibold rounded-full w-4.5 h-4.5 xs:w-5 xs:h-5 sm:w-6 sm:h-6 flex items-center justify-center shrink-0 transition-all ${
                       isSelected
                         ? "bg-amber-400 text-[#370504] font-bold shadow-xs scale-105"
                         : day.isToday
@@ -302,12 +302,12 @@ export default function CalendarMonthGrid({
                   </span>
 
                   {/* Right Top Indicator: Lunar Icon / Event Category Dot */}
-                  <div className="flex items-center gap-0.5 sm:gap-1">
+                  <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
                     {day.isCurrentMonth && !isSelected && (
                       <>
                         {day.isPurnima && (
                           <span
-                            className="text-[9px] sm:text-xs"
+                            className="text-[8px] xs:text-[9px] sm:text-xs leading-none"
                             title="Purnima (Full Moon)"
                           >
                             🌕
@@ -315,7 +315,7 @@ export default function CalendarMonthGrid({
                         )}
                         {day.isAmavasya && (
                           <span
-                            className="text-[9px] sm:text-xs"
+                            className="text-[8px] xs:text-[9px] sm:text-xs leading-none"
                             title="Amavasya (New Moon)"
                           >
                             🌑
@@ -325,7 +325,7 @@ export default function CalendarMonthGrid({
                           !day.isPurnima &&
                           !day.isAmavasya && (
                             <span
-                              className="text-[9px] sm:text-[10px]"
+                              className="text-[8px] xs:text-[9px] sm:text-[10px] leading-none"
                               title="Ekadashi Holy Fast"
                             >
                               🌿
@@ -344,46 +344,48 @@ export default function CalendarMonthGrid({
                   </div>
                 </div>
 
-                {/* Mobile View: Micro category dot & indicator if event exists */}
-                <div className="w-full flex sm:hidden items-center justify-center pt-0.5">
-                  {hasEvent ? (
-                    <span
-                      className={`h-1.5 w-1.5 rounded-full ${isSelected ? "bg-amber-300 ring-1 ring-white" : ""}`}
-                      style={{
-                        backgroundColor: isSelected ? undefined : categoryColor,
-                      }}
-                    />
-                  ) : day.isCurrentMonth && (day.isPurnima || day.isAmavasya || day.isEkadashi) ? (
-                    <span className="w-1 h-1 rounded-full bg-amber-400/80" />
-                  ) : (
-                    <span className="h-1.5" />
-                  )}
-                </div>
-
-                {/* Tablet / Desktop View (sm+): Event Badge OR Subtitle Tithi Name */}
-                <div className="hidden sm:block w-full mt-1">
-                  {hasEvent ? (
+                {/* Day Details: Tithi Name, Event Badge, and Nakshatra */}
+                <div className="w-full flex flex-col justify-between gap-0.5 min-w-0 flex-1">
+                  {/* Tithi Name (Upper line like traditional Panchang) */}
+                  {day.isCurrentMonth && day.tithiName && (
                     <div
-                      className={`text-[9px] sm:text-[10px] font-semibold leading-tight line-clamp-2 px-1.5 py-0.5 rounded-md border transition-colors ${
-                        isSelected
-                          ? "bg-white/20 text-amber-200 border-amber-300/40"
-                          : `${badgeBg} group-hover:border-[#740E0A]/40`
-                      }`}
-                    >
-                      {primaryEvent?.badgeLabel || primaryEvent?.title}
-                    </div>
-                  ) : day.isCurrentMonth && day.tithiName ? (
-                    <div
-                      className={`text-[8px] sm:text-[9px] font-medium tracking-tight truncate px-0.5 ${
+                      className={`text-[7px] xs:text-[7.5px] sm:text-[8.5px] font-medium tracking-tight px-0.5 leading-tight break-words hyphens-auto ${
                         isSelected
                           ? "text-amber-200/90 font-semibold"
                           : "text-[#8C827A] group-hover:text-[#740E0A]"
                       }`}
+                      title={day.tithiName}
                     >
                       {day.tithiName}
                     </div>
-                  ) : (
-                    <div className="h-3" />
+                  )}
+
+                  {/* Primary Event / Festival Badge */}
+                  {hasEvent && (
+                    <div
+                      className={`text-[7.5px] xs:text-[8px] sm:text-[9.5px] font-semibold leading-tight px-0.5 xs:px-1 py-0.5 rounded sm:rounded-md border transition-colors break-words hyphens-auto ${
+                        isSelected
+                          ? "bg-white/20 text-amber-200 border-amber-300/40"
+                          : `${badgeBg} group-hover:border-[#740E0A]/40`
+                      }`}
+                      title={primaryEvent?.badgeLabel || primaryEvent?.title}
+                    >
+                      {primaryEvent?.badgeLabel || primaryEvent?.title}
+                    </div>
+                  )}
+
+                  {/* Bottom: Nakshatra (Crisp, High-Contrast Vedic Constellation) */}
+                  {day.isCurrentMonth && day.nakshatra && (
+                    <div
+                      className={`text-[7px] xs:text-[7.5px] sm:text-[8.5px] font-medium tracking-tight px-0.5 leading-tight break-words hyphens-auto mt-auto ${
+                        isSelected
+                          ? "text-amber-100 font-semibold"
+                          : "text-[#57534E] group-hover:text-[#292524]"
+                      }`}
+                      title={`Nakshatra: ${day.nakshatra}`}
+                    >
+                      {day.nakshatra}
+                    </div>
                   )}
                 </div>
               </button>
