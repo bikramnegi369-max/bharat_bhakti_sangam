@@ -159,39 +159,58 @@ export default function NavbarMobileMenu({
             );
           })}
 
-          {/* Utility Links (About, Feedback) */}
-          {TOP_NAV_LINKS.filter(
-            (topLink) =>
-              !NAV_LINKS.some((navLink) => navLink.href === topLink.href),
-          ).length > 0 && (
-            <div className="pt-4 mt-4 border-t border-gray-100 space-y-3">
-              {TOP_NAV_LINKS.filter(
-                (topLink) =>
-                  !NAV_LINKS.some((navLink) => navLink.href === topLink.href),
-              ).map((link) => {
-                const isActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname === link.href || pathname.startsWith(link.href + "/");
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    aria-current={isActive ? "page" : undefined}
-                    className={clsx(
-                      "block text-[14px] transition-colors",
-                      isActive
-                        ? "text-orange font-semibold"
-                        : "text-para/70 hover:text-heading",
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </div>
-          )}
+          {/* Utility Links (About, Feedback, Privacy Policy, Terms & Conditions) */}
+          <div className="pt-4 mt-4 border-t border-gray-100 space-y-3">
+            {TOP_NAV_LINKS.filter(
+              (topLink) =>
+                !NAV_LINKS.some((navLink) => navLink.href === topLink.href),
+            ).map((link) => {
+              const isActive =
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname === link.href || pathname.startsWith(link.href + "/");
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={clsx(
+                    "block text-[14px] transition-colors",
+                    isActive
+                      ? "text-orange font-semibold"
+                      : "text-para/70 hover:text-heading",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            {[
+              { label: "Privacy Policy", href: routes.privacyPolicy },
+              { label: "Terms & Conditions", href: routes.termsAndConditions },
+            ].map((link) => {
+              const isActive =
+                pathname === link.href || pathname.startsWith(link.href + "/");
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={clsx(
+                    "block text-[14px] transition-colors",
+                    isActive
+                      ? "text-orange font-semibold"
+                      : "text-para/70 hover:text-heading",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
         </nav>
       </aside>
     </>
