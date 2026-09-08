@@ -62,13 +62,13 @@ export default function MobileDropdown({
 
       <div
         className={clsx(
-          "transition-all duration-500 ease-in-out pl-4",
+          "transition-all duration-300 ease-in-out pl-4",
           isExpanded
-            ? "max-h-500 opacity-100 py-2"
+            ? "max-h-64 opacity-100 py-2 overflow-y-auto overscroll-contain"
             : "max-h-0 opacity-0 overflow-hidden",
         )}
       >
-        <div className="space-y-2 border-l border-orange/30">
+        <div className="space-y-2 border-l border-orange/30 pl-2">
           {items.map((item) => {
             const isSubActive = pathname === item.href;
             return (
@@ -77,7 +77,7 @@ export default function MobileDropdown({
                 href={item.href}
                 onClick={onCloseMenu}
                 className={clsx(
-                  "block py-1.5 text-[15px] transition-colors",
+                  "block py-1.5 text-[14px] transition-colors",
                   isSubActive
                     ? "text-orange font-bold"
                     : "text-para/80 hover:text-orange active:text-orange",

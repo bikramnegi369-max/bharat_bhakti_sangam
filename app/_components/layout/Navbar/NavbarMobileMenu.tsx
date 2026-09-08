@@ -99,7 +99,8 @@ export default function NavbarMobileMenu({
 
         <nav
           aria-label="Mobile navigation"
-          className="flex-1 p-4 space-y-3 overflow-y-auto"
+          data-scrollable="true"
+          className="flex-1 p-4 pb-6 space-y-3 overflow-y-auto overscroll-contain [-webkit-overflow-scrolling:touch]"
         >
           {NAV_LINKS.map((link) => {
             const isActive =

@@ -13,6 +13,11 @@ let originalBodyStyle = {
 let originalHtmlOverflow = "";
 
 const preventDefault = (e: Event) => {
+  const target = e.target as HTMLElement | null;
+  // Allow touch scrolling if the touch originated inside a scrollable container (e.g., mobile nav, modal)
+  if (target && target.closest("nav, aside, [data-scrollable]")) {
+    return;
+  }
   e.preventDefault();
 };
 
