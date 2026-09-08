@@ -349,7 +349,7 @@ export default function CalendarMonthGrid({
                   {/* Tithi Name (Upper line like traditional Panchang) */}
                   {day.isCurrentMonth && day.tithiName && (
                     <div
-                      className={`text-[7px] xs:text-[7.5px] sm:text-[8.5px] font-medium tracking-tight px-0.5 leading-tight break-words hyphens-auto ${
+                      className={`text-[7px] xs:text-[7.5px] sm:text-[8.5px] font-medium tracking-tight px-0.5 leading-tight wrap-break-word hyphens-auto ${
                         isSelected
                           ? "text-amber-200/90 font-semibold"
                           : "text-[#8C827A] group-hover:text-[#740E0A]"
@@ -363,7 +363,7 @@ export default function CalendarMonthGrid({
                   {/* Primary Event / Festival Badge */}
                   {hasEvent && (
                     <div
-                      className={`text-[7.5px] xs:text-[8px] sm:text-[9.5px] font-semibold leading-tight px-0.5 xs:px-1 py-0.5 rounded sm:rounded-md border transition-colors break-words hyphens-auto ${
+                      className={`text-[7.5px] xs:text-[8px] sm:text-[9.5px] font-semibold leading-tight px-0.5 xs:px-1 py-0.5 rounded sm:rounded-md border transition-colors wrap-break-word hyphens-auto ${
                         isSelected
                           ? "bg-white/20 text-amber-200 border-amber-300/40"
                           : `${badgeBg} group-hover:border-[#740E0A]/40`
@@ -377,7 +377,7 @@ export default function CalendarMonthGrid({
                   {/* Bottom: Nakshatra (Crisp, High-Contrast Vedic Constellation) */}
                   {day.isCurrentMonth && day.nakshatra && (
                     <div
-                      className={`text-[7px] xs:text-[7.5px] sm:text-[8.5px] font-medium tracking-tight px-0.5 leading-tight break-words hyphens-auto mt-auto ${
+                      className={`text-[7px] xs:text-[7.5px] sm:text-[8.5px] font-medium tracking-tight px-0.5 leading-tight wrap-break-word hyphens-auto mt-auto ${
                         isSelected
                           ? "text-amber-100 font-semibold"
                           : "text-[#57534E] group-hover:text-[#292524]"

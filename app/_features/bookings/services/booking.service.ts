@@ -142,3 +142,108 @@ export async function reserveBookingTickets(
     };
   }
 }
+
+export async function createBookingOrder(
+  payload: BookingFormData,
+  eventId: string,
+): Promise<APIResponse<import("@/_features/payments/razorpay/types").BackendBookingOrderResponse>> {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}${apiRoutes.createBookingOrder}`;
+
+  try {
+    const response = await fetchWithTimeout(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullName: payload.fullName,
+        email: payload.email,
+        mobile: payload.mobile,
+        tickets: payload.tickets,
+        ticketType: payload.ticketType,
+        eventId,
+      }),
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || data.success === false) {
+      const message =
+        data.message || data.error || "Unable to initiate booking order.";
+      throw new Error(message);
+    }
+
+    // Backend responds with { success: true, keyId, orderId, amount, currency, reservationId, eventName, ticketType, tickets }
+    // or wrapped in data
+    const orderData = data.data || data;
+
+    return {
+      success: true,
+      data: {
+        keyId: orderData.keyId,
+        orderId: orderData.orderId,
+        amount: orderData.amount,
+        currency: orderData.currency || "INR",
+        reservationId: orderData.reservationId,
+        eventName: orderData.eventName,
+        ticketType: orderData.ticketType,
+        tickets: orderData.tickets,
+      },
+    };
+  } catch (error) {
+    console.error("Create Booking Order Error:", error);
+    return {
+      success: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Unable to initiate secure checkout.",
+    };
+  }
+}
+
+export async function verifyBookingPayment(
+  payload: import("@/_features/payments/razorpay/types").BackendVerifyPaymentPayload,
+): Promise<APIResponse<import("@/_features/payments/razorpay/types").BackendVerifyPaymentResponse>> {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}${apiRoutes.verifyBookingPayment}`;
+
+  try {
+    const response = await fetchWithTimeout(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || data.success === false) {
+      const message =
+        data.message || data.error || "Payment verification failed.";
+      throw new Error(message);
+    }
+
+    const resData = data.data || data;
+
+    return {
+      success: true,
+      data: {
+        success: true,
+        message: resData.message || "Ticket created successfully",
+        bookingId: resData.bookingId || "",
+        ticketUrl: resData.ticketUrl,
+      },
+    };
+  } catch (error) {
+    console.error("Verify Booking Payment Error:", error);
+    return {
+      success: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Payment verification failed.",
+    };
+  }
+}
+

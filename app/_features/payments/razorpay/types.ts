@@ -24,6 +24,31 @@ export type RazorpayVerifyRequest = {
   booking: RazorpayOrderRequest;
 };
 
+export type BackendBookingOrderResponse = {
+  keyId: string;
+  orderId: string;
+  amount: number;
+  currency: "INR";
+  reservationId: string;
+  eventName?: string;
+  ticketType?: string;
+  tickets?: number;
+};
+
+export type BackendVerifyPaymentPayload = {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+  reservationId: string;
+};
+
+export type BackendVerifyPaymentResponse = {
+  success: boolean;
+  message: string;
+  bookingId: string;
+  ticketUrl?: string;
+};
+
 export type RazorpayCheckoutSuccessResponse = {
   razorpay_order_id: string;
   razorpay_payment_id: string;

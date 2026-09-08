@@ -24,6 +24,8 @@ export const apiRoutes = {
   contact: "/contact",
   booking: `${BOOKING_BASE}/create-ticket`,
   bookingReservations: `${BOOKING_BASE}/reservations`,
+  createBookingOrder: `${BOOKING_BASE}/create-order`,
+  verifyBookingPayment: `${BOOKING_BASE}/verify-and-create-ticket`,
   feedback: "/feedback",
   subscribe: "/subscriber",
   preSignedUrl: "/admin/presign-url",
