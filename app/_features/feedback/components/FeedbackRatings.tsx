@@ -45,7 +45,7 @@ export function FeedbackRatings() {
               delay={100 + idx * 80}
             >
               <div className="pt-4 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="space-y-0.5">
+                <div className="space-y-0.5 text-center sm:text-left">
                   <span
                     className={`${poppins.className} text-sm sm:text-base font-semibold text-stone-800 tracking-wide`}
                   >
@@ -64,7 +64,7 @@ export function FeedbackRatings() {
                   name={`ratings.${item.key}`}
                   control={control}
                   render={({ field }) => (
-                    <div className="flex flex-col sm:items-end gap-1">
+                    <div className="flex flex-col items-center sm:items-end gap-1">
                       <Rating
                         value={field.value}
                         onChange={(val) => {
@@ -72,9 +72,10 @@ export function FeedbackRatings() {
                           field.onBlur();
                         }}
                         className="w-7 h-7 sm:w-8 sm:h-8"
+                        containerClassName="justify-center sm:justify-end"
                       />
                       {errors.ratings?.[item.key] && (
-                        <span className="text-[10.5px] text-red-500 font-medium">
+                        <span className="text-[10.5px] text-red-500 font-medium text-center sm:text-right">
                           {errors.ratings[item.key]?.message}
                         </span>
                       )}

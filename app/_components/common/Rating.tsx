@@ -32,6 +32,9 @@ type RatingProps = {
   /** Wrapper class */
   className?: string;
 
+  /** Outer container class */
+  containerClassName?: string;
+
   /** Custom label */
   ariaLabel?: string;
 };
@@ -46,6 +49,7 @@ export function Rating({
   size = 24,
   gap = 6,
   className,
+  containerClassName,
   ariaLabel = "Rating",
 }: RatingProps) {
   const [hovered, setHovered] = React.useState<number | null>(null);
@@ -109,6 +113,7 @@ export function Rating({
       className={clsx(
         "flex items-center outline-none w-full",
         disabled && "opacity-50 cursor-not-allowed",
+        containerClassName,
       )}
       style={{ gap }}
     >
