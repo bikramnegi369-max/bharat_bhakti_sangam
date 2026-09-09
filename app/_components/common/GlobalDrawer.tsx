@@ -101,7 +101,7 @@ export default function GlobalDrawer({
       >
         {onClose && (
           <button
-            className="absolute top-0 -left-10.5 bg-gradient-to-l from-[#740E0A] to-[#370504] hover:brightness-110 cursor-pointer px-4 py-2 text-white font-semibold rounded-l-full shadow-md border-l border-t border-b border-amber-900/40 transition-all active:scale-95"
+            className="absolute top-0 -left-10.5 bg-linear-to-l from-[#740E0A] to-[#370504] hover:brightness-110 cursor-pointer px-4 py-2 text-white font-semibold rounded-l-full shadow-md border-l border-t border-b border-amber-900/40 transition-all active:scale-95"
             onClick={onClose}
             aria-label="Close drawer"
           >

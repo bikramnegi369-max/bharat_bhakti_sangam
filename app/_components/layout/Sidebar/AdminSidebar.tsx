@@ -11,7 +11,7 @@ export function AdminSidebar() {
   return (
     <aside
       className={clsx(
-        "hidden shrink-0 self-stretch bg-gradient-to-b from-[#2d0403] via-[#370504] to-[#1e0202] text-white py-5 lg:flex lg:flex-col lg:justify-between border-r border-amber-900/30 shadow-2xl relative z-20 select-none",
+        "hidden shrink-0 self-stretch bg-linear-to-b from-[#2d0403] via-[#370504] to-[#1e0202] text-white py-5 lg:flex lg:flex-col lg:justify-between border-r border-amber-900/30 shadow-2xl relative z-20 select-none",
         SIDEBAR_WIDTH,
       )}
     >
@@ -41,8 +41,12 @@ export function AdminSidebar() {
         <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 text-xs text-stone-300">
           <ShieldCheck size={16} className="text-amber-400 shrink-0" />
           <div className="min-w-0">
-            <p className="font-semibold text-white truncate text-[12px]">Bharat Bhakti Sangam</p>
-            <p className="text-[10px] text-stone-400 truncate">v1.2.0 • Admin Portal</p>
+            <p className="font-semibold text-white truncate text-[12px]">
+              Bharat Bhakti Sangam
+            </p>
+            <p className="text-[10px] text-stone-400 truncate">
+              v1.2.0 • Admin Portal
+            </p>
           </div>
         </div>
       </div>

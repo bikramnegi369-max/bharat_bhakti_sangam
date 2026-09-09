@@ -20,7 +20,7 @@ export default function DrawerHeader({
   return (
     <div
       className={clsx(
-        "relative flex items-center justify-between border-b border-amber-900/30 bg-gradient-to-r from-[#2d0403] via-[#370504] to-[#200202] px-8 py-5 text-white shadow-md select-none shrink-0",
+        "relative flex items-center justify-between border-b border-amber-900/30 bg-linear-to-r from-[#2d0403] via-[#370504] to-[#200202] px-8 py-5 text-white shadow-md select-none shrink-0",
         className,
       )}
     >
