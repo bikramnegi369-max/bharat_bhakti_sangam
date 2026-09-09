@@ -18,18 +18,35 @@ export const TableLoading = () => (
   </div>
 );
 
-export const TableError = ({ message }: { message?: string }) => (
+export const TableError = ({
+  message,
+  onRetry,
+}: {
+  message?: string;
+  onRetry?: () => void;
+}) => (
   <div className="p-6">
     <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-5 text-red-900">
-      <div className="flex items-start gap-3">
-        <div className="mt-0.5 h-2.5 w-2.5 rounded-full bg-red-500" />
-        <div className="space-y-1">
-          <p className="text-sm font-semibold">Unable to load table data</p>
-          <p className="text-sm text-red-700">
-            {message ||
-              "Something went wrong while fetching the latest records. Try again in a moment or refresh the page."}
-          </p>
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div className="flex items-start gap-3">
+          <div className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-full bg-red-500" />
+          <div className="space-y-1">
+            <p className="text-sm font-semibold">Unable to load table data</p>
+            <p className="text-sm text-red-700">
+              {message ||
+                "Something went wrong while fetching the latest records. Try again in a moment or refresh the page."}
+            </p>
+          </div>
         </div>
+        {onRetry && (
+          <button
+            type="button"
+            onClick={onRetry}
+            className="self-start sm:self-center shrink-0 rounded-md border border-red-300 bg-white px-3 py-1.5 text-xs font-semibold text-red-800 shadow-sm transition hover:bg-red-50 active:scale-95 cursor-pointer"
+          >
+            Try Again
+          </button>
+        )}
       </div>
     </div>
   </div>

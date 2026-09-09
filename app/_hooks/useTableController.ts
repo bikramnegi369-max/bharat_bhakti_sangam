@@ -110,7 +110,7 @@ export const useTableController = <T extends RowData>(
     ],
   );
 
-  const { data, isLoading, isFetching, error } = useQuery({
+  const { data, isLoading, isFetching, error, refetch } = useQuery({
     queryKey,
     queryFn: async () => {
       const session = await fetchAdminSession();
@@ -235,11 +235,16 @@ export const useTableController = <T extends RowData>(
     );
   }, []);
 
+  const handleRefetch = useCallback(async () => {
+    return await refetch();
+  }, [refetch]);
+
   return {
     data,
     isLoading,
     isFetching,
     error,
+    refetch: handleRefetch,
 
     page: state.page,
     setPage,

@@ -79,6 +79,7 @@ export type TableConfig<T extends RowData> = {
   filterAction?: ReactNode;
   renderActions?: (row: T) => ReactNode;
   exportOptions?: TableExportConfig<T> | false;
+  refreshButton?: boolean;
 };
 
 export type TableQueryParams = {
@@ -121,4 +122,5 @@ export interface TableController<T> {
   isLoading: boolean;
   isFetching: boolean;
   error: unknown;
+  refetch: () => Promise<unknown>;
 }

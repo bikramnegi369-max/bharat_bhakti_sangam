@@ -12,6 +12,7 @@ import { TableConfig } from "@/_types/Table.types";
 import { RowData } from "@tanstack/react-table";
 import { getColumnSizeStyle, hasColumnSizing } from "./tableSizing";
 import { TableExportButton } from "./TableExportButton";
+import { TableRefreshButton } from "./TableRefreshButton";
 
 interface Props<T extends RowData> {
   config: TableConfig<T>;
@@ -100,6 +101,28 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
       disabled={tableData.total === 0}
     />
   ) : null;
+
+  const showRefreshButton = config.refreshButton !== false;
+  const refreshAction = showRefreshButton ? (
+    <TableRefreshButton
+      onRefresh={controller.refetch}
+      isFetching={controller.isFetching}
+    />
+  ) : null;
+
+  const tableActions = useMemo(() => {
+    if (!config.filterAction && !exportAction && !refreshAction) {
+      return null;
+    }
+
+    return (
+      <div className="flex flex-wrap items-end gap-3">
+        {config.filterAction}
+        {exportAction}
+        {refreshAction}
+      </div>
+    );
+  }, [config.filterAction, exportAction, refreshAction]);
 
   const table = useDataTable(tableController, config.columns);
   const hasFixedWidthColumns = table
@@ -212,31 +235,29 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
 
   if (controller.isLoading) return <TableLoading />;
   if (controller.error) {
-    return <TableError message={getErrorMessage(controller.error)} />;
+    return (
+      <TableError
+        message={getErrorMessage(controller.error)}
+        onRetry={controller.refetch}
+      />
+    );
   }
 
   return (
     <div className="border border-black/10 rounded-xl bg-white">
-      {/* Filters */}
+      {/* Filters & Actions */}
       {config.filters && (
         <TableFilters
           filters={config.filters}
           values={controller.filters}
           onChange={controller.setFilters}
-          action={
-            config.filterAction || exportAction ? (
-              <div className="flex flex-wrap items-end gap-3">
-                {config.filterAction}
-                {exportAction}
-              </div>
-            ) : undefined
-          }
+          action={tableActions ?? undefined}
         />
       )}
 
-      {!config.filters && exportAction ? (
+      {!config.filters && tableActions ? (
         <div className="flex flex-wrap items-center justify-end gap-3 rounded-t-xl bg-primary_light p-4 shadow-sm">
-          {exportAction}
+          {tableActions}
         </div>
       ) : null}
 
