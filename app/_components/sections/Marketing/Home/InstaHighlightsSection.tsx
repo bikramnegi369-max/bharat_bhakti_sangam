@@ -305,6 +305,7 @@ export default function InstaHighlightsSection({
                         src={social.icon}
                         alt={social.label}
                         fill
+                        sizes="20px"
                         className="object-contain"
                       />
                     </div>

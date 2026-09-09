@@ -195,6 +195,7 @@ export function NumberDetailCoreInsights({ config }: NumberDetailCoreInsightsPro
                   src="/numerology/numerology_language.webp"
                   alt="Sacred Lotus Mandala"
                   fill
+                  sizes="176px"
                   className="object-contain"
                 />
               </div>

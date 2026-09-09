@@ -54,6 +54,7 @@ export const InfluencerColumns = [
             src={value}
             alt="Influencer avatar"
             fill
+            sizes="48px"
             unoptimized
             className="object-cover object-center"
           />

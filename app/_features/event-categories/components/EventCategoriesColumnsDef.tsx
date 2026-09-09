@@ -17,7 +17,13 @@ export const EventCategoriesColumns = [
       if (!value) return "N/A";
       return (
         <div className="bg-gray-200 border-2  rounded-xl w-16 h-16 relative overflow-hidden">
-          <Image src={value} alt="category picture" fill unoptimized />
+          <Image
+            src={value}
+            alt="category picture"
+            fill
+            sizes="64px"
+            unoptimized
+          />
         </div>
       );
     },

@@ -20,7 +20,14 @@ export const EventArtistsColumns = [
       }
       return (
         <div className="bg-gray-200 border border-slate-200 rounded-xl w-12 h-12 relative overflow-hidden shadow-xs">
-          <Image src={value} alt="artist profile" fill unoptimized className="object-cover" />
+          <Image
+            src={value}
+            alt="artist profile"
+            fill
+            sizes="48px"
+            unoptimized
+            className="object-cover"
+          />
         </div>
       );
     },

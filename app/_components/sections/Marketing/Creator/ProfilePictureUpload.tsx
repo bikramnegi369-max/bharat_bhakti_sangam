@@ -155,6 +155,7 @@ export function ProfilePictureUpload<
                 src={previewUrl}
                 alt="Profile Preview"
                 fill
+                sizes="(max-width: 640px) 80px, (max-width: 768px) 96px, 104px"
                 unoptimized
                 className="object-cover"
               />

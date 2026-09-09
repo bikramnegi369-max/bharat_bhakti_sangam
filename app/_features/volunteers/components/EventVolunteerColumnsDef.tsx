@@ -33,6 +33,7 @@ export const EventVolunteerColumns = [
             src={value}
             alt="volunteer profile"
             fill
+            sizes="64px"
             unoptimized
             className="object-cover object-center"
           />
