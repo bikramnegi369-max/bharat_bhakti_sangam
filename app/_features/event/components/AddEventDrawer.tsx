@@ -19,6 +19,7 @@ import {
   mapEventDetailToFormInput,
 } from "../helpers/eventForm.helpers";
 import { getEventBookingTypes } from "@/_features/bookings/booking-types/services/eventBookingTypes.service";
+import DrawerHeader from "@/_components/common/DrawerHeader";
 
 interface AddEventDrawerProps {
   mode?: "create" | "edit";
@@ -148,10 +149,12 @@ export default function AddEventDrawer({
   };
 
   return (
-    <div className="relative h-full w-full pointer-events-auto flex flex-col overflow-hidden">
-      <h2 className="h-12 bg-black text-primary text-2xl font-semibold flex items-center p-8">
-        {isEditMode ? "Edit Event" : "Add New Event"}
-      </h2>
+    <div className="relative h-full w-full pointer-events-auto flex flex-col overflow-hidden bg-white">
+      <DrawerHeader
+        title={isEditMode ? "Edit Event" : "Add New Event"}
+        subtitle="Event Management"
+        onClose={closeDrawer}
+      />
       {isLoading ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-4">
           <Loader2 className="animate-spin text-primary" size={40} />

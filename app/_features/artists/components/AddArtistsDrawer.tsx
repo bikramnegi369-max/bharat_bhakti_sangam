@@ -11,8 +11,9 @@ import {
   getArtistById,
   updateArtist,
 } from "../services/artists.service";
+import DrawerHeader from "@/_components/common/DrawerHeader";
 import AddArtistsForm from "./AddArtistsForm";
-import { Artist } from "@/_types/Artists.types";
+import { ArtistFormData } from "@/_schemas/Artists.schema";
 
 interface AddArtistsDrawerProps {
   mode?: "create" | "edit";
@@ -44,14 +45,14 @@ export default function AddArtistsDrawer({
     enabled: isEditMode && !!artistId,
   });
 
-  const handleFormSubmit = async (data: Partial<Artist>) => {
+  const handleFormSubmit = async (formData: ArtistFormData) => {
     try {
       await toast.promise(
         (async () => {
           const result =
             isEditMode && artistId
-              ? await updateArtist(artistId, data)
-              : await addArtist(data);
+              ? await updateArtist(artistId, formData)
+              : await addArtist(formData);
 
           if (!result.success) {
             throw new Error(result.error || `Failed to ${mode} artist.`);
@@ -60,13 +61,13 @@ export default function AddArtistsDrawer({
           return result;
         })(),
         {
-          pending: isEditMode ? "Updating artist..." : "Creating new artist...",
+          pending: isEditMode ? "Updating artist..." : "Adding new artist...",
           success: isEditMode
             ? "Artist updated successfully!"
-            : "Artist created successfully!",
+            : "Artist added successfully!",
           error: isEditMode
             ? "Failed to update artist."
-            : "Failed to create artist.",
+            : "Failed to add artist.",
         },
       );
 
@@ -82,9 +83,11 @@ export default function AddArtistsDrawer({
 
   return (
     <div className="relative h-full w-full pointer-events-auto flex flex-col overflow-hidden bg-white min-h-96">
-      <h2 className="h-12 bg-black text-primary text-2xl font-semibold flex items-center p-8">
-        {isEditMode ? "Edit Artist" : "Add New Artist"}
-      </h2>
+      <DrawerHeader
+        title={isEditMode ? "Edit Artist" : "Add New Artist"}
+        subtitle="Artist Management"
+        onClose={closeDrawer}
+      />
 
       {isLoading ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-4">

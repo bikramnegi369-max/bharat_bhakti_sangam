@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-import { Pencil } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import ActionMenu from "@/_components/common/ActionMenu";
 import { EventArtistsTable } from "@/_features/artists/components/EventArtistsTable";
 import AddArtistsDrawer from "@/_features/artists/components/AddArtistsDrawer";
@@ -20,10 +20,11 @@ export default function AdminArtistsPage() {
     () => (
       <button
         type="button"
-        className="rounded-md bg-primary px-8 py-2.5 text-sm font-medium text-black cursor-pointer"
+        className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#740E0A] via-[#85130E] to-[#630B08] px-6 py-2.5 text-sm font-medium text-white shadow-sm shadow-primary/25 hover:brightness-110 hover:shadow-md hover:shadow-primary/35 transition-all duration-200 active:scale-[0.98] cursor-pointer border border-[#8a1914]"
         onClick={handleAddArtist}
       >
-        Add Artist
+        <Plus size={16} />
+        <span>Add Artist</span>
       </button>
     ),
     [handleAddArtist],

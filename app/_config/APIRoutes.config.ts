@@ -13,6 +13,7 @@ const BOOKING_TYPE_BASE = "/admin/booking-type";
 const CALENDER_BASE = "/calender";
 const DASHBOARD_BASE = "/admin/dashboard";
 const ADMIN_EMAIL_BASE = "/admin/email";
+const INFLUENCER_BASE = "/influencer";
 
 export const apiRoutes = {
   event: EVENT_BASE,
@@ -58,4 +59,8 @@ export const apiRoutes = {
   dashboardTotalBookingTrend: `${DASHBOARD_BASE}/booking-trend`,
   sendAdminEmail: `${ADMIN_EMAIL_BASE}`,
   artistJoin: "/artistrequest",
+  influencer: INFLUENCER_BASE,
+  getAllInfluencers: INFLUENCER_BASE,
+  influencerById: (id: string) => `${INFLUENCER_BASE}/${id}`,
+  updateInfluencerStatus: INFLUENCER_BASE,
 };

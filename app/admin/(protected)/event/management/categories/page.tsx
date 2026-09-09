@@ -9,7 +9,7 @@ import { updateCategoryStatus } from "@/_features/event-categories/services/even
 import { ALL_CATEGORIES } from "@/_lib/constants/eventCategories.constants";
 import { useUI } from "@/providers/UIProvider";
 import { getTableQueryKeyPrefix } from "@/_utils/queryKey";
-import { BadgeCheck, Ban, Pencil } from "lucide-react";
+import { BadgeCheck, Ban, Pencil, Plus } from "lucide-react";
 import { EventCategory } from "@/_types/EventCategories.types";
 
 export default function AdminEventCategoriesPage() {
@@ -17,29 +17,21 @@ export default function AdminEventCategoriesPage() {
   const { openModal } = useUI();
 
   const handleAddEventCategory = useCallback(() => {
-    openModal(<AddEventCategoryModal />, {
+    openModal(<AddEventCategoryModal mode="create" />, {
       size: "full",
     });
   }, [openModal]);
 
   const handleUpdateEventCategory = useCallback(
-    async (categoryId: string, disable: boolean) => {
+    async (categoryId: string, status: boolean) => {
       try {
         await toast.promise(
-          (async () => {
-            const result = await updateCategoryStatus(categoryId, disable);
-
-            if (!result.success) {
-              throw new Error(
-                result.error || "Failed to update category status.",
-              );
-            }
-
-            return result;
-          })(),
+          updateCategoryStatus(categoryId, status),
           {
-            pending: disable ? "Disabling category..." : "Enabling category...",
-            success: disable
+            pending: status
+              ? "Disabling category..."
+              : "Enabling category...",
+            success: status
               ? "Category disabled successfully!"
               : "Category enabled successfully!",
             error: "Failed to update category status.",
@@ -60,10 +52,11 @@ export default function AdminEventCategoriesPage() {
     () => (
       <button
         type="button"
-        className="rounded-md bg-primary px-8 py-2.5 text-sm font-medium text-black cursor-pointer"
+        className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#740E0A] via-[#85130E] to-[#630B08] px-6 py-2.5 text-sm font-medium text-white shadow-sm shadow-primary/25 hover:brightness-110 hover:shadow-md hover:shadow-primary/35 transition-all duration-200 active:scale-[0.98] cursor-pointer border border-[#8a1914]"
         onClick={handleAddEventCategory}
       >
-        Add Category
+        <Plus size={16} />
+        <span>Add Category</span>
       </button>
     ),
     [handleAddEventCategory],

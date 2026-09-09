@@ -20,6 +20,7 @@ import {
 } from "../services/calender.service";
 import { normalizeCalenderEntryPayload } from "@/_lib/helpers/calender.helper";
 import { CalenderEntryDetailView } from "./CalenderEntryDetailView";
+import DrawerHeader from "@/_components/common/DrawerHeader";
 
 type CreateCalenderEntryDrawerMode = "create" | "edit" | "view";
 
@@ -122,12 +123,15 @@ export default function CreateCalenderEntryDrawer({
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden bg-white min-h-96">
-      <div className="border-b border-black/10 bg-black px-8 py-6 text-primary">
-        <p className="text-xs font-medium uppercase tracking-[0.32em] text-primary/70">
-          {mode === "view" ? "Calender Entry Overview" : "Calender Entry Form"}
-        </p>
-        <h2 className="mt-3 text-2xl font-semibold text-primary">{title}</h2>
-      </div>
+      <DrawerHeader
+        title={title}
+        subtitle={
+          mode === "view"
+            ? "Calender Entry Overview"
+            : "Calender Entry Management"
+        }
+        onClose={closeDrawer}
+      />
 
       {isLoading ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-4">

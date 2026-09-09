@@ -14,8 +14,9 @@ import {
   getVolunteerById,
   updateVolunteer,
 } from "../services/volunteers.service";
+import DrawerHeader from "@/_components/common/DrawerHeader";
 import AddVolunteerForm from "./AddVolunteerForm";
-import { Volunteer } from "@/_types/Volunteer.types";
+import { VolunteerFormData } from "@/_schemas/Volunteer.schema";
 
 interface AddVolunteerDrawerProps {
   mode?: "create" | "edit";
@@ -47,14 +48,14 @@ export default function AddVolunteerDrawer({
     enabled: isEditMode && !!volunteerId,
   });
 
-  const handleFormSubmit = async (data: Partial<Volunteer>) => {
+  const handleFormSubmit = async (formData: VolunteerFormData) => {
     try {
       await toast.promise(
         (async () => {
           const result =
             isEditMode && volunteerId
-              ? await updateVolunteer(volunteerId, data)
-              : await addVolunteer(data);
+              ? await updateVolunteer(volunteerId, formData)
+              : await addVolunteer(formData);
 
           if (!result.success) {
             throw new Error(result.error || `Failed to ${mode} volunteer.`);
@@ -65,13 +66,13 @@ export default function AddVolunteerDrawer({
         {
           pending: isEditMode
             ? "Updating volunteer..."
-            : "Creating new volunteer...",
+            : "Adding new volunteer...",
           success: isEditMode
             ? "Volunteer updated successfully!"
-            : "Volunteer created successfully!",
+            : "Volunteer added successfully!",
           error: isEditMode
             ? "Failed to update volunteer."
-            : "Failed to create volunteer.",
+            : "Failed to add volunteer.",
         },
       );
 
@@ -87,9 +88,11 @@ export default function AddVolunteerDrawer({
 
   return (
     <div className="relative h-full w-full pointer-events-auto flex flex-col overflow-hidden bg-white min-h-96">
-      <h2 className="h-12 bg-black text-primary text-2xl font-semibold flex items-center p-8">
-        {isEditMode ? "Edit Volunteer" : "Add New Volunteer"}
-      </h2>
+      <DrawerHeader
+        title={isEditMode ? "Edit Volunteer" : "Add New Volunteer"}
+        subtitle="Volunteer Management"
+        onClose={closeDrawer}
+      />
 
       {isLoading ? (
         <div className="flex-1 flex flex-col items-center justify-center gap-4">

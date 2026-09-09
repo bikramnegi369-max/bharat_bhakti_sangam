@@ -10,6 +10,7 @@ import { Event } from "@/_features/event/types";
 import clsx from "clsx";
 import Image from "next/image";
 import { useUI } from "@/providers/UIProvider";
+import DrawerHeader from "@/_components/common/DrawerHeader";
 
 type EventActionDrawerMode = "view" | "edit";
 
@@ -104,26 +105,23 @@ export default function EventActionDrawer({
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#FFF9ED]">
-      <div className="border-b border-black/10 bg-black px-8 py-6 text-primary">
-        <p className="text-xs font-medium uppercase tracking-[0.32em] text-primary/70">
-          {mode === "view" ? "View Event" : "Edit Event"}
-        </p>
-        <div className="mt-3 flex flex-wrap items-center gap-3">
-          <h2 className="text-2xl font-semibold text-primary">
-            {event.eventName}
-          </h2>
+      <DrawerHeader
+        title={event.eventName}
+        subtitle={mode === "view" ? "Event Details" : "Edit Event"}
+        badge={
           <span
             className={clsx(
-              "rounded-full border px-3 py-1 text-xs font-medium",
+              "rounded-full border px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider",
               event.isActive
-                ? "border-[#00941A] bg-[#CAFFD3] text-[#006B12]"
-                : "border-[#6B7280] bg-[#E5E7EB] text-[#374151]",
+                ? "border-emerald-300 bg-emerald-500/20 text-emerald-300"
+                : "border-stone-500 bg-stone-500/20 text-stone-300",
             )}
           >
             {event.isActive ? "Active" : "Inactive"}
           </span>
-        </div>
-      </div>
+        }
+        onClose={closeDrawer}
+      />
 
       <div className="flex-1 space-y-8 overflow-y-auto p-8">
         <div className="grid gap-6 lg:grid-cols-2">

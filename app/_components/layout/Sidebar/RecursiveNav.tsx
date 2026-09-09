@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarItem } from "@/_types/Sidebar.types";
 import clsx from "clsx";
-import { ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 interface NavItemProps {
   item: SidebarItem;
@@ -48,53 +48,65 @@ const NavItem = ({
   const content = (
     <div
       className={clsx(
-        "group flex items-center justify-between px-3.5 py-2 cursor-pointer transition-all rounded-lg relative mb-1",
+        "group relative flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer transition-all duration-200 select-none",
+        // Top-level styling
         depth === 0 &&
+          isExactActive &&
+          "bg-white/15 text-white font-semibold shadow-inner border-l-[3px] border-amber-400 pl-3.5",
+        depth === 0 &&
+          !isExactActive &&
           isActive &&
-          "bg-primary font-semibold shadow-sm shadow-primary/5",
-        depth === 0 && isExactActive && "text-black",
+          "bg-white/10 text-white font-medium border-l-[3px] border-amber-400/60 pl-3.5",
         depth === 0 &&
           !isActive &&
-          "text-gray-500 hover:text-gray-900 hover:bg-gray-100/80",
-        depth > 0 && isExactActive && "text-primary font-bold",
+          "text-stone-300 hover:text-white hover:bg-white/8 hover:translate-x-0.5",
+        // Sub-level (children) styling
+        depth > 0 &&
+          isExactActive &&
+          "bg-amber-400/15 text-amber-300 font-semibold shadow-xs",
         depth > 0 &&
           !isExactActive &&
-          "text-gray-500 hover:text-gray-900 hover:bg-gray-100/80",
-        depth > 0 && "pl-6 text-[14px]",
+          "text-stone-400 hover:text-stone-100 hover:bg-white/5",
+        depth > 0 && "py-2 px-3 text-[13.5px]",
       )}
       onClick={handleToggle}
       role={hasChildren ? "button" : undefined}
       aria-expanded={hasChildren ? isOpen : undefined}
       aria-current={isExactActive ? "page" : undefined}
     >
-      <div className="flex items-center gap-3">
-        {item.icon && (
+      <div className="flex items-center gap-3 min-w-0">
+        {item.icon ? (
           <span
             className={clsx(
-              "shrink-0 transition-colors",
-              depth === 0 && isActive && "text-white",
-              depth > 0 && isExactActive && "text-primary",
+              "shrink-0 transition-colors duration-200",
+              depth === 0 && isExactActive && "text-amber-400",
+              depth === 0 && !isExactActive && isActive && "text-amber-300/90",
               depth === 0 &&
                 !isActive &&
-                "text-gray-400 group-hover:text-gray-500",
-              depth > 0 &&
-                !isExactActive &&
-                "text-gray-400 group-hover:text-gray-500",
+                "text-stone-400 group-hover:text-amber-300/80",
+              depth > 0 && isExactActive && "text-amber-400",
+              depth > 0 && !isExactActive && "text-stone-400 group-hover:text-stone-200",
             )}
           >
             {item.icon}
           </span>
-        )}
-        <span className="truncate">{item.label}</span>
+        ) : depth > 0 ? (
+          <span
+            className={clsx(
+              "h-1.5 w-1.5 rounded-full shrink-0 transition-all",
+              isExactActive ? "bg-amber-400 scale-125" : "bg-stone-500 group-hover:bg-stone-300",
+            )}
+          />
+        ) : null}
+        <span className="truncate tracking-wide">{item.label}</span>
       </div>
+
       {hasChildren && (
-        <ChevronDown
+        <ChevronRight
           className={clsx(
-            "h-3.5 w-3.5 transition-transform duration-200",
-            depth === 0 && isActive
-              ? "text-black"
-              : "text-gray-400 group-hover:text-gray-600",
-            isOpen && "rotate-180",
+            "h-4 w-4 shrink-0 transition-transform duration-200",
+            isActive ? "text-amber-300" : "text-stone-400 group-hover:text-stone-200",
+            isOpen && "rotate-90",
           )}
         />
       )}
@@ -102,11 +114,17 @@ const NavItem = ({
   );
 
   return (
-    <li className="w-full list-none">
-      {item.href ? <Link href={item.href}>{content}</Link> : content}
+    <li className="w-full list-none mb-1">
+      {item.href ? (
+        <Link href={item.href} className="block w-full">
+          {content}
+        </Link>
+      ) : (
+        content
+      )}
 
       {hasChildren && isOpen && (
-        <div className="ml-5 my-1 pb-1">
+        <div className="ml-5 pl-3 mt-1.5 mb-2 border-l border-white/10 space-y-1">
           <RecursiveNav
             items={item.children!}
             onItemClick={onItemClick}
@@ -152,7 +170,7 @@ export const RecursiveNav = ({
   }, [initialOpenItemId]);
 
   return (
-    <ul className="flex flex-col w-full gap-1 px-4">
+    <ul className={clsx("flex flex-col w-full gap-0.5", depth === 0 && "px-3")}>
       {items.map((item) => (
         <NavItem
           key={item.id}

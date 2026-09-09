@@ -3,7 +3,7 @@
 import { useCallback, useMemo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { BadgeCheck, Ban, Pencil } from "lucide-react";
+import { BadgeCheck, Ban, Pencil, Plus } from "lucide-react";
 import ActionMenu from "@/_components/common/ActionMenu";
 import { EventVolunteersTable } from "@/_features/volunteers/components/EventVolunteersTable";
 import AddVolunteerDrawer from "@/_features/volunteers/components/AddVolunteerDrawer";
@@ -20,7 +20,9 @@ export default function AdminVolunteersPage() {
   const isMobileView = useIsMobile();
 
   const handleAddVolunteer = useCallback(() => {
-    openDrawer(<AddVolunteerDrawer />, { size: isMobileView ? "xl" : "full" });
+    openDrawer(<AddVolunteerDrawer mode="create" />, {
+      size: isMobileView ? "xl" : "full",
+    });
   }, [openDrawer, isMobileView]);
 
   const handleUpdateVolunteerStatus = useCallback(
@@ -63,10 +65,11 @@ export default function AdminVolunteersPage() {
     () => (
       <button
         type="button"
-        className="rounded-md bg-primary px-8 py-2.5 text-sm font-medium text-black cursor-pointer"
+        className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#740E0A] via-[#85130E] to-[#630B08] px-6 py-2.5 text-sm font-medium text-white shadow-sm shadow-primary/25 hover:brightness-110 hover:shadow-md hover:shadow-primary/35 transition-all duration-200 active:scale-[0.98] cursor-pointer border border-[#8a1914]"
         onClick={handleAddVolunteer}
       >
-        Add Volunteer
+        <Plus size={16} />
+        <span>Add Volunteer</span>
       </button>
     ),
     [handleAddVolunteer],
