@@ -165,36 +165,78 @@ export async function updateArtist(
   }
 }
 
-// export async function updateArtistStatus(
-//   id: string,
-//   disable: boolean,
-// ): Promise<APIResponse> {
-//   try {
-//     const res = await authorizedAdminRequest(apiRoutes.artistById(id), {
-//       method: "DELETE",
-//       body: JSON.stringify({ disable }),
-//       headers: { "Content-Type": "application/json" },
-//     });
+export async function updateArtistStatus(
+  id: string,
+  status: "approved" | "rejected" | "pending",
+): Promise<APIResponse> {
+  try {
+    const res = await authorizedAdminRequest(apiRoutes.updateArtistStatus(id), {
+      method: "PATCH",
+      body: JSON.stringify({ status }),
+      headers: { "Content-Type": "application/json" },
+    });
 
-//     const payload = await getResponsePayload(res);
+    const payload = await getResponsePayload(res);
 
-//     if (!res.ok || !isApiEnvelope(payload, isRecord)) {
-//       return {
-//         success: false,
-//         error: getPayloadMessage(payload) || "Failed to update artist status",
-//       };
-//     }
+    if (!res.ok || !isApiEnvelope(payload, isRecord)) {
+      // Fallback: try PUT to /artist/:id with { status }
+      const fallbackRes = await authorizedAdminRequest(apiRoutes.artistById(id), {
+        method: "PUT",
+        body: JSON.stringify({ status }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const fallbackPayload = await getResponsePayload(fallbackRes);
+      if (!fallbackRes.ok || !isApiEnvelope(fallbackPayload, isRecord)) {
+        return {
+          success: false,
+          error:
+            getPayloadMessage(fallbackPayload) ||
+            getPayloadMessage(payload) ||
+            "Failed to update artist status",
+        };
+      }
+      return { success: true };
+    }
 
-//     if (!payload.status) {
-//       return {
-//         success: false,
-//         error: payload.message || "Failed to update artist status",
-//       };
-//     }
+    if (!payload.status) {
+      return {
+        success: false,
+        error: payload.message || "Failed to update artist status",
+      };
+    }
 
-//     return { success: true };
-//   } catch (error) {
-//     console.error("Error updating artist status:", error);
-//     return { success: false, error: "Failed to update artist status" };
-//   }
-// }
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating artist status:", error);
+    return { success: false, error: "Failed to update artist status" };
+  }
+}
+
+export async function deleteArtist(id: string): Promise<APIResponse> {
+  try {
+    const res = await authorizedAdminRequest(apiRoutes.artistById(id), {
+      method: "DELETE",
+    });
+
+    const payload = await getResponsePayload(res);
+
+    if (!res.ok || !isApiEnvelope(payload, isRecord)) {
+      return {
+        success: false,
+        error: getPayloadMessage(payload) || "Failed to delete artist",
+      };
+    }
+
+    if (!payload.status) {
+      return {
+        success: false,
+        error: payload.message || "Failed to delete artist",
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting artist:", error);
+    return { success: false, error: "Failed to delete artist" };
+  }
+}

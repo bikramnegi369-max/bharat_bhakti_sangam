@@ -44,6 +44,7 @@ export default function ArtistPage() {
         sidebarTitle={"Your Talent Can\nInspire Millions"}
         sidebarDescription="Join Bharat Bhakti Sangam and let your art become a medium of devotion."
         sidebarQuote="Where talent meets devotion, memories are created for life."
+        isArtistForm={true}
         submitButtonText="Submit Artist Request"
         submittingButtonText="Submitting Application..."
         successTitle="Application Submitted!"

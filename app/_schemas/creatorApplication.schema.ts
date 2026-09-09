@@ -1,6 +1,11 @@
 import { z } from "zod";
 
 export const creatorApplicationSchema = z.object({
+  artistName: z
+    .string()
+    .trim()
+    .max(100, "Artist / Stage name is too long")
+    .optional(),
   firstName: z
     .string()
     .trim()

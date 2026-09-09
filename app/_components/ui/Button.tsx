@@ -20,7 +20,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           "after:content-[''] after:absolute after:top-1/2 after:left-1/2 after:w-5 after:h-5 after:bg-white/30 after:rounded-full after:opacity-0 after:pointer-events-none after:-translate-x-1/2 after:-translate-y-1/2",
           // Variant styles
           variant === "primary" &&
-            "bg-gradient-to-r from-[#740E0A] via-[#85130E] to-[#630B08] text-white shadow-sm shadow-primary/25 hover:brightness-110 hover:shadow-md hover:shadow-primary/35 border border-[#8a1914] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2",
+            "bg-linear-to-r from-[#740E0A] via-[#85130E] to-[#630B08] text-white shadow-sm shadow-primary/25 hover:brightness-110 hover:shadow-md hover:shadow-primary/35 border border-[#8a1914] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2",
           variant === "secondary" &&
             "text-primary border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/50 shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
           // Custom className

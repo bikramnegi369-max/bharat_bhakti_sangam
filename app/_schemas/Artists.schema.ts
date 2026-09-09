@@ -6,21 +6,33 @@ export const ArtistSchema = z.object({
     .min(1, "Artist name is required")
     .regex(/^[^0-9]*$/, "Artist name should not contain numbers"),
   role: z.string().min(1, "Role is required"),
-  email: z.email("Enter a valid email"),
+  email: z.string().email("Enter a valid email"),
   contactNo: z
     .string()
-    .min(1, "Contact number is required")
+    .min(10, "Contact number must be at least 10 digits")
     .regex(/^[0-9]+$/, "Contact number must contain only digits"),
-  instruments: z
-    .array(z.string().min(1))
-    .min(1, "At least one instrument is required"),
-  startTime: z.string().min(1, "Start time is required"),
-  endTime: z.string().min(1, "End time is required"),
+  instruments: z.array(z.string().min(1)).optional(),
+  startTime: z.string().optional(),
+  endTime: z.string().optional(),
   profileImage: z.string().min(1, "Profile image is required"),
-  galleryImages: z
-    .array(z.string().min(1, "Image is required"))
-    .min(1, "At least one gallery image is required"),
+  galleryImages: z.array(z.string().min(1)).optional(),
   aboutArtist: z.string().min(1, "About artist is required"),
+  gender: z.enum(["male", "female", "other"]).optional(),
+  address: z
+    .object({
+      city: z.string().optional(),
+      state: z.string().optional(),
+      pincode: z.string().optional(),
+    })
+    .optional(),
+  socialLinks: z
+    .object({
+      instagram: z.string().optional(),
+      youtube: z.string().optional(),
+      facebook: z.string().optional(),
+    })
+    .optional(),
+  status: z.enum(["pending", "approved", "rejected"]).optional(),
 });
 
 export type ArtistFormData = z.infer<typeof ArtistSchema>;

@@ -27,10 +27,21 @@ export async function submitArtistApplication(
     socialLinks.facebook = formData.facebookProfile.trim();
   }
 
+  const stageName =
+    formData.artistName?.trim() ||
+    `${formData.firstName.trim()} ${formData.lastName.trim()}`.trim();
+
   const payload: ArtistApplicationBackendPayload = {
+    artistName: stageName,
+    role: formData.role?.trim() || "Devotional Artist",
+    aboutArtist:
+      formData.aboutArtist?.trim() ||
+      `Devotional artist ${stageName} dedicated to spiritual performance and bhakti sangam.`,
+    profileImage: formData.profilePicture,
     firstName: formData.firstName,
     lastName: formData.lastName,
     phone: formData.phone,
+    contactNo: formData.phone,
     email: formData.email,
     gender: formData.gender,
     address: {
@@ -40,6 +51,7 @@ export async function submitArtistApplication(
     },
     profilePicture: formData.profilePicture,
     ...(Object.keys(socialLinks).length > 0 ? { socialLinks } : {}),
+    status: "pending",
   };
 
   try {

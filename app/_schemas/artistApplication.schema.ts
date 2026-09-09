@@ -1,6 +1,23 @@
 import { z } from "zod";
 
 export const artistApplicationSchema = z.object({
+  artistName: z
+    .string()
+    .trim()
+    .min(2, "Artist / Stage Name must be at least 2 characters")
+    .max(100, "Artist name is too long")
+    .optional(),
+  role: z
+    .string()
+    .trim()
+    .min(2, "Performance role is required")
+    .optional(),
+  aboutArtist: z
+    .string()
+    .trim()
+    .min(10, "Bio must be at least 10 characters")
+    .max(500, "Bio is too long")
+    .optional(),
   firstName: z
     .string()
     .trim()
@@ -60,10 +77,15 @@ export const artistApplicationSchema = z.object({
 export type ArtistApplicationFormData = z.infer<typeof artistApplicationSchema>;
 
 export interface ArtistApplicationBackendPayload {
+  artistName: string;
+  role: string;
+  aboutArtist: string;
+  profileImage: string;
   firstName: string;
   lastName: string;
   phone: string;
   email: string;
+  contactNo: string;
   gender: "male" | "female" | "other";
   address: {
     city: string;
@@ -76,5 +98,6 @@ export interface ArtistApplicationBackendPayload {
     youtube?: string;
     facebook?: string;
   };
+  status: "pending";
 }
 

@@ -168,7 +168,62 @@ export async function getInfluencers(
 export async function addInfluencerAdmin(
   formData: InfluencerFormData,
 ): Promise<APIResponse> {
-  return submitInfluencerForm(formData);
+  try {
+    const socialLinks: Record<string, string> = {};
+    if (formData.instagramProfile?.trim()) {
+      socialLinks.instagram = formData.instagramProfile.trim();
+    }
+    if (formData.youtubeChannel?.trim()) {
+      socialLinks.youtube = formData.youtubeChannel.trim();
+    }
+    if (formData.facebookProfile?.trim()) {
+      socialLinks.facebook = formData.facebookProfile.trim();
+    }
+
+    const payload: InfluencerBackendPayload & { status: string } = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      phone: formData.phone,
+      email: formData.email,
+      gender: formData.gender,
+      address: {
+        city: formData.address.city,
+        state: formData.address.state,
+        pincode: formData.address.pincode,
+      },
+      profilePicture: formData.profilePicture,
+      ...(Object.keys(socialLinks).length > 0 ? { socialLinks } : {}),
+      status: "approved",
+    };
+
+    const res = await authorizedAdminRequest(apiRoutes.influencer, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const resPayload = await getResponsePayload(res);
+
+    if (!res.ok || !isApiEnvelope(resPayload, isRecord)) {
+      return {
+        success: false,
+        error: getPayloadMessage(resPayload) || "Failed to add influencer",
+        status: res.status,
+      };
+    }
+
+    if (!resPayload.status) {
+      return {
+        success: false,
+        error: resPayload.message || "Failed to add influencer",
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error adding influencer:", error);
+    return { success: false, error: "Failed to add influencer" };
+  }
 }
 
 export async function getInfluencerById(

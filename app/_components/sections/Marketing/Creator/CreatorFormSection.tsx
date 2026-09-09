@@ -29,6 +29,7 @@ export interface CreatorFormSectionProps {
   sidebarTitle?: string;
   sidebarDescription?: string;
   sidebarQuote?: string;
+  isArtistForm?: boolean;
   submitButtonText?: string;
   submittingButtonText?: string;
   successTitle?: string;
@@ -41,6 +42,7 @@ export default function CreatorFormSection({
   sidebarTitle = "Your Talent Can\nInspire Millions",
   sidebarDescription = "Join Bharat Bhakti Sangam and let your art become a medium of devotion.",
   sidebarQuote = "Where talent meets devotion, memories are created for life.",
+  isArtistForm = false,
   submitButtonText = "Submit Application",
   submittingButtonText = "Submitting Application...",
   successTitle = "Application Submitted!",
@@ -63,6 +65,7 @@ export default function CreatorFormSection({
     mode: "onTouched",
     reValidateMode: "onChange",
     defaultValues: {
+      artistName: "",
       profilePicture: "",
       firstName: "",
       lastName: "",
@@ -312,8 +315,32 @@ export default function CreatorFormSection({
                       />
                     </div>
 
-                    {/* First Name, Last Name, Gender (Right Column) */}
+                    {/* Personal & Stage Name Info (Right Column) */}
                     <div className="md:col-span-6 flex flex-col justify-between gap-2.5 sm:gap-3">
+                      {/* Artist / Stage Name (Only displayed when isArtistForm is true, e.g. on /artist) */}
+                      {isArtistForm && (
+                        <div className="w-full">
+                          <div className="flex items-center justify-between mb-1">
+                            <label htmlFor="artistName" className={clsx(labelClass, "mb-0")}>
+                              Artist / Stage Name
+                            </label>
+                            <span className="text-[10px] text-stone-400 font-normal">Optional</span>
+                          </div>
+                          <input
+                            id="artistName"
+                            type="text"
+                            placeholder="e.g. Dance India, Pt. Hariprasad, or Band Name"
+                            {...register("artistName")}
+                            className={inputClass(!!errors.artistName)}
+                          />
+                          {errors.artistName && (
+                            <p className="text-[10.5px] text-red-500 font-medium mt-1">
+                              {errors.artistName.message}
+                            </p>
+                          )}
+                        </div>
+                      )}
+
                       {/* First Name */}
                       <div className="w-full">
                         <label htmlFor="firstName" className={labelClass}>

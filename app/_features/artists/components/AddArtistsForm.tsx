@@ -103,24 +103,21 @@ export default function AddArtistsForm({
         <FormTagsField
           name="instruments"
           control={control}
-          label="Instruments"
-          required
+          label="Instruments (Optional)"
         />
 
         <Field
-          label="Start Time"
+          label="Start Time (Optional)"
           type="time"
           error={errors.startTime?.message as string}
           {...register("startTime")}
-          required
         />
 
         <Field
-          label="End Time"
+          label="End Time (Optional)"
           type="time"
           error={errors.endTime?.message as string}
           {...register("endTime")}
-          required
         />
       </div>
       <div className="grid grid-cols-2 gap-6">
