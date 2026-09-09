@@ -25,18 +25,13 @@ export default function AdminEventCategoriesPage() {
   const handleUpdateEventCategory = useCallback(
     async (categoryId: string, status: boolean) => {
       try {
-        await toast.promise(
-          updateCategoryStatus(categoryId, status),
-          {
-            pending: status
-              ? "Disabling category..."
-              : "Enabling category...",
-            success: status
-              ? "Category disabled successfully!"
-              : "Category enabled successfully!",
-            error: "Failed to update category status.",
-          },
-        );
+        await toast.promise(updateCategoryStatus(categoryId, status), {
+          pending: status ? "Disabling category..." : "Enabling category...",
+          success: status
+            ? "Category disabled successfully!"
+            : "Category enabled successfully!",
+          error: "Failed to update category status.",
+        });
 
         await queryClient.invalidateQueries({
           queryKey: getTableQueryKeyPrefix([ALL_CATEGORIES]),
@@ -52,7 +47,7 @@ export default function AdminEventCategoriesPage() {
     () => (
       <button
         type="button"
-        className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#740E0A] via-[#85130E] to-[#630B08] px-6 py-2.5 text-sm font-medium text-white shadow-sm shadow-primary/25 hover:brightness-110 hover:shadow-md hover:shadow-primary/35 transition-all duration-200 active:scale-[0.98] cursor-pointer border border-[#8a1914]"
+        className="inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-[#740E0A] via-[#85130E] to-[#630B08] px-6 py-2.5 text-sm font-medium text-white shadow-sm shadow-primary/25 hover:brightness-110 hover:shadow-md hover:shadow-primary/35 transition-all duration-200 active:scale-[0.98] cursor-pointer border border-[#8a1914]"
         onClick={handleAddEventCategory}
       >
         <Plus size={16} />
