@@ -21,6 +21,7 @@ export function Marquee({
   direction = "left",
   pauseOnHover = true,
   pauseOnTouch = true,
+  fadeEdges = false,
   className,
   trackClassName,
 }: MarqueeProps) {
@@ -102,7 +103,8 @@ export function Marquee({
     return (
       <div
         className={clsx(
-          "overflow-x-auto bg-primary text-white w-full",
+          "overflow-x-auto text-white w-full",
+          !className?.includes("bg-") && "bg-primary",
           className,
         )}
       >
@@ -118,7 +120,21 @@ export function Marquee({
   return (
     <div
       ref={wrapperRef}
-      className={clsx("relative overflow-hidden bg-primary w-full", className)}
+      className={clsx(
+        "relative overflow-hidden w-full",
+        !className?.includes("bg-") && "bg-primary",
+        className,
+      )}
+      style={
+        fadeEdges
+          ? {
+              maskImage:
+                "linear-gradient(to right, transparent, black 48px, black calc(100% - 48px), transparent)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, black 48px, black calc(100% - 48px), transparent)",
+            }
+          : undefined
+      }
       onMouseEnter={() => pauseOnHover && setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={() => pauseOnTouch && setPaused(true)}

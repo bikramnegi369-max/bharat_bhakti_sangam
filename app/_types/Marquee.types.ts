@@ -45,4 +45,9 @@ export interface MarqueeProps {
    * Moving track class
    */
   trackClassName?: string;
+
+  /**
+   * Render subtle gradient fade mask at the edges
+   */
+  fadeEdges?: boolean;
 }

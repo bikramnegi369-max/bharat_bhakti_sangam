@@ -106,7 +106,8 @@ export default function NavbarMobileMenu({
             const isActive =
               link.href === "/"
                 ? pathname === "/"
-                : pathname === link.href || pathname.startsWith(link.href + "/");
+                : pathname === link.href ||
+                  pathname.startsWith(link.href + "/");
 
             if (link.href === "/famous-temples") {
               return (
@@ -169,7 +170,8 @@ export default function NavbarMobileMenu({
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
-                  : pathname === link.href || pathname.startsWith(link.href + "/");
+                  : pathname === link.href ||
+                    pathname.startsWith(link.href + "/");
               return (
                 <Link
                   key={link.href}
