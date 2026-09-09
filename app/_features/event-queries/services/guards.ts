@@ -4,11 +4,17 @@ import { EventQuery } from "@/_types/EventQuery.types";
 export function isEventQuery(value: unknown): value is EventQuery {
   if (!isRecord(value)) return false;
 
+  const hasValidSubject =
+    value.subject === undefined ||
+    value.subject === null ||
+    typeof value.subject === "string";
+
   return (
     typeof value._id === "string" &&
     typeof value.name === "string" &&
     typeof value.email === "string" &&
     typeof value.contact === "string" &&
+    hasValidSubject &&
     typeof value.query === "string"
   );
 }

@@ -3,5 +3,6 @@ export interface EventQuery {
   name: string;
   email: string;
   contact: string;
+  subject?: string;
   query: string;
 }

@@ -16,6 +16,11 @@ export const EventQueryColumns = [
     header: "Contact",
     accessorFn: (row) => row.contact || "N/A",
   }),
+  c("subject", {
+    header: "Subject",
+    accessorFn: (row) => row.subject || "N/A",
+    minSize: 160,
+  }),
   c("query", {
     header: "Query",
     accessorFn: (row) => row.query || "N/A",
