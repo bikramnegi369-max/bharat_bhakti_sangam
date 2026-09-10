@@ -63,7 +63,13 @@ export default function StatusDownloadModal({
     } catch {
       setIsLiked(false);
     }
-  }, [status?._id, status?.likes, status?.likesCount, status?.downloadsCount]);
+  }, [
+    status?._id,
+    status?.likes,
+    status?.likesCount,
+    status?.downloadsCount,
+    status,
+  ]);
 
   if (!status) return null;
 
@@ -194,12 +200,18 @@ export default function StatusDownloadModal({
 
   const handleShareWhatsApp = async () => {
     const shareUrl = getShareUrl();
-    const tagText = status.tags.length > 0 ? status.tags.map((t) => `#${t}`).join(" ") : "Bhakti";
+    const tagText =
+      status.tags.length > 0
+        ? status.tags.map((t) => `#${t}`).join(" ")
+        : "Bhakti";
     const shareTitle = `${tagText} Devotional Status Video`;
     const shareMessage = `Watch & download this sacred ${tagText} Status Video on Bharat Bhakti Sangam:\n${shareUrl}`;
 
     // Prefer native Web Share API on mobile (opens WhatsApp / Instagram directly)
-    if (navigator.share && navigator.canShare?.({ title: shareTitle, url: shareUrl })) {
+    if (
+      navigator.share &&
+      navigator.canShare?.({ title: shareTitle, url: shareUrl })
+    ) {
       try {
         await navigator.share({
           title: shareTitle,
@@ -335,7 +347,10 @@ export default function StatusDownloadModal({
               >
                 {isDownloading ? (
                   <>
-                    <Loader2 size={18} className="animate-spin text-amber-300" />
+                    <Loader2
+                      size={18}
+                      className="animate-spin text-amber-300"
+                    />
                     <span>Preparing Download ({downloadProgress}%)...</span>
                   </>
                 ) : (
@@ -355,7 +370,9 @@ export default function StatusDownloadModal({
               <button
                 type="button"
                 onClick={handleToggleLike}
-                aria-label={isLiked ? "Unlike status video" : "Like status video"}
+                aria-label={
+                  isLiked ? "Unlike status video" : "Like status video"
+                }
                 title={isLiked ? "Unlike" : "Like this status"}
                 className={clsx(
                   "flex items-center justify-center gap-2 py-3.5 px-4.5 rounded-xl font-bold text-sm transition-all duration-300 cursor-pointer border select-none shrink-0 shadow-lg",

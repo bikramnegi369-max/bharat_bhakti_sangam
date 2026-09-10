@@ -19,7 +19,10 @@ import {
 import { STATUS_PRESET_TAGS } from "@/_lib/constants/status.constants";
 import StatusCard from "./StatusCard";
 import StatusDownloadModal from "./StatusDownloadModal";
-import { getStatusList, getStatusById } from "@/_features/status/services/status.service";
+import {
+  getStatusList,
+  getStatusById,
+} from "@/_features/status/services/status.service";
 import clsx from "clsx";
 
 interface StatusGalleryProps {
@@ -48,7 +51,9 @@ export default function StatusGallery({
       // Find in existing list first
       const found = data.items.find((item) => item._id === idParam);
       if (found) {
-        setSelectedStatus(found);
+        queueMicrotask(() => {
+          setSelectedStatus(found);
+        });
       } else {
         // Fetch from API directly if not in initial page
         getStatusById(idParam).then((res) => {
@@ -58,7 +63,7 @@ export default function StatusGallery({
         });
       }
     }
-  }, [searchParams]);
+  }, [data.items, searchParams, selectedStatus]);
 
   // Synchronize URL query parameter when modal opens or closes
   const handleOpenStatusModal = (status: StatusItem) => {
@@ -288,8 +293,12 @@ export default function StatusGallery({
       {data.totalPages > 1 && (
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-stone-200 text-xs text-stone-500">
           <div>
-            Showing page <span className="font-semibold text-stone-800">{data.page}</span> of{" "}
-            <span className="font-semibold text-stone-800">{data.totalPages}</span> ({data.total} videos)
+            Showing page{" "}
+            <span className="font-semibold text-stone-800">{data.page}</span> of{" "}
+            <span className="font-semibold text-stone-800">
+              {data.totalPages}
+            </span>{" "}
+            ({data.total} videos)
           </div>
 
           <div className="flex items-center gap-1.5">
