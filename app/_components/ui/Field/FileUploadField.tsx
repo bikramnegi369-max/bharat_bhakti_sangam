@@ -8,7 +8,7 @@ import {
   uploadImageToCloudinary,
   deleteFromCloudinary,
 } from "@/_services/upload.service";
-import { deleteImageByPublicId } from "@/_services/cloudinary.service";
+import { deleteAssetByPublicId } from "@/_services/cloudinary.service";
 import Image from "next/image";
 import { getLabelStyles } from "./Field.styles";
 import { extractPublicIdFromUrl } from "@/_lib/helpers";
@@ -54,8 +54,8 @@ export function FileUploadField<
   } = useController({ name, control });
 
   // Capture the initial value once it is available (for Edit Mode)
-  if (initialValueRef.current === null && value) {
-    initialValueRef.current = value as string;
+  if (initialValueRef.current === null && typeof value === "string" && value.trim() !== "") {
+    initialValueRef.current = value;
   }
 
   // The value is expected to be the secure_url string
@@ -82,13 +82,8 @@ export function FileUploadField<
         console.error,
       );
     }
-    // 2. Or delete initial image if we are replacing it for the first time
-    else if (value && value === initialValueRef.current) {
-      const publicId = extractPublicIdFromUrl(value as string);
-      if (publicId) {
-        deleteImageByPublicId(publicId).catch(console.error);
-      }
-    }
+    // Note: If replacing an existing DB image, do NOT delete it from Cloudinary yet.
+    // It should only be deleted after the update transaction is successfully submitted.
 
     try {
       setIsUploading(true);
@@ -111,19 +106,15 @@ export function FileUploadField<
     e.preventDefault();
     e.stopPropagation();
 
-    // Delete from Cloudinary using session token
+    // Delete from Cloudinary using session token if uploaded in this session
     if (deleteData) {
       deleteFromCloudinary(deleteData.token, deleteData.cloudName).catch(
         console.error,
       );
     }
-    // Or delete initial data via backend if no session token exists
-    else if (value && value === initialValueRef.current) {
-      const publicId = extractPublicIdFromUrl(value as string);
-      if (publicId) {
-        deleteImageByPublicId(publicId).catch(console.error);
-      }
-    }
+    // Note: Do NOT delete existing committed database asset here.
+    // If the user cancels the form, the DB still references this file.
+    // Cleanup of replaced/removed existing assets occurs after form submission.
 
     onChange("");
     setDeleteData(null);
@@ -132,23 +123,24 @@ export function FileUploadField<
 
   return (
     <div className={clsx("flex flex-col gap-2 w-full", className)}>
+      <label
+        className={getLabelStyles({
+          error,
+          className: labelClassName,
+        })}
+      >
+        {label}
+        {required && <span className="text-red-500 ml-0.5">*</span>}
+      </label>
+
       <div
         onClick={() => !isUploading && fileInputRef.current?.click()}
         className={clsx(
-          "relative group cursor-pointer border-2 border-dashed rounded-xl transition-all duration-200 min-h-48 flex flex-col items-center justify-center p-4",
-          error ? "border-red-300 " : "border-slate-200 hover:border-primary ",
+          "relative group cursor-pointer border-2 border-dashed rounded-xl transition-all duration-200 min-h-48 flex flex-col items-center justify-center p-4 bg-slate-50/50 hover:bg-slate-50",
+          error ? "border-red-300 bg-red-50/10" : "border-slate-200 hover:border-primary",
           isUploading && "opacity-70 cursor-wait",
         )}
       >
-        <label
-          className={getLabelStyles({
-            error,
-            className: labelClassName,
-          })}
-        >
-          {label}
-          {required && <span className="text-red-500">*</span>}
-        </label>
         <input
           type="file"
           ref={fileInputRef}
@@ -168,8 +160,10 @@ export function FileUploadField<
               className="max-h-48 w-auto rounded-lg shadow-sm object-contain bg-slate-100"
             />
             <button
+              type="button"
               onClick={handleRemove}
-              className="absolute -top-2 -right-2 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-colors cursor-pointer"
+              className="absolute -top-2 -right-2 bg-rose-600 text-white p-1.5 rounded-full shadow-lg hover:bg-rose-700 transition-colors cursor-pointer z-10"
+              title="Remove Image"
             >
               <X size={16} />
             </button>

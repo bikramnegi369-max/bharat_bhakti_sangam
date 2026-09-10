@@ -14,7 +14,7 @@ import {
   Volume2,
   VolumeX,
 } from "lucide-react";
-import { incrementDownload } from "@/_services/status.service";
+import { incrementDownload } from "@/_features/status/services/status.service";
 import { toast } from "react-toastify";
 
 interface StatusDownloadModalProps {

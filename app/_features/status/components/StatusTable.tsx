@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { DataTable } from "@/_components/common/table/DataTable";
 import { getStatusColumns } from "./StatusColumnsDef";
 import { TableConfig } from "@/_types/Table.types";
-import { getStatusList } from "@/_services/status.service";
+import { getStatusList } from "@/_features/status/services/status.service";
 import { ALL_STATUSES } from "@/_lib/constants/status.constants";
 import { StatusItem } from "@/_types/Status.types";
 
@@ -32,7 +32,11 @@ export const StatusTable = ({
       },
       queryKeyPrefix: [ALL_STATUSES],
       filters: [
-        { type: "search", key: "search", placeholder: "Search by tag (e.g. shiva, krishna)" },
+        {
+          type: "search",
+          key: "search",
+          placeholder: "Search by tag (e.g. shiva, krishna)",
+        },
       ],
       filterAction,
       renderActions,

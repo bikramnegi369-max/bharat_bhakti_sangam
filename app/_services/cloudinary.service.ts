@@ -66,13 +66,19 @@ export async function getCloudinarySignature(): Promise<
   }
 }
 
-export async function deleteImageByPublicId(
+export type CloudinaryResourceType = "image" | "video" | "raw";
+
+export async function deleteAssetByPublicId(
   publicId: string,
+  resourceType: CloudinaryResourceType = "image",
 ): Promise<APIResponse> {
   try {
     const res = await authorizedAdminRequest(apiRoutes.preSignedUrl, {
       method: "DELETE",
-      body: JSON.stringify({ public_id: publicId }),
+      body: JSON.stringify({
+        public_id: publicId,
+        resource_type: resourceType,
+      }),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -84,7 +90,7 @@ export async function deleteImageByPublicId(
     if (!res.ok || !isApiEnvelope(payload, isRecord)) {
       return {
         success: false,
-        error: getPayloadMessage(payload) || "Failed to delete image",
+        error: getPayloadMessage(payload) || "Failed to delete asset",
         status: res.status,
       };
     }
@@ -92,7 +98,7 @@ export async function deleteImageByPublicId(
     if (!payload.status) {
       return {
         success: false,
-        error: payload.message || "Failed to delete image",
+        error: payload.message || "Failed to delete asset",
       };
     }
 
@@ -104,4 +110,13 @@ export async function deleteImageByPublicId(
       error: "An unexpected error occurred while deleting",
     };
   }
+}
+
+/**
+ * Backward compatibility alias for deleting images.
+ */
+export async function deleteImageByPublicId(
+  publicId: string,
+): Promise<APIResponse> {
+  return deleteAssetByPublicId(publicId, "image");
 }

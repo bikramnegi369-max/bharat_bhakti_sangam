@@ -18,7 +18,7 @@ import {
 import { STATUS_PRESET_TAGS } from "@/_lib/constants/status.constants";
 import StatusCard from "./StatusCard";
 import StatusDownloadModal from "./StatusDownloadModal";
-import { getStatusList } from "@/_services/status.service";
+import { getStatusList } from "@/_features/status/services/status.service";
 import clsx from "clsx";
 
 interface StatusGalleryProps {
@@ -112,7 +112,10 @@ export default function StatusGallery({ initialData }: StatusGalleryProps) {
         {/* Sort & Reset Actions (Full width on mobile or inline with search) */}
         <div className="flex items-center gap-2 w-full sm:w-auto shrink-0 justify-end">
           <div className="relative flex-1 sm:flex-initial flex items-center h-12 sm:h-13 bg-white rounded-full border border-stone-200 px-4 sm:px-5 shadow-xs">
-            <SlidersHorizontal size={15} className="text-stone-400 mr-2 shrink-0" />
+            <SlidersHorizontal
+              size={15}
+              className="text-stone-400 mr-2 shrink-0"
+            />
             <label
               htmlFor="sort-select"
               className="text-xs sm:text-sm text-stone-500 mr-2 font-medium whitespace-nowrap"
@@ -163,7 +166,9 @@ export default function StatusGallery({ initialData }: StatusGalleryProps) {
                 )}
               >
                 {tag.icon && (
-                  <span className="text-xs sm:text-sm leading-none">{tag.icon}</span>
+                  <span className="text-xs sm:text-sm leading-none">
+                    {tag.icon}
+                  </span>
                 )}
                 <span>{tag.label}</span>
               </button>

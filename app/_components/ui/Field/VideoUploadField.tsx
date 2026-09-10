@@ -9,9 +9,7 @@ import {
   uploadVideoToCloudinary,
   deleteFromCloudinary,
 } from "@/_services/upload.service";
-import { deleteImageByPublicId } from "@/_services/cloudinary.service";
 import { getLabelStyles } from "./Field.styles";
-import { extractPublicIdFromUrl } from "@/_lib/helpers";
 
 interface VideoUploadFieldProps<
   T extends FieldValues,
@@ -55,8 +53,13 @@ export function VideoUploadField<
     field: { value, onChange },
   } = useController({ name, control });
 
-  if (initialValueRef.current === null && value) {
-    initialValueRef.current = value as string;
+  // Capture the initial value once it is available (handles edit mode async reset)
+  if (
+    initialValueRef.current === null &&
+    typeof value === "string" &&
+    value.trim() !== ""
+  ) {
+    initialValueRef.current = value;
   }
 
   const videoUrl = value as string | undefined;
@@ -75,16 +78,14 @@ export function VideoUploadField<
       return;
     }
 
+    // 1. Delete ephemeral video uploaded in this session (ephemeral token)
     if (deleteData) {
       deleteFromCloudinary(deleteData.token, deleteData.cloudName).catch(
         console.error,
       );
-    } else if (value && value === initialValueRef.current) {
-      const publicId = extractPublicIdFromUrl(value as string);
-      if (publicId) {
-        deleteImageByPublicId(publicId).catch(console.error);
-      }
     }
+    // Note: If replacing an existing DB video, do NOT delete it from Cloudinary yet.
+    // It should only be deleted after the update transaction is successfully submitted.
 
     try {
       setIsUploading(true);
@@ -108,16 +109,15 @@ export function VideoUploadField<
     e.preventDefault();
     e.stopPropagation();
 
+    // 1. Delete from Cloudinary using session delete token if uploaded in this session
     if (deleteData) {
       deleteFromCloudinary(deleteData.token, deleteData.cloudName).catch(
         console.error,
       );
-    } else if (value && value === initialValueRef.current) {
-      const publicId = extractPublicIdFromUrl(value as string);
-      if (publicId) {
-        deleteImageByPublicId(publicId).catch(console.error);
-      }
     }
+    // Note: Do NOT delete existing committed database asset here.
+    // If the user cancels the form, the DB still references this file.
+    // Cleanup of replaced/removed existing assets occurs after form submission.
 
     onChange("");
     setDeleteData(null);

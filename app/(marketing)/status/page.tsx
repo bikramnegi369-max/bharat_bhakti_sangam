@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import StatusHero from "@/_features/status/components/StatusHero";
 import StatusGallery from "@/_features/status/components/StatusGallery";
-import { getStatusList } from "@/_services/status.service";
+import { getStatusList } from "@/_features/status/services/status.service";
 
 export const metadata: Metadata = {
-  title: "Bhakti Status Videos | Download 9:16 WhatsApp & Instagram Devotional Reels",
+  title:
+    "Bhakti Status Videos | Download 9:16 WhatsApp & Instagram Devotional Reels",
   description:
     "Explore and download high quality devotional bhakti status videos, mantras, aartis, bhajans, Shiva, Krishna, Ram and Hanuman vertical reels for social media status.",
   openGraph: {
@@ -24,15 +25,16 @@ export default async function BhaktiStatusPage() {
     sortBy: "latest",
   });
 
-  const initialData = statusRes.success && statusRes.data
-    ? statusRes.data
-    : {
-        items: [],
-        total: 0,
-        page: 1,
-        limit: 10,
-        totalPages: 1,
-      };
+  const initialData =
+    statusRes.success && statusRes.data
+      ? statusRes.data
+      : {
+          items: [],
+          total: 0,
+          page: 1,
+          limit: 10,
+          totalPages: 1,
+        };
 
   return (
     <div className="min-h-screen bg-[#FCFAF5] pb-24">
@@ -46,5 +48,3 @@ export default async function BhaktiStatusPage() {
     </div>
   );
 }
-
-

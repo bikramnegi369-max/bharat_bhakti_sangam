@@ -86,31 +86,33 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
   );
 
   const hasRows = tableData.items.length > 0;
-  const exportOptions =
-    config.exportOptions === false || config.exportOptions?.enabled === false
-      ? undefined
-      : (config.exportOptions ?? {});
-  const exportAction = exportOptions ? (
-    <TableExportButton
-      columns={config.columns}
-      service={config.service}
-      filters={controller.filters}
-      sorting={controller.sorting}
-      queryKeyPrefix={config.queryKeyPrefix}
-      exportOptions={exportOptions}
-      disabled={tableData.total === 0}
-    />
-  ) : null;
-
   const showRefreshButton = config.refreshButton !== false;
-  const refreshAction = showRefreshButton ? (
-    <TableRefreshButton
-      onRefresh={controller.refetch}
-      isFetching={controller.isFetching}
-    />
-  ) : null;
 
   const tableActions = useMemo(() => {
+    const exportOptions =
+      config.exportOptions === false || config.exportOptions?.enabled === false
+        ? undefined
+        : (config.exportOptions ?? {});
+
+    const exportAction = exportOptions ? (
+      <TableExportButton
+        columns={config.columns}
+        service={config.service}
+        filters={controller.filters}
+        sorting={controller.sorting}
+        queryKeyPrefix={config.queryKeyPrefix}
+        exportOptions={exportOptions}
+        disabled={tableData.total === 0}
+      />
+    ) : null;
+
+    const refreshAction = showRefreshButton ? (
+      <TableRefreshButton
+        onRefresh={controller.refetch}
+        isFetching={controller.isFetching}
+      />
+    ) : null;
+
     if (!config.filterAction && !exportAction && !refreshAction) {
       return null;
     }
@@ -122,7 +124,19 @@ export function DataTable<T extends RowData>({ config }: Props<T>) {
         {refreshAction}
       </div>
     );
-  }, [config.filterAction, exportAction, refreshAction]);
+  }, [
+    config.exportOptions,
+    config.filterAction,
+    config.columns,
+    config.service,
+    config.queryKeyPrefix,
+    controller.filters,
+    controller.sorting,
+    controller.refetch,
+    controller.isFetching,
+    showRefreshButton,
+    tableData.total,
+  ]);
 
   const table = useDataTable(tableController, config.columns);
   const hasFixedWidthColumns = table

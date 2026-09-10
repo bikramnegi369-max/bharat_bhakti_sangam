@@ -9,7 +9,7 @@ import {
   uploadImageToCloudinary,
   deleteFromCloudinary,
 } from "@/_services/upload.service";
-import { deleteImageByPublicId } from "@/_services/cloudinary.service";
+import { deleteAssetByPublicId } from "@/_services/cloudinary.service";
 import { extractPublicIdFromUrl } from "@/_lib/helpers";
 import { poppins } from "@/_lib/fonts";
 
@@ -23,6 +23,8 @@ export interface ProfilePictureUploadProps<
   error?: string;
   required?: boolean;
   className?: string;
+  helperText?: string;
+  labelClassName?: string;
 }
 
 export function ProfilePictureUpload<
@@ -35,6 +37,8 @@ export function ProfilePictureUpload<
   error,
   required = true,
   className,
+  helperText = "Upload your profile picture (JPG, PNG, WebP). Max 5MB.",
+  labelClassName,
 }: ProfilePictureUploadProps<T, TTransformedValues>) {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -49,8 +53,8 @@ export function ProfilePictureUpload<
     field: { value, onChange },
   } = useController({ name, control });
 
-  if (initialValueRef.current === null && value) {
-    initialValueRef.current = value as string;
+  if (initialValueRef.current === null && typeof value === "string" && value.trim() !== "") {
+    initialValueRef.current = value;
   }
 
   const previewUrl = value as string | undefined;
@@ -73,10 +77,10 @@ export function ProfilePictureUpload<
       deleteFromCloudinary(deleteData.token, deleteData.cloudName).catch(
         console.error,
       );
-    } else if (value && value === initialValueRef.current) {
-      const publicId = extractPublicIdFromUrl(value as string);
+    } else if (value && typeof value === "string") {
+      const publicId = extractPublicIdFromUrl(value);
       if (publicId) {
-        deleteImageByPublicId(publicId).catch(console.error);
+        deleteAssetByPublicId(publicId, "image").catch(console.error);
       }
     }
 
@@ -104,10 +108,10 @@ export function ProfilePictureUpload<
       deleteFromCloudinary(deleteData.token, deleteData.cloudName).catch(
         console.error,
       );
-    } else if (value && value === initialValueRef.current) {
-      const publicId = extractPublicIdFromUrl(value as string);
+    } else if (value && typeof value === "string") {
+      const publicId = extractPublicIdFromUrl(value);
       if (publicId) {
-        deleteImageByPublicId(publicId).catch(console.error);
+        deleteAssetByPublicId(publicId, "image").catch(console.error);
       }
     }
 

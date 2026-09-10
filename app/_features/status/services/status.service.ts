@@ -221,19 +221,26 @@ export async function updateStatus(
     ? data.tags.map((t) => t.trim().toLowerCase()).filter(Boolean)
     : undefined;
 
+  // Fallback: If custom poster/thumbnail is empty or not provided, auto-generate poster from videoUrl (.jpg)
+  const resolvedThumbnailUrl =
+    data.thumbnailUrl && data.thumbnailUrl.trim() !== ""
+      ? data.thumbnailUrl
+      : data.videoUrl
+        ? data.videoUrl.replace(/\.[^/.]+$/, ".jpg")
+        : undefined;
+
   try {
     const res = await authorizedAdminRequest(apiRoutes.statusById(id), {
       method: "PUT",
       body: JSON.stringify({
         ...(data.videoUrl ? { videoUrl: data.videoUrl } : {}),
-        ...(data.thumbnailUrl ? { thumbnailUrl: data.thumbnailUrl } : {}),
+        ...(resolvedThumbnailUrl !== undefined ? { thumbnailUrl: resolvedThumbnailUrl } : {}),
         ...(cleanedTags ? { tags: cleanedTags } : {}),
       }),
       headers: { "Content-Type": "application/json" },
     });
-
+    
     const payload = await getResponsePayload(res);
-
     if (!res.ok) {
       return {
         success: false,

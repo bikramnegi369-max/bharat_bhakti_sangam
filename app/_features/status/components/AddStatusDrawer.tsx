@@ -10,10 +10,12 @@ import {
   addStatus,
   getStatusById,
   updateStatus,
-} from "@/_services/status.service";
+} from "@/_features/status/services/status.service";
 import DrawerHeader from "@/_components/common/DrawerHeader";
 import AddStatusForm from "./AddStatusForm";
 import { StatusFormData } from "@/_schemas/Status.schema";
+import { extractPublicIdFromUrl } from "@/_lib/helpers";
+import { deleteAssetByPublicId } from "@/_services/cloudinary.service";
 
 interface AddStatusDrawerProps {
   mode?: "create" | "edit";
@@ -58,10 +60,37 @@ export default function AddStatusDrawer({
             throw new Error(result.error || `Failed to ${mode} status.`);
           }
 
+          // Transaction succeeded: Now safe to clean up replaced/removed assets on Cloudinary
+          if (isEditMode && initialData) {
+            // 1. If video was changed or removed, clean up old video
+            if (
+              initialData.videoUrl &&
+              formData.videoUrl !== initialData.videoUrl
+            ) {
+              const oldVideoPublicId = extractPublicIdFromUrl(initialData.videoUrl);
+              if (oldVideoPublicId) {
+                deleteAssetByPublicId(oldVideoPublicId, "video").catch(console.error);
+              }
+            }
+
+            // 2. If thumbnail was changed or removed, clean up old thumbnail
+            if (
+              initialData.thumbnailUrl &&
+              formData.thumbnailUrl !== initialData.thumbnailUrl
+            ) {
+              const oldThumbPublicId = extractPublicIdFromUrl(initialData.thumbnailUrl);
+              if (oldThumbPublicId) {
+                deleteAssetByPublicId(oldThumbPublicId, "image").catch(console.error);
+              }
+            }
+          }
+
           return result;
         })(),
         {
-          pending: isEditMode ? "Updating status..." : "Publishing status video...",
+          pending: isEditMode
+            ? "Updating status..."
+            : "Publishing status video...",
           success: isEditMode
             ? "Status updated successfully!"
             : "Status created successfully!",

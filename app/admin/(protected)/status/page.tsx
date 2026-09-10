@@ -8,7 +8,7 @@ import ActionMenu, { ActionMenuItem } from "@/_components/common/ActionMenu";
 import { StatusTable } from "@/_features/status/components/StatusTable";
 import AddStatusDrawer from "@/_features/status/components/AddStatusDrawer";
 import StatusVideoPreviewModal from "@/_features/status/components/StatusVideoPreviewModal";
-import { deleteStatus } from "@/_services/status.service";
+import { deleteStatus } from "@/_features/status/services/status.service";
 import { ALL_STATUSES } from "@/_lib/constants/status.constants";
 import { useUI } from "@/providers/UIProvider";
 import { getTableQueryKeyPrefix } from "@/_utils/queryKey";
