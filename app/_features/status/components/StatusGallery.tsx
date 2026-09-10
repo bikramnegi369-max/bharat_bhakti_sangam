@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Search,
   RotateCcw,
@@ -18,20 +19,65 @@ import {
 import { STATUS_PRESET_TAGS } from "@/_lib/constants/status.constants";
 import StatusCard from "./StatusCard";
 import StatusDownloadModal from "./StatusDownloadModal";
-import { getStatusList } from "@/_features/status/services/status.service";
+import { getStatusList, getStatusById } from "@/_features/status/services/status.service";
 import clsx from "clsx";
 
 interface StatusGalleryProps {
   initialData: StatusListResponseData;
+  initialSelectedStatus?: StatusItem | null;
 }
 
-export default function StatusGallery({ initialData }: StatusGalleryProps) {
+export default function StatusGallery({
+  initialData,
+  initialSelectedStatus = null,
+}: StatusGalleryProps) {
+  const searchParams = useSearchParams();
   const [data, setData] = useState<StatusListResponseData>(initialData);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTag, setActiveTag] = useState("all");
   const [sortBy, setSortBy] = useState<StatusSortOption>("latest");
-  const [selectedStatus, setSelectedStatus] = useState<StatusItem | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<StatusItem | null>(
+    initialSelectedStatus,
+  );
   const [isPending, startTransition] = useTransition();
+
+  // Deep-link: If URL has ?id=..., automatically open the modal for that status
+  useEffect(() => {
+    const idParam = searchParams.get("id");
+    if (idParam && !selectedStatus) {
+      // Find in existing list first
+      const found = data.items.find((item) => item._id === idParam);
+      if (found) {
+        setSelectedStatus(found);
+      } else {
+        // Fetch from API directly if not in initial page
+        getStatusById(idParam).then((res) => {
+          if (res.success && res.data) {
+            setSelectedStatus(res.data);
+          }
+        });
+      }
+    }
+  }, [searchParams]);
+
+  // Synchronize URL query parameter when modal opens or closes
+  const handleOpenStatusModal = (status: StatusItem) => {
+    setSelectedStatus(status);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("id", status._id);
+      window.history.replaceState(null, "", url.toString());
+    }
+  };
+
+  const handleCloseStatusModal = () => {
+    setSelectedStatus(null);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("id");
+      window.history.replaceState(null, "", url.toString());
+    }
+  };
 
   const fetchUpdatedList = (
     nextPage: number,
@@ -80,6 +126,19 @@ export default function StatusGallery({ initialData }: StatusGalleryProps) {
   const handlePageChange = (newPage: number) => {
     fetchUpdatedList(newPage, activeTag, searchQuery, sortBy);
     window.scrollTo({ top: 350, behavior: "smooth" });
+  };
+
+  // Keep item in gallery state updated when liked or downloaded in card or modal
+  const handleStatusUpdated = (updated: StatusItem) => {
+    setData((prev) => ({
+      ...prev,
+      items: prev.items.map((item) =>
+        item._id === updated._id ? { ...item, ...updated } : item,
+      ),
+    }));
+    if (selectedStatus && selectedStatus._id === updated._id) {
+      setSelectedStatus((prev) => (prev ? { ...prev, ...updated } : null));
+    }
   };
 
   return (
@@ -139,18 +198,18 @@ export default function StatusGallery({ initialData }: StatusGalleryProps) {
             <button
               type="button"
               onClick={handleResetFilters}
-              title="Reset all filters"
-              className="w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 flex items-center justify-center shadow-xs transition-colors cursor-pointer shrink-0"
+              className="flex items-center gap-1.5 px-3 sm:px-4 h-12 sm:h-13 rounded-full text-xs sm:text-sm font-semibold text-stone-600 bg-white border border-stone-200 hover:border-stone-300 hover:bg-stone-50 transition-colors cursor-pointer shadow-xs shrink-0"
             >
-              <RotateCcw size={16} />
+              <RotateCcw size={14} />
+              <span className="hidden sm:inline">Reset</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* Tag Filter Chips Bar — Perfectly centered, cleanly wrapping onto next lines without horizontal scrollbars */}
-      <div className="w-full max-w-4xl mx-auto flex justify-center px-1">
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 w-full">
+      {/* Preset Devotional Tags Bar */}
+      <div className="w-full max-w-5xl mx-auto overflow-hidden">
+        <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none px-1">
           {STATUS_PRESET_TAGS.map((tag) => {
             const isSelected = activeTag === tag.id;
             return (
@@ -196,7 +255,8 @@ export default function StatusGallery({ initialData }: StatusGalleryProps) {
               <StatusCard
                 key={item._id}
                 status={item}
-                onOpenModal={setSelectedStatus}
+                onOpenModal={handleOpenStatusModal}
+                onStatusUpdated={handleStatusUpdated}
                 priority={index < 4}
               />
             ))}
@@ -218,23 +278,19 @@ export default function StatusGallery({ initialData }: StatusGalleryProps) {
               onClick={handleResetFilters}
               className="px-5 py-2 rounded-full text-xs font-semibold text-white bg-primary hover:brightness-110 transition-all cursor-pointer shadow-sm"
             >
-              Show All Statuses
+              Reset All Filters
             </button>
           </div>
         )}
       </div>
 
-      {/* Pagination Bar */}
+      {/* Pagination Controls */}
       {data.totalPages > 1 && (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-stone-200">
-          <p className="text-xs text-stone-500">
-            Showing page{" "}
-            <span className="font-semibold text-stone-800">{data.page}</span> of{" "}
-            <span className="font-semibold text-stone-800">
-              {data.totalPages}
-            </span>{" "}
-            ({data.total} total status videos)
-          </p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-stone-200 text-xs text-stone-500">
+          <div>
+            Showing page <span className="font-semibold text-stone-800">{data.page}</span> of{" "}
+            <span className="font-semibold text-stone-800">{data.totalPages}</span> ({data.total} videos)
+          </div>
 
           <div className="flex items-center gap-1.5">
             <button
@@ -281,7 +337,8 @@ export default function StatusGallery({ initialData }: StatusGalleryProps) {
       {/* Download / Video Modal */}
       <StatusDownloadModal
         status={selectedStatus}
-        onClose={() => setSelectedStatus(null)}
+        onClose={handleCloseStatusModal}
+        onStatusUpdated={handleStatusUpdated}
         onSelectTag={(tag) => {
           setActiveTag(tag);
           fetchUpdatedList(1, tag, searchQuery, sortBy);

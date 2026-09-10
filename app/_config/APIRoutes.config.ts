@@ -67,6 +67,7 @@ export const apiRoutes = {
   status: "/status",
   statusById: (id: string) => `/status/${id}`,
   statusDownload: (id: string) => `/status/${id}/download`,
+  statusLike: (id: string) => `/status/${id}/likes`,
 };
 
 

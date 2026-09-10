@@ -1,25 +1,106 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { StatusItem } from "@/_types/Status.types";
-import { Play, Download } from "lucide-react";
+import { Play, Download, Heart } from "lucide-react";
+import { toggleLikeStatus } from "@/_features/status/services/status.service";
 import clsx from "clsx";
+
+const LIKED_STORAGE_KEY = "bbs_liked_status_ids";
 
 interface StatusCardProps {
   status: StatusItem;
   onOpenModal: (status: StatusItem) => void;
   priority?: boolean;
+  onStatusUpdated?: (updated: StatusItem) => void;
 }
 
 export default function StatusCard({
   status,
   onOpenModal,
   priority = false,
+  onStatusUpdated,
 }: StatusCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Like state management - accurately read status.likes with status.likesCount fallback
+  const currentPropLikes = status.likes ?? status.likesCount ?? 0;
+  const [likesCount, setLikesCount] = useState(currentPropLikes);
+  const [prevPropLikes, setPrevPropLikes] = useState(currentPropLikes);
+  const [isLikeAnimating, setIsLikeAnimating] = useState(false);
+
+  // Synchronize state with props during render if the parent passed new likes
+  if (prevPropLikes !== currentPropLikes) {
+    setPrevPropLikes(currentPropLikes);
+    setLikesCount(currentPropLikes);
+  }
+
+  // Subscribe to localStorage liked status using useSyncExternalStore
+  const isLiked = useSyncExternalStore(
+    (onStoreChange) => {
+      window.addEventListener("storage", onStoreChange);
+      return () => window.removeEventListener("storage", onStoreChange);
+    },
+    () => {
+      try {
+        const stored = localStorage.getItem(LIKED_STORAGE_KEY);
+        const likedIds: string[] = stored ? JSON.parse(stored) : [];
+        return likedIds.includes(status._id);
+      } catch {
+        return false;
+      }
+    },
+    () => false // Server snapshot for SSR hydration safety
+  );
+
+  const updateLocalStorageLiked = (targetId: string, shouldLike: boolean) => {
+    try {
+      const stored = localStorage.getItem(LIKED_STORAGE_KEY);
+      const likedIds: string[] = stored ? JSON.parse(stored) : [];
+      let updatedIds: string[];
+      if (shouldLike) {
+        updatedIds = Array.from(new Set([...likedIds, targetId]));
+      } else {
+        updatedIds = likedIds.filter((id) => id !== targetId);
+      }
+      localStorage.setItem(LIKED_STORAGE_KEY, JSON.stringify(updatedIds));
+      // Dispatch storage event so useSyncExternalStore listeners update in current window
+      window.dispatchEvent(new Event("storage"));
+    } catch {
+      // Ignore
+    }
+  };
+
+  const handleCardLikeToggle = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Do not trigger open modal
+    const nextLiked = !isLiked;
+    const nextCount = Math.max(0, likesCount + (nextLiked ? 1 : -1));
+
+    setLikesCount(nextCount);
+    setIsLikeAnimating(true);
+    setTimeout(() => setIsLikeAnimating(false), 450);
+
+    updateLocalStorageLiked(status._id, nextLiked);
+
+    if (onStatusUpdated) {
+      onStatusUpdated({
+        ...status,
+        likes: nextCount,
+        likesCount: nextCount,
+      });
+    }
+
+    const action = nextLiked ? "like" : "unlike";
+    const res = await toggleLikeStatus(status._id, action);
+    if (!res.success) {
+      // Revert on failure
+      updateLocalStorageLiked(status._id, !nextLiked);
+      setLikesCount(likesCount);
+    }
+  };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -46,7 +127,7 @@ export default function StatusCard({
 
   return (
     <div
-      onClick={() => onOpenModal(status)}
+      onClick={() => onOpenModal({ ...status, likesCount })}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="group relative flex flex-col w-full aspect-9/16 rounded-2xl overflow-hidden bg-stone-900 border border-amber-900/20 shadow-md hover:shadow-2xl hover:border-amber-400/50 transition-all duration-300 cursor-pointer transform-gpu hover:-translate-y-1.5 select-none"
@@ -104,6 +185,34 @@ export default function StatusCard({
         <source src={status.videoUrl} type="video/mp4" />
       </video>
 
+      {/* Top Floating Heart/Like Button */}
+      <div className="absolute top-2.5 right-2.5 z-4">
+        <button
+          type="button"
+          onClick={handleCardLikeToggle}
+          aria-label={isLiked ? "Unlike status" : "Like status"}
+          className={clsx(
+            "flex items-center gap-1 px-2.5 py-1 rounded-full backdrop-blur-md border transition-all duration-200 cursor-pointer shadow-md",
+            isLiked
+              ? "bg-rose-950/85 border-rose-500/60 text-rose-300"
+              : "bg-black/50 border-white/20 text-white/80 hover:text-white hover:bg-black/75 opacity-90 group-hover:opacity-100",
+            isLikeAnimating && "scale-120",
+          )}
+        >
+          <Heart
+            size={13}
+            className={clsx(
+              "transition-transform",
+              isLiked ? "fill-rose-500 text-rose-500" : "fill-transparent",
+              isLikeAnimating && "scale-125 animate-pulse",
+            )}
+          />
+          <span className="text-[11px] font-semibold font-mono leading-none">
+            {likesCount > 0 ? likesCount : ""}
+          </span>
+        </button>
+      </div>
+
       {/* Center Play Button Overlay */}
       <div className="absolute inset-0 z-3 flex items-center justify-center pointer-events-none">
         <div
@@ -118,7 +227,7 @@ export default function StatusCard({
         </div>
       </div>
 
-      {/* Bottom Content Bar: Tags & Downloads Count */}
+      {/* Bottom Content Bar: Tags & Downloads/Likes Count */}
       <div className="absolute bottom-0 inset-x-0 z-3 p-3.5 flex flex-col justify-end bg-linear-to-t from-black/95 via-black/70 to-transparent pt-12 pointer-events-none">
         {/* Tags row */}
         <div className="flex flex-wrap gap-1.5 mb-2">
@@ -137,14 +246,20 @@ export default function StatusCard({
           )}
         </div>
 
-        {/* Action / Download Stat bar */}
+        {/* Action / Download & Like Stat bar */}
         <div className="flex items-center justify-between text-xs text-white/80 pt-1 border-t border-white/10">
-          <span className="flex items-center gap-1 text-[11px] font-medium text-stone-300">
-            <Download size={12} className="text-amber-400" />
-            {status.downloadsCount.toLocaleString()} downloads
-          </span>
+          <div className="flex items-center gap-2.5">
+            <span className="flex items-center gap-1 text-[11px] font-medium text-stone-300">
+              <Download size={12} className="text-amber-400" />
+              {status.downloadsCount.toLocaleString()}
+            </span>
+            <span className="flex items-center gap-1 text-[11px] font-medium text-rose-300/90">
+              <Heart size={11} className={clsx("fill-current", isLiked ? "text-rose-500" : "text-rose-400")} />
+              {likesCount.toLocaleString()}
+            </span>
+          </div>
           <span className="text-[11px] text-amber-300 font-semibold group-hover:translate-x-0.5 transition-transform">
-            Download &gt;
+            Watch &gt;
           </span>
         </div>
       </div>

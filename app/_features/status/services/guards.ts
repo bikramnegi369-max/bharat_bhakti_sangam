@@ -12,6 +12,8 @@ export function isStatusItem(value: unknown): value is StatusItem {
     Array.isArray(value.tags) &&
     value.tags.every((item) => typeof item === "string") &&
     typeof value.downloadsCount === "number" &&
+    (typeof value.likes === "number" || typeof value.likes === "undefined") &&
+    (typeof value.likesCount === "number" || typeof value.likesCount === "undefined") &&
     typeof value.createdAt === "string" &&
     typeof value.updatedAt === "string"
   );

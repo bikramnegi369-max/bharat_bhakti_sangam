@@ -4,6 +4,8 @@ export interface StatusItem {
   thumbnailUrl?: string;
   tags: string[];
   downloadsCount: number;
+  likes?: number;
+  likesCount?: number;
   createdAt: string;
   updatedAt: string;
 }
