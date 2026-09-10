@@ -18,7 +18,9 @@ import {
   ListOrdered,
   UserX,
   BookmarkCheck,
+  Film,
 } from "lucide-react";
+
 
 export const NAV_ITEMS: SidebarItem[] = [
   {
@@ -125,4 +127,11 @@ export const NAV_ITEMS: SidebarItem[] = [
     href: "/admin/send-email",
     icon: <Mail size={18} />,
   },
+  {
+    id: "bhakti-status",
+    label: "Bhakti Status",
+    href: "/admin/status",
+    icon: <Film size={18} />,
+  },
 ];
+

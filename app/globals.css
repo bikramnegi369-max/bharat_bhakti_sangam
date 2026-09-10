@@ -186,32 +186,96 @@ button:active::after {
   animation: itemIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* =========================================================
+   DEVOTIONAL SACRED SCROLLBARS (Primary Maroon & Gold Theme)
+   ========================================================= */
+
+/* Global window scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #85130e #fcfaf5;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fcfaf5;
+  border-left: 1px solid rgba(116, 14, 10, 0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #740e0a 0%, #9a3412 50%, #d4af37 100%);
+  border-radius: 9999px;
+  border: 2px solid #fcfaf5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5c0b08 0%, #740e0a 50%, #b38f2a 100%);
+}
+
+/* Dark mode / Admin Sidebar / Modals scrollbar */
+.dark-scrollbar,
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  scrollbar-color: rgba(212, 175, 55, 0.4) transparent;
 }
 
+.dark-scrollbar::-webkit-scrollbar,
 .custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
+  height: 6px;
 }
 
+.dark-scrollbar::-webkit-scrollbar-track,
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 
+.dark-scrollbar::-webkit-scrollbar-thumb,
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.5) 0%, rgba(232, 106, 23, 0.6) 100%);
+  border-radius: 9999px;
 }
 
+.dark-scrollbar::-webkit-scrollbar-thumb:hover,
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.8) 0%, rgba(232, 106, 23, 0.9) 100%);
+}
+
+/* Dedicated Admin Sidebar Scrollbar */
+.admin-sidebar-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 175, 55, 0.35) transparent;
+}
+
+.admin-sidebar-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.admin-sidebar-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.4) 0%, rgba(232, 106, 23, 0.5) 100%);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+.admin-sidebar-scrollbar:hover::-webkit-scrollbar-thumb,
+.admin-sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #d4af37 0%, #e86a17 100%);
 }
 
 .dashboard-chart-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: rgba(252, 173, 51, 0.75) rgba(61, 46, 14, 0.08);
 }
+
+
 
 .dashboard-chart-scrollbar::-webkit-scrollbar {
   height: 8px;

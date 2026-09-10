@@ -4,7 +4,7 @@ import { apiRoutes } from "@/_config/APIRoutes.config";
 import { getPayloadMessage, getResponsePayload } from "@/_utils/api";
 import { isApiEnvelope, isRecord } from "@/_utils/guards";
 import { APIResponse } from "@/_types/Api.types";
-import { fetchWithTimeout } from "@/_utils/fetch";
+import { authorizedAdminRequest } from "@/_features/admin-auth/server/request";
 import { isRawCloudinarySignatureData } from "./cloudinary.guards";
 
 export interface CloudinarySignature {
@@ -19,17 +19,12 @@ export interface CloudinarySignature {
 export async function getCloudinarySignature(): Promise<
   APIResponse<CloudinarySignature>
 > {
-  const backendBase = process.env.NEXT_PUBLIC_API_URL || "";
-  const endpoint = apiRoutes.preSignedUrl;
-  const url = `${backendBase}${endpoint}`;
-
   try {
-    const res = await fetchWithTimeout(url, {
+    const res = await authorizedAdminRequest(apiRoutes.preSignedUrl, {
       method: "GET",
       headers: {
         Accept: "application/json",
       },
-      cache: "no-store",
     });
 
     const payload = await getResponsePayload(res);
@@ -38,6 +33,7 @@ export async function getCloudinarySignature(): Promise<
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to get upload signature",
+        status: res.status,
       };
     }
 
@@ -73,19 +69,14 @@ export async function getCloudinarySignature(): Promise<
 export async function deleteImageByPublicId(
   publicId: string,
 ): Promise<APIResponse> {
-  const backendBase = process.env.NEXT_PUBLIC_API_URL || "";
-  const endpoint = apiRoutes.preSignedUrl;
-  const url = `${backendBase}${endpoint}`;
-
   try {
-    const res = await fetchWithTimeout(url, {
+    const res = await authorizedAdminRequest(apiRoutes.preSignedUrl, {
       method: "DELETE",
       body: JSON.stringify({ public_id: publicId }),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      cache: "no-store",
     });
 
     const payload = await getResponsePayload(res);
@@ -94,6 +85,7 @@ export async function deleteImageByPublicId(
       return {
         success: false,
         error: getPayloadMessage(payload) || "Failed to delete image",
+        status: res.status,
       };
     }
 

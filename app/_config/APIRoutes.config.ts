@@ -64,4 +64,9 @@ export const apiRoutes = {
   getAllInfluencers: INFLUENCER_BASE,
   influencerById: (id: string) => `${INFLUENCER_BASE}/${id}`,
   updateInfluencerStatus: INFLUENCER_BASE,
+  status: "/status",
+  statusById: (id: string) => `/status/${id}`,
+  statusDownload: (id: string) => `/status/${id}/download`,
 };
+
+

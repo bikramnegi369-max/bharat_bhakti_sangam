@@ -49,8 +49,9 @@ export const MobileSidebar = ({
           </button>
         </div>
 
-        <nav className="flex-1 w-full overflow-y-auto scrollbar-thin scrollbar-thumb-white/10">
+        <nav className="flex-1 w-full overflow-y-auto admin-sidebar-scrollbar">
           <div className="px-5 mb-2">
+
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300/60">
               Management Console
             </p>

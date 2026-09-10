@@ -68,6 +68,67 @@ export const uploadImageToCloudinary = async (
   });
 };
 
+export const uploadVideoToCloudinary = async (
+  file: File,
+  onProgress?: (progress: number) => void,
+): Promise<CloudinaryUploadResponse> => {
+  const payload = await getCloudinarySignature();
+
+  if (!payload.success || !payload.data) {
+    throw new Error(payload.error || "Failed to get upload signature");
+  }
+
+  const { signature, timestamp, apiKey, cloudName, folder, returnDeleteToken } =
+    payload.data;
+
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("signature", signature);
+  formData.append("timestamp", timestamp.toString());
+  formData.append("api_key", apiKey);
+  if (returnDeleteToken) {
+    formData.append("return_delete_token", "true");
+  }
+  if (folder) {
+    formData.append("folder", folder);
+  }
+
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open(
+      "POST",
+      `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`,
+    );
+
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable && onProgress) {
+        const percent = Math.round((event.loaded / event.total) * 100);
+        onProgress(percent);
+      }
+    };
+
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const result = JSON.parse(xhr.responseText);
+        resolve({
+          ...result,
+          cloudName,
+        });
+      } else {
+        try {
+          const errRes = JSON.parse(xhr.responseText);
+          reject(new Error(errRes?.error?.message || "Video upload failed"));
+        } catch {
+          reject(new Error("Video upload failed"));
+        }
+      }
+    };
+
+    xhr.onerror = () => reject(new Error("Network error during video upload"));
+    xhr.send(formData);
+  });
+};
+
 export const deleteFromCloudinary = async (
   deleteToken: string,
   cloudName: string,
@@ -80,3 +141,4 @@ export const deleteFromCloudinary = async (
     body: formData,
   });
 };
+
