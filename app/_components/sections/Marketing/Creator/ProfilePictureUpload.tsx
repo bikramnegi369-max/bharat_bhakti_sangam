@@ -37,8 +37,6 @@ export function ProfilePictureUpload<
   error,
   required = true,
   className,
-  helperText = "Upload your profile picture (JPG, PNG, WebP). Max 5MB.",
-  labelClassName,
 }: ProfilePictureUploadProps<T, TTransformedValues>) {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -53,7 +51,11 @@ export function ProfilePictureUpload<
     field: { value, onChange },
   } = useController({ name, control });
 
-  if (initialValueRef.current === null && typeof value === "string" && value.trim() !== "") {
+  if (
+    initialValueRef.current === null &&
+    typeof value === "string" &&
+    value.trim() !== ""
+  ) {
     initialValueRef.current = value;
   }
 

@@ -8,10 +8,8 @@ import {
   uploadImageToCloudinary,
   deleteFromCloudinary,
 } from "@/_services/upload.service";
-import { deleteAssetByPublicId } from "@/_services/cloudinary.service";
 import Image from "next/image";
 import { getLabelStyles } from "./Field.styles";
-import { extractPublicIdFromUrl } from "@/_lib/helpers";
 
 interface FileUploadFieldProps<
   T extends FieldValues,
@@ -54,7 +52,11 @@ export function FileUploadField<
   } = useController({ name, control });
 
   // Capture the initial value once it is available (for Edit Mode)
-  if (initialValueRef.current === null && typeof value === "string" && value.trim() !== "") {
+  if (
+    initialValueRef.current === null &&
+    typeof value === "string" &&
+    value.trim() !== ""
+  ) {
     initialValueRef.current = value;
   }
 
@@ -137,7 +139,9 @@ export function FileUploadField<
         onClick={() => !isUploading && fileInputRef.current?.click()}
         className={clsx(
           "relative group cursor-pointer border-2 border-dashed rounded-xl transition-all duration-200 min-h-48 flex flex-col items-center justify-center p-4 bg-slate-50/50 hover:bg-slate-50",
-          error ? "border-red-300 bg-red-50/10" : "border-slate-200 hover:border-primary",
+          error
+            ? "border-red-300 bg-red-50/10"
+            : "border-slate-200 hover:border-primary",
           isUploading && "opacity-70 cursor-wait",
         )}
       >
