@@ -187,7 +187,7 @@ export default function VideoReviewModal({
         </div>
 
         {/* Video Screen Area */}
-        <div className="relative aspect-video sm:aspect-video bg-black flex items-center justify-center overflow-hidden">
+        <div className="relative aspect-9/16 max-h-[62vh] bg-black flex items-center justify-center overflow-hidden ">
           {currentItem.videoSrc ? (
             <video
               key={currentItem.id}

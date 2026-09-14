@@ -39,7 +39,7 @@ export const DEFAULT_INSTA_HIGHLIGHTS: InstaHighlightItem[] = [
     title: "BBS Mahotsav Grand Celebration",
     subtitle: "Sacred Harmonies",
     posterSrc: "/gallery/gallery_1.webp",
-    videoSrc: "/hero-video.mp4",
+    videoSrc: "/home/insta_highlight/insta_highlight_1.mp4",
     duration: "0:45",
     category: "Mahotsav",
   },

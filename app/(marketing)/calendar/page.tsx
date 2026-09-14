@@ -39,13 +39,6 @@ export default function CalendarPage() {
         dangerouslySetInnerHTML={jsonLdScript(calendarJsonLd)}
       />
 
-      {/* Skip link for screen-reader accessibility */}
-      <a
-        href="#interactive-calendar"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded-lg z-50 shadow-md font-medium"
-      >
-        Skip to interactive calendar
-      </a>
 
       {/* Suspense boundary for useSearchParams in client component */}
       <Suspense

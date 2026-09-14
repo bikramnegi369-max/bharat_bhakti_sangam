@@ -24,6 +24,9 @@ interface VideoUploadFieldProps<
   helperText?: string;
   labelClassName?: string;
   maxSizeMB?: number;
+  aspectRatio?: "9/16" | "16/9" | "auto";
+  badgeText?: string;
+  selectText?: string;
 }
 
 export function VideoUploadField<
@@ -36,9 +39,12 @@ export function VideoUploadField<
   error,
   required,
   className,
-  helperText = "Upload MP4, MOV, or WebM (Max 50MB, 9:16 vertical recommended)",
+  helperText = "Upload MP4, MOV, or WebM (Max 50MB)",
   labelClassName,
   maxSizeMB = 50,
+  aspectRatio = "9/16",
+  badgeText = "9:16 Vertical Reel Recommended",
+  selectText = "Click to select video",
 }: VideoUploadFieldProps<T, TTransformedValues>) {
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -156,7 +162,16 @@ export function VideoUploadField<
 
         {videoUrl ? (
           <div className="relative w-full flex flex-col items-center justify-center py-1">
-            <div className="relative w-36 aspect-9/16 rounded-lg overflow-hidden shadow-md border border-slate-200 bg-black">
+            <div
+              className={clsx(
+                "relative rounded-lg overflow-hidden shadow-md border border-slate-200 bg-black",
+                aspectRatio === "16/9"
+                  ? "w-full max-w-sm aspect-video"
+                  : aspectRatio === "auto"
+                    ? "w-full max-w-sm"
+                    : "w-36 aspect-9/16",
+              )}
+            >
               <video
                 src={videoUrl}
                 controls
@@ -207,16 +222,18 @@ export function VideoUploadField<
                 </div>
                 <div className="text-center px-4">
                   <p className="font-semibold text-slate-800 text-xs sm:text-sm">
-                    Click to select status video
+                    {selectText}
                   </p>
                   <p className="text-[11px] text-slate-400 mt-0.5">
                     MP4, MOV or WebM (Max {maxSizeMB}MB)
                   </p>
                 </div>
-                <div className="flex items-center gap-1.5 text-[10.5px] text-amber-700 font-medium bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
-                  <Film size={12} />
-                  <span>9:16 Vertical Reel Recommended</span>
-                </div>
+                {badgeText && (
+                  <div className="flex items-center gap-1.5 text-[10.5px] text-amber-700 font-medium bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
+                    <Film size={12} />
+                    <span>{badgeText}</span>
+                  </div>
+                )}
               </>
             )}
           </div>

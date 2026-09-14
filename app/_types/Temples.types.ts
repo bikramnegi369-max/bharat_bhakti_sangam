@@ -58,11 +58,7 @@ export type Temple = {
     quote: string;
     author: string;
   };
-  videoThumbnail?: {
-    image: string;
-    duration?: string;
-    videoUrl?: string;
-  };
+  timelineImage?: string;
   timeline?: TempleMilestone[];
   originsParagraphs?: string[];
   facts?: string[];

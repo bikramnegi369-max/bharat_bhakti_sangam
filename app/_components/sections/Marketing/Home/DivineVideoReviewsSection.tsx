@@ -27,7 +27,7 @@ export const DEFAULT_DIVINE_REVIEWS: DivineVideoReviewItem[] = [
     location: "Varanasi Ghats",
     rating: 5,
     posterSrc: "/gallery/gallery_1.webp",
-    videoSrc: "/hero-video.mp4",
+    videoSrc: "/home/insta_highlight/insta_highlight_1.mp4",
     quote:
       "Singing bhajans by the sacred riverside at sunset was an intensely peaceful, heart-expanding experience.",
   },

@@ -24,10 +24,23 @@ import {
 
 export const NAV_ITEMS: SidebarItem[] = [
   {
-    id: "home",
+    id: "home-group",
     label: "Home",
-    href: "/admin",
     icon: <LayoutDashboard size={18} />,
+    children: [
+      {
+        id: "home-dashboard",
+        label: "Dashboard",
+        href: "/admin",
+        icon: <Layers size={16} />,
+      },
+      {
+        id: "home-hero-video",
+        label: "Hero Video",
+        href: "/admin/home/hero-video",
+        icon: <Film size={16} />,
+      },
+    ],
   },
   {
     id: "events-group",

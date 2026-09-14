@@ -14,6 +14,7 @@ import { getLatestEvent } from "@/_features/event/services/event.service";
 import VideoHero from "@/_components/sections/Marketing/VideoHero";
 import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
 import ScrollReveal from "@/_components/common/ScrollReveal";
+import { getHeroVideo } from "@/_features/home-hero/services/hero-video.service";
 
 // Below-the-fold Components (Dynamic imports for chunk splitting & reduced initial JS bundle)
 const FounderSection = dynamic(
@@ -77,7 +78,12 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const heroVideoRes = await getHeroVideo();
+  const heroVideo = heroVideoRes.data || {
+    videoUrl: "/hero-video.mp4",
+  };
+
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -94,13 +100,18 @@ export default function HomePage() {
       />
 
       {/* 1. Hero Section: Rendered directly without scroll delay to guarantee instant LCP */}
-      <VideoHero src="/hero-video.mp4" overlay="medium" />
+      <VideoHero src={heroVideo.videoUrl} overlay="medium" />
 
       {/* 2. Welcome Section: Internal staggered entrance (Text left + 3D photo right) */}
       <WelcomeSection />
 
       {/* 3. Insta Highlights Carousel: Smooth horizontal Slide from Right */}
-      <ScrollReveal animation="fade-right" duration={850} delay={50} threshold={0.1}>
+      <ScrollReveal
+        animation="fade-right"
+        duration={850}
+        delay={50}
+        threshold={0.1}
+      >
         <InstaHighlightsSection />
       </ScrollReveal>
 
@@ -138,7 +149,6 @@ export default function HomePage() {
 
       {/* 13. Location Map Section: Internal split address + maps embed */}
       <LocationMapSection />
-
     </>
   );
 }

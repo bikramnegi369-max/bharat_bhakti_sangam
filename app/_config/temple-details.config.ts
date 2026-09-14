@@ -33,11 +33,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "In Kashi, even time slows down to whisper prayers into the eternal flow of the Holy Ganga.",
       author: "Kashi Purana",
     },
-    videoThumbnail: {
-      image: "/temples-images/vishwanath/description/vishwanath-desc-1.webp",
-      duration: "08:45 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=kashi_darshan",
-    },
+    timelineImage: "/temples-images/vishwanath/description/vishwanath-desc-1.webp",
     timeline: [
       {
         year: "1100 AD",
@@ -134,11 +130,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Here the language of stone surpasses the language of human art in paying homage to the cosmic Sun God.",
       author: "Rabindranath Tagore",
     },
-    videoThumbnail: {
-      image: "/temples-images/konark-sun/description/konark-desc-1.webp",
-      duration: "06:50 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=konark_temple",
-    },
+    timelineImage: "/temples-images/konark-sun/description/konark-desc-1.webp",
     timeline: [
       {
         year: "1250 AD",
@@ -233,11 +225,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Rajaraja Chola built not merely a temple of granite, but a mountain of devotion reaching into the eternal skies.",
       author: "Chola Inscriptions",
     },
-    videoThumbnail: {
-      image: "/temples-images/brihadeeswara/description/brihadeeswara-desc-1.webp",
-      duration: "07:30 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=thanjavur_temple",
-    },
+    timelineImage: "/temples-images/brihadeeswara/description/brihadeeswara-desc-1.webp",
     timeline: [
       {
         year: "1003 AD",
@@ -333,11 +321,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Somnath stands as an eternal monument to the triumph of faith over destruction, radiating light across the Arabian Sea.",
       author: "Rigveda Hymns",
     },
-    videoThumbnail: {
-      image: "/temples-images/somnath/description/somnath-desc-1.webp",
-      duration: "07:15 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=somnath_darshan",
-    },
+    timelineImage: "/temples-images/somnath/description/somnath-desc-1.webp",
     timeline: [
       {
         year: "Vedic Era",
@@ -434,11 +418,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Where Bhagirathi flows from the heights of Gangotri, purity washes over body, mind, and spirit.",
       author: "Skanda Purana",
     },
-    videoThumbnail: {
-      image: "/temples-images/gangotri/description/gangotri-desc-1.webp",
-      duration: "06:15 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=gangotri_darshan",
-    },
+    timelineImage: "/temples-images/gangotri/description/gangotri-desc-1.webp",
     timeline: [
       {
         year: "Vedic Era",
@@ -534,11 +514,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Chalo Bulawa Aaya Hai, Mata Ne Bulaya Hai — faith transforms the steepest mountain trek into divine bliss.",
       author: "Vaishno Devi Bhakti Lore",
     },
-    videoThumbnail: {
-      image: "/temples-images/vaishnodevi/description/vaishnodevi-desc-1.webp",
-      duration: "08:10 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=vaishnodevi_darshan",
-    },
+    timelineImage: "/temples-images/vaishnodevi/description/vaishnodevi-desc-1.webp",
     timeline: [
       {
         year: "Treta Yuga",
@@ -633,11 +609,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "In Puri, Lord Jagannath embraces all devotees without caste or creed into the universal ocean of devotion.",
       author: "Utkala Khanda",
     },
-    videoThumbnail: {
-      image: "/temples-images/jagannath/description/jagannath-desc-1.webp",
-      duration: "09:00 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=puri_jagannath",
-    },
+    timelineImage: "/temples-images/jagannath/description/jagannath-desc-1.webp",
     timeline: [
       {
         year: "1161 AD",
@@ -733,11 +705,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "In the frozen heights of Amarnath, Lord Shiva whispered the eternal secret of immortality to Goddess Parvati.",
       author: "Nilamata Purana",
     },
-    videoThumbnail: {
-      image: "/temples-images/amarnath/description/amarnath-desc-1.webp",
-      duration: "07:45 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=amarnath_yatra",
-    },
+    timelineImage: "/temples-images/amarnath/description/amarnath-desc-1.webp",
     timeline: [
       {
         year: "Puranic Era",
@@ -832,11 +800,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Within the Golden Temple, all barriers of caste and religion dissolve into the divine harmony of Gurbani.",
       author: "Sri Guru Arjan Dev Ji",
     },
-    videoThumbnail: {
-      image: "/temples-images/golden-temple/description/golden-temple-desc-1.webp",
-      duration: "08:20 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=golden_temple",
-    },
+    timelineImage: "/temples-images/golden-temple/description/golden-temple-desc-1.webp",
     timeline: [
       {
         year: "1577 AD",
@@ -931,11 +895,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Vakratunda Mahakaya Suryakoti Samaprabha — Sri Siddhivinayak dissolves every obstacle in life.",
       author: "Ganesha Ashtakam",
     },
-    videoThumbnail: {
-      image: "/temples-images/siddhivinayak/description/siddhivinayak-desc-1.webp",
-      duration: "06:40 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=siddhivinayak_mumbai",
-    },
+    timelineImage: "/temples-images/siddhivinayak/description/siddhivinayak-desc-1.webp",
     timeline: [
       {
         year: "1801 AD",
@@ -1031,11 +991,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "At Sanchi, stone carvings speak the profound truth of the Middle Path, peace, and universal compassion.",
       author: "Buddhist Inscriptions",
     },
-    videoThumbnail: {
-      image: "/temples-images/sanchi-stupa/description/sanchi-stupa-desc-1.webp",
-      duration: "06:10 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=sanchi_stupa",
-    },
+    timelineImage: "/temples-images/sanchi-stupa/description/sanchi-stupa-desc-1.webp",
     timeline: [
       {
         year: "3rd Century BCE",
@@ -1130,11 +1086,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Worshipping Lord Shiva at Rameswaram purifies life of all sins and fulfills the divine Char Dham pilgrimage.",
       author: "Ramayana & Shiva Purana",
     },
-    videoThumbnail: {
-      image: "/temples-images/ramanathaswamy/description/ramanathaswamy-desc-1.webp",
-      duration: "08:15 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=rameswaram_temple",
-    },
+    timelineImage: "/temples-images/ramanathaswamy/description/ramanathaswamy-desc-1.webp",
     timeline: [
       {
         year: "Treta Yuga",
@@ -1230,11 +1182,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "A bath in the holy waters of Yamunotri protects devotees from fear of mortality and grants inner purity.",
       author: "Yamuna Ashtakam",
     },
-    videoThumbnail: {
-      image: "/temples-images/yamunotri/description/yamunotri-desc-1.webp",
-      duration: "06:30 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=yamunotri_darshan",
-    },
+    timelineImage: "/temples-images/yamunotri/description/yamunotri-desc-1.webp",
     timeline: [
       {
         year: "Vedic Era",
@@ -1330,11 +1278,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Radhe Radhe Govinda Radhe — in Vrindavan, divine love flows like the sweet melodies of Krishna's flute.",
       author: "Swami Haridas Ji",
     },
-    videoThumbnail: {
-      image: "/temples-images/banke-bihari/description/banke-bihari-desc-1.webp",
-      duration: "07:00 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=banke_bihari",
-    },
+    timelineImage: "/temples-images/banke-bihari/description/banke-bihari-desc-1.webp",
     timeline: [
       {
         year: "16th Century",
@@ -1429,11 +1373,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Amidst the snow-clad peaks of the Himalayas, the Lord of Kedar grants peace that transcends earthly existence.",
       author: "Shiva Mahapurana",
     },
-    videoThumbnail: {
-      image: "/temples-images/kedarnath/description/kedarnath-desc-1.webp",
-      duration: "06:30 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=kedarnath_yatra",
-    },
+    timelineImage: "/temples-images/kedarnath/description/kedarnath-desc-1.webp",
     timeline: [
       {
         year: "Mahabharata Era",
@@ -1530,11 +1470,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "There are many sacred shrines in heaven and earth, but none equal to Badrinath.",
       author: "Skanda Purana",
     },
-    videoThumbnail: {
-      image: "/temples-images/badrinath/description/badrinath-desc-1.webp",
-      duration: "07:35 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=badrinath_darshan",
-    },
+    timelineImage: "/temples-images/badrinath/description/badrinath-desc-1.webp",
     timeline: [
       {
         year: "Vedic Era",
@@ -1630,11 +1566,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Janani Janmabhumishcha Swargadapi Gariyasi — Ayodhya stands as the eternal kingdom of righteousness and peace.",
       author: "Valmiki Ramayana",
     },
-    videoThumbnail: {
-      image: "/temples-images/ayodhya/description/ayodhya-desc-1.webp",
-      duration: "09:30 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=ayodhya_ram_mandir",
-    },
+    timelineImage: "/temples-images/ayodhya/description/ayodhya-desc-1.webp",
     timeline: [
       {
         year: "Treta Yuga",
@@ -1730,11 +1662,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Venkatesa Samo Devo Na Bhuto Na Bhavishyati — There is no savior equal to Lord Venkateswara in all the cosmos.",
       author: "Brahma Purana",
     },
-    videoThumbnail: {
-      image: "/temples-images/tirupati-balaji/description/tirupati-balaji-desc-1.webp",
-      duration: "08:40 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=tirupati_balaji",
-    },
+    timelineImage: "/temples-images/tirupati-balaji/description/tirupati-balaji-desc-1.webp",
     timeline: [
       {
         year: "Ancient Era",
@@ -1830,11 +1758,7 @@ export const TEMPLE_DETAILS_CONFIG_REGISTRY: Record<string, Partial<Temple>> = {
         "Love everyone, feed everyone, remember God, and tell the truth — the timeless essence of Maharaj-ji's grace.",
       author: "Neem Karoli Baba",
     },
-    videoThumbnail: {
-      image: "/temples-images/kainchi-dham/description/kainchi-desc-1.webp",
-      duration: "06:45 MINS",
-      videoUrl: "https://www.youtube.com/watch?v=kainchi_dham",
-    },
+    timelineImage: "/temples-images/kainchi-dham/description/kainchi-desc-1.webp",
     timeline: [
       {
         year: "1962 AD",
@@ -1972,11 +1896,11 @@ export function getNormalizedTempleDetail(temple: Temple): Temple {
     author: "Sacred Heritage Chronicles",
   };
 
-  const videoThumbnail = customConfig.videoThumbnail || {
-    image: temple.descriptionImages?.[0] || temple.heroImage,
-    duration: "05:40 MINS",
-    videoUrl: "https://www.youtube.com/watch?v=darshan_stream",
-  };
+    const timelineImage =
+    customConfig.timelineImage ||
+    temple.descriptionImages?.[0] ||
+    temple.heroImage;
+
 
   const timeline: TempleMilestone[] =
     customConfig.timeline || [
@@ -2105,7 +2029,7 @@ export function getNormalizedTempleDetail(temple: Temple): Temple {
     significance,
     statsPills,
     spiritualQuote,
-    videoThumbnail,
+    timelineImage,
     timeline,
     originsParagraphs,
     facts,

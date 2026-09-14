@@ -10,8 +10,8 @@ interface TempleTimelineSectionProps {
 export default function TempleTimelineSection({
   temple,
 }: TempleTimelineSectionProps) {
-  const videoImg =
-    temple.videoThumbnail?.image ||
+  const timelineImg =
+    temple.timelineImage ||
     temple.heroImage ||
     "/temples-images/vishwanath/features/vishwanath-feature-1.webp";
 
@@ -27,7 +27,7 @@ export default function TempleTimelineSection({
             <ScrollReveal animation="scale-up" duration={800} className="w-full flex justify-center">
               <div className="relative w-full max-w-110 aspect-4/3 min-h-60 sm:min-h-75 rounded-2xl overflow-hidden shadow-xl border border-stone-200 bg-stone-900">
                 <Image
-                  src={videoImg}
+                  src={timelineImg}
                   alt={`${temple.name} Historical Heritage`}
                   fill
                   sizes="(max-width: 640px) 100vw, 440px"
