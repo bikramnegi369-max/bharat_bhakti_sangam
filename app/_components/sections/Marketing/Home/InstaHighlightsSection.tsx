@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Play, ChevronRight, Sparkles } from "lucide-react";
+import { Play, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
 import VideoReviewModal, { DivineVideoReviewItem } from "./VideoReviewModal";
@@ -127,6 +127,14 @@ export default function InstaHighlightsSection({
   // Lightbox Modal state
   const [modalOpen, setModalOpen] = useState(false);
   const [activeHighlightIndex, setActiveHighlightIndex] = useState(0);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   const scrollTo = useCallback(
     (index: number) => {
@@ -450,6 +458,43 @@ export default function InstaHighlightsSection({
               })}
             </div>
           </div>
+
+          {/* Navigation Controls: Previous & Next Slider Icons */}
+          <button
+            type="button"
+            onClick={scrollPrev}
+            aria-label="Previous highlight slide"
+            className={clsx(
+              "absolute -left-3 sm:-left-5 lg:-left-6 top-1/2 -translate-y-1/2 z-20",
+              "w-10 h-10 sm:w-12 sm:h-12 rounded-full",
+              "bg-white/95 hover:bg-white text-[#740E0A] hover:text-[#9B1D0E]",
+              "border border-stone-200/90 hover:border-[#D4AF37]",
+              "flex items-center justify-center",
+              "shadow-[0_4px_15px_rgba(0,0,0,0.12)] hover:shadow-[0_6px_20px_rgba(116,14,10,0.25)]",
+              "transition-all duration-300 transform-gpu hover:scale-110 active:scale-95",
+              "cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#740E0A]/40",
+            )}
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+          </button>
+
+          <button
+            type="button"
+            onClick={scrollNext}
+            aria-label="Next highlight slide"
+            className={clsx(
+              "absolute -right-3 sm:-right-5 lg:-right-6 top-1/2 -translate-y-1/2 z-20",
+              "w-10 h-10 sm:w-12 sm:h-12 rounded-full",
+              "bg-white/95 hover:bg-white text-[#740E0A] hover:text-[#9B1D0E]",
+              "border border-stone-200/90 hover:border-[#D4AF37]",
+              "flex items-center justify-center",
+              "shadow-[0_4px_15px_rgba(0,0,0,0.12)] hover:shadow-[0_6px_20px_rgba(116,14,10,0.25)]",
+              "transition-all duration-300 transform-gpu hover:scale-110 active:scale-95",
+              "cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#740E0A]/40",
+            )}
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+          </button>
         </div>
 
         {/* Carousel Pagination Indicator Dots matching reference */}
