@@ -124,7 +124,7 @@ export function FileUploadField<
   };
 
   return (
-    <div className={clsx("flex flex-col gap-2 w-full", className)}>
+    <div className={clsx("relative flex flex-col gap-2 w-full pt-2", className)}>
       <label
         className={getLabelStyles({
           error,

@@ -33,6 +33,28 @@ export function formatEventDate(date: string) {
   }).format(parsedDate);
 }
 
+/**
+ * Formats backend UTC/ISO date strings (or standard date text) into human-readable format (e.g. "15 Aug 2026").
+ * If the input is already a non-ISO label (like "Aug 2026"), it preserves it gracefully.
+ */
+export function formatGalleryDate(dateStr?: string | null): string {
+  if (!dateStr || !dateStr.trim()) return "";
+
+  const trimmed = dateStr.trim();
+  const parsed = new Date(trimmed);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return trimmed;
+  }
+
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "Asia/Kolkata",
+  }).format(parsed);
+}
+
 export function formatLocalizedDateTimeParts(value?: string | null) {
   if (!value) {
     return undefined;

@@ -52,10 +52,10 @@ export const TableError = ({
   </div>
 );
 
-export const TableFetching = () => (
+export const TableFetching = ({ label = "Updating table" }: { label?: string }) => (
   <div className="px-4 pb-3">
     <div className="mb-2 flex items-center justify-between text-[11px] font-medium uppercase tracking-[0.18em] text-gray-500">
-      <span>Updating table</span>
+      <span>{label}</span>
       <span>Syncing</span>
     </div>
     <div className="table-progress h-1.5 rounded-full bg-black/10" />

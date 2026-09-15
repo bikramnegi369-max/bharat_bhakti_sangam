@@ -69,6 +69,6 @@ export const apiRoutes = {
   statusDownload: (id: string) => `/status/${id}/download`,
   statusLike: (id: string) => `/status/${id}/likes`,
   heroVideo: "/home/hero-video",
+  gallery: "/event-gallery",
+  galleryById: (id: string) => `/event-gallery/${id}`,
 };
-
-

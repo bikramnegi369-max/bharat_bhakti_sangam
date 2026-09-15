@@ -6,86 +6,7 @@ import { playfair, poppins } from "@/_lib/fonts";
 import CapturedMemoriesGrid from "./CapturedMemoriesGrid";
 import { GalleryItem } from "./InstagramLightboxModal";
 
-const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
-  {
-    id: "1",
-    src: "/gallery/gallery_1.webp",
-    alt: "Sacred Temple River Reflection at Sunset",
-    title: "Golden Hour Aarti at River Ghat",
-    category: "Sacred Moments",
-    location: "Varanasi Ghats, Uttar Pradesh",
-    date: "Aug 2026",
-    likes: 1842,
-    commentsCount: 142,
-    caption:
-      "A serene reflection of ancient temples along the holy river as evening prayers begin.",
-  },
-  {
-    id: "2",
-    src: "/gallery/gallery_2.webp",
-    alt: "Devotees gathering for Bhajan & Kirtan",
-    title: "Devotional Kirtan Assembly",
-    category: "Bhajan Clubbing",
-    location: "Vrindavan, Uttar Pradesh",
-    date: "Jul 2026",
-    likes: 2450,
-    commentsCount: 189,
-    caption:
-      "Chanting in unison, feeling the transcendent energy of group kirtan and divine music.",
-  },
-  {
-    id: "3",
-    src: "/gallery/gallery_3.webp",
-    alt: "Sacred Mahaprasad Offering with Steaming Aroma",
-    title: "Divine Mahaprasad Offering",
-    category: "Prasad & Blessings",
-    location: "Puri, Odisha",
-    date: "Aug 2026",
-    likes: 3120,
-    commentsCount: 205,
-    caption:
-      "Warm, sacred prasad prepared with utmost devotion and offered with love to the divine.",
-  },
-  {
-    id: "4",
-    src: "/festivals/holi/holi-1.webp",
-    alt: "Illuminated Ghat Aarti Celebration",
-    title: "Illuminated Evening Ganga Aarti",
-    category: "Sacred Moments",
-    location: "Haridwar, Uttarakhand",
-    date: "Jun 2026",
-    likes: 1980,
-    commentsCount: 96,
-    caption:
-      "Thousands of diyas floating down the river, lighting up the spiritual heart of Bharat.",
-  },
-  {
-    id: "5",
-    src: "/about_mission.webp",
-    alt: "Traditional Musicians playing Harmonium and Tabla",
-    title: "Classical Ragas & Devotional Chants",
-    category: "Kirtan Artists",
-    location: "Mathura, Uttar Pradesh",
-    date: "Jul 2026",
-    likes: 1540,
-    commentsCount: 78,
-    caption:
-      "Master musicians bringing soul to sacred verses with harmonium and rhythmic tabla beats.",
-  },
-  {
-    id: "6",
-    src: "/event.webp",
-    alt: "Traditional Pooja Thali with Diya and Incense",
-    title: "Sacred Puja Thali & Diya",
-    category: "Pooja Heritage",
-    location: "Ayodhya, Uttar Pradesh",
-    date: "Aug 2026",
-    likes: 2890,
-    commentsCount: 164,
-    caption:
-      "Fragrant flowers, burning camphor, and glowing diyas prepared for auspicious morning puja.",
-  },
-];
+import { DEFAULT_GALLERY_ITEMS } from "@/_features/gallery/constants";
 
 export interface GallerySectionProps {
   subtitle?: string;
@@ -103,7 +24,9 @@ export default function GallerySection({
   images,
 }: GallerySectionProps) {
   const displayItems =
-    images && images.length >= 6 ? images : DEFAULT_GALLERY_ITEMS;
+    images && images.length > 0
+      ? images.slice(0, 6)
+      : DEFAULT_GALLERY_ITEMS.slice(0, 6);
 
   return (
     <section className="relative overflow-x-clip bg-[#FCFAF5] py-16 sm:py-20 md:py-24 lg:py-28">

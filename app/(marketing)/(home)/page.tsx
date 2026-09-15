@@ -11,10 +11,9 @@ import {
 import { getLatestEvent } from "@/_features/event/services/event.service";
 
 // Above-the-fold Critical UI (Static imports for instant FCP / LCP)
-import VideoHero from "@/_components/sections/Marketing/VideoHero";
+import VideoHeroServerSection from "@/_components/sections/Marketing/Home/VideoHeroServerSection";
 import WelcomeSection from "@/_components/sections/Marketing/Home/WelcomeSection";
 import ScrollReveal from "@/_components/common/ScrollReveal";
-import { getHeroVideo } from "@/_features/home-hero/services/hero-video.service";
 
 // Below-the-fold Components (Dynamic imports for chunk splitting & reduced initial JS bundle)
 const FounderSection = dynamic(
@@ -30,13 +29,10 @@ const WhyJoinUsSection = dynamic(
   { loading: () => null },
 );
 import UpcomingEventServerSection from "@/_components/sections/Marketing/Home/UpcomingEventServerSection";
+import HomeGalleryServerSection from "@/_components/sections/Marketing/Home/HomeGalleryServerSection";
 const ExploreSpiritualIndiaSection = dynamic(
   () =>
     import("@/_components/sections/Marketing/Home/ExploreSpiritualIndiaSection"),
-  { loading: () => null },
-);
-const GallerySection = dynamic(
-  () => import("@/_components/sections/Marketing/Home/GallerySection"),
   { loading: () => null },
 );
 const InstaHighlightsSection = dynamic(
@@ -79,11 +75,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const heroVideoRes = await getHeroVideo();
-  const heroVideo = heroVideoRes.data || {
-    videoUrl: "/hero-video.mp4",
-  };
-
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -99,8 +90,8 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd)}
       />
 
-      {/* 1. Hero Section: Rendered directly without scroll delay to guarantee instant LCP */}
-      <VideoHero src={heroVideo.videoUrl} overlay="medium" />
+      {/* 1. Hero Section: Isolated Async Island with Suspense & Fallback */}
+      <VideoHeroServerSection overlay="medium" />
 
       {/* 2. Welcome Section: Internal staggered entrance (Text left + 3D photo right) */}
       <WelcomeSection />
@@ -133,8 +124,8 @@ export default async function HomePage() {
       {/* 8. Explore Spiritual India: Internal 4-card 3D flip staggered cascade */}
       <ExploreSpiritualIndiaSection />
 
-      {/* 9. Gallery Section: Internal asymmetric 6-photo de-blurring cascade */}
-      <GallerySection />
+      {/* 9. Gallery Section: Isolated Async Island with Suspense & Fallback */}
+      <HomeGalleryServerSection />
 
       {/* 10. Divine Video Reviews Section: Dynamic Slide from Left */}
       <ScrollReveal animation="fade-left" duration={900} threshold={0.12}>

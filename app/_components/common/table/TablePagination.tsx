@@ -77,7 +77,7 @@ export function TablePagination({
                 value={currentLimit}
                 onChange={handleLimitChange}
                 aria-label="Rows per page"
-                className="rounded-lg border border-black/10 bg-white px-3 py-2 text-black outline-none transition-colors focus:border-black/30"
+                className="rounded-lg border border-black/10 bg-white px-3 py-2 text-black outline-none transition-colors focus:border-black/30 cursor-pointer"
               >
                 {normalizedPageSizeOptions.map((option) => (
                   <option key={option} value={option}>
@@ -102,7 +102,7 @@ export function TablePagination({
             }}
             disabled={currentPage === 1}
             aria-label="Go to previous page"
-            className="rounded-lg border border-black/10 px-3 py-2 text-black transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-black/10 px-3 py-2 text-black transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
           >
             Prev
           </button>
@@ -117,7 +117,7 @@ export function TablePagination({
                   }}
                   aria-label={`Go to page ${item}`}
                   aria-current={item === currentPage ? "page" : undefined}
-                  className={`min-w-10 rounded-lg border px-3 py-2 transition-colors ${
+                  className={`min-w-10 rounded-lg border px-3 py-2 transition-colors cursor-pointer ${
                     item === currentPage
                       ? "border-black bg-black text-white"
                       : "border-black/10 bg-white text-black hover:bg-gray-100"
@@ -139,7 +139,7 @@ export function TablePagination({
             }}
             disabled={currentPage === totalPage}
             aria-label="Go to next page"
-            className="rounded-lg border border-black/10 px-3 py-2 text-black transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg border border-black/10 px-3 py-2 text-black transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
           >
             Next
           </button>

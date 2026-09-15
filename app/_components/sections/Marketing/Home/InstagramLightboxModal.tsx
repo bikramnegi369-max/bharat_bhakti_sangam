@@ -8,7 +8,6 @@ import {
   ChevronRight,
   Heart,
   MessageCircle,
-  Share2,
   MapPin,
   Calendar,
   Sparkles,
@@ -16,6 +15,7 @@ import {
 import { playfair, poppins } from "@/_lib/fonts";
 
 import { lockBodyScroll, unlockBodyScroll } from "@/_utils/body-scroll-lock";
+import { formatGalleryDate } from "@/_lib/helpers";
 
 import { createPortal } from "react-dom";
 
@@ -24,12 +24,12 @@ export interface GalleryItem {
   src: string;
   alt?: string;
   title?: string;
+  artistName?: string;
   category?: string;
   location?: string;
   date?: string;
   likes?: number;
   commentsCount?: number;
-  caption?: string;
 }
 
 interface InstagramLightboxModalProps {
@@ -178,7 +178,13 @@ export default function InstagramLightboxModal({
         <div className="relative flex-1 bg-black/70 h-[38vh] min-h-55 sm:min-h-90 lg:h-auto lg:min-h-130 flex items-center justify-center overflow-hidden group touch-pan-y">
           <Image
             src={currentItem.src}
-            alt={currentItem.alt || currentItem.title || "Sacred Moment"}
+            alt={
+              (typeof currentItem.alt === "string" && currentItem.alt.trim() !== "")
+                ? currentItem.alt
+                : (typeof currentItem.title === "string" && currentItem.title.trim() !== "")
+                ? currentItem.title
+                : `Bharat Bhakti Sangam Sacred Moment ${currentIndex + 1}`
+            }
             fill
             className="object-contain p-1 sm:p-2"
             sizes="(max-width: 1024px) 100vw, 65vw"
@@ -244,7 +250,7 @@ export default function InstagramLightboxModal({
             </div>
           </div>
 
-          {/* Body Caption & Content */}
+          {/* Body Details & Content */}
           <div className="p-3.5 sm:p-5 flex-1 overflow-y-auto custom-scrollbar space-y-3 sm:space-y-4 text-xs sm:text-sm">
             {currentItem.title && (
               <h3
@@ -254,12 +260,15 @@ export default function InstagramLightboxModal({
               </h3>
             )}
 
-            <p
-              className={`${poppins.className} text-stone-300 leading-relaxed font-normal`}
-            >
-              {currentItem.caption ||
-                "Experiencing the divine vibration of devotional kirtan, sacred melodies, and spiritual togetherness at Bharat Bhakti Sangam."}
-            </p>
+            {/* Artist Name */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-black/40 border border-amber-500/20 text-amber-200">
+              <span className="text-xs uppercase tracking-wider text-amber-400/80 font-medium">
+                Artist:
+              </span>
+              <span className={`${poppins.className} font-semibold text-xs sm:text-sm text-white`}>
+                {currentItem.artistName || "Sacred Artist"}
+              </span>
+            </div>
 
             {currentItem.category && (
               <div className="inline-block px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#740E0A]/30 border border-[#740E0A]/60 text-amber-300 text-[11px] sm:text-xs font-medium">
@@ -270,7 +279,7 @@ export default function InstagramLightboxModal({
             {currentItem.date && (
               <div className="flex items-center gap-1.5 text-stone-400 text-[11px] sm:text-xs pt-1 sm:pt-2">
                 <Calendar className="w-3.5 h-3.5" />
-                <span>{currentItem.date}</span>
+                <span>{formatGalleryDate(currentItem.date)}</span>
               </div>
             )}
           </div>
@@ -278,32 +287,23 @@ export default function InstagramLightboxModal({
           {/* Footer Actions & Engagement */}
           <div className="p-3.5 sm:p-5 border-t border-[#3D2523] bg-[#1A1211]/80 space-y-2.5 sm:space-y-3 shrink-0">
             <div className="flex items-center justify-between text-stone-300">
-              <div className="flex items-center gap-4">
-                <button
-                  type="button"
-                  className="flex items-center gap-1.5 hover:text-rose-400 active:scale-95 transition-all group cursor-pointer"
-                >
-                  <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 fill-rose-500/20 group-hover:scale-110 transition-transform" />
+              <div className="flex items-center gap-5">
+                <div className="flex items-center gap-1.5 text-stone-300">
+                  <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 fill-rose-500/20" />
                   <span className="text-xs font-semibold text-stone-200">
                     {currentItem.likes
                       ? currentItem.likes.toLocaleString()
-                      : "1,248"}
+                      : "1,248"}{" "}
+                    likes
                   </span>
-                </button>
+                </div>
                 <div className="flex items-center gap-1.5 text-stone-400">
                   <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="text-xs font-medium">
-                    {currentItem.commentsCount || "84"}
+                    {currentItem.commentsCount || "84"} comments
                   </span>
                 </div>
               </div>
-              <button
-                type="button"
-                className="hover:text-amber-400 active:scale-95 transition-all cursor-pointer"
-                title="Share photo"
-              >
-                <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
             </div>
 
             <div className="hidden lg:flex items-center justify-between text-xs text-stone-400 pt-1 border-t border-[#3D2523]/50">

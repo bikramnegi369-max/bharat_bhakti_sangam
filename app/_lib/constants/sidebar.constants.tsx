@@ -19,6 +19,7 @@ import {
   UserX,
   BookmarkCheck,
   Film,
+  Image as ImageIcon,
 } from "lucide-react";
 
 
@@ -39,6 +40,12 @@ export const NAV_ITEMS: SidebarItem[] = [
         label: "Hero Video",
         href: "/admin/home/hero-video",
         icon: <Film size={16} />,
+      },
+      {
+        id: "home-gallery",
+        label: "Gallery",
+        href: "/admin/gallery",
+        icon: <ImageIcon size={16} />,
       },
     ],
   },

@@ -62,7 +62,13 @@ export default function CapturedMemoriesGrid({
           {/* Next.js Optimized Image */}
           <Image
             src={item.src}
-            alt={item.alt || item.title || "Sacred Memory"}
+            alt={
+              (typeof item.alt === "string" && item.alt.trim() !== "")
+                ? item.alt
+                : (typeof item.title === "string" && item.title.trim() !== "")
+                ? item.title
+                : `Bharat Bhakti Sangam Sacred Moment ${originalIndex + 1}`
+            }
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -79,7 +85,7 @@ export default function CapturedMemoriesGrid({
             </div>
           </div>
 
-          {/* Bottom Hover Caption & Social Metadata */}
+          {/* Bottom Hover Artist & Social Metadata */}
           <div className="absolute bottom-0 left-0 right-0 z-10 p-4 sm:p-5 opacity-0 group-hover:opacity-100 text-white translate-y-2 group-hover:translate-y-0 transition-all duration-300">
             {item.location && (
               <p className="text-[11px] font-medium text-amber-300 flex items-center gap-1 mb-1">
@@ -90,10 +96,16 @@ export default function CapturedMemoriesGrid({
 
             {item.title && (
               <h4
-                className={`${poppins.className} text-sm sm:text-base font-semibold leading-tight text-white mb-2 line-clamp-1`}
+                className={`${poppins.className} text-sm sm:text-base font-semibold leading-tight text-white mb-1 line-clamp-1`}
               >
                 {item.title}
               </h4>
+            )}
+
+            {item.artistName && (
+              <p className="text-xs text-amber-200/90 font-medium line-clamp-1 mb-2">
+                Artist: {item.artistName}
+              </p>
             )}
 
             <div className="flex items-center justify-between text-xs text-stone-200 border-t border-white/20 pt-2 mt-1">

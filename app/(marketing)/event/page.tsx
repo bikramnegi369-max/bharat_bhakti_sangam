@@ -12,23 +12,13 @@ import ScrollReveal from "@/_components/common/ScrollReveal";
 // Below-the-fold interactive client carousels/modals (dynamically split to reduce initial JS)
 const AboutArtistsSliderSection = dynamic(
   () =>
-    import(
-      "@/_components/sections/Marketing/Event/AboutArtistsSliderSection"
-    ),
+    import("@/_components/sections/Marketing/Event/AboutArtistsSliderSection"),
   { loading: () => null },
 );
-const EventGallerySliderSection = dynamic(
-  () =>
-    import(
-      "@/_components/sections/Marketing/Event/EventGallerySliderSection"
-    ),
-  { loading: () => null },
-);
+import EventGalleryServerSection from "@/_components/sections/Marketing/Event/EventGalleryServerSection";
 const PreviousEventHighlightsSection = dynamic(
   () =>
-    import(
-      "@/_components/sections/Marketing/Event/PreviousEventHighlightsSection"
-    ),
+    import("@/_components/sections/Marketing/Event/PreviousEventHighlightsSection"),
   { loading: () => null },
 );
 
@@ -191,7 +181,12 @@ export default async function EventPage() {
 
       {/* 2. Floating Quick Info Bar: Subtle fade-up elevation effect with threshold */}
       <div className="-mt-6 sm:-mt-10 lg:mt-0 lg:-translate-y-1/2 relative z-20">
-        <ScrollReveal animation="fade-up" duration={700} delay={100} threshold={0.1}>
+        <ScrollReveal
+          animation="fade-up"
+          duration={700}
+          delay={100}
+          threshold={0.1}
+        >
           <EventQuickInfoBar
             date={{
               primaryText: datePrimary,
@@ -213,7 +208,9 @@ export default async function EventPage() {
       <AboutEventSection description={description} />
 
       {/* 4. Pass Tiers: Header fade-down + individual cards staggered scale-up with index-based delays */}
-      <PassTiersSection passes={mapEventBookingTypesToPasses(event.bookingType)} />
+      <PassTiersSection
+        passes={mapEventBookingTypesToPasses(event.bookingType)}
+      />
 
       {/* 5. About Artists Slider: Header fade-down + carousel viewport smooth fade-left */}
       <AboutArtistsSliderSection artists={event.artists} />
@@ -221,8 +218,8 @@ export default async function EventPage() {
       {/* 6. Event Location Map: Two-sided entrance (details fade-right + interactive map scale-up) */}
       <EventLocationSection venue={event.venueName} />
 
-      {/* 7. Event Gallery Slider: Header fade-down + gallery carousel smooth fade-right */}
-      <EventGallerySliderSection />
+      {/* 7. Event Gallery Slider: Isolated Async Island with Suspense & Fallback */}
+      <EventGalleryServerSection />
 
       {/* 8. Previous Event Highlights: Header fade-right + video cards carousel smooth fade-up */}
       <PreviousEventHighlightsSection />

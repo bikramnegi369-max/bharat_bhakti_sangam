@@ -15,14 +15,14 @@ import InstagramLightboxModal, {
 export interface EventGalleryImageItem {
   id: string | number;
   src: string;
-  alt: string;
+  alt?: string;
   title?: string;
+  artistName?: string;
   category?: string;
   location?: string;
   date?: string;
   likes?: number;
   commentsCount?: number;
-  caption?: string;
 }
 
 export interface EventGallerySliderSectionProps {
@@ -46,8 +46,6 @@ export const DEFAULT_EVENT_GALLERY_IMAGES: EventGalleryImageItem[] = [
     category: "Mahotsav",
     location: "Varanasi Ghats, Uttar Pradesh",
     date: "Aug 2026",
-    caption:
-      "A grand spiritual gathering with divine aarti and thousands of devotees celebrating together.",
   },
   {
     id: "gallery-2",
@@ -57,8 +55,6 @@ export const DEFAULT_EVENT_GALLERY_IMAGES: EventGalleryImageItem[] = [
     category: "Bhajan Clubbing",
     location: "Vrindavan, Uttar Pradesh",
     date: "Jul 2026",
-    caption:
-      "Soulful devotional melodies played with traditional harmonium and rhythmic tabla beats.",
   },
   {
     id: "gallery-3",
@@ -68,8 +64,6 @@ export const DEFAULT_EVENT_GALLERY_IMAGES: EventGalleryImageItem[] = [
     category: "Cultural",
     location: "Puri, Odisha",
     date: "Aug 2026",
-    caption:
-      "Vibrant cultural dance performances expressing classical devotion and timeless storytelling.",
   },
   {
     id: "gallery-4",
@@ -79,8 +73,6 @@ export const DEFAULT_EVENT_GALLERY_IMAGES: EventGalleryImageItem[] = [
     category: "Sacred Moments",
     location: "Haridwar, Uttarakhand",
     date: "Jun 2026",
-    caption:
-      "Thousands of illuminated diyas and priests conducting the sacred evening river aarti.",
   },
   {
     id: "gallery-5",
@@ -90,8 +82,6 @@ export const DEFAULT_EVENT_GALLERY_IMAGES: EventGalleryImageItem[] = [
     category: "Heritage",
     location: "Ayodhya, Uttar Pradesh",
     date: "Aug 2026",
-    caption:
-      "Spiritual illumination and divine atmosphere across the sacred temple grounds.",
   },
   {
     id: "gallery-6",
@@ -101,8 +91,6 @@ export const DEFAULT_EVENT_GALLERY_IMAGES: EventGalleryImageItem[] = [
     category: "Devotion",
     location: "Mathura, Uttar Pradesh",
     date: "Jul 2026",
-    caption:
-      "Devotees coming together in unity, meditation, and sacred chants.",
   },
 ];
 
@@ -188,15 +176,20 @@ export default function EventGallerySliderSection({
   };
 
   // Convert items to GalleryItem type expected by modal
-  const modalItems: GalleryItem[] = displayImages.map((img) => ({
+  const modalItems: GalleryItem[] = displayImages.map((img, idx) => ({
     id: img.id,
     src: img.src,
-    alt: img.alt,
+    alt:
+      (typeof img.alt === "string" && img.alt.trim() !== "")
+        ? img.alt
+        : (typeof img.title === "string" && img.title.trim() !== "")
+        ? img.title
+        : `Bharat Bhakti Sangam Event Moment ${idx + 1}`,
     title: img.title || "Event Gallery Photo",
+    artistName: img.artistName || "Sacred Artist",
     category: img.category || "Event Gallery",
     location: img.location || "Bharat Bhakti Sangam",
     date: img.date || "2026",
-    caption: img.caption,
   }));
 
   return (
@@ -305,7 +298,13 @@ export default function EventGallerySliderSection({
                     {/* Image with Next.js optimization */}
                     <Image
                       src={img.src}
-                      alt={img.alt || `Event photo ${idx + 1}`}
+                      alt={
+                        (typeof img.alt === "string" && img.alt.trim() !== "")
+                          ? img.alt
+                          : (typeof img.title === "string" && img.title.trim() !== "")
+                          ? img.title
+                          : `Bharat Bhakti Sangam Event Photo ${idx + 1}`
+                      }
                       fill
                       sizes="(max-width: 640px) 75vw, (max-width: 768px) 45vw, (max-width: 1024px) 33vw, 20vw"
                       className="object-cover transition-transform duration-500 ease-out group-hover:scale-108"
