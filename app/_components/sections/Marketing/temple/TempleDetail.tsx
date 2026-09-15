@@ -1,5 +1,4 @@
 import type { Temple } from "@/_types/Temples.types";
-import { getNormalizedTempleDetail } from "@/_config/temple-details.config";
 import TempleHeroHeader from "./TempleHeroHeader";
 import TempleQuickInfoBar from "./TempleQuickInfoBar";
 import TempleAboutStory from "./TempleAboutStory";
@@ -18,43 +17,42 @@ interface TempleDetailProps {
 /**
  * Production-grade TempleDetail Master Component.
  * Implements a unified, consistent 8-section layout across ALL temples
- * derived from a type-safe config with automatic fallbacks (SOLID & DRY).
+ * directly receiving the modular, fully-enriched Temple model.
  */
 export function TempleDetail({ temple }: TempleDetailProps) {
-  // Normalize data with config registry ensuring identical structure for all temples
-  const fullDetail = getNormalizedTempleDetail(temple);
-
   return (
     <article className="w-full min-h-screen bg-[#FFFDF9] text-stone-900 selection:bg-amber-500 selection:text-white">
       {/* ── 00. Hero & Breadcrumbs Section ── */}
-      <TempleHeroHeader temple={fullDetail} />
+      <TempleHeroHeader temple={temple} />
 
       {/* ── Floating Quick Info Bar (5 metrics) ── */}
-      <TempleQuickInfoBar temple={fullDetail} />
+      <TempleQuickInfoBar temple={temple} />
 
       {/* ── 01. Overview: About Temple, Dropcap, Quote & Arch Darshan Image ── */}
-      <TempleAboutStory temple={fullDetail} />
+      <TempleAboutStory temple={temple} />
 
       {/* ── 02. History: Visual Document Card & 2x2 Historical Chronology ── */}
-      <TempleTimelineSection temple={fullDetail} />
+      <TempleTimelineSection temple={temple} />
 
       {/* ── 03. Origins: Historical Narrative & Heritage Image ── */}
-      <TempleOriginsSection temple={fullDetail} />
+      <TempleOriginsSection temple={temple} />
 
       {/* ── 04. Facts: Sacred Sanctum Showcase & Checkmarked Facts List ── */}
-      <TempleFactsSection temple={fullDetail} />
+      <TempleFactsSection temple={temple} />
 
       {/* ── 05. Sacred Heritage: 3 Pillars (Architecture, Mythology, Rituals) ── */}
-      <TempleFeaturePillars temple={fullDetail} />
+      <TempleFeaturePillars temple={temple} />
 
       {/* ── 06. Timings & Daily Schedule: Aarti & Darshan Timetable ── */}
-      <TempleDailySchedule temple={fullDetail} />
+      <TempleDailySchedule temple={temple} />
 
       {/* ── 07. Plan Your Visit: 4-Column Pilgrim Logistics Guide ── */}
-      <TemplePlanYourVisit temple={fullDetail} />
+      <TemplePlanYourVisit temple={temple} />
 
       {/* ── 08. Explore More: Nearby Sacred Temples Recommendations ── */}
-      <TempleNearbyRecommendations temple={fullDetail} />
+      <TempleNearbyRecommendations temple={temple} />
     </article>
   );
 }
+
+export default TempleDetail;

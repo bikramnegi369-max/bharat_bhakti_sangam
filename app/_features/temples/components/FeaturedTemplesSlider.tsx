@@ -15,9 +15,9 @@ const FEATURED_SLUGS = [
   "badrinath-temple",
   "tirupati-balaji-temple",
   "somnath-temple",
-  "jagannath-temple",
-  "meenakshi-temple",
-  "ram-mandir-ayodhya",
+  "shri-jagannath-temple",
+  "meenakshi-amman-temple-madurai",
+  "ayodhya-ram-temple",
   "banke-bihari-temple",
 ];
 

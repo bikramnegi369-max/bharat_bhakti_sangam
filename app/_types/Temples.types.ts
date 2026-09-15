@@ -68,6 +68,10 @@ export type Temple = {
   scheduleNote?: string;
   travelGuide?: TempleTravelGuide;
   nearbyTempleSlugs?: string[];
+  // SEO & Discoverability
+  keywords?: string[];
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 export type Temples = Temple[];

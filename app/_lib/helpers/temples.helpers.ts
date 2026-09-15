@@ -1,19 +1,25 @@
 import { Temple } from "@/_types/Temples.types";
-import { temples } from "../constants/temples.constants";
-import { getNormalizedTempleDetail } from "@/_config/temple-details.config";
+import { allTemples } from "@/_config/temples";
 
+/**
+ * Finds a temple by its unique slug.
+ * Since all temples in app/_config/temples are already fully enriched,
+ * this returns the complete Temple model directly.
+ */
 export function getTempleBySlug(slug: string): Temple | undefined {
-  return temples.find((t) => t.slug === slug);
+  return allTemples.find((t) => t.slug === slug);
 }
 
+/**
+ * Direct alias for backward-compatibility.
+ */
 export function getTempleFullDetailBySlug(slug: string): Temple | undefined {
-  const temple = getTempleBySlug(slug);
-  if (!temple) return undefined;
-  return getNormalizedTempleDetail(temple);
+  return getTempleBySlug(slug);
 }
 
+/**
+ * Returns all temples.
+ */
 export function getAllNormalizedTemples(): Temple[] {
-  return temples.map((temple) => getNormalizedTempleDetail(temple));
+  return allTemples;
 }
-
-

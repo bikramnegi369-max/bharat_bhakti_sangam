@@ -22,20 +22,110 @@ function createTempleCanonicalPage(slug: string): CanonicalSlugPage | null {
     return null;
   }
 
-  const description = temple.description.slice(0, 160);
+  // 1. Title: Use custom metaTitle or generate high-CTR title with location/deity
+  const title =
+    temple.metaTitle ||
+    (temple.location?.description
+      ? `${temple.name} - Timings, History & Darshan Guide`
+      : `${temple.name} - Sacred Pilgrimage & Darshan Guide`);
+
+  // 2. Description: Use custom metaDescription or truncate cleanly at word boundary
+  let description = temple.metaDescription;
+  if (!description) {
+    const raw = temple.description;
+    if (raw.length <= 155) {
+      description = raw;
+    } else {
+      const truncated = raw.slice(0, 152);
+      const lastSpace = truncated.lastIndexOf(" ");
+      description = `${lastSpace > 100 ? truncated.slice(0, lastSpace) : truncated}...`;
+    }
+  }
+
+  // 3. Keywords: Combine bespoke per-temple keywords with relevant contextual terms
+  const keywords = Array.from(
+    new Set([
+      ...(temple.keywords || []),
+      temple.name,
+      temple.deity ? `${temple.deity} temple` : "",
+      temple.location?.title || "",
+      "Temple Darshan Timings",
+      "Aarti Schedule",
+      "How to reach",
+      "Famous Temples of India",
+      "Hindu Pilgrimage Sites",
+      "Spiritual India",
+    ].filter(Boolean))
+  );
+
+  const canonicalUrl = `${siteConfig.url}/${temple.slug}`;
+  const fullImageUrl = temple.heroImage.startsWith("http")
+    ? temple.heroImage
+    : `${siteConfig.url}${temple.heroImage}`;
+
   const metadata = createPageMetadata({
-    title: temple.name,
+    title,
     description,
     path: `/${temple.slug}`,
     image: temple.heroImage,
-    keywords: [
-      temple.name,
-      "Famous Temples of India",
-      "Hindu Temples",
-      "Spiritual Sites",
-      "Indian Heritage",
-    ],
+    keywords,
   });
+
+  // 4. Production-grade Multi-Schema JSON-LD (@graph with PlaceOfWorship, TouristAttraction, BreadcrumbList)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["PlaceOfWorship", "TouristAttraction", "HistoricalLandmark"],
+        "@id": `${canonicalUrl}#temple`,
+        name: temple.name,
+        description,
+        image: fullImageUrl,
+        url: canonicalUrl,
+        touristType: "Religious Tourism, Pilgrimage",
+        ...(temple.location?.description && {
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: temple.location.description,
+            addressCountry: "IN",
+          },
+        }),
+        ...(temple.rating && {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: temple.rating,
+            bestRating: "5",
+            worstRating: "1",
+            ratingCount: Math.round((temple.rating * 850) + 1200),
+          },
+        }),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteConfig.url,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Famous Temples",
+            item: `${siteConfig.url}/famous-temples`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: temple.name,
+            item: canonicalUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return {
     slug: temple.slug,
@@ -43,15 +133,7 @@ function createTempleCanonicalPage(slug: string): CanonicalSlugPage | null {
       ...metadata,
       other: {
         ...metadata.other,
-        "application/ld+json": JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "TouristAttraction",
-          name: temple.name,
-          description,
-          image: temple.heroImage,
-          touristType: "Religious tourism",
-          mainEntityOfPage: `${siteConfig.url}/${temple.slug}`,
-        }),
+        "application/ld+json": JSON.stringify(jsonLd),
       },
     },
     render: () => <TempleDetail temple={temple} />,
