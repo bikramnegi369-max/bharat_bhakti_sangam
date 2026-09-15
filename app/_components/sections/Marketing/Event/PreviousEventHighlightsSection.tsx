@@ -2,10 +2,9 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Play, ChevronRight, Sparkles } from "lucide-react";
+import { Play, Sparkles } from "lucide-react";
 import clsx from "clsx";
 import { playfair, poppins } from "@/_lib/fonts";
 import ScrollReveal from "@/_components/common/ScrollReveal";
@@ -27,10 +26,6 @@ export interface PreviousEventHighlightItem {
 export interface PreviousEventHighlightsSectionProps {
   /** Main section title (defaults to "Previous Event Highlights") */
   title?: string;
-  /** View All target link href (defaults to "/gallery") */
-  viewAllHref?: string;
-  /** View All label text (defaults to "View All") */
-  viewAllLabel?: string;
   /** Highlight items array */
   highlights?: PreviousEventHighlightItem[];
   /** Autoplay delay interval in ms (defaults to 5000, 0 to disable) */
@@ -105,8 +100,6 @@ export const DEFAULT_PREVIOUS_EVENT_HIGHLIGHTS: PreviousEventHighlightItem[] = [
 
 export default function PreviousEventHighlightsSection({
   title = "Previous Event Highlights",
-  viewAllHref = "/gallery",
-  viewAllLabel = "View All",
   highlights = DEFAULT_PREVIOUS_EVENT_HIGHLIGHTS,
   autoplayDelay = 5000,
   className,
@@ -198,7 +191,7 @@ export default function PreviousEventHighlightsSection({
       )}
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header: Title with decorative underline and View All CTA */}
+        {/* Header: Title with decorative underline */}
         <ScrollReveal animation="fade-right" duration={750} threshold={0.15} className="flex items-end justify-between gap-4 mb-6 sm:mb-8 md:mb-10">
           {/* Title with solid accent underline matching the reference design */}
           <div className="relative inline-block">
@@ -217,22 +210,6 @@ export default function PreviousEventHighlightsSection({
               className="mt-2.5 sm:mt-3 w-16 sm:w-20 md:w-24 h-1 sm:h-1.25 bg-[#740E0A] rounded-full"
             />
           </div>
-
-          {/* View All Button */}
-          {viewAllHref && (
-            <Link
-              href={viewAllHref}
-              className={clsx(
-                poppins.className,
-                "inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#740E0A] hover:text-[#9B1D0E] transition-all duration-300 group cursor-pointer shrink-0 pb-1",
-              )}
-            >
-              <span className="tracking-normal">{viewAllLabel}</span>
-              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#740E0A] group-hover:bg-[#9B1D0E] text-white flex items-center justify-center transition-all duration-300 group-hover:scale-105 shadow-sm">
-                <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
-              </span>
-            </Link>
-          )}
         </ScrollReveal>
 
         {/* Carousel Slider with smooth fade-up entrance */}
