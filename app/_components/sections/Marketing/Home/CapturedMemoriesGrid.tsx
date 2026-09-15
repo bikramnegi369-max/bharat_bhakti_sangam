@@ -80,7 +80,7 @@ export default function CapturedMemoriesGrid({
           </div>
 
           {/* Bottom Hover Caption & Social Metadata */}
-          <div className="absolute bottom-0 left-0 right-0 z-10 p-4 sm:p-5 opacity-0 group-hover:opacity-100 transition-opacity text-white translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+          <div className="absolute bottom-0 left-0 right-0 z-10 p-4 sm:p-5 opacity-0 group-hover:opacity-100 text-white translate-y-2 group-hover:translate-y-0 transition-all duration-300">
             {item.location && (
               <p className="text-[11px] font-medium text-amber-300 flex items-center gap-1 mb-1">
                 <MapPin className="w-3 h-3 text-[#E86A17]" />
