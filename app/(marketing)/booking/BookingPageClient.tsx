@@ -264,6 +264,7 @@ export function BookingPageClient({
                 ticketCount: currentTicketCount,
                 email: methods.getValues("email"),
                 fullName: methods.getValues("fullName"),
+                phoneNumber: methods.getValues("mobile"),
               }}
             />
           </div>

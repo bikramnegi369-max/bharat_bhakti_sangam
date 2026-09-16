@@ -28,6 +28,7 @@ interface BookingFormStatusProps {
     ticketCount?: number;
     email?: string;
     fullName?: string;
+    phoneNumber?: string;
   };
 }
 
@@ -84,13 +85,18 @@ export default function BookingFormStatus({
             </div>
             <div className={poppins.className}>
               <h4 className="text-xs sm:text-sm font-bold text-gray-900">
-                Ticket Sent via Email
+                Ticket Sent via Email and WhatsApp
               </h4>
               <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">
                 We have sent an e-ticket with your QR code and entry
                 instructions to{" "}
                 <span className="font-semibold text-gray-900">
                   {bookingDetails?.email || "your registered email"}
+                </span>{" "}
+                and{" "}
+                <span className="font-semibold text-gray-900">
+                  {bookingDetails?.phoneNumber ||
+                    "your registered phone number"}
                 </span>
                 .
               </p>
