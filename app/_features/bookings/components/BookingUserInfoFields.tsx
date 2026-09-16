@@ -113,7 +113,7 @@ export function BookingUserInfoFields() {
                 id="booking-mobile"
                 type="tel"
                 maxLength={10}
-                placeholder="+91 XXXXX XXXXX"
+                placeholder="91XXXXXXXXXX"
                 {...register("mobile")}
                 className={clsx(
                   poppins.className,
@@ -141,7 +141,9 @@ export function BookingUserInfoFields() {
               )}
             >
               <span>City</span>
-              <span className="text-gray-400 font-normal text-xs">(Optional)</span>
+              <span className="text-gray-400 font-normal text-xs">
+                (Optional)
+              </span>
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
