@@ -183,7 +183,7 @@ export default function BookingFormStatus({
               href="mailto:support@bharatbhaktisangam.com"
               className="text-[#E86A17] hover:underline"
             >
-              support@bharatbhaktisangam.com
+              contact@bharatbhaktisangam.com
             </a>
           </p>
         </div>
