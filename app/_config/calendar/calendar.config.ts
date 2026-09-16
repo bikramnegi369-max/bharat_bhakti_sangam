@@ -311,14 +311,43 @@ export function getUpcomingFestivalsFromDate(
   const currentYearConfig = getYearCalendarConfig(year);
   const nextYearConfig = getYearCalendarConfig(year + 1);
 
-  const rawEvents: CalendarEventItem[] = [];
+  interface ScoredEvent {
+    event: CalendarEventItem;
+    isCurated: boolean;
+  }
+
+  const rawEvents: ScoredEvent[] = [];
 
   const extractFromConfig = (cfg: YearCalendarConfig, targetYear: number) => {
     Object.entries(cfg.months).forEach(([monthKey, m]) => {
       const monthNum = parseInt(monthKey, 10);
       const monthPadded = String(monthNum).padStart(2, "0");
 
-      // 1. Check days
+      // 1. Check curated monthEvents (higher priority: richer titles, subtitles & deepLinks)
+      if (m.monthEvents) {
+        m.monthEvents.forEach((evt) => {
+          const parts = evt.date.split("-");
+          const dayNum = parseInt(parts[2], 10) || evt.dayNumber;
+          const dayPadded = String(dayNum).padStart(2, "0");
+          const normalizedDate = `${targetYear}-${monthPadded}-${dayPadded}`;
+
+          rawEvents.push({
+            isCurated: true,
+            event: {
+              ...evt,
+              id: evt.id || `${normalizedDate}-${evt.title}`,
+              date: normalizedDate,
+              yearNumber: targetYear,
+              monthNumber: monthNum,
+              dayNumber: dayNum,
+              image: evt.image || "/festivals/slider/image-1.webp",
+              deepLink: `/calendar?year=${targetYear}&month=${monthNum}&date=${normalizedDate}`,
+            },
+          });
+        });
+      }
+
+      // 2. Check days
       Object.entries(m.days).forEach(([dateStr, d]) => {
         if (d.events && d.events.length > 0) {
           d.events.forEach((evt) => {
@@ -328,39 +357,21 @@ export function getUpcomingFestivalsFromDate(
             const normalizedDate = `${targetYear}-${monthPadded}-${dayPadded}`;
 
             rawEvents.push({
-              ...evt,
-              id: `${normalizedDate}-${evt.title}`,
-              date: normalizedDate,
-              yearNumber: targetYear,
-              monthNumber: monthNum,
-              dayNumber: dayNum,
-              image: evt.image || "/festivals/slider/image-1.webp",
-              deepLink: `/calendar?year=${targetYear}&month=${monthNum}&date=${normalizedDate}`,
+              isCurated: false,
+              event: {
+                ...evt,
+                id: evt.id || `${normalizedDate}-${evt.title}`,
+                date: normalizedDate,
+                yearNumber: targetYear,
+                monthNumber: monthNum,
+                dayNumber: dayNum,
+                image: evt.image || "/festivals/slider/image-1.webp",
+                deepLink: `/calendar?year=${targetYear}&month=${monthNum}&date=${normalizedDate}`,
+              },
             });
           });
         }
       });
-
-      // 2. Check monthEvents
-      if (m.monthEvents) {
-        m.monthEvents.forEach((evt) => {
-          const parts = evt.date.split("-");
-          const dayNum = parseInt(parts[2], 10) || evt.dayNumber;
-          const dayPadded = String(dayNum).padStart(2, "0");
-          const normalizedDate = `${targetYear}-${monthPadded}-${dayPadded}`;
-
-          rawEvents.push({
-            ...evt,
-            id: `${normalizedDate}-${evt.title}`,
-            date: normalizedDate,
-            yearNumber: targetYear,
-            monthNumber: monthNum,
-            dayNumber: dayNum,
-            image: evt.image || "/festivals/slider/image-1.webp",
-            deepLink: `/calendar?year=${targetYear}&month=${monthNum}&date=${normalizedDate}`,
-          });
-        });
-      }
     });
   };
 
@@ -369,18 +380,26 @@ export function getUpcomingFestivalsFromDate(
   // Also extract from next year so we can seamlessly cross into the new year
   extractFromConfig(nextYearConfig, year + 1);
 
-  // De-duplicate by normalized date + title
-  const uniqueMap = new Map<string, CalendarEventItem>();
-  rawEvents.forEach((evt) => {
-    const simplifiedTitle = evt.title.split("(")[0].trim().toLowerCase();
-    const key = `${evt.date}_${simplifiedTitle}`;
-    if (!uniqueMap.has(key)) {
-      uniqueMap.set(key, evt);
+  // De-duplicate: Keep 1 prominent festival per unique date.
+  // Prioritize curated monthEvents over day events, and only include major festivals.
+  const uniqueMap = new Map<string, ScoredEvent>();
+  rawEvents.forEach((item) => {
+    const isMajor = item.event.isMajor ?? (item.event.category === "major-festival");
+    if (!isMajor) return;
+
+    const key = item.event.date;
+    const existing = uniqueMap.get(key);
+    if (!existing) {
+      uniqueMap.set(key, item);
+    } else if (!existing.isCurated && item.isCurated) {
+      // Curated monthEvents have subtitles and better formatting
+      uniqueMap.set(key, item);
     }
   });
 
   // Strictly filter only events ON OR AFTER fromDateIsoString
   const futureEvents = Array.from(uniqueMap.values())
+    .map((item) => item.event)
     .filter((evt) => evt.date >= fromDateIsoString)
     .sort((a, b) => a.date.localeCompare(b.date));
 
