@@ -14,6 +14,10 @@ const CALENDER_BASE = "/calender";
 const DASHBOARD_BASE = "/admin/dashboard";
 const ADMIN_EMAIL_BASE = "/admin/email";
 const INFLUENCER_BASE = "/influencer";
+const STATUS_BASE = "/status";
+const HERO_VIDEO_BASE = "/home/hero-video";
+const GALLERY_BASE = "/event-gallery";
+const VIDEO_REVIEWS_BASE = "/testimonial";
 
 export const apiRoutes = {
   event: EVENT_BASE,
@@ -64,11 +68,13 @@ export const apiRoutes = {
   getAllInfluencers: INFLUENCER_BASE,
   influencerById: (id: string) => `${INFLUENCER_BASE}/${id}`,
   updateInfluencerStatus: INFLUENCER_BASE,
-  status: "/status",
-  statusById: (id: string) => `/status/${id}`,
-  statusDownload: (id: string) => `/status/${id}/download`,
-  statusLike: (id: string) => `/status/${id}/likes`,
-  heroVideo: "/home/hero-video",
-  gallery: "/event-gallery",
-  galleryById: (id: string) => `/event-gallery/${id}`,
+  status: STATUS_BASE,
+  statusById: (id: string) => `${STATUS_BASE}/${id}`,
+  statusDownload: (id: string) => `${STATUS_BASE}/${id}/download`,
+  statusLike: (id: string) => `${STATUS_BASE}/${id}/likes`,
+  heroVideo: HERO_VIDEO_BASE,
+  gallery: GALLERY_BASE,
+  galleryById: (id: string) => `${GALLERY_BASE}/${id}`,
+  videoReviews: VIDEO_REVIEWS_BASE,
+  videoReviewsById: (id: string) => `${VIDEO_REVIEWS_BASE}/${id}`,
 };

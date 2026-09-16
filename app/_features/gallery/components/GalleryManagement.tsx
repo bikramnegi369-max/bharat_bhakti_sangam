@@ -13,6 +13,7 @@ import {
   Sparkles,
   AlertCircle,
   RotateCw,
+  ImageIcon,
 } from "lucide-react";
 import { GalleryItem } from "../types";
 import { GalleryItemFormData } from "../schemas/gallery.schema";
@@ -25,7 +26,8 @@ import {
   getAdminGalleryItems,
 } from "../services/gallery.service";
 import { poppins, playfair } from "@/_lib/fonts";
-import { formatGalleryDate } from "@/_lib/helpers";
+import { formatGalleryDate, extractPublicIdFromUrl } from "@/_lib/helpers";
+import { deleteAssetByPublicId } from "@/_services/cloudinary.service";
 
 import { TablePagination } from "@/_components/common/table/TablePagination";
 
@@ -149,10 +151,20 @@ export default function GalleryManagement({
     try {
       if (editingItem) {
         const id = String(editingItem._id || editingItem.id);
+        const oldImageUrl = editingItem.imageUrl || editingItem.src;
         const res = await updateGalleryItem(id, data);
         if (!res.success) {
           throw new Error(res.error || "Failed to update item");
         }
+
+        // Transaction succeeded: clean up previous Cloudinary image if replaced
+        if (oldImageUrl && data.imageUrl !== oldImageUrl) {
+          const oldPublicId = extractPublicIdFromUrl(oldImageUrl);
+          if (oldPublicId) {
+            deleteAssetByPublicId(oldPublicId, "image").catch(console.error);
+          }
+        }
+
         toast.success("Gallery item updated successfully!");
         setItems((prev) =>
           prev.map((it) =>
@@ -312,7 +324,7 @@ export default function GalleryManagement({
       </div>
 
       {/* Cards Grid with Loading Overlay */}
-      <div className="relative">
+      <div className="relative min-h-75">
         {isLoadingPage && (
           <div className="absolute inset-0 z-20 bg-white/60 backdrop-blur-[2px] rounded-2xl flex flex-col items-center justify-center min-h-75 transition-all">
             <RotateCw className="w-8 h-8 text-amber-600 animate-spin mb-2" />
@@ -322,129 +334,154 @@ export default function GalleryManagement({
           </div>
         )}
 
-        <div
-          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-200 ${isLoadingPage ? "opacity-40 pointer-events-none" : "opacity-100"}`}
-        >
-          {items.map((item, pageIndex) => {
-            const globalIndex = (currentPage - 1) * pageSize + pageIndex;
-            const isFeaturedOnHome = globalIndex < 6;
-            const isFeaturedOnEvent = globalIndex < 10;
-            return (
-              <div
-                key={String(item._id || item.id || globalIndex)}
-                className="group relative rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col"
-              >
-                {/* Photo Viewport */}
-                <div className="relative aspect-16/10 w-full bg-stone-100 overflow-hidden">
-                  <Image
-                    src={item.imageUrl || item.src}
-                    alt={item.title || "Gallery image"}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+        {items.length === 0 ? (
+          <div className="bg-white rounded-3xl border border-stone-200/80 p-12 text-center max-w-md mx-auto shadow-xs">
+            <div className="w-16 h-16 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4 border border-amber-200">
+              <ImageIcon size={28} />
+            </div>
+            <h3 className="text-base font-bold text-stone-900 mb-1">
+              No Gallery Photos Found
+            </h3>
+            <p className="text-xs text-stone-500 mb-5">
+              Get started by uploading your first photo to feature on the homepage
+              and event gallery.
+            </p>
+            <button
+              type="button"
+              onClick={handleOpenAdd}
+              className="inline-flex items-center gap-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 text-xs font-bold transition-all shadow-sm cursor-pointer"
+            >
+              <Plus size={15} />
+              <span>Add Photo</span>
+            </button>
+          </div>
+        ) : (
+          <div
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-200 ${isLoadingPage ? "opacity-40 pointer-events-none" : "opacity-100"}`}
+          >
+            {items.map((item, pageIndex) => {
+              const globalIndex = (currentPage - 1) * pageSize + pageIndex;
+              const isFeaturedOnHome = globalIndex < 6;
+              const isFeaturedOnEvent = globalIndex < 10;
+              return (
+                <div
+                  key={String(item._id || item.id || globalIndex)}
+                  className="group relative rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col"
+                >
+                  {/* Photo Viewport */}
+                  <div className="relative aspect-16/10 w-full bg-stone-100 overflow-hidden">
+                    <Image
+                      src={item.imageUrl || item.src}
+                      alt={item.title || "Gallery image"}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
 
-                  {/* Badge for Display Destinations */}
-                  <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
-                    <span
-                      className={`px-2.5 py-1 rounded-full text-[11px] font-bold shadow-sm backdrop-blur-md ${
-                        isFeaturedOnHome
-                          ? "bg-[#740E0A] text-white border border-amber-400/40"
+                    {/* Badge for Display Destinations */}
+                    <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5">
+                      <span
+                        className={`px-2.5 py-1 rounded-full text-[11px] font-bold shadow-sm backdrop-blur-md ${
+                          isFeaturedOnHome
+                            ? "bg-[#740E0A] text-white border border-amber-400/40"
+                            : isFeaturedOnEvent
+                            ? "bg-stone-900/80 text-amber-300 border border-amber-400/30"
+                            : "bg-black/60 text-stone-400 border border-white/10"
+                        }`}
+                      >
+                        #{globalIndex + 1}{" "}
+                        {isFeaturedOnHome
+                          ? "Home + Event"
                           : isFeaturedOnEvent
-                          ? "bg-stone-900/80 text-amber-300 border border-amber-400/30"
-                          : "bg-black/60 text-stone-400 border border-white/10"
-                      }`}
-                    >
-                      #{globalIndex + 1}{" "}
-                      {isFeaturedOnHome
-                        ? "Home + Event"
-                        : isFeaturedOnEvent
-                        ? "Event Only"
-                        : "In Reserve"}
-                    </span>
-                  </div>
-
-                  {/* Category Pill */}
-                  {item.category && (
-                    <div className="absolute top-3 right-3 z-10">
-                      <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-300 text-[10px] font-semibold border border-white/10">
-                        {item.category}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Details */}
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
-                  <div className="space-y-1.5">
-                    <h3
-                      className={`${poppins.className} font-bold text-slate-900 text-base line-clamp-1`}
-                    >
-                      {item.title || "Untitled Moment"}
-                    </h3>
-
-                    {/* Artist Name */}
-                    <div className="flex items-center gap-1.5 text-xs text-amber-800 font-medium bg-amber-50 rounded-lg px-2.5 py-1 w-fit">
-                      <User size={13} className="text-[#E86A17] shrink-0" />
-                      <span className="line-clamp-1">
-                        Artist: {item.artistName || "Sacred Artist"}
+                          ? "Event Only"
+                          : "In Reserve"}
                       </span>
                     </div>
 
-                    {/* Location & Date */}
-                    <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
-                      {item.location && (
-                        <span className="flex items-center gap-1 truncate max-w-37.5">
-                          <MapPin
-                            size={12}
-                            className="text-slate-400 shrink-0"
-                          />
-                          <span className="truncate">{item.location}</span>
+                    {/* Category Pill */}
+                    {item.category && (
+                      <div className="absolute top-3 right-3 z-10">
+                        <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-amber-300 text-[10px] font-semibold border border-white/10">
+                          {item.category}
                         </span>
-                      )}
-                      {item.date && (
-                        <span className="flex items-center gap-1 shrink-0">
-                          <Calendar size={12} className="text-slate-400" />
-                          <span>{formatGalleryDate(item.date)}</span>
-                        </span>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
 
-                  {/* Actions Footer */}
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <span className="text-[11px] text-slate-400">
-                      {item.likes
-                        ? `${item.likes.toLocaleString()} likes`
-                        : "Sacred Memory"}
-                    </span>
+                  {/* Card Content & Details */}
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                    <div className="space-y-2">
+                      <h3
+                        className={`${poppins.className} font-bold text-slate-900 text-base leading-snug line-clamp-1 group-hover:text-amber-800 transition-colors`}
+                        title={item.title}
+                      >
+                        {item.title || "Untitled Sacred Moment"}
+                      </h3>
 
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => handleOpenEdit(item)}
-                        className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-amber-700 hover:border-amber-300 hover:bg-amber-50 transition cursor-pointer"
-                        title="Edit photo details"
-                        aria-label="Edit photo"
-                      >
-                        <Pencil size={15} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(item)}
-                        className="p-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition cursor-pointer"
-                        title="Delete photo"
-                        aria-label="Delete photo"
-                      >
-                        <Trash2 size={15} />
-                      </button>
+                      <div className="flex flex-wrap items-center gap-y-1.5 gap-x-3 text-xs text-slate-600">
+                        {item.location && (
+                          <div className="flex items-center gap-1">
+                            <MapPin size={13} className="text-amber-700 shrink-0" />
+                            <span className="truncate max-w-35">
+                              {item.location}
+                            </span>
+                          </div>
+                        )}
+                        {item.date && (
+                          <div className="flex items-center gap-1 text-slate-500">
+                            <Calendar size={13} className="text-slate-400 shrink-0" />
+                            <span>{formatGalleryDate(item.date)}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {item.artistName && (
+                        <div className="flex items-center gap-1.5 text-xs text-stone-600 pt-1">
+                          <User size={13} className="text-amber-600 shrink-0" />
+                          <span className="font-medium truncate">
+                            {item.artistName}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Footer Actions: Edit / Delete */}
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-[11px] text-slate-600 font-medium">
+                        {isFeaturedOnHome
+                          ? "Featured on Homepage"
+                          : isFeaturedOnEvent
+                          ? "Featured on Event"
+                          : "Sacred Memory"}
+                      </span>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEdit(item)}
+                          className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-amber-700 hover:border-amber-300 hover:bg-amber-50 transition cursor-pointer"
+                          title="Edit photo details"
+                          aria-label="Edit photo"
+                        >
+                          <Pencil size={15} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(item)}
+                          className="p-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition cursor-pointer"
+                          title="Delete photo"
+                          aria-label="Delete photo"
+                        >
+                          <Trash2 size={15} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Standard Admin TablePagination Component */}

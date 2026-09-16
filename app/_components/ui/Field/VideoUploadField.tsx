@@ -17,7 +17,7 @@ interface VideoUploadFieldProps<
 > {
   name: Path<T>;
   control: Control<T, unknown, TTransformedValues>;
-  label: string;
+  label?: string;
   error?: string;
   required?: boolean;
   className?: string;
@@ -131,16 +131,18 @@ export function VideoUploadField<
   };
 
   return (
-    <div className={clsx("flex flex-col gap-2 w-full", className)}>
-      <label
-        className={getLabelStyles({
-          error,
-          className: labelClassName,
-        })}
-      >
-        {label}
-        {required && <span className="text-red-500 ml-0.5">*</span>}
-      </label>
+    <div className={clsx("relative flex flex-col gap-2 w-full", className)}>
+      {label && (
+        <label
+          className={getLabelStyles({
+            error,
+            className: labelClassName,
+          })}
+        >
+          {label}
+          {required && <span className="text-red-500 ml-0.5">*</span>}
+        </label>
+      )}
 
       <div
         onClick={() => !isUploading && fileInputRef.current?.click()}

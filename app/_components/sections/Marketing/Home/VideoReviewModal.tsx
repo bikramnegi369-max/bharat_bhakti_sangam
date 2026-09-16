@@ -11,22 +11,18 @@ import {
 } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 import clsx from "clsx";
-
 import { lockBodyScroll, unlockBodyScroll } from "@/_utils/body-scroll-lock";
-
 import { createPortal } from "react-dom";
 
 export interface DivineVideoReviewItem {
   id: string | number;
   title: string;
-  subtitle?: string;
   reviewerName?: string;
-  reviewerRole?: string;
   location?: string;
   rating?: number;
-  posterSrc: string;
+  highlightVideoSrc?: string;
+  posterSrc?: string;
   videoSrc?: string;
-  quote?: string;
 }
 
 interface VideoReviewModalProps {
@@ -115,6 +111,8 @@ export default function VideoReviewModal({
     setTouchStartY(null);
   };
 
+  const reviewerDisplay = currentItem.reviewerName?.trim() || "Anonymous";
+
   return createPortal(
     <div
       aria-modal="true"
@@ -178,7 +176,7 @@ export default function VideoReviewModal({
                 "text-xs sm:text-sm font-semibold tracking-wider text-[#E8C267] uppercase",
               )}
             >
-              {currentItem.subtitle || "Divine Experience"}
+              Divine Experience
             </span>
           </div>
           <span className="text-xs text-neutral-400 font-medium">
@@ -209,7 +207,7 @@ export default function VideoReviewModal({
                 Video preview not available
               </p>
               <p className="text-xs text-neutral-400 mt-1">
-                Please attach a valid videoSrc source.
+                Please attach a valid video source.
               </p>
             </div>
           )}
@@ -227,17 +225,15 @@ export default function VideoReviewModal({
               >
                 {currentItem.title}
               </h3>
-              {currentItem.reviewerName && (
-                <p
-                  className={clsx(
-                    poppins.className,
-                    "text-xs sm:text-sm text-[#E8C267] font-medium mt-0.5",
-                  )}
-                >
-                  {currentItem.reviewerName}
-                  {currentItem.location && ` • ${currentItem.location}`}
-                </p>
-              )}
+              <p
+                className={clsx(
+                  poppins.className,
+                  "text-xs sm:text-sm text-[#E8C267] font-medium mt-0.5",
+                )}
+              >
+                {reviewerDisplay}
+                {currentItem.location && ` • ${currentItem.location}`}
+              </p>
             </div>
 
             {currentItem.rating && (
@@ -251,17 +247,6 @@ export default function VideoReviewModal({
               </div>
             )}
           </div>
-
-          {currentItem.quote && (
-            <p
-              className={clsx(
-                poppins.className,
-                "text-xs sm:text-sm text-neutral-300/90 italic mt-3 line-clamp-2",
-              )}
-            >
-              &ldquo;{currentItem.quote}&rdquo;
-            </p>
-          )}
         </div>
       </div>
     </div>,

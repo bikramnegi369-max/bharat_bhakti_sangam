@@ -15,7 +15,7 @@ import {
 import { playfair, poppins } from "@/_lib/fonts";
 
 import { lockBodyScroll, unlockBodyScroll } from "@/_utils/body-scroll-lock";
-import { formatGalleryDate } from "@/_lib/helpers";
+import { formatGalleryDate, formatNumber } from "@/_lib/helpers";
 
 import { createPortal } from "react-dom";
 
@@ -291,8 +291,8 @@ export default function InstagramLightboxModal({
                 <div className="flex items-center gap-1.5 text-stone-300">
                   <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-rose-500 fill-rose-500/20" />
                   <span className="text-xs font-semibold text-stone-200">
-                    {currentItem.likes
-                      ? currentItem.likes.toLocaleString()
+                    {typeof currentItem.likes === "number"
+                      ? formatNumber(currentItem.likes)
                       : "1,248"}{" "}
                     likes
                   </span>
@@ -300,7 +300,10 @@ export default function InstagramLightboxModal({
                 <div className="flex items-center gap-1.5 text-stone-400">
                   <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="text-xs font-medium">
-                    {currentItem.commentsCount || "84"} comments
+                    {typeof currentItem.commentsCount === "number"
+                      ? formatNumber(currentItem.commentsCount)
+                      : currentItem.commentsCount || "84"}{" "}
+                    comments
                   </span>
                 </div>
               </div>

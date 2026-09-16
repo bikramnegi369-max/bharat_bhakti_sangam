@@ -39,9 +39,11 @@ const InstaHighlightsSection = dynamic(
   () => import("@/_components/sections/Marketing/Home/InstaHighlightsSection"),
   { loading: () => null },
 );
-const DivineVideoReviewsSection = dynamic(
+const HomeVideoReviewsServerSection = dynamic(
   () =>
-    import("@/_components/sections/Marketing/Home/DivineVideoReviewsSection"),
+    import(
+      "@/_components/sections/Marketing/Home/HomeVideoReviewsServerSection"
+    ),
   { loading: () => null },
 );
 const FAQ = dynamic(() => import("@/_components/sections/Marketing/Home/FAQ"), {
@@ -129,7 +131,7 @@ export default async function HomePage() {
 
       {/* 10. Divine Video Reviews Section: Dynamic Slide from Left */}
       <ScrollReveal animation="fade-left" duration={900} threshold={0.12}>
-        <DivineVideoReviewsSection />
+        <HomeVideoReviewsServerSection />
       </ScrollReveal>
 
       {/* 11. FAQ Accordion: Internal staggered question expansion + sticky help card glow */}

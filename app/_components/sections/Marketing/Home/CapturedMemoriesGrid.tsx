@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Heart, Maximize2, MapPin } from "lucide-react";
 import InstagramLightboxModal, { GalleryItem } from "./InstagramLightboxModal";
 import { poppins } from "@/_lib/fonts";
+import { formatNumber } from "@/_lib/helpers";
 
 import ScrollReveal from "@/_components/common/ScrollReveal";
 
@@ -112,7 +113,7 @@ export default function CapturedMemoriesGrid({
               <div className="flex items-center gap-1 text-rose-300">
                 <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500" />
                 <span className="font-medium text-white">
-                  {item.likes ? item.likes.toLocaleString() : "1.2k"}
+                  {typeof item.likes === "number" ? formatNumber(item.likes) : "1.2k"}
                 </span>
               </div>
               <span className="text-[11px] text-stone-300 font-medium">

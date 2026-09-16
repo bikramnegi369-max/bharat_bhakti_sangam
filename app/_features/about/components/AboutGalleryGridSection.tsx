@@ -5,6 +5,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import { Heart, MessageCircle, Camera } from "lucide-react";
 import { poppins } from "@/_lib/fonts";
+import { formatNumber } from "@/_lib/helpers";
 import { ABOUT_GALLERY_PHOTOS } from "../constants/about.constants";
 import InstagramLightboxModal, {
   GalleryItem,
@@ -97,7 +98,9 @@ export function AboutGalleryGridSection() {
                 >
                   <div className="flex items-center gap-1.5 font-semibold text-xs sm:text-sm">
                     <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-white" />
-                    <span>{item.likes?.toLocaleString()}</span>
+                    <span>
+                      {typeof item.likes === "number" ? formatNumber(item.likes) : item.likes}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1.5 font-semibold text-xs sm:text-sm">
                     <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 fill-white" />

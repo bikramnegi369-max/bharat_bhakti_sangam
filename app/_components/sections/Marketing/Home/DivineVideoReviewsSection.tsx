@@ -4,10 +4,12 @@ import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Play, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { playfair, poppins } from "@/_lib/fonts";
 import clsx from "clsx";
 import VideoReviewModal, { DivineVideoReviewItem } from "./VideoReviewModal";
+import { DEFAULT_VIDEO_REVIEWS } from "@/_features/video-reviews/constants";
+import { derivePosterFromVideoUrl } from "@/_features/video-reviews/utils";
 
 export interface DivineVideoReviewsSectionProps {
   eyebrow?: string;
@@ -17,73 +19,7 @@ export interface DivineVideoReviewsSectionProps {
   autoplayDelay?: number;
 }
 
-export const DEFAULT_DIVINE_REVIEWS: DivineVideoReviewItem[] = [
-  {
-    id: "review-1",
-    title: "Mesmerizing Ganga Aarti & Ancient Temples",
-    subtitle: "Divine Awakening",
-    reviewerName: "Aarav & Priya Sharma",
-    reviewerRole: "Devotees",
-    location: "Varanasi Ghats",
-    rating: 5,
-    posterSrc: "/gallery/gallery_1.webp",
-    videoSrc: "/home/insta_highlight/insta_highlight_1.mp4",
-    quote:
-      "Singing bhajans by the sacred riverside at sunset was an intensely peaceful, heart-expanding experience.",
-  },
-  {
-    id: "review-2",
-    title: "Soulful Harmonium & Divine Rhythms",
-    subtitle: "Sacred Harmonies",
-    reviewerName: "Pandit Ramdas & Ensemble",
-    reviewerRole: "Kirtan Artists",
-    location: "Vrindavan Dham",
-    rating: 5,
-    posterSrc: "/about_mission.webp",
-    videoSrc: "/hero-video.mp4",
-    quote:
-      "When the harmonium and tabla synchronize with thousands of voices chanting together, devotion becomes pure bliss.",
-  },
-  {
-    id: "review-3",
-    title: "Floating Diyas & Illuminated Ghats",
-    subtitle: "Vibrant Community",
-    reviewerName: "Sunita & Rajesh Verma",
-    reviewerRole: "Family Attendees",
-    location: "Haridwar Pilgrimage",
-    rating: 5,
-    posterSrc: "/festivals/holi/holi-1.webp",
-    videoSrc: "/hero-video.mp4",
-    quote:
-      "The energy of the entire gathering celebrating sacred traditions together is something words cannot fully describe.",
-  },
-  {
-    id: "review-4",
-    title: "Transcendental Kirtan & Devotional Ecstasy",
-    subtitle: "Spiritual Connection",
-    reviewerName: "Vikram Malhotra",
-    reviewerRole: "Youth Member",
-    location: "Mathura",
-    rating: 5,
-    posterSrc: "/gallery/gallery_2.webp",
-    videoSrc: "/hero-video.mp4",
-    quote:
-      "Bhajan clubbing brings the younger generation together in pure joy, high vibration, and authentic devotion.",
-  },
-  {
-    id: "review-5",
-    title: "Sacred Mahaprasad & Fellowship",
-    subtitle: "Divine Blessings",
-    reviewerName: "Meera Singhania",
-    reviewerRole: "Devotee",
-    location: "Puri Dham",
-    rating: 5,
-    posterSrc: "/gallery/gallery_3.webp",
-    videoSrc: "/hero-video.mp4",
-    quote:
-      "Every detail from the music to the sanctified prasad radiates purity, care, and supreme positivity.",
-  },
-];
+export const DEFAULT_DIVINE_REVIEWS: DivineVideoReviewItem[] = DEFAULT_VIDEO_REVIEWS;
 
 export default function DivineVideoReviewsSection({
   eyebrow = "WHY YOU SHOULD BE HERE",
@@ -179,7 +115,7 @@ export default function DivineVideoReviewsSection({
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header matching provided reference artwork */}
+        {/* Header */}
         <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16">
           {/* Eyebrow with decorative golden rules */}
           <div className="flex items-center justify-center gap-3 sm:gap-6 w-full max-w-lg mb-3">
@@ -212,7 +148,7 @@ export default function DivineVideoReviewsSection({
             {title}
           </h2>
 
-          {/* Distinctive Golden Underline Accent from reference image */}
+          {/* Distinctive Golden Underline Accent */}
           <div
             aria-hidden="true"
             className="w-16 sm:w-20 md:w-24 h-1 sm:h-1.25 bg-linear-to-r from-[#D4AF37] via-[#F3D78A] to-[#D4AF37] rounded-full mt-4 shadow-[0_2px_8px_rgba(212,175,55,0.4)]"
@@ -227,15 +163,21 @@ export default function DivineVideoReviewsSection({
           >
             <div className="flex -ml-4 sm:-ml-5 lg:-ml-6 touch-pan-y">
               {items.map((item, index) => {
+                const highlightSrc = item.highlightVideoSrc || item.videoSrc;
+                const posterUrl =
+                  item.posterSrc ||
+                  derivePosterFromVideoUrl(highlightSrc || item.videoSrc);
+                const reviewerName = item.reviewerName?.trim() || "Anonymous";
+
                 return (
                   <div
                     key={item.id}
                     className={clsx(
                       "min-w-0 pl-4 sm:pl-5 lg:pl-6",
                       // Responsive Breakpoint Sizing:
-                      // Mobile: 85% width (peek next) or 100%
+                      // Mobile: 88% width
                       // Tablet (640px+): 50% (2 cards)
-                      // Desktop (1024px+): 33.333% (3 cards as in reference design)
+                      // Desktop (1024px+): 33.333% (3 cards)
                       "flex-[0_0_88%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333333%]",
                     )}
                   >
@@ -246,30 +188,44 @@ export default function DivineVideoReviewsSection({
                         "border border-[#D4AF37]/35 hover:border-[#D4AF37]/80",
                         "transition-all duration-500 ease-out",
                         "shadow-[0_12px_32px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_45px_rgba(212,175,55,0.2)]",
-                        "hover:-translate-y-2",
+                        "hover:-translate-y-2 bg-stone-950",
                       )}
                     >
-                      {/* Background Video Poster Image */}
-                      <Image
-                        src={item.posterSrc}
-                        alt={item.title}
-                        fill
-                        sizes="(max-width: 640px) 88vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108"
-                        priority={index < 3}
-                      />
+                      {/* Highlight Video (Autoplay, Loop, Muted, PlaysInline) */}
+                      {highlightSrc ? (
+                        <video
+                          src={highlightSrc}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          preload="metadata"
+                          poster={posterUrl}
+                          className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108"
+                        />
+                      ) : (
+                        <Image
+                          src={posterUrl}
+                          alt={item.title}
+                          fill
+                          unoptimized
+                          sizes="(max-width: 640px) 88vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108"
+                          priority={index < 3}
+                        />
+                      )}
 
                       {/* Subtle Dark Gradient Overlay */}
-                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-300 group-hover:opacity-90 pointer-events-none" />
 
                       {/* Top Golden Sheen Line */}
                       <div
                         aria-hidden="true"
-                        className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-[#D4AF37]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        className="absolute inset-x-8 top-0 h-px bg-linear-to-r from-transparent via-[#D4AF37]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                       />
 
-                      {/* Center Glowing Gold Play Button (Reference Artwork Style) */}
-                      <div className="absolute inset-0 flex items-center justify-center">
+                      {/* Center Glowing Gold Play Button */}
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <button
                           type="button"
                           aria-label={`Play review video: ${item.title}`}
@@ -288,18 +244,7 @@ export default function DivineVideoReviewsSection({
                       </div>
 
                       {/* Bottom Caption / Devotee Preview Tag */}
-                      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 text-left transform transition-transform duration-300">
-                        {item.subtitle && (
-                          <span
-                            className={clsx(
-                              poppins.className,
-                              "inline-flex items-center gap-1.5 text-[0.7rem] sm:text-xs font-semibold tracking-wider text-[#E8C267] uppercase mb-1 drop-shadow-sm",
-                            )}
-                          >
-                            <Sparkles className="w-3 h-3 text-[#E8C267]" />
-                            {item.subtitle}
-                          </span>
-                        )}
+                      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 text-left transform transition-transform duration-300 pointer-events-none">
                         <h3
                           className={clsx(
                             playfair.className,
@@ -308,24 +253,23 @@ export default function DivineVideoReviewsSection({
                         >
                           {item.title}
                         </h3>
-                        {item.reviewerName && (
-                          <p
-                            className={clsx(
-                              poppins.className,
-                              "text-xs text-neutral-300/90 mt-1 font-light flex items-center gap-1.5",
-                            )}
-                          >
-                            <span>{item.reviewerName}</span>
-                            {item.location && (
-                              <>
-                                <span>•</span>
-                                <span className="text-[#E8C267]">
-                                  {item.location}
-                                </span>
-                              </>
-                            )}
-                          </p>
-                        )}
+
+                        <p
+                          className={clsx(
+                            poppins.className,
+                            "text-xs text-neutral-300/90 mt-1 font-light flex items-center gap-1.5",
+                          )}
+                        >
+                          <span>{reviewerName}</span>
+                          {item.location && (
+                            <>
+                              <span>•</span>
+                              <span className="text-[#E8C267]">
+                                {item.location}
+                              </span>
+                            </>
+                          )}
+                        </p>
                       </div>
                     </div>
                   </div>

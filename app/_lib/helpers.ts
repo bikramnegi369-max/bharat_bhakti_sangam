@@ -392,6 +392,10 @@ export function formatTicketPrice(price: number) {
   }).format(price);
 }
 
+export function formatNumber(value: number): string {
+  return value.toLocaleString("en-IN");
+}
+
 export function isCloudinaryUrl(url?: string) {
   return !!url && url.includes("res.cloudinary.com");
 }

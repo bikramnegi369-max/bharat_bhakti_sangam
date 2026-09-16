@@ -47,6 +47,12 @@ export const NAV_ITEMS: SidebarItem[] = [
         href: "/admin/gallery",
         icon: <ImageIcon size={16} />,
       },
+      {
+        id: "home-video-reviews",
+        label: "Video Reviews",
+        href: "/admin/home/video-reviews",
+        icon: <MessageSquareHeart size={16} />,
+      },
     ],
   },
   {
