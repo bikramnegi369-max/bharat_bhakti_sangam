@@ -138,6 +138,7 @@ export function useBookingForm(
         }
 
         let isCompleted = false;
+        let lastFailureReason: string | null = null;
 
         const options = {
           key: order.keyId,
@@ -164,8 +165,12 @@ export function useBookingForm(
           modal: {
             ondismiss: () => {
               if (!isCompleted) {
+                // If a specific failure happened before closing, show that; otherwise show cancelled.
                 reject(
-                  new Error("Payment was cancelled or closed before completion."),
+                  new Error(
+                    lastFailureReason ||
+                      "Payment was cancelled or closed before completion.",
+                  ),
                 );
               }
             },
@@ -201,16 +206,16 @@ export function useBookingForm(
 
         const checkout: RazorpayCheckoutInstance = new window.Razorpay(options);
 
+        // Note: payment.failed fires per attempt (e.g. card declined).
+        // Razorpay modal allows the user to try another payment method without closing!
+        // Do NOT reject the entire Promise here, otherwise the page flips to the error screen
+        // while the user is still actively retrying inside the modal.
         checkout.on(
           "payment.failed",
           (response: RazorpayCheckoutFailureResponse) => {
-            isCompleted = true;
-            reject(
-              new Error(
-                response.error?.description ||
-                  "Payment failed. Please try another payment method.",
-              ),
-            );
+            lastFailureReason =
+              response.error?.description ||
+              "Payment attempt failed. Please try another method.";
           },
         );
 
