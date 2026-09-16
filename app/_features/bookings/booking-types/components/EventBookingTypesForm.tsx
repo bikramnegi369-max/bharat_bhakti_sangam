@@ -35,7 +35,7 @@ export default function EventBookingTypesForm({
     watch,
     setValue,
     formState: { errors, isSubmitting },
-  } = useForm<EventBookingTypeFormInput, any, EventBookingTypeFormData>({
+  } = useForm<EventBookingTypeFormInput, unknown, EventBookingTypeFormData>({
     resolver: zodResolver(EventBookingTypeSchema),
     mode: "onTouched",
     reValidateMode: "onChange",

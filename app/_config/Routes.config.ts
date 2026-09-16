@@ -19,6 +19,7 @@ export const routes = {
   influencer: "/influencer",
   artist: "/artist",
   status: "/status",
+  gallery: "/gallery",
   adminGallery: "/admin/gallery",
 };
 

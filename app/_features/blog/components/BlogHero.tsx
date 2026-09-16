@@ -22,6 +22,7 @@ export default function BlogHero({
           alt="Bharat Bhakti Temple Journal Backdrop"
           fill
           priority
+          loading="eager"
           sizes="100vw"
           className="object-cover object-center opacity-30 mix-blend-luminosity scale-105 transition-transform duration-1000"
         />

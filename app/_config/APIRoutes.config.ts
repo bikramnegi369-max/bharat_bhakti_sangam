@@ -47,6 +47,8 @@ export const apiRoutes = {
   volunteerById: (id: string) => `${VOLUNTEER_BASE}/${id}`,
   addVolunteer: VOLUNTEER_BASE,
   getAllEventQueries: `${QUERY_BASE}`,
+  sponsorEnquiry: `${SPONSOR_BASE}/enquiry`,
+  getAllSponsorEnquiries: `${SPONSOR_BASE}/all-enquiries`,
   getAllSponsors: `${SPONSOR_BASE}/get-all`,
   getAllVenues: `${VENUE_BASE}/all-venue`,
   getAllCategories: EVENT_CATEGORY_BASE,
