@@ -32,8 +32,6 @@ export default function EventBookingTypesForm({
     control,
     handleSubmit: handleSubmitForm,
     reset,
-    watch,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm<EventBookingTypeFormInput, unknown, EventBookingTypeFormData>({
     resolver: zodResolver(EventBookingTypeSchema),
@@ -52,8 +50,6 @@ export default function EventBookingTypesForm({
     control,
     name: "features" as never,
   });
-
-  const isPopularValue = watch("isPopular");
 
   useEffect(() => {
     if (initialData) {
@@ -133,8 +129,7 @@ export default function EventBookingTypesForm({
         <input
           id="isPopular-toggle"
           type="checkbox"
-          checked={isPopularValue}
-          onChange={(e) => setValue("isPopular", e.target.checked)}
+          {...register("isPopular")}
           className="w-5 h-5 accent-[#740E0A] rounded cursor-pointer"
         />
       </div>

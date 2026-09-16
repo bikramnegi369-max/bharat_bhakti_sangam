@@ -20,6 +20,7 @@ export async function getSponsors(): Promise<APIResponse<Sponsor[]>> {
     const data = await res.json();
     return { success: true, data: data.data };
   } catch (error) {
+    console.error("Failed to fetch sponsors:", error);
     return { success: false, error: "Failed to fetch sponsors" };
   }
 }
