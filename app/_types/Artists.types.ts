@@ -13,11 +13,14 @@ export interface ArtistSocialLinks {
 export interface Artist {
   _id: string;
   artistName: string;
+  firstName?: string;
+  lastName?: string;
   role: string;
   profileImage: string;
   aboutArtist: string;
   email: string;
   contactNo: string;
+  phone?: string;
   gender?: "male" | "female" | "other" | string;
   address?: ArtistAddress;
   socialLinks?: ArtistSocialLinks;

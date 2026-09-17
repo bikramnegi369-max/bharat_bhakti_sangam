@@ -14,6 +14,7 @@ import {
 import DrawerHeader from "@/_components/common/DrawerHeader";
 import AddArtistsForm from "./AddArtistsForm";
 import { ArtistFormData } from "@/_schemas/Artists.schema";
+import { Artist } from "@/_types/Artists.types";
 
 interface AddArtistsDrawerProps {
   mode?: "create" | "edit";
@@ -49,10 +50,52 @@ export default function AddArtistsDrawer({
     try {
       await toast.promise(
         (async () => {
+          const socialLinks: Record<string, string> = {};
+          if (formData.socialLinks?.instagram?.trim()) {
+            socialLinks.instagram = formData.socialLinks.instagram.trim();
+          }
+          if (formData.socialLinks?.youtube?.trim()) {
+            socialLinks.youtube = formData.socialLinks.youtube.trim();
+          }
+          if (formData.socialLinks?.facebook?.trim()) {
+            socialLinks.facebook = formData.socialLinks.facebook.trim();
+          }
+
+          const stageName =
+            formData.artistName?.trim() ||
+            `${formData.firstName?.trim() || ""} ${formData.lastName?.trim() || ""}`.trim() ||
+            "Devotional Artist";
+
+          const payload: Partial<Artist> = {
+            artistName: stageName,
+            firstName: formData.firstName?.trim() || undefined,
+            lastName: formData.lastName?.trim() || undefined,
+            role: formData.role.trim(),
+            email: formData.email.trim(),
+            contactNo: formData.contactNo.trim(),
+            phone: formData.contactNo.trim(),
+            aboutArtist: formData.aboutArtist.trim(),
+            profileImage: formData.profileImage,
+            gender: formData.gender,
+            address: formData.address?.city || formData.address?.state || formData.address?.pincode
+              ? {
+                  city: formData.address.city?.trim() || "",
+                  state: formData.address.state?.trim() || "",
+                  pincode: formData.address.pincode?.trim() || "",
+                }
+              : undefined,
+            socialLinks: Object.keys(socialLinks).length > 0 ? socialLinks : undefined,
+            instruments: formData.instruments,
+            startTime: formData.startTime || undefined,
+            endTime: formData.endTime || undefined,
+            galleryImages: formData.galleryImages,
+            status: formData.status || "approved",
+          };
+
           const result =
             isEditMode && artistId
-              ? await updateArtist(artistId, formData)
-              : await addArtist(formData);
+              ? await updateArtist(artistId, payload)
+              : await addArtist(payload);
 
           if (!result.success) {
             throw new Error(result.error || `Failed to ${mode} artist.`);
